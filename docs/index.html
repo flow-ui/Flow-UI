@@ -1,0 +1,1193 @@
+<!doctype html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <title>front-flow-ui 文档</title>
+    <meta content="front-flow-cli,front-flow" name="Keywords">
+    <meta content="front-flow-cli是专为front-flow前端工作流开发的命令行工具，实现自动初始化、组件化开发、预处理、静态资源优化、图片压缩等前端自动化需求。" name="Description">
+    <link href="/docs/favicon.ico" rel="icon">
+<link href="/docs/css/style.css" rel="stylesheet">
+<link href="/docs/lib/highlight/styles/github.css" rel="stylesheet">
+<link href="/docs/lib/doc.css" rel="stylesheet">
+<script type="text/javascript">
+	if(window.location.href.indexOf('https')===0){
+		document.write('<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />');
+	}
+</script>
+<!--[if lt IE 9]><script src="/docs/lib/H5shiv.js"></script><![endif]-->
+</head>
+
+<body class="hasNav">
+    <header><h1>front-flow-ui 说明文档</h1></header>
+    <nav class="wrap nav" id="nav">导航生成中...</nav>
+    <section class="wrap" id="overall">
+        <h2>概述</h2>
+        <h3 id="overall-intro">关于</h3>
+        <p> front-flow-ui是一套基于<a href="http://seajs.org/docs/" target="_blank">Seajs</a> 实现模块化的UI框架，提供基础CSS组件库、常用seajs模块库，以及前端常见业务场景的系统解决方案。</p>
+        <h4>兼容性</h4>
+        <p>IE8+</p>
+        <h4>目录结构</h4>
+        <pre>
+            <code class="javascript"> 
+  |-- ui-template/              //模板项目
+  |    |-- css/                     //css文件
+  |    |-- font/                    //字体文件
+  |    |-- img/                     //图片文件
+  |    |-- js/                      //js文件
+  |    |-- lib/                     //模块库以外的js文件
+  |    |-- index.html               //索引页
+  |    |-- blank.html               //空白页
+  |    |-- demo.html                //UI示例页
+  |    |-- fullpage.html            //滚屏示例
+  |    |-- pjax-page-1/2.html       //PJAX加载示例
+  |    |-- seajs.config.js          //站点配置文件
+  |    `-- favicon.ico 
+  ·-- modules/                  //seajs模块库（可选）
+  
+                </code>
+          </pre>
+        <h3 id="getStart">使用</h3>
+        <h4 id="download">下载</h4>
+        <p>Github下载：<a href="https://github.com/front-flow/front-flow-ui" target="_blank">front-flow-ui</a></p>
+        <p>自动化工具：<a href="https://github.com/front-flow/front-flow-cli" target="_blank">front-flow-cli</a></p>
+        <h4>快速开始</h4>
+        <p>1. 拷贝<code>ui-template/</code>和<code>modules/</code>文件夹到项目中；</p>
+        <p>2. 根据需要修改配置，<code>seajs.config.js</code>包含框架所需的所有配置；</p>
+        <p>3. 启动本地服务，访问 <a href="http://localhost/ui-template/index.html" target="_blank">http://localhost/ui-template/index.html</a></p>
+        <h4>配置</h4>
+        <table class="table table-hover">
+            <tr>
+                <td>
+                    seajs.develop
+                </td>
+                <td>
+                    开发状态，默认true，可用于api管理或其他自定义功能切换。
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    seajs.root
+                </td>
+                <td>
+                    模块化js加载起始路径，如果站点存在于二级目录需要设置此项。
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    seajs.api
+                </td>
+                <td>
+                    用于管理数据接口。
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    seajs.set
+                </td>
+                <td>
+                    模块设置或自定义功能设置。
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    seajs.config.base
+                </td>
+                <td>
+                    模块化文件存放路径，默认<code>seajs.root + "/modules"</code>，也可以配置其他位置或远程位置。
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    seajs.config.paths
+                </td>
+                <td>
+                    路径短语，默认配置了<code>js</code>文件夹和<code>lib</code>文件夹。
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    seajs.config.alias
+                </td>
+                <td>
+                    模块短命名。
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    seajs.localcache.timeout
+                </td>
+                <td>
+                    本地缓存方案加载超时时间，单位ms，默认<code>2e4</code>
+                </td>
+            </tr>
+        </table>
+    </section>
+    <section class="wrap" id="css">
+        <h2>CSS</h2>
+        <h3 id="css-demo">演示</h3>
+        <p>默认UI展示见<a href="../ui-template/demo.html" target="_blank">demo</a>。</p>
+        <h3 id="css-compile">编译</h3>
+        <p>使用<a href="https://github.com/front-flow/front-flow-cli" target="_blank">front-flow-cli</a>工具可以详细自定义UI风格和组件功能。</p>
+        <h3 id="css-component">组件</h3>
+        <h4>组件列表</h4>
+        <nav class="modules_index" id="component_index"></nav>
+        <h4>组件示例</h4>
+        <table class="table table-bordered" id="component_list">
+            <tr id="btn（按钮）">
+                <td>btn.less</td>
+                <td>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>.btn</td>
+                            <td>
+                                定义一个按钮
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.btn-default</td>
+                            <td>
+                                普通颜色
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.btn-primary</td>
+                            <td>
+                                主色调颜色
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.btn-auxiliary</td>
+                            <td>
+                                辅色调颜色
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.btn-info</td>
+                            <td>
+                                中性情景颜色
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.btn-success</td>
+                            <td>
+                                成功情景颜色
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.btn-warning</td>
+                            <td>
+                                警告情景颜色
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.btn-danger</td>
+                            <td>
+                                危险情景颜色
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.btn-sm</td>
+                            <td>
+                                叠加更改为较小尺寸按钮
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.btn-lg</td>
+                            <td>
+                                叠加更改为较大尺寸按钮
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.btn-ghost</td>
+                            <td>
+                                叠加更改为幽灵按钮
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.btn-link</td>
+                            <td>
+                                叠加更改为链接按钮
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id="color（色彩）">
+                <td>color.less</td>
+                <td>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>.text-muted</td>
+                            <td>
+                                <p class="text-muted">次要内容</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.text-primary</td>
+                            <td>
+                                <p class="text-primary">主色调文字</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.text-auxiliary</td>
+                            <td>
+                                <p class="text-auxiliary">辅助色文字</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.text-success</td>
+                            <td>
+                                <p class="text-success">成功情景色</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.text-info</td>
+                            <td>
+                                <p class="text-info">中性情景色</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.text-warning</td>
+                            <td>
+                                <p class="text-warning">警告情景色</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.text-danger</td>
+                            <td>
+                                <p class="text-danger">危险情景色</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.bg-muted</td>
+                            <td>
+                                <p class="bg-muted">次要背景色</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.bg-primary</td>
+                            <td>
+                                <p class="bg-primary">主色调背景色</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.bg-auxiliary</td>
+                            <td>
+                                <p class="bg-auxiliary">辅助色背景色</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.bg-success</td>
+                            <td>
+                                <p class="bg-success">成功情景背景色</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.bg-warning</td>
+                            <td>
+                                <p class="bg-warning">警告情景背景色</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.bg-danger</td>
+                            <td>
+                                <p class="bg-danger">危险情景背景色</p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id="dl（定义列表）">
+                <td>dl.less</td>
+                <td>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>.dl</td>
+                            <td>
+                                美化dl元素
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.dl-table</td>
+                            <td>
+                                叠加提供对齐定义列表样式
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id="flex（flex栅格）">
+                <td>flex.less</td>
+                <td>
+                    <p>移动端和高级浏览器可用的flex栅格，沿用流式栅格系统的命名风格，解决flex三代规范演变带来的兼容问题。</p>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>.flex-col</td>
+                            <td>定义一个纵向flex容器。</td>
+                        </tr>
+                        <tr>
+                            <td>.flex-row</td>
+                            <td>定义一个横向flex容器。</td>
+                        </tr>
+                        <tr>
+                            <td>.flex-1，
+                                <br/>.flex-2，
+                                <br/>.flex-3，
+                                <br/>.flex-4</td>
+                            <td>定义flex盒子的主轴尺寸占比。
+                                <br/>即，在纵向容器中控制高度，在横向容器中控制宽度。</td>
+                        </tr>
+                        <tr>
+                            <td>.align-stretch</td>
+                            <td>flex盒子在侧轴方向伸展。</td>
+                        </tr>
+                        <tr>
+                            <td>.align-center</td>
+                            <td>flex盒子在侧轴方向居中对齐。</td>
+                        </tr>
+                        <tr>
+                            <td>.justify-center</td>
+                            <td>flex盒子在主轴方向居中对齐。</td>
+                        </tr>
+                        <tr>
+                            <td>.flex-wrap</td>
+                            <td>允许flex盒子换行显示，默认不换行。</td>
+                        </tr>
+                        <tr>
+                            <td>.scroll_cont</td>
+                            <td>带滚动条区域</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id="form（表单）">
+                <td>form.less</td>
+                <td>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>.form-inline</td>
+                            <td>定义一个内联表单
+                                <pre>
+                                    <code>
+    &lt;form class=&quot;form-inline&quot;&gt;
+        ...
+    &lt;/form&gt;
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.form-horizontal</td>
+                            <td>定义一个整行排列表单
+                                <pre>
+                                    <code>
+    &lt;form class=&quot;form-horizontal&quot;&gt;
+        ...
+    &lt;/form&gt;
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.form-group</td>
+                            <td>在表单内定义一行，增加行下边距，整行表单中通常配合栅格系统使用
+                                <pre>
+                                    <code>
+    &lt;div class=&quot;form-group row&quot;&gt;
+        &lt;div class=&quot;span-2&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;span-10&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.form-group-sm</td>
+                            <td>叠加定义一个较小尺寸的行，内部元素自动缩小
+                                <pre>
+                                    <code>
+    &lt;div class=&quot;form-group form-group-sm row&quot;&gt;
+        &lt;div class=&quot;span-2&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;span-10&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.form-group-lg</td>
+                            <td>叠加定义一个较小尺寸的行，内部元素自动放大
+                                <pre>
+                                    <code>
+    &lt;div class=&quot;form-group form-group-lg row&quot;&gt;
+        &lt;div class=&quot;span-2&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;span-10&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.form-control</td>
+                            <td>用于普通<code>input</code>元素
+                                <pre>
+                                    <code>
+    &lt;input type=&quot;text&quot; class=&quot;form-control&quot;&gt;
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.radio</td>
+                            <td>
+                                定义一个radio元素组合
+                                <pre>
+                                    <code>
+    &lt;label class=&quot;radio&quot;&gt;
+        &lt;input type=&quot;radio&quot; value=&quot;1&quot;&gt;radio
+    &lt;/label&gt;
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.radio-inline</td>
+                            <td>
+                                叠加更改radio组合为内联样式
+                                <pre>
+                                    <code>
+    &lt;label class=&quot;radio radio-inline&quot;&gt;
+        &lt;input type=&quot;radio&quot; value=&quot;1&quot;&gt;radio
+    &lt;/label&gt;
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.checkbox</td>
+                            <td>
+                                定义一个checkbox元素组合
+                                <pre>
+                                    <code>
+    &lt;label class=&quot;checkbox&quot;&gt;
+        &lt;input type=&quot;checkbox&quot; value=&quot;1&quot;&gt;checkbox
+    &lt;/label&gt;
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.checkbox-inline</td>
+                            <td>
+                                叠加更改checkbox组合为内联样式
+                                <pre>
+                                    <code>
+    &lt;label class=&quot;checkbox checkbox-inline&quot;&gt;
+        &lt;input type=&quot;checkbox&quot; value=&quot;1&quot;&gt;checkbox
+    &lt;/label&gt;
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.help-block</td>
+                            <td>
+                                定义一条帮助信息
+                                <pre>
+                                    <code>
+    &lt;div class=&quot;help-block&quot;&gt;
+        帮助信息
+    &lt;/div&gt;
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.form-control-static</td>
+                            <td>
+                                定义一个与form-control元素登高的行
+                                <pre>
+                                    <code>
+    &lt;div class=&quot;form-control-static&quot;&gt;
+        ...
+    &lt;/div&gt;
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.control-label</td>
+                            <td>
+                                定义一个与form-control元素对齐的提示元素
+                                <pre>
+                                    <code>
+    &lt;div class=&quot;form-control-static&quot;&gt;
+        请输入姓名
+    &lt;/div&gt;
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.input-sm</td>
+                            <td>
+                                叠加更改为较小尺寸
+                                <pre>
+                                    <code>
+    &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot;&gt;
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.input-lg</td>
+                            <td>
+                                叠加更改为较大尺寸
+                                <pre>
+                                    <code>
+    &lt;input type=&quot;text&quot; class=&quot;form-control input-lg&quot;&gt;
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.form-mark</td>
+                            <td>
+                                定义一个醒目标记元素
+                                <pre>
+                                    <code>
+    &lt;div class=&quot;control-label&quot;&gt;
+    请输入：&lt;big class=&quot;form-mark&quot;&gt;*&lt;/big&gt;
+    &lt;/div&gt;
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.disabled</td>
+                            <td>
+                                叠加更改为不可用状态
+                                <pre>
+                                    <code>
+    &lt;label class=&quot;checkbox disabled&quot;&gt;
+        &lt;input type=&quot;checkbox&quot; value=&quot;1&quot;&gt;checkbox
+    &lt;/label&gt;
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id="grid（栅格系统）">
+                <td>grid.less</td>
+                <td>
+                    <p>兼容IE7+的12列响应式栅格系统。</p>
+                    <h5>基础栅格</h5>
+                    <pre>
+    <code>
+       &lt;div class=&quot;row&quot;&gt;
+          &lt;div class=&quot;span-4&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;span-8&quot;&gt;&lt;/div&gt;
+       &lt;/div&gt;
+    </code>
+</pre>
+                    <h5>响应式栅格</h5>
+                    <pre>
+    <code>
+       &lt;div class=&quot;row&quot;&gt;
+          &lt;div class=&quot;span-4 midd-8 smal-16&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;span-8 midd-8 smal-16&quot;&gt;&lt;/div&gt;
+       &lt;/div&gt;
+    </code>
+</pre>
+                    <h5>无间距模式</h5>
+                    <pre>
+    <code>
+       &lt;div class=&quot;full-row&quot;&gt;
+          &lt;div class=&quot;span-4 midd-8 smal-16&quot;&gt;无间距模式&lt;/div&gt;
+          &lt;div class=&quot;span-8 midd-8 smal-16&quot; style="background:grey;color:#fff;"&gt;无间距模式&lt;/div&gt;
+       &lt;/div&gt;
+    </code>
+</pre>
+                    <h5>栅格辅助工具</h5>
+                    <pre>
+    <code>
+    &lt;div class=&quot;row&quot;&gt;
+       &lt;div class=&quot;span-8 center&quot;&gt;&lt;p&gt;block1&lt;/p&gt;居中&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;row&quot;&gt;
+       &lt;div class=&quot;span-8 pull-right smal-12&quot;&gt;&lt;p&gt;block1&lt;/p&gt;置右&lt;/div&gt;
+       &lt;div class=&quot;span-4 smal-12&quot;&gt;&lt;p&gt;block2&lt;/p&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;row&quot;&gt;
+       &lt;div class=&quot;span-8 pull-right-4 smal-12&quot;&gt;&lt;p&gt;block1&lt;/p&gt;右位移&lt;/div&gt;
+       &lt;div class=&quot;span-4 pull-left-4 smal-12&quot;&gt;&lt;p&gt;block2&lt;/p&gt;左位移&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;row&quot;&gt;
+       &lt;div class=&quot;span-8 smal-12 midd-hide smal-show&quot;&gt;&lt;p&gt;block2&lt;/p&gt;中屏隐藏，小屏显示&lt;/div&gt;
+       &lt;div class=&quot;span-4 smal-hide&quot;&gt;&lt;p&gt;block3&lt;/p&gt;小屏隐藏&lt;/div&gt;
+    &lt;/div&gt;
+    </code>
+</pre>
+                    <p>栅格工具列表：</p>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>.center</td>
+                            <td>居中,居中的栅格将成为块级元素占据整行，不能多列栅格共存</td>
+                        </tr>
+                        <tr>
+                            <td>.midd-center</td>
+                            <td>中屏居中</td>
+                        </tr>
+                        <tr>
+                            <td>.smal-center</td>
+                            <td>小屏居中</td>
+                        </tr>
+                        <tr>
+                            <td>.hide</td>
+                            <td>大屏隐藏</td>
+                        </tr>
+                        <tr>
+                            <td>.midd-hide</td>
+                            <td>中屏隐藏</td>
+                        </tr>
+                        <tr>
+                            <td>.smal-hide</td>
+                            <td>小屏隐藏</td>
+                        </tr>
+                        <tr>
+                            <td>.smal-show</td>
+                            <td>小屏显示，用于显示中屏隐藏的元素</td>
+                        </tr>
+                        <tr>
+                            <td>.pull-right</td>
+                            <td>置右，置右和位移工具的设计使用场景是，在非小屏下调整DOM顺序，以在小屏下全宽显示时有正确的前后(上下)关系</td>
+                        </tr>
+                        <tr>
+                            <td>.pull-left-1</td>
+                            <td> 左位移1格， <strong>注：位移在小屏下会自动清除</strong> </td>
+                        </tr>
+                        <tr>
+                            <td>.pull-left-2</td>
+                            <td> 左位移2格， <strong>注：位移在小屏下会自动清除</strong> </td>
+                        </tr>
+                        <tr>
+                            <td>.pull-left-3</td>
+                            <td> 左位移3格， <strong>注：位移在小屏下会自动清除</strong> </td>
+                        </tr>
+                        <tr>
+                            <td>...</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>.pull-right-1</td>
+                            <td> 右位移1格， <strong>注：位移在小屏下会自动清除</strong> </td>
+                        </tr>
+                        <tr>
+                            <td>.pull-right-2</td>
+                            <td> 右位移2格， <strong>注：位移在小屏下会自动清除</strong> </td>
+                        </tr>
+                        <tr>
+                            <td>.pull-right-3</td>
+                            <td> 右位移3格， <strong>注：位移在小屏下会自动清除</strong> </td>
+                        </tr>
+                        <tr>
+                            <td>...</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <h5>栅格嵌套</h5>
+                    <p>嵌套栅格也需要带<code>.row</code>或<code>.full-row</code>层，支持无限嵌套。</p>
+                    <pre>
+ <code>
+    &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;span-4&quot;&gt;
+      side
+    &lt;/div&gt;
+    &lt;div class=&quot;span-8&quot;&gt;
+      &lt;div class=&quot;row&quot;&gt;
+        &lt;div class=&quot;span-9&quot;&gt;
+          main
+        &lt;/div&gt;
+        &lt;div class=&quot;span-3&quot;&gt;
+          sub
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+ </code>
+</pre>
+                </td>
+            </tr>
+            <tr id="iconfont（字体图标）">
+                <td>iconfont.less</td>
+                <td>
+                    <p>内置字体图标库基于<a href="http://ionicons.com/" target="_blank">ionicons</a>创建，图标类名改为"<code>.ion</code>"，为兼容IE7去掉了FontClass支持，只能用Unicode定义图标，借助<a href="http://www.iconfont.cn/" target="_blank">阿里巴巴矢量图标库</a>管理图标。</p>
+                    <h4>示例</h4>
+                    <pre>
+  <code>
+    <i class="ion">&#xe64b;</i>:&lt;i class=&quot;ion&quot;&gt;&amp;#xe64b;&lt;/i&gt;
+    <i class="ion">&#xe64e;</i>:&lt;i class=&quot;ion&quot;&gt;&amp;#xe64e;&lt;/i&gt;
+    <i class="ion">&#xe660;</i>:&lt;i class=&quot;ion&quot;&gt;&amp;#xe660;&lt;/i&gt;
+  </code>
+</pre>
+                    <h4>图标库</h4>
+                    <p>为方便图标使用而创建的<a href="http://zangtao.org/projects/icons/" target="_blank">图标库</a>项目，提供图标检索、获取Unicode、PNG定制、PNG下载功能。</p>
+                    <p>大部分功能都集成在图标右键菜单中，单击图标也可以快速选中图标Unicode，直接按“<code>Ctrl + C</code>”即可复制，PNG定制功能，可以实现图标大小和颜色调节，并在线生成PNG图片下载（不支持IE）。</p>
+                </td>
+            </tr>
+            <tr id="iconsprite（精灵图标）">
+                <td>iconsprite.less</td>
+                <td>
+                    <p><code>.ico</code>定义一个25px正方形精灵图标，默认支持5x5矩阵，如：</p>
+                    <pre>
+                        <code>
+    &lt;i class=&quot;ico ico1_1&quot;&gt;&lt;/i&gt;
+    &lt;i class=&quot;ico ico1_2&quot;&gt;&lt;/i&gt;
+                        </code>
+                    </pre>
+                </td>
+            </tr>
+            <tr id="label（标签）">
+                <td>label.less</td>
+                <td>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>.label-list</td>
+                            <td>
+                                定义标签列表
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.label</td>
+                            <td>
+                                定义标签元素
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.label-sm</td>
+                            <td>
+                                叠加更改为较小尺寸标签
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.label-lg</td>
+                            <td>
+                                叠加更改为较大尺寸标签
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.label-primary</td>
+                            <td>
+                                叠加定义主色调标签
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.label-auxiliary</td>
+                            <td>
+                                叠加定义辅助色调标签
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.label-success</td>
+                            <td>
+                                叠加定义成功色调标签
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.label-info</td>
+                            <td>
+                                叠加定义中性色调标签
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.label-warning</td>
+                            <td>
+                                叠加定义警告色调标签
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.label-danger</td>
+                            <td>
+                                叠加定义危险色调标签
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id="rect（等比填充）">
+                <td>rect.less</td>
+                <td>
+                    <p>类<code>rect-[比例:number]</code>可以定义一个对应宽高比的矩形，内部<code>._full</code>子元素将充满该矩形，示例：</p>
+                    <pre>
+          <code>
+    &lt;div style=&quot;width:400px&quot;&gt;
+      &lt;div class=&quot;rect-75&quot;&gt;
+        &lt;img src=&quot;http://temp.im/400x300/&quot; class=&quot;_full&quot;&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+          </code>
+        </pre>
+                    <p>内置比例：</p>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>.rect-4854</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>.rect-50</td>
+                            <td>2比1</td>
+                        </tr>
+                        <tr>
+                            <td>.rect-5625</td>
+                            <td>16比9</td>
+                        </tr>
+                        <tr>
+                            <td>.rect-60</td>
+                            <td>5比3</td>
+                        </tr>
+                        <tr>
+                            <td>.rect-618</td>
+                            <td>黄金分割</td>
+                        </tr>
+                        <tr>
+                            <td>.rect-70</td>
+                            <td>10比7</td>
+                        </tr>
+                        <tr>
+                            <td>.rect-75</td>
+                            <td>4比3</td>
+                        </tr>
+                        <tr>
+                            <td>.rect-80</td>
+                            <td>5比4</td>
+                        </tr>
+                        <tr>
+                            <td>.rect-90</td>
+                            <td>10比9</td>
+                        </tr>
+                        <tr>
+                            <td>.rect-100</td>
+                            <td>1比1</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id="reset（样式重置）">
+                <td>reset.less</td>
+                <td>
+                    <p>样式重置的目的在于清除浏览器的默认样式，带来一个干净的定制空间，因此没有使用Normalize.css这种理念太过“平和”的类库，结合Pc端、移动端、响应式网站的综合需求，在去默认样式的基础上，又额外做了一些事情：</p>
+                    <ol>
+                        <li>去掉触屏点击链接的背景色；</li>
+                        <li>全局设置图片最大宽度100%，开发中会造成的常见问题是图片类效果插件显示异常，或百度地图这类自带图片资源的第三方插件显示异常，只要针对性的添加<code>max-width:none</code>即可；</li>
+                        <li>对a标签添加0.3s的过渡动画；</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr id="space（间距）">
+                <td>space.less</td>
+                <td>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>.m</td>
+                            <td>四周margin普通距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-0</td>
+                            <td>四周margin归零</td>
+                        </tr>
+                        <tr>
+                            <td>.m-l</td>
+                            <td>左方margin普通距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-t</td>
+                            <td>上方margin普通距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-r</td>
+                            <td>右方margin普通距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-b</td>
+                            <td>下方margin普通距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-lr</td>
+                            <td>左右两侧margin普通距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-tb</td>
+                            <td>上下两侧margin普通距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-sm</td>
+                            <td>四周margin较小距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-l-sm</td>
+                            <td>左方margin较小距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-t-sm</td>
+                            <td>上方margin较小距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-r-sm</td>
+                            <td>右方margin较小距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-b-sm</td>
+                            <td>下方margin较小距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-lr-sm</td>
+                            <td>左右两侧margin较小距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-tb-sm</td>
+                            <td>上下两侧margin较小距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-lg</td>
+                            <td>四周margin较大距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-l-lg</td>
+                            <td>左侧margin较大距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-t-lg</td>
+                            <td>上方margin较大距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-r-lg</td>
+                            <td>右侧margin较大距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-b-lg</td>
+                            <td>下方margin较大距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-lr-lg</td>
+                            <td>左右两侧margin较大距离</td>
+                        </tr>
+                        <tr>
+                            <td>.m-tb-lg</td>
+                            <td>上下方向margin较大距离</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id="table（表格）">
+                <td>table.less</td>
+                <td>
+                    <p><code>table</code>类用于美化表格，示例参见该文档中的表格，具有三种叠加状态：</p>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>table-bordered</td>
+                            <td>四周带边框线</td>
+                        </tr>
+                        <tr>
+                            <td>table-condensed</td>
+                            <td>紧凑型间距</td>
+                        </tr>
+                        <tr>
+                            <td>table-striped</td>
+                            <td>斑马线</td>
+                        </tr>
+                        <tr>
+                            <td>table-hover</td>
+                            <td>整行悬浮着色</td>
+                        </tr>
+                        <tr>
+                            <td>table-responsive</td>
+                            <td>响应式</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id="tools（常用工具）">
+                <td>tools.less</td>
+                <td>
+                    <table class="table table-hover table-condensed">
+                        <tr>
+                            <td>.wrap</td>
+                            <td>定义主体内容区域，默认宽度自适应，最大宽度1000px，在移动端左右两边各有2%的间距，宽度支持自定义。</td>
+                        </tr>
+                        <tr>
+                            <td>.fix</td>
+                            <td>清除浮动（撑起浮动）</td>
+                        </tr>
+                        <tr>
+                            <td>.oh</td>
+                            <td>超出隐藏，同时有清浮动的作用</td>
+                        </tr>
+                        <tr>
+                            <td>.l / .r</td>
+                            <td>左 / 右浮动</td>
+                        </tr>
+                        <tr>
+                            <td>.dib</td>
+                            <td>使元素呈现为inline-block</td>
+                        </tr>
+                        <tr>
+                            <td>.pr / .pa</td>
+                            <td>相 / 绝对定位</td>
+                        </tr>
+                        <tr>
+                            <td>.tc / .tr</td>
+                            <td>居中对齐 / 居右对齐</td>
+                        </tr>
+                        <tr>
+                            <td>.el</td>
+                            <td>文字单行显示超出显示为省略号</td>
+                        </tr>
+                        <tr>
+                            <td>.hide</td>
+                            <td>隐藏元素</td>
+                        </tr>
+                        <tr>
+                            <td>.hidetext</td>
+                            <td>隐藏元素内的文字</td>
+                        </tr>
+                        <tr>
+                            <td>.arr</td>
+                            <td>border绘图的基础类，实现了一个宽高为0的inline-block元素</td>
+                        </tr>
+                        <tr>
+                            <td>.justify</td>
+                            <td>单行文字两端对齐，需设置高度</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </section>
+    <section class="wrap" id="js">
+        <h2>Javascript</h2>
+        <h3 id="js-module">模块化</h3>
+        <p>框架实现js模块化开发，模块化很重要价值是前后端分离，引用js不再是页面底部的一堆script标签，js的增删改都不需要编辑、发布前台模板，使js代码可以向css一样容易维护，更多资料可以参考：<a href="https://github.com/seajs/seajs/issues/547" target="_blank">前端模块化开发的价值</a>。</p>
+        <h3 id="js-seajs">代码组织</h3>
+        <p>基于模块化加载方式，网站脚本拆分为两层：<code>app</code>层和<code>module</code>层</p>
+        <p><code>app</code>层是具体业务脚本，每个页面模板都有一个对应的js文件放在项目内<code>js/</code>文件夹中，<code>js/</code>里还有一个<code>common.js</code>用于管理公用代码，这个文件夹组成了站点的业务层。</p>
+        <p><code>module</code>层是对特定功能的封装，如jquery、轮显效果、视频播放器，日期选择器，表单验证等，用于被业务层调用，实现特定功能。</p>
+        <h3 id="js-app">业务层</h3>
+        <p>seajs.use方法可以启动并执行一个模块化的js文件，如首页底部的：</p>
+        <pre>
+            <code>
+  seajs.use('js/index');
+            </code>
+          </pre>
+        <p>这样首页模板就将启动并执行js/index.js，首页里的js效果都要在这里实现。</p>
+        <p>要使用某功能模块，就要先引用模块，语法是require(‘模块路径’)，或者用异步加载的方式require.async(‘模块路径’，‘回调’)。</p>
+        <p>以index.js为例：</p>
+        <pre>
+            <code>
+  /*
+   * index.js
+   */
+  define(function(require, exports, module) {
+     var $ = require('jquery');
+     var base=require('base');
+     var com = require('./common');
+     //...
+     
+  })
+              </code>
+        </pre>
+        <p>index.js里分别引用了jquery，base和common，并将他们的返回值分别赋值。</p>
+        <p>并不是所有的模块都有返回值，例如common模块多数时候只是存放网站通用代码，导航栏、返回顶部、分享代码之类，很少对外提供方法，如果确定一个模块不需要任何返回值也可以只引用不赋值，例如 <code>require('./common')</code>，大多数jquery插件模块也都没有返回值，因为jquery插件方法都扩展在jquery对象上，可以直接通过<code>$.METHODNAME</code>的方式使用。</p>
+        <h4>异步加载</h4>
+        <p>异步加载的模块不会提前就位，而是当前代码执行到该行时才开始请求模块文件，对于jquery和common这种被其他代码强依赖的模块我们希望尽快加载生效，因此使用同步加载，对于大多数效果类模块则应适度使用异步加载，以提高页面性能，但第一屏内的效果（banner...）应使用同步加载，以提高首屏响应速度。</p>
+        <p><code>require.async</code>得到的模块对象无法通过赋值保存，只能在回调函数中接收为参数，以百度分享模块为例： </p>
+        <pre>
+            <code>
+   require.async('bdshare',function(bdshare){
+        //接收百度分享对象：bdshare  
+      bdshare({
+         bdSize : 16
+      });
+   });
+              </code>
+        </pre>
+        <h4 id="js-base-common">公用代码common.js</h4>
+        <p>common.js内置了网站常用代码，可以根据需求保留或删除:</p>
+        <table class="table table-bordered">
+            <tr>
+                <td>返回顶部</td>
+                <td>
+                    对$('.gotop')添加点击返回顶部事件
+                </td>
+            </tr>
+            <tr>
+                <td>关闭当前页</td>
+                <td>
+                    对$('.closewin')绑定点击关闭当前页事件
+                </td>
+            </tr>
+            <tr>
+                <td>打印当前页</td>
+                <td>
+                    对$('.print')绑定打印当前页事件
+                </td>
+            </tr>
+            <tr>
+                <td>加入收藏</td>
+                <td>
+                    对$('.favorite')绑定点击将当前页加入收藏夹事件(仅IE)
+                </td>
+            </tr>
+            <tr>
+                <td>设为首页</td>
+                <td>
+                    对$('.sethome')绑定点击将当前页设为首页事件(仅IE)
+                </td>
+            </tr>
+            <tr>
+                <td>扩展input:placeholder</td>
+                <td>
+                    <p>对不支持H5 placeholder的浏览器扩展placeholder属性：</p>
+                    <pre>
+                        <code>
+  &lt;input type=&quot;text&quot; placeholder=&quot;搜索&quot; &gt;
+                        </code>
+                    </pre>
+                </td>
+            </tr>
+            <tr>
+                <td>扩展textarea:max-length</td>
+                <td>
+                    <p>对textarea标签扩展max-length属性，用于限制最大输入字符数：</p>
+                    <pre>
+                        <code>
+  &lt;textarea max-length='200'&gt;text here...&lt;/textarea&gt;
+                        </code>
+                    </pre>
+                </td>
+            </tr>
+        </table>
+        <h3 id="js-modules">模块层</h3>
+        <p>框架模块层直接接入<a href="https://github.com/tower1229/seajs-modules" target="_blank">seajs-modules</a>，详见其官网文档。</p>
+    </section>
+    <footer class="wrap oh tc">
+   <div class="row "> <a href="#" title="返回顶部" class="dib foot_logo gotop">
+	   <figure></figure>
+	</a>
+	<p class="dib"> © 2016 - 3016  tower1229@gmail.com<br>
+	Acknowledgements : seajs \ bootstrap \ foundation \ ... </p>
+	</div>
+</footer>
+    <script src="/docs/lib/sea.js" id="seajsnode"></script>
+<script src="/docs/seajs.config.js"></script>
+    <script>
+    seajs.use('js/doc');
+    </script>
+</body>
+
+</html>

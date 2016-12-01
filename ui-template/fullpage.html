@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <title>首页</title>
+    <meta content="" name="Keywords">
+    <meta content="" name="Description">
+    <meta name="format-detection" content="telephone=no">
+    <link href="/ui-template/favicon.ico" rel="icon">
+<link href="/ui-template/css/style.css" rel="stylesheet">
+<script type="text/javascript">
+	if(window.location.href.indexOf('https')===0){
+		document.write('<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />');
+	}
+</script>
+<!--[if lt IE 9]><script src="/ui-template/lib/H5shiv.js"></script><![endif]-->
+</head>
+
+<body>
+    <style>
+    /*fullpage*/
+    .full_body {
+        padding-top: 110px;
+    }
+    .full_box,
+    .full_wrap,
+    .full_section {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    .full_body,
+    .full_section {
+        overflow: hidden;
+    }
+    .full_body .footer {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        bottom: -498px;
+    }
+    .full_section {
+        display: none;
+    }
+    /*style*/
+    .head {
+        position: fixed;
+        left: 0;
+        width: 100%;
+        top: 0;
+        height: 110px;
+        background: #434343;
+        color: #fff;
+        z-index: 99;
+        text-align: center;
+        margin:0;
+        padding:0;
+    }
+    .footer {
+        height: 110px;
+        background: #1f1e26;
+        color: #aaa;
+        text-align: center;
+    }
+    .circles {
+        position: fixed;
+        right: 0;
+        width: 20px;
+        top: 40%;
+        padding: 0 6px;
+    }
+    .circles li {
+        height: 20px;
+        cursor: pointer;
+        border-radius: 10px;
+        margin: 6px 0;
+        background: #ccc;
+    }
+    .circles li.current {
+        background: #444;
+    }
+    .fullpage_prev {
+        position: fixed;
+        right: 0;
+        bottom: 150px;
+        width: 50px;
+        height: 50px;
+        background: #ccc;
+        cursor: pointer;
+    }
+    .fullpage_next {
+        position: fixed;
+        right: 0;
+        bottom: 90px;
+        width: 50px;
+        height: 50px;
+        background: #ccc;
+        cursor: pointer;
+    }
+    </style>
+    </head>
+
+    <body class="full_body">
+        <header class="head">
+            头部
+        </header>
+        <div class="full_box">
+            <div class="full_wrap">
+                <div class="full_section index_sec1">
+                    index_sec1
+                </div>
+                <div class="full_section index_sec2">
+                    index_sec2
+                </div>
+                <div class="full_section index_sec3">
+                    index_sec3
+                </div>
+                <div class="full_section index_sec4">
+                    index_sec4
+                </div>
+                <div class="full_section index_sec5">
+                    index_sec5
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            底部
+        </div>
+        <div class="fullpage_prev">上一屏</div>
+        <div class="fullpage_next">下一屏</div>
+        <script src="/ui-template/lib/sea.js" id="seajsnode"></script>
+<script src="/ui-template/seajs.config.js"></script>
+        <script>
+        seajs.use('js/fullpage');
+        </script>
+    </body>
+
+</html>
