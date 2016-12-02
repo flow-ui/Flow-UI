@@ -1619,6 +1619,7 @@
     </section>
     <section class="wrap" id="patch">
         <h2>解决方案</h2>
+        <p>内置解决方法示例页面见项目<code>ui-template/</code>。</p>
         <h3 id="CrossTerminal">多终端</h3>
         <p>多终端网站开发除了css媒体查询以外，至少还要具备三项功能：响应式栅格系统、终端识别，响应图片。</p>
         <p>响应式栅格系统使页面布局可以随终端自动调整；</p>
@@ -1642,6 +1643,8 @@
   &lt;/div&gt;
      </code>
    </pre>
+        <h3 id="fullpage">fullpage</h3>
+        <p>全屏翻页模式的简单实现。</p>
         <h3 id="DemandRendering">按需渲染</h3>
         <h4>延迟显示</h4>
         <p><code>.opc0</code>将使元素透明，documentReady后显示，用于隐藏局部或整个页面的渲染过程</p>
@@ -1657,7 +1660,7 @@
         <h4>内置按需渲染策略</h4>
         <p>见<a href="#js-base-common">common.js</a>scanpush()方法介绍。</p>
         <h3 id="instantclick">点击预加载</h3>
-        <p>结合<a href="https://github.com/tower1229/seajs-modules" target="_blank">seajs-modules</a>提供的<a href="http://instantclick.io" target="_blank">instantclick</a>插件，实现链接预加载、无刷新切换（PJAX）、加载进度条等特性，并扩展了页面切换后记住滚动位置的功能，<a href="../ui-template/pjax-page-1.html" target="_blank">测试页面</a>。</p>
+        <p>结合<a href="https://github.com/tower1229/seajs-modules" target="_blank">seajs-modules</a>提供的<a href="http://instantclick.io" target="_blank">instantclick</a>插件，实现链接预加载、无刷新切换（PJAX）、加载进度条等特性，并扩展了页面切换后记住滚动位置的功能。</p>
         <h4>使用</h4>
         <p>预加载技术有一定特殊性，普通模块加载方式将失效，需要使用优化后的pjax专用模板，开发中基本保持了原有模块化开发体验，主要存在以下三点细节上的不同：</p>
         <h5>区别1：页面底部引用js时增加回调并执行返回函数（使用者无需关心）</h5>
