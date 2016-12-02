@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit">
     <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-    <title>首页</title>
+    <title>多终端场景演示</title>
     <meta content="" name="Keywords">
     <meta content="" name="Description">
     <meta name="format-detection" content="telephone=no">
@@ -23,21 +23,32 @@
 <body>
     <header class="head"><div class="wrap fix"><h1>front-flow-template!</h1></div></header>
     <div class="wrap">
-        <div class="p">
-            <a href="demo.html" class="btn btn-primary">UI演示</a>
-            <a href="responsive.html" class="btn btn-auxiliary">多终端场景</a>
-            <a href="pjax-page-1.html" class="btn btn-success">PJAX场景</a>
-            <a href="fitmobile.html" class="btn btn-info">移动端屏幕适配</a>
-            <a href="fullpage.html" class="btn btn-warning">fullpage场景</a>
-            <a href="blank.html" class="btn btn-danger">空模版</a>
-            <a href="../docs/" class="btn btn-default">文档</a>
+        <div class="m-b bg-primary">
+            <div class="row">
+                <div class="span-4 midd-6 smal-hide">
+                    <img src="http://temp.im/400x300" data-src="http://temp.im/800x600" />
+                </div>
+                <div class="span-8 midd-6 smal-12">
+                    响应式栅格
+                </div>
+            </div>
         </div>
+        <form class="form-inline">
+            <div class="form-group">
+                <div class="control-label">设备标识：</div>
+                <input type="text" class="form-control" id="mark">
+            </div>
+            <div class="form-group">
+                <div class="control-label">设备方向：</div>
+                <input type="text" class="form-control" id="fangxiang">
+            </div>
+        </form>
     </div>
     
     <script src="/ui-template/lib/sea.js" id="seajsnode"></script>
 <script src="/ui-template/seajs.config.js"></script>
     <script>
-    seajs.use('js/index');
+    seajs.use('js/responsive');
     </script>
 </body>
 

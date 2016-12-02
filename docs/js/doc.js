@@ -4,8 +4,8 @@
 define(function(require) {
 	var $ = require('jquery');
 	var base = require('base');
-	
 	/*生成目录*/
+
 	var $nav = $('#nav'),
 		$section = $('section.wrap'),
 		_nav;

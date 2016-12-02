@@ -1,0 +1,1 @@
+{"version":3,"sources":["footer.js"],"names":["define","require","exports","module","console","log","seajs","use"],"mappings":"AAAAA,OAAO,gBAAgB,SAASC,EAASC,EAASC,GAChDC,QAAQC,IAAI,UAEbC,MAAMC,IAAI","file":"footer.js","sourcesContent":["define(\"footer-inline\",function(require, exports, module) {\n\t\tconsole.log('foot')\n\t});\n\tseajs.use(\"footer-inline\");\n\t"]}

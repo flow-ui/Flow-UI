@@ -11,8 +11,8 @@
     <meta content="front-flow-cli是专为front-flow前端工作流开发的命令行工具，实现自动初始化、组件化开发、预处理、静态资源优化、图片压缩等前端自动化需求。" name="Description">
     <link href="/front-flow-ui/docs/favicon.ico" rel="icon">
 <link href="/front-flow-ui/docs/css/style.css" rel="stylesheet">
+<link href="/front-flow-ui/docs/css/doc.css" rel="stylesheet">
 <link href="/front-flow-ui/docs/lib/highlight/styles/github.css" rel="stylesheet">
-<link href="/front-flow-ui/docs/lib/doc.css" rel="stylesheet">
 <script type="text/javascript">
 	if(window.location.href.indexOf('https')===0){
 		document.write('<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />');
@@ -27,7 +27,7 @@
     <section class="wrap" id="overall">
         <h2>概述</h2>
         <h3 id="overall-intro">关于</h3>
-        <p> front-flow-ui是一套基于<a href="http://seajs.org/docs/" target="_blank">Seajs</a> 实现模块化的UI框架，提供基础CSS组件库、常用seajs模块库，以及前端常见业务场景的系统解决方案。</p>
+        <p> front-flow-ui是一套轻量级的前端UI框架，基于<a href="http://seajs.org/docs/" target="_blank">Seajs</a> 实现js模块化开发，内置多种业务场景解决方案。</p>
         <h4>兼容性</h4>
         <p>IE8+</p>
         <h4>目录结构</h4>
@@ -41,9 +41,9 @@
   |    |-- lib/                     //模块库以外的js文件
   |    |-- index.html               //索引页
   |    |-- blank.html               //空白页
-  |    |-- demo.html                //UI示例页
-  |    |-- fullpage.html            //滚屏示例
-  |    |-- pjax-page-1/2.html       //PJAX加载示例
+  |    |-- demo.html                //UI演示页
+  |    |-- fullpage.html            //滚屏场景示例
+  |    |-- pjax-page-1/2.html       //PJAX场景示例
   |    |-- seajs.config.js          //站点配置文件
   |    `-- favicon.ico 
   ·-- modules/                  //seajs模块库（可选）
@@ -55,7 +55,7 @@
         <p>Github下载：<a href="https://github.com/front-flow/front-flow-ui" target="_blank">front-flow-ui</a></p>
         <p>自动化工具：<a href="https://github.com/front-flow/front-flow-cli" target="_blank">front-flow-cli</a></p>
         <h4>快速开始</h4>
-        <p>1. 拷贝<code>ui-template/</code>和<code>modules/</code>文件夹到项目中；</p>
+        <p>1. 拷贝<code>ui-template/</code>和<code>modules/</code>到项目中；</p>
         <p>2. 根据需要修改配置，<code>seajs.config.js</code>包含框架所需的所有配置；</p>
         <p>3. 启动本地服务，访问 <a href="http://localhost/ui-template/index.html" target="_blank">http://localhost/ui-template/index.html</a></p>
         <h4>配置</h4>
@@ -464,7 +464,9 @@
             <span class="label label-lg label-danger">标签-danger</span>
         </div>
         <h3 id="css-compile">编译</h3>
-        <p>使用<a href="https://github.com/front-flow/front-flow-cli" target="_blank">front-flow-cli</a>工具可以详细自定义UI风格和组件功能。</p>
+        <p>front-flow-ui的项目代码是使用<a href="https://github.com/front-flow/front-flow-cli" target="_blank">front-flow-cli</a>，编译<a href="https://github.com/front-flow/front-flow-template" target="_blank">front-flow-template</a>而来。</p>
+        <p>front-flow-template基于less实现UI组件化管理，并抽离出全站样式配置文件，可实现灵活的组件选配，出于演示目的front-flow-ui打包了所有的UI组件，如<code>flex</code>和<code>responsive</code>属于只在特定场景应用的组件，在front-flow-template中是默认不引入的。</p>
+        <p>若希望进一步自定义UI风格，可以参考<a href="https://github.com/front-flow/front-flow-cli" target="_blank">front-flow-cli</a>的详细介绍。</p>
         <h3 id="css-component">组件列表</h3>
         <nav class="modules_index" id="component_index"></nav>
         <h4>示例</h4>
@@ -1410,14 +1412,8 @@
         <p><code>app</code>层是具体业务脚本，每个页面模板都有一个对应的js文件放在项目内<code>js/</code>文件夹中，<code>js/</code>里还有一个<code>common.js</code>用于管理公用代码，这个文件夹组成了站点的业务层。</p>
         <p><code>module</code>层是对特定功能的封装，如jquery、轮显效果、视频播放器，日期选择器，表单验证等，用于被业务层调用，实现特定功能。</p>
         <h3 id="js-app">业务层</h3>
-        <p>seajs.use方法可以启动并执行一个模块化的js文件，如首页底部的：</p>
-        <pre>
-            <code>
-  seajs.use('js/index');
-            </code>
-          </pre>
-        <p>这样首页模板就将启动并执行js/index.js，首页里的js效果都要在这里实现。</p>
-        <p>要使用某功能模块，就要先引用模块，语法是require(‘模块路径’)，或者用异步加载的方式require.async(‘模块路径’，‘回调’)。</p>
+        <p>seajs.use方法可以启动并执行一个模块化的js文件，如首页底部的：<code>seajs.use('js/index');</code>，将启动并执行js/index.js，首页里的js效果都要在这里实现。</p>
+        <p>要使用某功能模块，就要先引用模块，语法是<code>require("模块路径")</code>，或者用异步加载的方式<code>require.async("模块路径"，"回调")</code>。</p>
         <p>以index.js为例：</p>
         <pre>
             <code>
@@ -1436,7 +1432,7 @@
         <p>index.js里分别引用了jquery，base和common，并将他们的返回值分别赋值。</p>
         <p>并不是所有的模块都有返回值，例如common模块多数时候只是存放网站通用代码，导航栏、返回顶部、分享代码之类，很少对外提供方法，如果确定一个模块不需要任何返回值也可以只引用不赋值，例如 <code>require('./common')</code>，大多数jquery插件模块也都没有返回值，因为jquery插件方法都扩展在jquery对象上，可以直接通过<code>$.METHODNAME</code>的方式使用。</p>
         <h4>异步加载</h4>
-        <p>异步加载的模块不会提前就位，而是当前代码执行到该行时才开始请求模块文件，对于jquery和common这种被其他代码强依赖的模块我们希望尽快加载生效，因此使用同步加载，对于大多数效果类模块则应适度使用异步加载，以提高页面性能，但第一屏内的效果（banner...）应使用同步加载，以提高首屏响应速度。</p>
+        <p>异步加载的模块不会提前就位，而是当前代码执行到该行时才开始请求模块文件，对于jquery和common这种被其他代码强依赖的模块我们希望尽快加载生效，因此使用同步加载，对于大多数效果类模块则应适度使用异步加载，以提高页面性能，但首屏效果应使用同步加载，以提高首屏响应速度。</p>
         <p><code>require.async</code>得到的模块对象无法通过赋值保存，只能在回调函数中接收为参数，以百度分享模块为例： </p>
         <pre>
             <code>
@@ -1450,49 +1446,16 @@
         </pre>
         <h4 id="js-base-common">公用代码common.js</h4>
         <p>common.js内置了网站常用代码，可以根据需求保留或删除:</p>
-        <table class="table table-bordered">
-            <tr>
+        <nav class="modules_index" id="modules_index"></nav>
+        <p>使用示例：</p>
+        <table class="table table-bordered" id="modules_list">
+            <tr id="com-gotop（返回顶部）">
                 <td>返回顶部</td>
                 <td>
                     对$('.gotop')添加点击返回顶部事件
                 </td>
             </tr>
-            <tr>
-                <td>关闭当前页</td>
-                <td>
-                    对$('.closewin')绑定点击关闭当前页事件
-                </td>
-            </tr>
-            <tr>
-                <td>打印当前页</td>
-                <td>
-                    对$('.print')绑定打印当前页事件
-                </td>
-            </tr>
-            <tr>
-                <td>加入收藏</td>
-                <td>
-                    对$('.favorite')绑定点击将当前页加入收藏夹事件(仅IE)
-                </td>
-            </tr>
-            <tr>
-                <td>设为首页</td>
-                <td>
-                    对$('.sethome')绑定点击将当前页设为首页事件(仅IE)
-                </td>
-            </tr>
-            <tr>
-                <td>扩展input:placeholder</td>
-                <td>
-                    <p>对不支持H5 placeholder的浏览器扩展placeholder属性：</p>
-                    <pre>
-                        <code>
-  &lt;input type=&quot;text&quot; placeholder=&quot;搜索&quot; &gt;
-                        </code>
-                    </pre>
-                </td>
-            </tr>
-            <tr>
+            <tr id="com-max-length（textarea长度限制）">
                 <td>扩展textarea:max-length</td>
                 <td>
                     <p>对textarea标签扩展max-length属性，用于限制最大输入字符数：</p>
@@ -1503,9 +1466,278 @@
                     </pre>
                 </td>
             </tr>
+            <tr id="com-getType（获取设备类型）">
+                <td>getType([callback])</td>
+                <td>
+                    <p>获取当前设备类型，回调函数可选，当无回调时返回字符串('Pc','Pad','Mobile')，有回调时回调接受返回字符串为参数：</p>
+                    <pre>
+                        <code>
+   var com=require('./common');
+   
+   //无回调
+   var _type=com.getType();      //"Pc" || "Pad" || "Mobile"
+   
+   //有回调
+   com.getType(function(type){
+      alert(type);                //"Pc" || "Pad" || "Mobile"
+   })
+   
+                        </code>
+                    </pre>
+                </td>
+            </tr>
+            <tr id="com-getOrient（获取设备方向）">
+                <td>getOrient([callback])</td>
+                <td>
+                    <p>获取移动设备屏幕方向，回调函数可选，当无回调时返回字符串('Heng','Shu')，有回调时回调函数将持续监听屏幕方向变化，并接受屏幕方向为参数：</p>
+                    <pre>
+                        <code>
+   var com=require('./common');
+   
+   //无回调
+   var _orient=com.getOrient();// "Heng" || "Shu"
+   
+   //有回调
+   com.getOrient(function(orient){
+      alert(orient);// 每次旋转屏幕都将alert "Heng" 或 "Shu"
+   })
+                        </code>
+                    </pre>
+                </td>
+            </tr>
+            <tr id="com-resImg（图片响应）">
+                <td>resImg(bigSrc, [filter])</td>
+                <td>
+                    <p>全局图片响应方法，common.js中默认调用。</p>
+                    <p>图片的src将在手机端显示，bigSrc参数指定存放大图的自定义属性，可省，默认"data-src"，"data-src"图片地址将在pc和pad端显示。</p>
+                    <p>filter参数传入响应图片的范围，可省，默认检索整个页面。</p>
+                    <pre>
+                        <code>
+  &lt;img src=&quot;small.jpg&quot; data-src=&quot;big.jpg&quot; /&gt; 
+                   </code>
+                  </pre>
+                </td>
+            </tr>
+            <tr id="com-topush（按需渲染）">
+                <td>topush(DOM,callback)</td>
+                <td>
+                    <p><code>&lt;textarea&gt;</code>标签在页面中具有延迟渲染的特性，因此是一个天然的缓存容器，只要将自身隐藏，便实现了html5 <code>template</code>标签的特性，唯一的问题是使用<code>&lt;textarea&gt;</code>暂存的代码中不能包含另一个<code>&lt;textarea&gt;</code>，否则会造成暂存标签意外闭合，这时也可以选择<code>&lt;script type="text/template"&gt;</code>标签代替，它和<code>textarea</code>标签的作用是等价的，并且<code>script</code>标签自身就是不可见的，无须手动隐藏：</p>
+                   <pre>
+                       <code>
+     &lt;!--textarea标签暂存页面片段--&gt;
+     &lt;div class=&quot;demo topush&quot;&gt;
+        &lt;textarea class=&quot;hide&quot;&gt;
+          &lt;a href=&quot;#&quot;&gt;暂存的页面片段&lt;/a&gt;
+          &lt;a href=&quot;#&quot;&gt;暂存的页面片段&lt;/a&gt;
+          &lt;a href=&quot;#&quot;&gt;暂存的页面片段&lt;/a&gt;
+        &lt;/textarea&gt;
+     &lt;/div&gt;
+                    </code>
+                    <code>
+     &lt;!--script标签暂存页面片段--&gt;
+     &lt;div class=&quot;demo topush&quot;&gt;
+        &lt;script type=&quot;text/template&quot;&gt;
+          &lt;a href=&quot;#&quot;&gt;暂存的页面片段&lt;/a&gt;
+          &lt;a href=&quot;#&quot;&gt;暂存的页面片段&lt;/a&gt;
+          &lt;a href=&quot;#&quot;&gt;暂存的页面片段&lt;/a&gt;
+        &lt;/script&gt;
+     &lt;/div&gt;
+                    </code>
+                   </pre>
+                   <p><code>com.topush(DOM,callback)</code>方法专门用来取出暂存标签中的html片段（或发起Ajax）插入到外层元素中，两个参数分别是指定外层元素和取出后的回调函数，均为可选，DOM默认<code>.topush</code>。</p>
+                   <p>加载后的dom会添加<code>pushed</code>类，用来标记暂存代码已经取出。</p>
+                   <p>示例：</p>
+                      <pre>
+                          <code>
+   &lt;!--发起Ajax的例子--&gt;
+   &lt;div class=&quot;demo topush&quot;&gt;
+      &lt;textarea class=&quot;hide&quot; data-url=&quot;/test/ajax.php&quot;&gt; &lt;/textarea&gt;
+   &lt;/div&gt;
+                        </code>
+                        <code>
+   //无参数调用，显示所有".topush"元素中的暂存代码
+   com.topush();  
+   
+   //有回调                  
+   com.topush(function(e){           
+      console.log(e.attr('class')) //"topush ..."
+   });
+   
+   //指定渲染目标                 
+   com.topush('.demo');
+   
+   //传入两个参数
+   com.topush('.demo',function(e){    
+      console.log(e.html())//.demo 渲染后的html
+   });     
+                      </code>
+                  </pre>
+                </td>
+            </tr>
+            <tr id="com-scanpush（重新扫描渲染对象）">
+                <td>scanpush()</td>
+                <td>
+                    <p><code>com.scanpush()</code>方法会扫描页面上具有延迟渲染类名的元素，并按规则对其渲染。</p>
+                      <p>预置的四个按需渲染类是：<code>.PcPush</code>,<code>.UnpcPush</code>,<code>.MobilePush</code>,<code>.UnmobilePush</code>,
+                      分别代表“只有Pc渲染”，“只有非Pc渲染”，“只有手机渲染”，“只有非手机渲染”,渲染完成后会触发该元素的渲染类同名事件，用<code>$(DOM).on('PcPush'/'UnpcPush'/'MobilePush'/'UnmobilePush')</code>可以捕捉到，事件也会冒泡到<code>body</code>上。</p>
+                      <p>并且这四个类元素下的<code>textarea</code>标签将自动隐藏，不需要手动加隐藏类。</p>
+                      <p>示例：</p>
+                    <pre>
+                        <code>
+  &lt;!-- html --&gt;
+ &lt;div class=&quot;PcPush&quot;&gt;
+    &lt;textarea&gt;
+       只在Pc显示
+    &lt;/textarea&gt;
+ &lt;/div&gt;
+ 
+ &lt;div class=&quot;UnmobilePush&quot;&gt;
+    &lt;textarea&gt;
+       除了手机都显示
+    &lt;/textarea&gt;
+ &lt;/div&gt;
+                       </code>
+                       <code>
+  //js
+
+  $('body').on('PcPush',function(){
+    console.log( 'PcPush已经被渲染了' )
+  })
+  $('body').on('UnmobilePush',function(){
+    console.log( '.UnmobilePush已经被渲染了' )
+  })
+
+  com.scanpush();
+  
+                       </code>
+                    </pre>
+                </td>
+            </tr>
         </table>
         <h3 id="js-modules">模块层</h3>
-        <p>框架模块层直接接入<a href="https://github.com/tower1229/seajs-modules" target="_blank">seajs-modules</a>，详见其官网文档。</p>
+        <p>框架模块层使用<a href="https://github.com/tower1229/seajs-modules" target="_blank">seajs-modules</a>，模块使用及api见其官方文档。</p>
+    </section>
+    <section class="wrap" id="patch">
+        <h2>解决方案</h2>
+        <h3 id="CrossTerminal">多终端</h3>
+        <p>多终端网站开发除了css媒体查询以外，至少还要具备三项功能：响应式栅格系统、终端识别，响应图片。</p>
+        <p>响应式栅格系统使页面布局可以随终端自动调整；</p>
+        <p>终端识别使js可以为每个终端做单独处理，框架通过媒体查询在页面中埋下特殊标记，js通过查找标记分辨当前设备类型，终端识别方法内置在common.js中；</p>
+        <p>响应图片使移动设备可以使用单独定制的小尺寸图片，为加载提速，对应方法已封装在common.js中。</p>
+        <p>默认多终端项目模板的实现方案是：</p>
+        <code>
+ {Pc} > 1024 > {Pad} > 640 > {Mobile} 
+       </code>
+        <h3 id="mobileFixed">移动端屏幕适配</h3>
+        <p>约定设计稿宽度：手机界面640px，pad界面1024px。</p>
+        <p>基于以上约定，通过vw单位<strong>将html字号（rem）设置为100px</strong>，因为vw单位的特性，使rem对屏幕宽度具有适应性，凡是使用rem为单位的尺寸/字号都将随屏幕宽度自动缩放，例如：</p>
+        <pre>
+     <code>
+  &lt;style&gt;
+    .test{width: 3.2rem;height:3.2rem;background:yellow;}
+  &lt;/style&gt;
+  &lt;div class=&quot;test&quot;&gt;
+    &lt;p&gt;在任何手机上都显示为宽度50%（3.2rem）的正方形&lt;/p&gt;
+    &lt;p style=&quot;font-size:.28rem&quot;&gt;字号.28rem的文字&lt;/p&gt;
+  &lt;/div&gt;
+     </code>
+   </pre>
+        <h3 id="DemandRendering">按需渲染</h3>
+        <h4>延迟显示</h4>
+        <p><code>.opc0</code>将使元素透明，documentReady后显示，用于隐藏局部或整个页面的渲染过程</p>
+        <pre>
+     <code>
+       &lt;div class=&quot;opc0&quot;&gt;
+        这里的内容会在documentReady后显示
+       &lt;/div&gt;
+     </code>
+   </pre>
+        <h4>延迟渲染</h4>
+        <p>见<a href="#js-base-common">common.js</a>中的topush()方法介绍。</p>
+        <h4>内置按需渲染策略</h4>
+        <p>见<a href="#js-base-common">common.js</a>scanpush()方法介绍。</p>
+        <h3 id="instantclick">点击预加载</h3>
+        <p>结合<a href="https://github.com/tower1229/seajs-modules" target="_blank">seajs-modules</a>提供的<a href="http://instantclick.io" target="_blank">instantclick</a>插件，实现链接预加载、无刷新切换（PJAX）、加载进度条等特性，并扩展了页面切换后记住滚动位置的功能，<a href="../ui-template/pjax-page-1.html" target="_blank">测试页面</a>。</p>
+        <h4>使用</h4>
+        <p>预加载技术有一定特殊性，普通模块加载方式将失效，需要使用优化后的pjax专用模板，开发中基本保持了原有模块化开发体验，主要存在以下三点细节上的不同：</p>
+        <h5>区别1：页面底部引用js时增加回调并执行返回函数（使用者无需关心）</h5>
+        <pre>
+          <code>
+          //页面引用js的写法
+          seajs.use('js/index_pjax', function(run) {
+            run();
+          })
+          </code>
+        </pre>
+        <h5>区别2：在页面js的返回函数里写业务代码（使用者无需关心）</h5>
+        <pre>
+      <code>
+  define(function(require) {
+    var $ = require('jquery');
+    var base = require('base');
+    var com = require('./common_pjax'); //注意这里必须引用common_pjax
+    //模块js的写法
+    return function(){ 
+      //页面代码里执行common_pjax
+      com.init(); 
+      //以下就是你得业务代码啦
+      require('box'); 
+      $.box.msg('hello p1!');
+
+    }
+  })
+      </code>
+    </pre>
+        <h5>区别3：原来common.js里的码要写在common_pjax.js的init方法里，这里需要注意一下，common.js修改往往比较多</h5>
+        <pre>
+      <code>
+  //common_pjax
+  module.exports = {
+      init:function(){
+        //整站通用代码
+        ...
+      }
+  }
+      </code>
+    </pre>
+        <h4>其他小问题：</h4>
+        <p>页面中所有的资源路径（包括图片）必须是绝对路径，因为相对路径全部是相对于着陆页而言的，当跳转路径跨层级时相对路径会报错。</p>
+        <p>PJAX切换模式还会导致某些插件表现异常，本质上都是因为页面没有刷新，比如mmenu.js点击后不收回，需要添加如下配置：<code> { onClick:{ close:true}}</code></p>
+        <h5>黑名单</h5>
+        <p>这几种情况下的a标签不会触发预加载和pjax切换：</p>
+        <ol>
+            <li>具有<code>target</code>或<code>download</code>或<code>data-no-instant</code>属性；</li>
+            <li>指向不同的域；</li>
+            <li>指向"#"或"#"开头的地址</li>
+        </ol>
+        <h5>记住滚动位置</h5>
+        <p>当href地址中含有<code>scrollfixed</code>参数时，切换后会记住当前的页面滚动位置：</p>
+        <pre>
+      <code>
+  &lt;a href=&quot;/test/test.html?scrollfixed=1&quot;&gt;
+      </code>
+    </pre>
+        <h3 id="jscatch">js模块本地缓存</h3>
+        <p>使用seajs-localcache插件实现manifest功能，公用模块在第一次请求后会缓存到localstorage中，通过modules/manifest.js控制各模块版本，默认版本号1，修改版本号即更新对应模块缓存，版本号必须是真值（非0）。</p>
+        <pre>
+            <code>
+  /*
+  * manifest.js
+  */
+  define('manifest',function(){
+    var mod = {
+        'album/album'                   : 1,  //修改版本号更新对应的插件缓存
+        'hook/hook'                     : 1,
+        'jquery/1/jquery'               : 1,
+        'jquery/2/jquery'               : 1,
+        'My97DatePicker/WdatePicker'    : 1
+        //...
+        }
+    //...
+  })
+         </code>
+       </pre>
+        
     </section>
     <footer class="wrap oh tc">
    <div class="row "> <a href="#" title="返回顶部" class="dib foot_logo gotop">

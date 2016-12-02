@@ -1,7 +1,7 @@
 //开发模式
 seajs.develop = true;
 // 模块根路径
-seajs.root = ''; 
+seajs.root = '' ? '/' + '' : ''; 
 // api管理
 seajs.api = {
 	test: seajs.develop ? '/develop' : '/product'
@@ -16,8 +16,8 @@ seajs.set = {
 seajs.config({
 	base: seajs.root + "/modules",
 	paths: {
-		"js" : seajs.root + "/ui-template/js",
-		"lib": seajs.root + "/ui-template/lib"
+		"js" : "/ui-template/js",
+		"lib": "/ui-template/lib"
 	},
 	alias: {
 		"audio"		     : "audio/audio",
