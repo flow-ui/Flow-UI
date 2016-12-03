@@ -8,8 +8,8 @@ IE8+
 
 ###主页
 
-https://front-flow.github.io/Flow-UI/docs/
+https://tower1229.github.io/Flow-UI/docs/
 
-### 配套前端自动化工具
+### 配套自动化工具
 
-[front-flow-cli](https://github.com/front-flow/front-flow-cli)
+[Flow-CLI](https://tower1229.github.com/Flow-CLI/docs/)
