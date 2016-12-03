@@ -8,7 +8,7 @@ IE8+
 
 ###主页
 
-https://front-flow.github.io/front-flow-ui/docs/
+https://front-flow.github.io/Flow-UI/docs/
 
 ### 配套前端自动化工具
 
