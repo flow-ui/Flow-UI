@@ -1721,7 +1721,7 @@
       </code>
     </pre>
         <h3 id="jscatch">js模块本地缓存</h3>
-        <p>使用seajs-localcache插件实现manifest功能，公用模块在第一次请求后会缓存到localstorage中，通过modules/manifest.js控制各模块版本，默认版本号1，修改版本号即更新对应模块缓存，版本号必须是真值（非0）。</p>
+        <p>使用seajs-localcache插件实现manifest功能，通过manifest.js控制各模块版本（已合并至<code>/lib/seajs.js</code>），公用模块在第一次请求后会缓存到localstorage中，默认版本号1，修改版本号即更新对应模块缓存，版本号必须是真值（非0）。</p>
         <pre>
             <code>
   /*
