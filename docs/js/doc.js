@@ -48,6 +48,7 @@ define(function(require) {
 	};
 	
 	createNavfromTable($('#component_index'), $('#component_list'));
+	createNavfromTable($('#common_index'), $('#common_list'));
 	createNavfromTable($('#modules_index'), $('#modules_list'));
 
 	/*代码着色*/
