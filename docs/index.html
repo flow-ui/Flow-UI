@@ -5363,7 +5363,61 @@ always: null            // complete function(done|fail)
     </section>
     <section class="wrap" id="patch">
         <h2>解决方案</h2>
+
         <p>内置解决方法示例页面见项目<code>ui-template/</code>。</p>
+        <h3 id="f_b">前后端分离</h3>
+        <p>前后端分离是系统工程，其中最基本要做到的两点，一是通过数据接口实现数据交互，二是约定交互的数据格式，使<code>view</code>层操作全部落在前端，即可从开发上实现前后端解耦</p>
+        <p>框架默认提供一个<code>js/api.js</code>文件，即接口管理模块，业务代码中不再具体写死数据请求地址，而是通过该模块获取指定的api，约定前后端交互数据基本格式如下：</p>
+        <pre>
+            <code>
+{
+    "status": "Y",      //请求的状态 "Y"/"N"，也可以根据情况扩展其他
+    "data": [{...}],    //请求的数据 数组或对象
+    "msg": ""           //【可选】服务端提示信息
+}
+            </code>
+        </pre>
+        <p>典型用法如下：</p>
+        <pre>
+            <code>
+//api.js
+define(function(require, exports, module) {
+    //开发模式
+    var develop = true;
+    // api管理
+    var api = {
+        login: develop ? '/test.login.json' : '/login'
+    };
+
+    module.exports = api;
+});
+            </code>
+            <code>
+//login.js
+var api = require('js/api');
+$.ajax({
+    url: api.login,
+    data:{
+        ...
+    },
+    success:function(res){
+        /* 后端返回
+        {
+            "status": "Y", 
+            "data": {
+                "location": "/view/login/"
+            }
+        } 
+        */
+        if(res.status==='Y'){
+            if(res.data.location){
+                window.location.href = res.data.location;
+            }
+        }
+    }
+})
+            </code>
+        </pre>
         <h3 id="CrossTerminal">多终端</h3>
         <p>多终端网站开发除了css媒体查询以外，至少还要具备三项功能：响应式栅格系统、终端识别，响应图片。</p>
         <p>响应式栅格系统使页面布局可以随终端自动调整；</p>
@@ -5387,8 +5441,8 @@ always: null            // complete function(done|fail)
   &lt;/div&gt;
      </code>
    </pre>
-        <h3 id="fullpage">fullpage</h3>
-        <p>全屏翻页模式的简单实现。</p>
+        <h3 id="fullpage">全屏翻页</h3>
+        <p>全屏翻页(fullpage)模式的简单实现。</p>
         <h3 id="DemandRendering">按需渲染</h3>
         <h4>延迟显示</h4>
         <p><code>.opc0</code>将使元素透明，documentReady后显示，用于隐藏局部或整个页面的渲染过程</p>
