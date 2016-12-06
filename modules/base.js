@@ -1,8 +1,8 @@
 /*
  * name: base
- * version: 3.0.0
- * update: 剔除部分方法
- * date: 2016-12-02
+ * version: 3.0.1
+ * update: browser bug
+ * date: 2016-12-06
  */
 define('base', function(require, exports, module) {
 	'use strict';
@@ -344,7 +344,7 @@ define('base', function(require, exports, module) {
 	 */
 	var userAgent = navigator.userAgent.toLowerCase(),
 		_browser = {};
-	_browser.isMobile = !!userAgent.match(/(iphone|ipod|ipad|android|blackberry|bb10|windows phone|tizen|bada)/) && _getType() !== "Pc";
+	_browser.isMobile = !!userAgent.match(/(iphone|ipod|ipad|android|blackberry|bb10|windows phone|tizen|bada)/);
 	_browser.ie = /msie\s*(\d+)\./.exec(userAgent) ? /msie\s*(\d+)\./.exec(userAgent)[1] : Infinity;
 	_browser.platform = navigator.platform;
 	_browser.agent = userAgent;

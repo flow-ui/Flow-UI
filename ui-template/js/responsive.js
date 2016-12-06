@@ -4,13 +4,12 @@
 define(function(require) {
 	var $ = require('jquery');
 	var com = require('./common');
-	var base = require('base');
 	//
-	base.getOrient(function(orient) {
+	com.getOrient(function(orient) {
 		$('#fangxiang').val(orient);
 	});
 
-	base.getType(function(type) {
+	com.getType(function(type) {
 		$('#mark').val(type);
 	});
 
