@@ -3,7 +3,6 @@
  */
 define(function(require) {
 	var $ = require('jquery');
-	var base = require('base');
 	var com = require('./common');
 	/*
 	 * fullpage
@@ -183,7 +182,7 @@ define(function(require) {
 			}
 		};
 	//插入导航
-	if (fullPageNav && fullPageNav.split && base.getType() === 'Pc') {
+	if (fullPageNav && fullPageNav.split && com.getType() === 'Pc') {
 		var _nav = '<ul class="circles">';
 		for (var i = 0; i < $('.full_section').length; i++) {
 			if (!i) {
@@ -198,7 +197,7 @@ define(function(require) {
 		fullPageNav = $('.' + fullPageNav);
 	}
 	//启动 
-	if (base.getType() == "Pc") {
+	if (com.getType() == "Pc") {
 		//翻页按钮
 		$('body').on('click', '.'+fullpagePrev, function() {
 			oldPage = current;
