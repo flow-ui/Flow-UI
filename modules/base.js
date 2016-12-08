@@ -1,12 +1,32 @@
 /*
  * name: base
- * version: 3.0.1
- * update: browser bug
- * date: 2016-12-06
+ * version: 3.1.1
+ * update: 增加getUUID方法
+ * date: 2016-12-08
  */
 define('base', function(require, exports, module) {
 	'use strict';
 	var $ = require('jquery');
+	var getUID = function() {
+        var maxId = 65536;
+        var uid = 0;
+        return function() {
+            uid = (uid + 1) % maxId;
+            return uid;
+        };
+    } ();
+    var getUUID = function(len) {
+        len = len || 6;
+        len = parseInt(len, 10);
+        len = isNaN(len) ? 6: len;
+        var seed = "0123456789abcdefghijklmnopqrstubwxyzABCEDFGHIJKLMNOPQRSTUVWXYZ";
+        var seedLen = seed.length - 1;
+        var uuid = "";
+        while (len--) {
+            uuid += seed[Math.round(Math.random() * seedLen)];
+        }
+        return uuid;
+    };
 	/*
 	 * ajax优化
 	 */
@@ -667,6 +687,8 @@ define('base', function(require, exports, module) {
 	 * 输出
 	 */
 	module.exports = {
+		getUID: getUID,
+		getUUID: getUUID,
 		browser: _browser,
 		getStyle: _getStyle,
 		toload: _toload,
