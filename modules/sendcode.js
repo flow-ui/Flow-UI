@@ -1,7 +1,7 @@
 /*
  * name: sendcode.js
- * version: v0.0.1
- * update: build
+ * version: v0.0.2
+ * update: ajax错误处理
  * date: 2016-12-08
  */
 define("sendcode", function(require, exports, module) {
@@ -44,7 +44,6 @@ define("sendcode", function(require, exports, module) {
 					data: thedata,
 					success: function(res) {
 						if (res.status === 'Y') {
-							$.box.hide(loading);
 							//开始倒计时
 							intv = setInterval(function() {
 								tick(that);
@@ -55,6 +54,9 @@ define("sendcode", function(require, exports, module) {
 						} else {
 							$.box.msg(res.msg || '出错了');
 						}
+					},
+					always:function(){
+						$.box.hide(loading);
 					}
 				});
 			};
