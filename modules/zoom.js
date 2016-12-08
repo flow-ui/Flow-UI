@@ -5,11 +5,12 @@
  * date: 2016-04-30
  */
 define('zoom', function(require, exports, module) {
+	"use strict";
 	var $ = require('jquery'),
 		ready = require('img-ready'),
 		MouseEvent = function(e) {
 			this.x = e.pageX;
-			this.y = e.pageY
+			this.y = e.pageY;
 		};
 	seajs.importStyle('.zoomdiv{position:absolute;overflow:hidden;z-index:99;opacity:0;display:none}\
 		.zoomdiv.active{opacity:1;}\
@@ -33,7 +34,7 @@ define('zoom', function(require, exports, module) {
 				imagePaddingLeft, bigimage, bigwidth, bigheight, dragzoom;
 			if ($this.find('img').length !== 1) {
 				return console.log('.' + $this.selector + '中需有且只有1张图片');
-			};
+			}
 			(function() {
 				var _thisPosition = $this.css('position');
 				if (_thisPosition != 'absolute' && _thisPosition != 'fixed') {
@@ -43,10 +44,10 @@ define('zoom', function(require, exports, module) {
 
 			if (!$('#zoomdiv').length) {
 				$('body').append('<div class="zoomdiv" id="zoomdiv"></div>');
-			};
+			}
 			if (opt.animate && !isNaN(parseInt(opt.duration))) {
 				$('#zoomdiv').get(0).style.transition = 'opacity ease ' + parseInt(opt.duration) + 'ms';
-			};
+			}
 			dragzoom = function(e) {
 				var mouse = new MouseEvent(e),
 					scalex = (bigwidth / imageWidth),
@@ -77,7 +78,7 @@ define('zoom', function(require, exports, module) {
 			if (opt.position == "right") {
 				if (offsetLeft + offsetWidth + opt.offset + opt.zoomWidth > screen.width) {
 					leftpos = offsetLeft - opt.offset - opt.zoomWidth;
-					console.log('zoom.js: element["' + $this.attr('class') + '"] automatically positioned to the left.')
+					console.log('zoom.js: element["' + $this.attr('class') + '"] automatically positioned to the left.');
 				} else {
 					leftpos = offsetLeft + offsetWidth + opt.offset;
 				}
@@ -86,7 +87,7 @@ define('zoom', function(require, exports, module) {
 				if (leftpos < 0) {
 					leftpos = offsetLeft + offsetWidth + opt.offset;
 				}
-			};
+			}
 
 			function bindBigImg() {
 				ready(bigimage, function(w, h) {
@@ -110,7 +111,7 @@ define('zoom', function(require, exports, module) {
 					});
 					$('body').bind("mousemove", dragzoom);
 				});
-			};
+			}
 
 			// 绑定事件
 			$this.on('mouseenter', 'img', function() {
@@ -120,7 +121,7 @@ define('zoom', function(require, exports, module) {
 				imagePaddingLeft = Original.offset().left - $this.offset().left;
 				if (!$this.find('.jqZoomPup').length) {
 					$this.append("<div class='jqZoomPup'>&nbsp;</div>");
-				};
+				}
 				$this.find('.jqZoomPup').show();
 				$("#zoomdiv").css({
 					"display": "block",
@@ -130,7 +131,7 @@ define('zoom', function(require, exports, module) {
 					"height": opt.zoomHeight
 				}).html('<img src="' + bigimage + '"/>');
 				setTimeout(function(){
-					$('#zoomdiv').addClass('active')
+					$('#zoomdiv').addClass('active');
 				},0);
 				ready(Original.attr('src'), function(w, h) {
 					imageLeft = Original.offset().left;
@@ -148,7 +149,7 @@ define('zoom', function(require, exports, module) {
 				var imagetopreload = $this.find("img").attr("zoom"),
 					preloadImg = new Image();
 				preloadImg.src = imagetopreload;
-			};
-		})
-	}
+			}
+		});
+	};
 });

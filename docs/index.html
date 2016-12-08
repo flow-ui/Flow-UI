@@ -1615,135 +1615,25 @@
                     <p>无</p>
                     <h5>示例</h5>
                     <pre>
-            <code>
+                        <code>
   &lt;!--html--&gt;
   &lt;audio preload=&quot;auto&quot; &gt;
      &lt;source src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/sample.mp3&quot; /&gt;
   &lt;/audio&gt;
-  </code>
-</pre>
+                      </code>
+                    </pre>
                     <pre>
-                <code>
+                        <code>
   //js
   require('audio');
   audiojs.events.ready(function() {
     var as = audiojs.createAll();
   });
-            </code>
-</pre>
+                    </code>
+                </pre>
                 </td>
             </tr>
-            <tr id="Album（相册）">
-                <td>album</td>
-                <td>
-                    <h5>描述</h5>
-                    <p>相册插件，依赖幻灯片模块(slide.js)。</p>
-                    <h5>多终端</h5>
-                    <p>支持</p>
-                    <h5>配置</h5>
-                    <table class="table table-hover">
-                        <tr>
-                            <th>blankclose</th>
-                            <td>默认false，点空白关闭</td>
-                        </tr>
-                        <tr>
-                            <th>title</th>
-                            <td>默认null，匹配的元素文字将作为标题显示</td>
-                        </tr>
-                        <tr>
-                            <th>cell</th>
-                            <td>默认'li'，相册展示的元素</td>
-                        </tr>
-                        <tr>
-                            <th>trigger</th>
-                            <td>默认等于cell，触发相册的元素，可传入cell的子元素选择器</td>
-                        </tr>
-                        <tr>
-                            <th>type</th>
-                            <td>皮肤，可选 1:普通 | 2:前后缩略图 | 3:所有缩略图</td>
-                        </tr>
-                        <tr>
-                            <th>hook</th>
-                            <td>默认空字符串，用于附加自定义样式</td>
-                        </tr>
-                        <tr>
-                            <th>effect</th>
-                            <td>切换效果，可选 slide | fade | toggle</td>
-                        </tr>
-                        <tr>
-                            <th>animate</th>
-                            <td>动画曲线，默认“swing”</td>
-                        </tr>
-                        <tr>
-                            <th>duration</th>
-                            <td>效果时长，单位ms，默认480</td>
-                        </tr>
-                        <tr>
-                            <th>prevHtml</th>
-                            <td>默认'<i class="ion">&#xe6c3;</i>'，左箭头html</td>
-                        </tr>
-                        <tr>
-                            <th>nextHtml</th>
-                            <td>默认'<i class="ion">&#xe6c4;</i>'，右箭头html</td>
-                        </tr>
-                        <tr>
-                            <th>imgattr</th>
-                            <td>默认无，存放展示图片地址的img属性，注意<code>data-src</code>已被响应图片方案占用，避免冲突</td>
-                        </tr>
-                        <tr>
-                            <th>callback</th>
-                            <td>回调，参数同slide.js</td>
-                        </tr>
-                        <tr>
-                            <th>ext</th>
-                            <td>扩展，参数同slide.js</td>
-                        </tr>
-                    </table>
-                    <h5>示例</h5>
-                    <pre>
-            <code>
-  &lt;style&gt;
-  .demo{overflow: hidden;padding:1em;}
-  .demo li{float: left;width: 240px;height: 150px;overflow: hidden;margin:0 .5em;}
-  &lt;/style&gt;
-  &lt;div class=&quot;demo&quot;&gt;
-      &lt;ul&gt;
-          &lt;li class=&quot;show&quot;&gt;
-              &lt;img src=&quot;http://temp.im/640x320/?1&quot; &gt;
-              &lt;div class=&quot;_title&quot;&gt;1这行字会成为标题&lt;/div&gt;
-          &lt;/li&gt;
-          &lt;li class=&quot;show&quot;&gt;
-              &lt;img src=&quot;http://temp.im/640x320/?1&quot; &gt;
-              &lt;div class=&quot;_title&quot;&gt;2这行字会成为标题&lt;/div&gt;
-          &lt;/li&gt;
-          &lt;li class=&quot;show&quot;&gt;
-              &lt;img src=&quot;http://temp.im/640x320/?3&quot; &gt;
-              &lt;div class=&quot;_title&quot;&gt;3这行字会成为标题&lt;/div&gt;
-          &lt;/li&gt;
-          &lt;li class=&quot;show&quot;&gt;
-              &lt;img src=&quot;http://temp.im/640x320/?4&quot; &gt;
-              &lt;div class=&quot;_title&quot;&gt;4这行字会成为标题&lt;/div&gt;
-          &lt;/li&gt;
-          &lt;li&gt;
-              &lt;img src=&quot;http://temp.im/640x320/?5&quot; &gt;
-              &lt;div class=&quot;_title&quot;&gt;这个li不会在相册中显示&lt;/div&gt;
-          &lt;/li&gt;
-      &lt;/ul&gt;
-  &lt;/div&gt;
-        </code>
-      </pre>
-                    <pre>
-                <code>
-  require.async('album',function(){
-     $('.demo').album({
-        title: '._title',
-        cell: '.show'
-     })
-  })
-                </code>
-          </pre>
-                </td>
-            </tr>
+            
             <tr id="Copy（复制到剪贴板）">
                 <td>Copy</td>
                 <td>
@@ -1753,12 +1643,12 @@
                     <p>不支持</p>
                     <h5>示例</h5>
                     <pre>
-            <code>
+                        <code>
   &lt;div id=&quot;d_clip_button&quot;&gt;复制&lt;/div&gt;
-            </code>
-          </pre>
+                        </code>
+                      </pre>
                     <pre>
-            <code>
+                        <code>
   require('copy');
 
   $('#d_clip_button').zclip({
@@ -1767,8 +1657,8 @@
       console.log('复制成功');
     }
   });
-            </code>
-          </pre>
+                    </code>
+                  </pre>
                 </td>
             </tr>
             <tr id="Flv(flv/swf播放器)">
@@ -1816,14 +1706,14 @@
                     </table>
                     <h5>示例</h5>
                     <pre>
-              <code>
+                        <code>
   &lt;!-- html --&gt;
   &lt;div class=&quot;playarea2&quot;&gt;&lt;/div&gt;
   &lt;div class=&quot;playarea3&quot;&gt;&lt;/div&gt;
-            </code>
-            </pre>
+                        </code>
+                    </pre>
                     <pre>
-               <code>
+                        <code>
   //js
   var player=require('flv');
 
@@ -1838,9 +1728,23 @@
   //将播放器插入页面
   $('.playarea2').html(player_2);
   $('.playarea3').html(player_3);
-                  </code>
-            </pre>
+                      </code>
+                    </pre>
                 </td>
+                </tr>
+                <tr id="jquery">
+                    <td>jQuery</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>封装1.x和2.x版本的jquery，seajs.config.js中已配置别名，默认使用1.x</p>
+                        <h5>示例</h5>
+                        <pre>
+                            <code>
+    var $ = require('jquery');
+    console.log($);
+                            </code>
+                        </pre>
+                    </td>
                 </tr>
                 <tr id="My97DatePicker（日期选择器）">
                     <td>My97DatePicker</td>
@@ -1862,7 +1766,7 @@
                         </table>
                         <h5>示例</h5>
                         <pre>
-              <code>
+                            <code>
   &lt;!-- html --&gt;
   &lt;div class=&quot;wrap&quot;&gt;
     &lt;p&gt;1.点选日期选择器 &lt;/p&gt;
@@ -1871,10 +1775,10 @@
     &lt;p&gt;2.平面日期选择器 &lt;/p&gt;
     &lt;div id=&quot;calendar&quot;&gt; &lt;/div&gt;
   &lt;/div&gt;
-              </code>
-            </pre>
+                          </code>
+                        </pre>
                         <pre>
-            <code>
+                            <code>
   //js
   var datepicker=require('My97DatePicker');
   $('#birthday').on('click',function(){
@@ -1888,8 +1792,8 @@
     onpicked:function(date){        //点选回调
       alert('你选择的日期是:'+date.cal.getDateStr())
     }})
-            </code>
-</pre>
+                            </code>
+                        </pre>
                     </td>
                 </tr>
                 <tr id="Raty（评分）">
@@ -2064,16 +1968,151 @@
                         </table>
                         <h5>示例</h5>
                         <pre>
-              <code>
+                            <code>
   &lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
-              </code>
-            </pre>
+                          </code>
+                        </pre>
                         <pre>
-              <code>
+                        <code>
   require('raty');
   $('.demo').raty();
-              </code>
-            </pre>
+                          </code>
+                        </pre>
+                    </td>
+                </tr>
+                <tr id="Upload（上传）">
+                    <td>upload</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>上传插件，支持html5或ifram方式，改自<a href="https://github.com/aralejs/upload" target="_blank">aralejs/upload</a>，集成<a href="https://github.com/think2011/localResizeIMG" target="_blank">localResizeIMG</a>插件实现前端图片压缩，集成<a href="https://github.com/kairyou/html5-make-thumb" target="_blank">html5-make-thumb</a>实现选择图片返回缩略图。</p>
+                        <h5>多终端</h5>
+                        <p>支持</p>
+                        <h5>配置</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>trigger</th>
+                                <td>唤出文件选择器，可以是：选择器、element、jQuery Object</td>
+                            </tr>
+                            <tr>
+                                <th>name</th>
+                                <td>上传文件时对应的 name</td>
+                            </tr>
+                            <tr>
+                                <th>action</th>
+                                <td>表单提交的地址。</td>
+                            </tr>
+                            <tr>
+                                <th>data</th>
+                                <td>随表单一起要提交的数据。</td>
+                            </tr>
+                            <tr>
+                                <th>accept</th>
+                                <td>支持的文件类型，比如 image/\* 为只上传图片类的文件。可选项。</td>
+                            </tr>
+                            <tr>
+                                <th>change</th>
+                                <td>选择文件回调，回调参数为当前所选文件对象。若不设置，选择文件将自动上传，默认null</td>
+                            </tr>
+                            <tr>
+                                <th>progress</th>
+                                <td>上传的进度回调，不支持 IE9-。回调的参数分别为 ajaxEvent, 当前上传字节，总字节，进度百分比和当前文件列表。</td>
+                            </tr>
+                            <tr>
+                                <th>error</th>
+                                <td>上传失败的回调函数。</td>
+                            </tr>
+                            <tr>
+                                <th>multiple</th>
+                                <td>是否支持多文件上传。默认为 false。</td>
+                            </tr>
+                            <tr>
+                                <th>compress</th>
+                                <td>图片是否上传前压缩。默认为 false。</td>
+                            </tr>
+                            <tr>
+                                <th>compressOption</th>
+                                <td>上传压缩参数。默认 {}，可配置width和height。</td>
+                            </tr>
+                            <tr>
+                                <th>thumb</th>
+                                <td>接收缩略图的回调，回调参数为缩略图base64和文件对象。仅支持IE10及以上浏览器。</td>
+                            </tr>
+                            <tr>
+                                <th>thumbOption</th>
+                                <td>生成缩略图的配置，默认
+                                    <pre>
+                                        <code>
+width: 0,               // thumbnail width
+height: 0,              //thumbnail height
+fill: false,            // fill color when the image is smaller than thumbnails size.
+background: '#fff',     // fill color‎
+type: 'image/jpeg',     // mime-type for thumbnail ('image/jpeg' | 'image/png')
+size: 'contain',        // CSS3 background-size: contain | cover | auto
+mark: {},               // watermark
+  // text watermark.
+  // mark = {padding: 5, height: 18, text: 'test', color: '#000', font: '400 18px Arial'}
+  // font: normal, bold, italic
+  // bgColor: '#ccc' (background color); bgPadding: 5 (padding)
+  // image watermark. (Note: cross-domain is not allowed)
+  // mark = {padding: 5, src: 'mark.png', width: 34, height: 45};
+stretch: false,         // stretch image(small versions) to fill thumbnail (size = auto | contain)
+before: null,           // call function before process image.
+fail: null,             // error function
+always: null            // complete function(done|fail)
+                                          </code>
+                                        </pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>success</th>
+                                    <td>上传成功的回调函数。</td>
+                                </tr>
+                            </table>
+                            <h5>演示</h5>
+                            <pre>
+                                <code>
+&lt;button type=&quot;button&quot; id=&quot;selectFile&quot; class=&quot;btn btn-primary&quot;&gt;选择&lt;/button&gt;
+&lt;button type=&quot;button&quot; id=&quot;doupload&quot; class=&quot;btn btn-warning&quot;&gt;上传&lt;/button&gt;
+                              </code>
+                            </pre>
+                            <pre>
+                                <code>
+  require.async('upload', function(Uploader) {
+    var uploader = new Uploader({
+      trigger: '#selectFile',
+      name: 'file',
+      action: seajs.root + "/test/fileupload.php",
+      progress: function(event, position, total, percent) {
+        console.log('已上传 ' + position + '/' + total + ' ' + percent + '%')
+      },
+      compress: true,
+      compressOption: {
+        width: 640
+      },
+      change: function(file){
+        console.log(file)
+      },
+      thumb: function(base64, file){
+        var thumb = new Image();
+        thumb.src = base64;
+        thumb.alt = file.title;
+        $('body').append(thumb);
+      },
+      thumbOption: {
+        width: 100,
+        height: 100
+      },
+      success: function(response) {
+        console.log('上传完成')
+      }
+    });
+
+    $('#doupload').on('click', function() {
+      uploader.submit()
+    })
+  })
+                          </code>
+                        </pre>
                     </td>
                 </tr>
                 <tr id="Validform（表单验证）">
@@ -2214,7 +2253,7 @@
                                 <td>
                                     <p>ajaxurl（实时验证）的处理页需要返回的数据格式：</p>
                                     <pre>
-                      <code>
+                                        <code>
   /*
   * type: json
   * status: 状态，"y"或"n"
@@ -2225,8 +2264,8 @@
     "status": "n",
     "info": "用户名已被注册！"
   }
-                      </code>
-                    </pre>
+                                  </code>
+                                </pre>
                                 </td>
                             </tr>
                             <tr>
@@ -2234,7 +2273,7 @@
                                 <td>
                                     <p>验证前的操作，例如验证前要先检查登陆状态，这些代码应该在"beforeCheck"回调中写，如果明确"return false"的话将不会继续执行表单验证：</p>
                                     <pre>
-                      <code>
+                                        <code>
   var loginForm = $('#reg_form').Validform({
       beforeCheck:function(form){
         //在这做验证前操作，可以通过"return false"语句中断验证
@@ -2243,8 +2282,8 @@
         
       }
     });
-                      </code>
-                    </pre>
+                                  </code>
+                                </pre>
                                 </td>
                             </tr>
                             <tr>
@@ -2252,7 +2291,7 @@
                                 <td>
                                     <p>验证后、提交前的操作，例如要在表单验证之后提交之前，先对某些表单数据做合并或格式转化操作，应该在"beforeSubmit"回调中做处理，如果该回调中明确 "return false" 的话,表单将不被提交：</p>
                                     <pre>
-                      <code>
+                                        <code>
   var loginForm = $('#reg_form').Validform({
       beforeSubmit:function(form){
         //在这里对表单数组做处理，也可以通过"return false"语句中断提交
@@ -2261,19 +2300,19 @@
         
       }
     });
-                      </code>
-                    </pre>
+                                  </code>
+                                </pre>
                                 </td>
                             </tr>
                         </table>
                         <h5>示例</h5>
                         <pre>
-            <code>
+                            <code>
   &lt;style&gt;
   .demo label{display: inline-block;width: 5em;vertical-align: middle;}
   &lt;/style&gt;
-            </code>
-            <code>
+                            </code>
+                            <code>
   &lt;form class=&quot;demo&quot; id=&quot;reg_form&quot;&gt;
      &lt;p&gt;
      &lt;label&gt;用户名：&lt;/label&gt;
@@ -2307,10 +2346,10 @@
      &lt;button type=&quot;submit&quot; class=&quot;btn&quot;&gt;注册&lt;/button&gt;
      &lt;/p&gt;
   &lt;/form&gt;
-            </code>
-            </pre>
+                            </code>
+                        </pre>
                         <pre>
-            <code>
+                            <code>
   //js
   require('validform');
   var loginForm = $('#reg_form').Validform({
@@ -2336,8 +2375,8 @@
         
       }
     });
-            </code>
-            </pre>
+                            </code>
+                        </pre>
                     </td>
                 </tr>
                 <tr id="Video（跨平台视频播放）">
@@ -2385,15 +2424,15 @@
                         </table>
                         <h5>示例</h5>
                         <pre>
-            <code>
+                            <code>
   &lt;video id=&quot;really-cool-video&quot; class=&quot;video-js vjs-default-skin&quot;&gt;
     &lt;source src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/sample.mp4&quot; type='video/mp4'&gt;
     &lt;p class=&quot;vjs-no-js&quot;&gt;不支持js的浏览器会看到这个&lt;/p&gt;
   &lt;/video&gt;
-            </code>
-            </pre>
+                            </code>
+                        </pre>
                         <pre>
-               <code>
+                            <code>
   require('video');
   var player = videojs('really-cool-video', {
     width: 640,
@@ -2403,8 +2442,8 @@
     autoplay:true,
     preload:'auto'
   });
-                  </code>
-            </pre>
+                            </code>
+                        </pre>
                     </td>
                     </tr>
                     <tr id="Webuploader（上传）">
@@ -2419,7 +2458,7 @@
                             <p>见<a href="http://fex.baidu.com/webuploader/doc/index.html" target="_blank">官网文档</a></p>
                             <h5>示例</h5>
                             <pre>
-            <code>
+                                <code>
   &lt;style&gt;
   .demo{margin:50px;border:4px dashed #ccc;padding:100px;}
   .uploader-list{overflow: hidden;margin:10px 0;}
@@ -2440,10 +2479,10 @@
       &lt;div id=&quot;filePicker&quot; class=&quot;btn btn-default&quot; &gt;选择图片&lt;/div&gt;
       &lt;div id=&quot;ctlBtn&quot; class=&quot;webuploader-pick btn btn-success&quot;&gt;开始上传&lt;/div&gt;
   &lt;/div&gt;
-            </code>
-          </pre>
-                            <pre>
-            <code>
+                                </code>
+                              </pre>
+                                <pre>
+                                    <code>
   var WebUploader = require('webuploader');
 
   //初始化上传实例
@@ -2546,8 +2585,119 @@
     DOM = null;
   });
 
-            </code>
-          </pre>
+                            </code>
+                          </pre>
+                        </td>
+                    </tr>
+                    <tr id="Album（相册）">
+                        <td>album</td>
+                        <td>
+                            <h5>描述</h5>
+                            <p>相册插件，依赖幻灯片模块(slide.js)。</p>
+                            <h5>多终端</h5>
+                            <p>支持</p>
+                            <h5>配置</h5>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>blankclose</th>
+                                    <td>默认false，点空白关闭</td>
+                                </tr>
+                                <tr>
+                                    <th>title</th>
+                                    <td>默认null，匹配的元素文字将作为标题显示</td>
+                                </tr>
+                                <tr>
+                                    <th>cell</th>
+                                    <td>默认'li'，相册展示的元素</td>
+                                </tr>
+                                <tr>
+                                    <th>trigger</th>
+                                    <td>默认等于cell，触发相册的元素，可传入cell的子元素选择器</td>
+                                </tr>
+                                <tr>
+                                    <th>type</th>
+                                    <td>皮肤，可选 1:普通 | 2:前后缩略图 | 3:所有缩略图</td>
+                                </tr>
+                                <tr>
+                                    <th>hook</th>
+                                    <td>默认空字符串，用于附加自定义样式</td>
+                                </tr>
+                                <tr>
+                                    <th>effect</th>
+                                    <td>切换效果，可选 slide | fade | toggle</td>
+                                </tr>
+                                <tr>
+                                    <th>animate</th>
+                                    <td>动画曲线，默认“swing”</td>
+                                </tr>
+                                <tr>
+                                    <th>duration</th>
+                                    <td>效果时长，单位ms，默认480</td>
+                                </tr>
+                                <tr>
+                                    <th>prevHtml</th>
+                                    <td>默认'<i class="ion">&#xe6c3;</i>'，左箭头html</td>
+                                </tr>
+                                <tr>
+                                    <th>nextHtml</th>
+                                    <td>默认'<i class="ion">&#xe6c4;</i>'，右箭头html</td>
+                                </tr>
+                                <tr>
+                                    <th>imgattr</th>
+                                    <td>默认无，存放展示图片地址的img属性，注意<code>data-src</code>已被响应图片方案占用，避免冲突</td>
+                                </tr>
+                                <tr>
+                                    <th>callback</th>
+                                    <td>回调，参数同slide.js</td>
+                                </tr>
+                                <tr>
+                                    <th>ext</th>
+                                    <td>扩展，参数同slide.js</td>
+                                </tr>
+                            </table>
+                            <h5>示例</h5>
+                            <pre>
+                                <code>
+          &lt;style&gt;
+          .demo{overflow: hidden;padding:1em;}
+          .demo li{float: left;width: 240px;height: 150px;overflow: hidden;margin:0 .5em;}
+          &lt;/style&gt;
+          &lt;div class=&quot;demo&quot;&gt;
+              &lt;ul&gt;
+                  &lt;li class=&quot;show&quot;&gt;
+                      &lt;img src=&quot;http://temp.im/640x320/?1&quot; &gt;
+                      &lt;div class=&quot;_title&quot;&gt;1这行字会成为标题&lt;/div&gt;
+                  &lt;/li&gt;
+                  &lt;li class=&quot;show&quot;&gt;
+                      &lt;img src=&quot;http://temp.im/640x320/?1&quot; &gt;
+                      &lt;div class=&quot;_title&quot;&gt;2这行字会成为标题&lt;/div&gt;
+                  &lt;/li&gt;
+                  &lt;li class=&quot;show&quot;&gt;
+                      &lt;img src=&quot;http://temp.im/640x320/?3&quot; &gt;
+                      &lt;div class=&quot;_title&quot;&gt;3这行字会成为标题&lt;/div&gt;
+                  &lt;/li&gt;
+                  &lt;li class=&quot;show&quot;&gt;
+                      &lt;img src=&quot;http://temp.im/640x320/?4&quot; &gt;
+                      &lt;div class=&quot;_title&quot;&gt;4这行字会成为标题&lt;/div&gt;
+                  &lt;/li&gt;
+                  &lt;li&gt;
+                      &lt;img src=&quot;http://temp.im/640x320/?5&quot; &gt;
+                      &lt;div class=&quot;_title&quot;&gt;这个li不会在相册中显示&lt;/div&gt;
+                  &lt;/li&gt;
+              &lt;/ul&gt;
+          &lt;/div&gt;
+                                </code>
+                              </pre>
+                            <pre>
+                                <code>
+          require.async('album',function(){
+             $('.demo').album({
+                title: '._title',
+                cell: '.show'
+             })
+          })
+                                </code>
+                          </pre>
                         </td>
                     </tr>
                     <tr id="Autocomplete（自动补全）">
@@ -2564,7 +2714,7 @@
                                     <th>serviceUrl</th>
                                     <td>远程请求地址，返回数据格式：
                                         <pre>
-                    <code>
+                                            <code>
 //格式一，有附加数据
 {
     "suggestions": [
@@ -2578,8 +2728,8 @@
     "query": "Unit",
     "suggestions": ["United Arab Emirates", "United Kingdom", "United States"]
 }
-                    </code>
-                  </pre>
+                                        </code>
+                                      </pre>
                                     </td>
                                 </tr>
                                 <tr>
@@ -2594,16 +2744,16 @@
                             <p>完整API见<a href="https://github.com/devbridge/jQuery-Autocomplete#api" target="_blank">官方文档</a></p>
                             <h5>示例</h5>
                             <pre>
-            <code>
+                                <code>
   &lt;!-- html --&gt;
   &lt;form&gt;
       &lt;input type=&quot;text&quot; name=&quot;country&quot; id=&quot;autocomplete-ajax&quot; /&gt;
       &lt;button type=&quot;submit&quot;&gt;search&lt;/button&gt;
   &lt;/form&gt;
-            </code>
-          </pre>
+                                </code>
+                              </pre>
                             <pre>
-            <code>
+                                <code>
     // js
     var countriesArray = [{"value":"Andorra","data":"AD"},{"value":"United Arab Emirates","data":"AE"},{"value":"Afghanistan","data":"AF"},{"value":"Antigua and Barbuda","data":"AG"},{"value":"Anguilla","data":"AI"},{"value":"Albania","data":"AL"},{"value":"Armenia","data":"AM"},{"value":"Netherlands Antilles","data":"AN"},{"value":"Angola","data":"AO"},{"value":"Antarctica","data":"AQ"},{"value":"Argentina","data":"AR"},{"value":"American Samoa","data":"AS"},{"value":"Austria","data":"AT"},{"value":"Australia","data":"AU"},{"value":"Aruba","data":"AW"},{"value":"Åland Islands","data":"AX"},{"value":"Azerbaijan","data":"AZ"},{"value":"Bosnia and Herzegovina","data":"BA"},{"value":"Barbados","data":"BB"},{"value":"Bangladesh","data":"BD"},{"value":"Belgium","data":"BE"},{"value":"Burkina Faso","data":"BF"},{"value":"Bulgaria","data":"BG"},{"value":"Bahrain","data":"BH"},{"value":"Burundi","data":"BI"},{"value":"Benin","data":"BJ"},{"value":"Saint Barthélemy","data":"BL"},{"value":"Bermuda","data":"BM"},{"value":"Brunei","data":"BN"},{"value":"Bolivia","data":"BO"},{"value":"British Antarctic Territory","data":"BQ"},{"value":"Brazil","data":"BR"},{"value":"Bahamas","data":"BS"},{"value":"Bhutan","data":"BT"},{"value":"Bouvet Island","data":"BV"},{"value":"Botswana","data":"BW"},{"value":"Belarus","data":"BY"},{"value":"Belize","data":"BZ"},{"value":"Canada","data":"CA"},{"value":"Cocos [Keeling] Islands","data":"CC"},{"value":"Congo - Kinshasa","data":"CD"},{"value":"Central African Republic","data":"CF"},{"value":"Congo - Brazzaville","data":"CG"},{"value":"Switzerland","data":"CH"},{"value":"Côte d’Ivoire","data":"CI"},{"value":"Cook Islands","data":"CK"},{"value":"Chile","data":"CL"},{"value":"Cameroon","data":"CM"},{"value":"China","data":"CN"},{"value":"Colombia","data":"CO"},{"value":"Costa Rica","data":"CR"},{"value":"Serbia and Montenegro","data":"CS"},{"value":"Canton and Enderbury Islands","data":"CT"},{"value":"Cuba","data":"CU"},{"value":"Cape Verde","data":"CV"},{"value":"Christmas Island","data":"CX"},{"value":"Cyprus","data":"CY"},{"value":"Czech Republic","data":"CZ"},{"value":"East Germany","data":"DD"},{"value":"Germany","data":"DE"},{"value":"Djibouti","data":"DJ"},{"value":"Denmark","data":"DK"},{"value":"Dominica","data":"DM"},{"value":"Dominican Republic","data":"DO"},{"value":"Algeria","data":"DZ"},{"value":"Ecuador","data":"EC"},{"value":"Estonia","data":"EE"},{"value":"Egypt","data":"EG"},{"value":"Western Sahara","data":"EH"},{"value":"Eritrea","data":"ER"},{"value":"Spain","data":"ES"},{"value":"Ethiopia","data":"ET"}];
 
@@ -2614,8 +2764,244 @@
             console.log(data);
           }
     });
-            </code>
-          </pre>
+                            </code>
+                          </pre>
+                        </td>
+                    </tr>
+                    <tr id="Base（工具包）">
+                        <td>base</td>
+                        <td>
+                            <h5>描述</h5>
+                            <p>封装常用工具</p>
+                            <h5>功能列表</h5>
+                            <table class="table table-bordered js-base-table">
+                              <tr>
+                                 <td>ajaxSetup</td>
+                                 <td>
+                                  <p>$.ajax增强，对请求的json数据做如下格式要求：</p>
+                                  <pre>
+                                    <code>
+{
+  status: "Y/N",   //必须，代表操作是否成功
+  data: "...",     //请求返回的数据
+  msg: "..."       //操作提示信息
+}
+                                    </code>
+                                  </pre>
+                                  <ol>
+                                    <li>默认超时时间配置，见seajs.config.js文件：
+                                    <code>
+seajs.set = {
+  util: {
+    timeout: 1.5e4
+  }
+};
+                                      </code>
+                                    </li>
+                                    <li>默认<code>dataType</code>为<code>"json"</code>；</li>
+                                    <li>支持数据本地缓存，需浏览器支持localStorage，<code>localCache</code>参数传入数字将作为超时时间（毫秒数），传入0或任意假值将清除该缓存，示例
+                                        <pre>
+                                            <code>
+var $ = require('jquery');
+var base = require('base');
+base.ajaxSetup($);
+$.ajax({
+  url: api.getxxx,
+  localCache: 1e5,                  //缓存100s
+  success:function(res, err){
+    
+  }
+})
+                                            </code>
+                                        </pre>
+                                    </li>
+                                    <li><code>success</code>回调增强，success回调除了请求返回的数据以外还将收到一个err参数，布尔值，代表请求是否失败（根据status值判断，跟默认的error回调无关），如果返回数据带有msg信息，将以box插件的msg方法提示2s，提示结束后继续执行success，示例：
+                                      <pre>
+                                        <code>
+$.ajax({
+  url: seajs.root + '/test/data.json',
+  success:function(res, err){
+    if(err){
+      return console.warn('请求失败');
+    }
+    console.log(res);
+  }
+})
+                                        </code>
+                                      </pre>
+                                    </li>
+                                    <li><code>error</code>回调默认处理，根据ajax的四种错误原因使用box插件弹出提示</li>
+                                    <li>ajax请求合并，见 <a href="#ajaxcombo">【解决方案-AJAX合并】</a></li>
+                                  </ol>
+                                  
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>base.browser</td>
+                                 <td>
+                                  <p>浏览器信息：</p>
+                                  <table class="table table-hover">
+                                    <tr>
+                                      <th>base.browser.isMobile:</th>
+                                      <td>[boolean]是否移动设备 </td>
+                                    </tr>
+                                    <tr>
+                                      <th>base.browser.ie:</th>
+                                      <td>[number]返回ie版本，ie11及以上和非ie返回0</td>
+                                    </tr>
+                                    <tr>
+                                      <th>base.browser.platform:</th>
+                                      <td>[string]浏览器运行平台</td>
+                                    </tr>
+                                    <tr>
+                                      <th>base.browser.agent:</th>
+                                      <td>[string]浏览器用户代理头信息</td>
+                                    </tr>
+                                    <tr>
+                                      <th>base.browser.support3d:</th>
+                                      <td>[boolean]是否支持3d转换</td>
+                                    </tr>
+                                  </table>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>base.getStyle(ele,attr)</td>
+                                 <td>获取元素的属性值，ele：元素；attr：要获取的属性，返回属性值</td>
+                              </tr>
+                              <tr>
+                                 <td>$.cookie(name,value)</td>
+                                 <td>操作cookie，name：键名；value：设置为的值，一个参数取值，返回value，两个参数赋值，无返回值</td>
+                              </tr>
+                              <tr>
+                                 <td>base.toload(option)</td>
+                                 <td>
+                                   <p>通用分页加载，自动生成递增页码，支持多进程。</p>
+                                   <p></p>
+                                <pre>
+                                <code>
+  /*
+  * @option.type(string):请求方式，默认'post'
+  * @option.url(string):请求地址，默认无
+  * @option.size(number):请求条数，默认6
+  * @option.data(object):请求参数，默认{}，不得有"page_index"和"page_size"键
+  * @option.dataType(string):返回格式，默认'json'
+  * @option.reload(boolean):初始化页码，默认false，用于实现"刷新"类功能
+  * @option.success(function):ajax成功回调，默认无
+  * @option.error(function):ajax错误回调，默认无
+  * @服务器返回值:默认需返回status键为'ok'的json，否则视为异常或没有下一页数据，若修改dataType为非json，只要有返回值就视为正常
+  */
+
+  base.toload({
+    type:'get',
+    url:seajs.root + '/test/data.json',
+    data:{
+      "method":"test"
+    },
+    success:function(data){ 
+      console.log(data);
+    }
+  });
+
+  // 服务器端将接收到的参数：
+  {
+    "method" : "test",
+    "page_index" : 0,           //从0开始，每次+1
+    "page_size" : 6
+  }
+
+  //服务器端需要返回的数据：
+  {
+    "status" : "ok",
+    "data" : ... 
+  }
+
+                                        </code>
+                                      </pre>
+                                     </td>
+                                  </tr>
+                                  <tr>
+                                     <td>base.throttle(fn, [delay], [duration])</td>
+                                     <td>
+                                        <p>函数节流，用于过滤resize，mousemove，scroll这类频连续繁触发事件</p>
+                                      <pre>
+                                        <code>
+  /*
+  * @fn(function)：要节流执行的函数
+  * @delay(number): 隔内连续触发的事件将被屏蔽，可选，默认64，单位ms
+  * @duration(number): 间隔内至少执行一次事件，可选，默认640，单位ms
+  * return(function)：新的节流函数，可直接在密集事件中执行
+  */
+
+  // 查看控制台，IE效果更明显
+  var thro = base.throttle(function(){
+        console.log('thro resize')
+      });
+
+  $(window).on('resize',thro);
+                                        </code>
+                                      </pre>
+                                     </td>
+                                  </tr>
+                                  <tr>
+                                     <td>base.getUrlParam(name, [url])</td>
+                                     <td>
+                                     <p>获取url参数。</p>
+                                      <pre>
+                                        <code>
+  /*
+  * @name：要获取的参数名
+  * @url：要检索的url，可选，默认检索当前窗口url
+  */
+
+  // 当前url
+  http://localhost:8001/web/pro-list.htm?cat_id=2643
+
+  // js
+  console.log(base.getUrlParam('cat_id'));                // 输出 2643
+  console.log(base.getUrlParam('cat_id','http://a.b.c?cat_id=wakaka'));  // 输出 wakaka
+                                    </code>
+                                  </pre>
+                                 </td>
+                              </tr>
+                              <tr id="base-getScript">
+                                <td>base.getScript(file, [callabck], [option])</td>
+                                <td>
+                                  <p>加载未模块化的普通js文件，可控制jquery依赖、指定css依赖、添加回调，支持批量加载及批量线性依赖加载。</p>
+                                  <pre>
+                                    <code>
+  /*
+  * @file:(string/array) 加载的js路径，规则与require/require.async方法相同
+  * @callabck(function): 加载完成的回调，接收加载的js文本和返回状态，批量加载只返回最后一个js文本
+  * @option(object): 若callback是object格式将被作为option使用
+  * @option.css(boolean/string/array): 是否依赖css，默认false，<br>传入true将加载与js同名同级css文件
+  * @option.jquery(boolean): 被加载脚本是否依赖jquery，默认false
+  * @option.rely(boolen): 批量加载的js是否保持线性顺序，默认false，将同时请求
+  */
+  //利用线性加载特定版本jquery的例子
+  base.getScript(['http://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js', seajs.root + '/test/test2'], function(data) {
+      var $ = window.jQuery;
+      $.fn.test2();
+      }, {
+      rely: true
+    });
+  //也可以写成base.getScript(file, callabck)快捷方式，百度地图示例：
+  base.getScript('http://api.map.baidu.com/getscript?v=2.0&ak=D1DX6yGc5HGh28jtaAwNzcBi', function() {
+    var theBody = document.getElementsByTagName('body')[0];
+    theBody.style.height='600px';
+    theBody.setAttribute('id','content');
+    var map = new BMap.Map("content");
+    var point = new BMap.Point(116.404, 39.915);
+    map.centerAndZoom(point, 15);
+    window.setTimeout(function() {
+      map.panTo(new BMap.Point(116.409, 39.918));
+    }, 2000);
+  })
+                                    </code>
+                                  </pre>
+                                </td>
+                              </tr>
+                              
+                           </table>
                         </td>
                     </tr>
                     <tr id="Bdshare（百度分享）">
@@ -2643,7 +3029,7 @@
                             </ol>
                             <h5>示例</h5>
                             <pre>
-                <code>
+                                <code>
    &lt;!-- 如果页面内有多组分享 --&gt;
    &lt;div class=&quot;bdsharebuttonbox&quot; data-tag=&quot;share_1&quot; data-sharetitle=&quot;自定义分享标题&quot;&gt;
       &lt;a class=&quot;bds_mshare&quot; data-cmd=&quot;mshare&quot;&gt;&lt;/a&gt;
@@ -2665,10 +3051,10 @@
       &lt;a class=&quot;bds_more&quot; data-cmd=&quot;more&quot;&gt;更多&lt;/a&gt;
       &lt;a class=&quot;bds_count&quot; data-cmd=&quot;count&quot;&gt;&lt;/a&gt;
    &lt;/div&gt;
-  </code>
-</pre>
+                              </code>
+                            </pre>
                             <pre>
-                <code>
+                                <code>
    //多组分享js         
    require.async('bdshare',function(bdshare){
        bdshare({
@@ -2698,8 +3084,8 @@
             bdStyle: 2
          }])
    });
-               </code>
-</pre>
+                               </code>
+                            </pre>
                         </td>
                     </tr>
                     <tr id="Box（弹窗）">
@@ -2716,31 +3102,31 @@
                                     <td>
                                         <p>关闭弹窗，接收弹窗id为参数，无参数将关闭页面上所有弹窗</p>
                                         <pre>
-                    <code>
+                                            <code>
     $.box.hide(boxid);
-                    </code>
-                  </pre>
+                                        </code>
+                                      </pre>
                                     </td>
                                 </tr>
                                 <th>$.box.setSize(boxid,[config])</th>
                                 <td>
                                     <p>box尺寸重设，接收弹窗id和尺寸配置为参数，无配置时将重计算指定弹窗的尺寸</p>
                                     <pre>
-                    <code>
+                                        <code>
     $.box.setSize(boxid,{
       width:100,
       height:68
     });
-                    </code>
-                  </pre>
-                                </td>
-                    </tr>
-                    <tr>
-                        <th>$.box.alert()</th>
-                        <td>
-                            <p>提醒弹窗，弹出短信息，有一个确认按钮</p>
-                            <pre>
-                    <code>
+                                        </code>
+                                      </pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>$.box.alert()</th>
+                                    <td>
+                                        <p>提醒弹窗，弹出短信息，有一个确认按钮</p>
+                                        <pre>
+                                            <code>
   /*
   * @param.message[string]:消息内容
   * @param.callback[function]:确认按钮的回调
@@ -2748,32 +3134,32 @@
   * @return: boxID
   */
   $.box.alert( message, [callback], [options] );
-                    </code>
-                  </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>$.box.msg()</th>
-                        <td>
-                            <p>消息弹窗，在屏幕顶部显示一条全局消息，特有一个color配置用来定义消息请景色，可选"info，primary，success，warning，danger"</p>
-                            <pre>
-                    <code>
+                                        </code>
+                                      </pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>$.box.msg()</th>
+                                    <td>
+                                        <p>消息弹窗，在屏幕顶部显示一条全局消息，特有一个color配置用来定义消息请景色，可选"info，primary，success，warning，danger"</p>
+                                        <pre>
+                                            <code>
   /*
   * @param.message[string]:消息内容
   * @param.options[object]:其他参数
   * @return: boxID
   */
   $.box.msg( message, [options] );
-                    </code>
-                  </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>$.box.confirm()</th>
-                        <td>
-                            <p>确认弹窗，弹出一条确认信息，有一个确认按钮和一个取消按钮</p>
-                            <pre>
-                    <code>
+                                        </code>
+                                      </pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>$.box.confirm()</th>
+                                    <td>
+                                        <p>确认弹窗，弹出一条确认信息，有一个确认按钮和一个取消按钮</p>
+                                        <pre>
+                                            <code>
   /*
   * @param.message[string]:消息内容
   * @param.sureCall[function]:确认按钮的回调
@@ -2782,16 +3168,16 @@
   * @return: boxID
   */
   $.box.confirm( message, [sureCall], [cancelCall], [options] );
-                    </code>
-                  </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>$.box.ajax()</th>
-                        <td>
-                            <p>ajax弹窗，弹出ajax获得的内容</p>
-                            <pre>
-                    <code>
+                                        </code>
+                                      </pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>$.box.ajax()</th>
+                                    <td>
+                                        <p>ajax弹窗，弹出ajax获得的内容</p>
+                                        <pre>
+                                            <code>
   /*
   * @param.uri[string]:ajax地址
   * @param.params[object]:ajax参数
@@ -2799,16 +3185,16 @@
   * @return: boxID
   */
   $.box.ajax( uri, [params], [options] );
-                    </code>
-                  </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>$.box.ifram()</th>
-                        <td>
-                            <p>弹出一个ifram窗口</p>
-                            <pre>
-                    <code>
+                                        </code>
+                                      </pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>$.box.ifram()</th>
+                                    <td>
+                                        <p>弹出一个ifram窗口</p>
+                                        <pre>
+                                            <code>
   /*
   * @param.uri[string]:ifram页面地址
   * @param.params[object]:ifram参数，包括name，width，height
@@ -2816,127 +3202,127 @@
   * @return: boxID
   */
   $.box.ifram( uri, [params], [options] );
-                    </code>
-                  </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>$.box.img()</th>
-                        <td>
-                            <p>弹出一张图片</p>
-                            <pre>
-                    <code>
+                                        </code>
+                                      </pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>$.box.img()</th>
+                                    <td>
+                                        <p>弹出一张图片</p>
+                                        <pre>
+                                            <code>
   /*
   * @param.src[string]:图片地址
   * @param.options[object]:其他参数
   * @return: boxID
   */
   $.box.img( src, [options] );
-                    </code>
-                  </pre>
-                        </td>
-                    </tr>
-                    </table>
-                    <h5>配置</h5>
-                    <table class="table table-hover">
-                        <tr>
-                            <th>top</th>
-                            <td>默认无，若有值将固定弹窗据window顶部距离</td>
-                        </tr>
-                        <tr>
-                            <th>title</th>
-                            <td>默认“对话框”，对话框标题html</td>
-                        </tr>
-                        <tr>
-                            <th>oktext</th>
-                            <td>修改【确定】按钮的文字</td>
-                        </tr>
-                        <tr>
-                            <th>canceltext</th>
-                            <td>修改【取消】按钮的文字</td>
-                        </tr>
-                        <tr>
-                            <th>shut</th>
-                            <td>默认“×”，关闭按钮html，传入false将没有关闭按钮</td>
-                        </tr>
-                        <tr>
-                            <th>width</th>
-                            <td>默认auto，弹窗宽度</td>
-                        </tr>
-                        <tr>
-                            <th>height</th>
-                            <td>默认高度，弹窗高度</td>
-                        </tr>
-                        <tr>
-                            <th>layout</th>
-                            <td>默认true，是否包含边框</td>
-                        </tr>
-                        <tr>
-                            <th>setposi</th>
-                            <td>默认true，无layout的情况下，是否自动添加定位样式，手动定位需要设为false</td>
-                        </tr>
-                        <tr>
-                            <th>bar</th>
-                            <td>默认true，是否显示标题栏</td>
-                        </tr>
-                        <tr>
-                            <th>bg</th>
-                            <td>默认true，是否显示背景层</td>
-                        </tr>
-                        <tr>
-                            <th>fix</th>
-                            <td>默认true，弹窗是否框固定在页面上</td>
-                        </tr>
-                        <tr>
-                            <th>bgclose</th>
-                            <td>默认true，是否点击背景层关闭</td>
-                        </tr>
-                        <tr>
-                            <th>drag</th>
-                            <td>默认false，是否可拖拽</td>
-                        </tr>
-                        <tr>
-                            <th>protect</th>
-                            <td>默认false，若为true，关闭后会将弹出的元素<code>appendTo('body')</code></td>
-                        </tr>
-                        <tr>
-                            <th>delay</th>
-                            <td>默认0，弹窗自动关闭时间, 0和负值不触发</td>
-                        </tr>
-                        <tr>
-                            <th>lang</th>
-                            <td>默认0，语言选择，0：中文 1：英文</td>
-                        </tr>
-                        <tr>
-                            <th>hook</th>
-                            <td>自定义样式钩子，用于给弹窗附加class修改样式，默认无</td>
-                        </tr>
-                        <tr>
-                            <th>color</th>
-                            <td>$.box.msg方法的情景色，使用的是ui.css提供的几种背景色，默认info，可选info，primary，success，warning，danger</td>
-                        </tr>
-                        <tr>
-                            <th>onshow(box)</th>
-                            <td>默认无，弹窗打开事件，接收弹窗DOM对象为参数</td>
-                        </tr>
-                        <tr>
-                            <th>onclose()</th>
-                            <td>默认无，弹窗关闭事件</td>
-                        </tr>
-                    </table>
-                    <h5>返回</h5>
-                    <table class="table">
-                        <tr>
-                            <th>boxid</th>
-                            <td>
-                                <p>每次$.box调用都将返回一个boxid，用于$.box.hide()的参数时，可关闭本弹窗实例</p>
-                                <p><code>var mybox = $.box(...);</code></p>
-                            </td>
-                        </tr>
-                    </table>
-                    <h5>示例</h5>
-                    <pre>
-              <code>
+                                        </code>
+                                      </pre>
+                                    </td>
+                                </tr>
+                            </table>
+                        <h5>配置</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>top</th>
+                                <td>默认无，若有值将固定弹窗据window顶部距离</td>
+                            </tr>
+                            <tr>
+                                <th>title</th>
+                                <td>默认“对话框”，对话框标题html</td>
+                            </tr>
+                            <tr>
+                                <th>oktext</th>
+                                <td>修改【确定】按钮的文字</td>
+                            </tr>
+                            <tr>
+                                <th>canceltext</th>
+                                <td>修改【取消】按钮的文字</td>
+                            </tr>
+                            <tr>
+                                <th>shut</th>
+                                <td>默认“×”，关闭按钮html，传入false将没有关闭按钮</td>
+                            </tr>
+                            <tr>
+                                <th>width</th>
+                                <td>默认auto，弹窗宽度</td>
+                            </tr>
+                            <tr>
+                                <th>height</th>
+                                <td>默认高度，弹窗高度</td>
+                            </tr>
+                            <tr>
+                                <th>layout</th>
+                                <td>默认true，是否包含边框</td>
+                            </tr>
+                            <tr>
+                                <th>setposi</th>
+                                <td>默认true，无layout的情况下，是否自动添加定位样式，手动定位需要设为false</td>
+                            </tr>
+                            <tr>
+                                <th>bar</th>
+                                <td>默认true，是否显示标题栏</td>
+                            </tr>
+                            <tr>
+                                <th>bg</th>
+                                <td>默认true，是否显示背景层</td>
+                            </tr>
+                            <tr>
+                                <th>fix</th>
+                                <td>默认true，弹窗是否框固定在页面上</td>
+                            </tr>
+                            <tr>
+                                <th>bgclose</th>
+                                <td>默认true，是否点击背景层关闭</td>
+                            </tr>
+                            <tr>
+                                <th>drag</th>
+                                <td>默认false，是否可拖拽</td>
+                            </tr>
+                            <tr>
+                                <th>protect</th>
+                                <td>默认false，若为true，关闭后会将弹出的元素<code>appendTo('body')</code></td>
+                            </tr>
+                            <tr>
+                                <th>delay</th>
+                                <td>默认0，弹窗自动关闭时间, 0和负值不触发</td>
+                            </tr>
+                            <tr>
+                                <th>lang</th>
+                                <td>默认0，语言选择，0：中文 1：英文</td>
+                            </tr>
+                            <tr>
+                                <th>hook</th>
+                                <td>自定义样式钩子，用于给弹窗附加class修改样式，默认无</td>
+                            </tr>
+                            <tr>
+                                <th>color</th>
+                                <td>$.box.msg方法的情景色，使用的是ui.css提供的几种背景色，默认info，可选info，primary，success，warning，danger</td>
+                            </tr>
+                            <tr>
+                                <th>onshow(box)</th>
+                                <td>默认无，弹窗打开事件，接收弹窗DOM对象为参数</td>
+                            </tr>
+                            <tr>
+                                <th>onclose()</th>
+                                <td>默认无，弹窗关闭事件</td>
+                            </tr>
+                        </table>
+                        <h5>返回</h5>
+                        <table class="table">
+                            <tr>
+                                <th>boxid</th>
+                                <td>
+                                    <p>每次$.box调用都将返回一个boxid，用于$.box.hide()的参数时，可关闭本弹窗实例</p>
+                                    <p><code>var mybox = $.box(...);</code></p>
+                                </td>
+                            </tr>
+                        </table>
+                        <h5>示例</h5>
+                        <pre>
+                            <code>
   &lt;style&gt;
   button{margin:.5em;}
   .myextclass .wrap_bar{background:green;}
@@ -2967,10 +3353,10 @@
   &lt;div&gt;&lt;button class=&quot;btn btn-default modal&quot;&gt;弹出一个模态自定义内容&lt;/button&gt;
   &lt;div&gt;&lt;button class=&quot;btn btn-default extclass&quot;&gt;添加自定义class&lt;/button&gt;&lt;/div&gt;
   &lt;div&gt;&lt;button class=&quot;btn btn-default boximg&quot;&gt;弹出图片&lt;/button&gt;&lt;/div&gt;
-              </code>
-            </pre>
+                      </code>
+                    </pre>
                     <pre>
-                <code>
+                        <code>
 
     //支持全局修改默认配置，全局配置必须在require('module name')，
     //例如全局语言改为英文
@@ -3046,9 +3432,8 @@
       });
     })
 
-
-            </code>
-</pre>
+                        </code>
+                    </pre>
                     </td>
                 </tr>
                 <tr id="City-select（地区选择器）">
@@ -3065,7 +3450,7 @@
                                 <td>省市区数据，支持数组或能返回指定格式的地址字符串，格式如下：
                                     <code>
 [{"name":"北京","id":"001","city":[{"name":"北京","id":"001","area":[{"name":"东城区","id":"001"},{"name":"西城区","id":"002"},{"name":"崇文区","id":"003"},{"name":"宣武区","id":"004"},{"name":"朝阳区","id":"005"}]}]},{"name":"河北","id":"002","city":[{"name":"石家庄","id":"002","area":[{"id":"002","name":"长安区"},{"id":"002","name":"桥东区"},{"id":"002","name":"桥西区"},{"id":"002","name":"新华区"},{"id":"002","name":"郊  区"}]}]},{"name":"台湾","id":"003","city":[{"name":"台湾","id":"003","area":[{"id":"003","name":"台北市"},{"id":"003","name":"高雄市"},{"id":"003","name":"台北县"},{"id":"003","name":"桃园县"}]},{"name":"其他","id":"004","area":[{"name":"其他","id":"004"}]}]}]
-                    </code>
+                                    </code>
                                 </td>
                             </tr>
                             <tr>
@@ -3073,19 +3458,19 @@
                                 <td>选择结束回调函数，接收选择结果为参数，结果格式为所选省市区三级数据组成的数组：
                                     <code>
 [{"name":"北京","id":"001","index":0},{"name":"北京","id":"001","index":0},{"name":"东城区","id":"001","index":0}]
-                    </code>
+                                    </code>
                                 </td>
                             </tr>
                         </table>
                         <h5>示例</h5>
                         <pre>
-            <code>
+                            <code>
 &lt;!-- html --&gt;
 &lt;div class=&quot;demo btn btn-default&quot;&gt;选择省市区&lt;/div&gt;
-            </code>
-          </pre>
+                            </code>
+                          </pre>
                         <pre>
-            <code>
+                        <code>
 //js
 require('city-select');
 $('.demo').citySelect({
@@ -3098,8 +3483,8 @@ $('.demo').citySelect({
     $('body').append('&lt;p&gt;'+address+'&lt;/p&gt;')
   }
 });
-          </code>
-         </pre>
+                      </code>
+                     </pre>
                     </td>
                 </tr>
                 <tr id="Countdown（倒计时）">
@@ -3140,13 +3525,13 @@ $('.demo').citySelect({
                         </table>
                         <h5>示例</h5>
                         <pre>
-            <code>
+                            <code>
   &lt;!-- html --&gt;
   &lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
-            </code>
-          </pre>
+                            </code>
+                          </pre>
                         <pre>
-            <code>
+                            <code>
    //js
    var endData = new Date(),
        endMill = endData.getTime()+1000*60*60*24;
@@ -3164,8 +3549,8 @@ $('.demo').citySelect({
          }
       })
    })
-            </code>
-            </pre>
+                            </code>
+                        </pre>
                     </td>
                 </tr>
                 <tr id="Counter（加减计数器）">
@@ -3204,13 +3589,13 @@ $('.demo').citySelect({
                         </table>
                         <h5>示例</h5>
                         <pre>
-            <code>
+                            <code>
 &lt;!-- html --&gt;
 &lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
-            </code>
-          </pre>
+                            </code>
+                          </pre>
                         <pre>
-            <code>
+                            <code>
 //js
 require('counter');
 $('.demo').counter({
@@ -3218,8 +3603,8 @@ $('.demo').counter({
     $('body').append('&lt;p&gt;'+$input.val()+'&lt;/p&gt;')
   }
 })
-          </code>
-         </pre>
+                        </code>
+                     </pre>
                     </td>
                 </tr>
                 <tr id="DatePicker（日期选择器）">
@@ -3339,7 +3724,7 @@ $('.demo').counter({
                                 <th>filter</th>
                                 <td>函数，默认null，例如
                                     <pre>
-                    <code>
+                                        <code>
 $().datepicker({
   filter: function(date) {
     if (date.getDay() === 0) {
@@ -3347,8 +3732,8 @@ $().datepicker({
     }
   }
 });
-                    </code>
-                  </pre>
+                                    </code>
+                                  </pre>
                                 </td>
                             </tr>
                             <tr>
@@ -3368,17 +3753,17 @@ $().datepicker({
                         <p>见：<a href="https://github.com/fengyuanchen/datepicker/blob/v0.3.1/README.md#table-of-contents" target="_blank">官方文档</a></p>
                         <h5>示例</h5>
                         <pre>
-              <code>
+                            <code>
 &lt;p&gt; 普通 &lt;/p&gt;
 &lt;input class=&quot;datepicker&quot;&gt;
 &lt;p&gt; 内嵌 &lt;/p&gt;
 &lt;input class=&quot;datepicker2&quot;&gt;
 
 &lt;div style="height:300px;width:300px;border:1px solid #ccc" class=&quot;main&quot;&gt;&lt;/div&gt;
-              </code>
-            </pre>
+                          </code>
+                        </pre>
                         <pre>
-              <code>
+                            <code>
 require('datepicker');
 
 $('.datepicker').datepicker({
@@ -3390,8 +3775,8 @@ $('.datepicker2').datepicker({
   container: '.main'
 });
 
-              </code>
-            </pre>
+                          </code>
+                        </pre>
                     </td>
                 </tr>
                 <tr id="Drag（拖拽）">
@@ -3416,19 +3801,23 @@ $('.datepicker2').datepicker({
                                 <td>拖拽开始回调，接受拖拽元素为参数</td>
                             </tr>
                             <tr>
+                                <th>drag</th>
+                                <td>拖拽过程回调，接受拖拽元素为参数</td>
+                            </tr>
+                            <tr>
                                 <th>dragEnd</th>
                                 <td>拖拽结束回调，接受拖拽元素为参数</td>
                             </tr>
                         </table>
                         <h5>示例</h5>
                         <pre>
-            <code>
+                            <code>
   &lt;!--html--&gt;
   &lt;div class=&quot;drag&quot; style=&quot;width:100px;height:100px;background:#434343;&quot;&gt;&lt;/div&gt;
-            </code>
-            </pre>
+                            </code>
+                        </pre>
                         <pre>
-            <code>
+                            <code>
   //js
   require('drag');
   $('.drag').drag({
@@ -3439,21 +3828,21 @@ $('.datepicker2').datepicker({
       console.log(2)
     }
   });
-            </code>
-          </pre>
+                        </code>
+                      </pre>
                     </td>
                 </tr>
                 <tr id="Easing（animate动画扩展）">
                     <td>easing</td>
                     <td>
                         <h5>描述</h5>
-                        <p>扩展jquery.animate动画效果，来自<a href="http://gsgd.co.uk/sandbox/jquery/easing/" target="_blank">jquery.easing.js</a>，大部分涉及动画的插件都引入了easing。</p>
+                        <p>扩展jquery.animate动画效果，来自<a href="http://gsgd.co.uk/sandbox/jquery/easing/" target="_blank">jquery.easing.js</a>，被<code>scroll-col</code>和<code>scroll-row</code>插件依赖</p>
                         <p>效果包括：linear, swing, jswing, easeInQuad, easeOutQuad, easeInOutQuad, easeInCubic, easeOutCubic, easeInOutCubic, easeInQuart, easeOutQuart, easeInOutQuart, easeInQuint, easeOutQuint, easeInOutQuint, easeInSine, easeOutSine, easeInOutSine, easeInExpo, easeOutExpo, easeInOutExpo, easeInCirc, easeInOutCirc, easeInElastic, easeOutElastic, easeInOutElastic, easeInBack, easeInOutBack, easeInBounce, easeOutBounce, easeInOutBounce</p>
                         <h5>多终端</h5>
-                        <p>支持</p>
+                        <p>不推荐</p>
                         <h5>示例</h5>
                         <pre>
-        <code>
+                            <code>
   require('easing');
 
   $(element).slideUp({
@@ -3469,8 +3858,8 @@ $('.datepicker2').datepicker({
     easing: method, 
     complete: callback
   });
-        </code>
-        </pre>
+                            </code>
+                        </pre>
                     </td>
                 </tr>
                 <tr id="Echarts（百度Echarts）">
@@ -3482,12 +3871,12 @@ $('.datepicker2').datepicker({
                         <p>支持</p>
                         <h5>示例</h5>
                         <pre>
-             <code>
+                            <code>
   &lt;div id=&quot;main&quot; style=&quot;width: 600px;height:400px;&quot;&gt;&lt;/div&gt;
-             </code>
-           </pre>
+                         </code>
+                       </pre>
                         <pre>
-             <code>
+                            <code>
   var echarts = require('echarts');
   // 基于准备好的DOM，初始化echarts实例
   var myChart = echarts.init(document.getElementById('main'));
@@ -3514,8 +3903,8 @@ $('.datepicker2').datepicker({
 
   // 使用刚指定的配置项和数据显示图表。
   myChart.setOption(option);
-             </code>
-           </pre>
+                         </code>
+                       </pre>
                     </td>
                 </tr>
                 <tr id="Etpl（模板引擎）">
@@ -3527,19 +3916,19 @@ $('.datepicker2').datepicker({
                         <p>支持</p>
                         <h5>示例</h5>
                         <pre>
-              <code>
+                            <code>
   &lt;!-- html --&gt;
   &lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
-              </code>
-            </pre>
+                          </code>
+                        </pre>
                         <pre>
-               <code>
+                            <code>
   var etpl=require('etpl');
   var render = etpl.compile('Hello ${name}!');
   var text = render({ name: 'etpl' });
   $('.demo').html(text);
-                  </code>
-</pre>
+                          </code>
+                        </pre>
                     </td>
                 </tr>
                 <tr id="Fastclick（移动端快速点击）">
@@ -3551,13 +3940,13 @@ $('.datepicker2').datepicker({
                         <p>支持</p>
                         <h5>示例</h5>
                         <pre>
-              <code>
+                            <code>
   &lt;div class=&quot;test btn btn-success&quot;&gt;click&lt;/div&gt;
   &lt;div class=&quot;test2 btn btn-warning&quot;&gt;click&lt;/div&gt;
-              </code>
-            </pre>
+                          </code>
+                        </pre>
                         <pre>
-              <code>
+                            <code>
   var FastClick = require('fastclick');
   //FastClick.attach(document.body);
   FastClick.attach($('.test').get(0));
@@ -3568,11 +3957,11 @@ $('.datepicker2').datepicker({
   $('.test2').click(function(){
     alert('300ms')
   })
-              </code>
-            </pre>
+                          </code>
+                        </pre>
                     </td>
                 </tr>
-                <tr id="Img-loaded（图片加载完成）">
+                <tr id="Img-loaded（图片加载检测）">
                     <td>img-loaded</td>
                     <td>
                         <h5>描述</h5>
@@ -3581,7 +3970,7 @@ $('.datepicker2').datepicker({
                         <p>支持</p>
                         <h5>示例</h5>
                         <pre>
-            <code>
+                            <code>
   &lt;!--html--&gt;
   &lt;div class=&quot;demo&quot;&gt;
      &lt;ul&gt;
@@ -3590,17 +3979,17 @@ $('.datepicker2').datepicker({
         &lt;li&gt;&lt;img src=&quot;http://lorempixel.com/374/330/?734&quot; &gt;&lt;/li&gt;
      &lt;/ul&gt;
   &lt;/div&gt;
-        </code>
-        </pre>
+                            </code>
+                        </pre>
                         <pre>
-                <code>
+                            <code>
   //js
   require('img-loaded');
   $('.demo').imagesLoaded(function(){
      alert('加载完成');
   })
-            </code>
-          </pre>
+                        </code>
+                      </pre>
                     </td>
                 </tr>
                 <tr id="Img-ready（图片尺寸预取）">
@@ -3612,13 +4001,13 @@ $('.datepicker2').datepicker({
                         <p>支持</p>
                         <h5>示例</h5>
                         <pre>
-             <code>
+                            <code>
     &lt;!-- html --&gt;
     &lt;img id=&quot;demo&quot; src=&quot;http://lorempixel.com/442/548/?582&quot;&gt;
-             </code>
-            </pre>
+                            </code>
+                        </pre>
                         <pre>
-             <code>
+                            <code>
   var ready = require('img-ready');
   ready($('#demo').attr('src'), 
     function(width,height){
@@ -3627,8 +4016,15 @@ $('.datepicker2').datepicker({
       $('body').append($('&lt;div&gt;加载完成！&lt;/div&gt;'));
     }
   )
-             </code>
-</pre>
+                            </code>
+                        </pre>
+                    </td>
+                </tr>
+                <tr id="Instantclick（链接预加载）">
+                    <td>instantclick</td>
+                    <td>
+                        <h5>描述</h5>'
+                        <p>链接预加载插件，详情查看<a href="#instantclick">【链接预加载】</a></p>
                     </td>
                 </tr>
                 <tr id="Lazyload（图片懒加载）">
@@ -3640,12 +4036,12 @@ $('.datepicker2').datepicker({
                         <p>支持</p>
                         <h5>示例</h5>
                         <pre>
-         <code>
+                            <code>
   &lt;style&gt;
   .demo p{float:left; margin:20px; width:200px; height: 200px; background:#eee;background-position:center;}
   &lt;/style&gt;
-              </code>
-              <code>
+                            </code>
+                            <code>
   &lt;div class=&quot;demo&quot;&gt;
     &lt;p&gt;&lt;img data-lazy=&quot;http://temp.im/800x600/&quot; &gt;&lt;/p&gt;
     &lt;p&gt;&lt;img data-lazy=&quot;http://temp.im/801x600/&quot; &gt;&lt;/p&gt;
@@ -3684,15 +4080,15 @@ $('.datepicker2').datepicker({
     &lt;p&gt;&lt;img data-lazy=&quot;http://temp.im/834x600/&quot; &gt;&lt;/p&gt;
     &lt;p data-lazy=&quot;http://temp.im/835x600/&quot;&gt; element &lt;/p&gt;
   &lt;/div&gt;
-        </code>
-      </pre>
-                        <pre>
-        <code>
+                                </code>
+                              </pre>
+                            <pre>
+                            <code>
   //js
   require('lazyload');
   $('.demo').lazyload();
-            </code>
-          </pre>
+                            </code>
+                        </pre>
                     </td>
                 </tr>
                 <tr id="Marquee（跑马灯）">
@@ -3719,13 +4115,13 @@ $('.datepicker2').datepicker({
                             </table>
                             <h5>示例</h5>
                             <pre>
-              <code>
+                                <code>
     &lt;style&gt;
     .marquee{height:150px;border:1px solid blue;}
     .marquee2{width:150px;border:1px solid red;}
     &lt;/style&gt;
-              </code>
-              <code>
+                                </code>
+                                <code>
   &lt;div class='marquee'&gt;
     &lt;p&gt; cont1 &lt;/p&gt;
     &lt;p&gt; cont2 &lt;/p&gt;
@@ -3740,18 +4136,18 @@ $('.datepicker2').datepicker({
   &lt;div class='marquee2'&gt;
     这是一段测试文字这是一段测试文字这是一段测试文字这是一段测试文字!!
   &lt;/div&gt;
-              </code>
-            </pre>
+                              </code>
+                            </pre>
                             <pre>
-              <code>
+                                <code>
   require.async('marquee',function(){
     $('.marquee').marquee();
     $('.marquee2').marquee({
       direction:'left'
     });
   });
-              </code>
-            </pre>
+                            </code>
+                        </pre>
                     </td>
                 </tr>
                 <tr id="Masonry（瀑布流）">
@@ -3763,13 +4159,13 @@ $('.datepicker2').datepicker({
                         <p>移动端不建议使用</p>
                         <h5>示例</h5>
                         <pre>
-         <code>
+                            <code>
   &lt;style&gt; 
     /*css*/
     .item { width: 200px; margin:10px;}
   &lt;/style&gt;
-              </code>
-              <code>
+                          </code>
+                          <code>
   &lt;!--html--&gt;
   &lt;ul id=&quot;container&quot;&gt;
     &lt;li class=&quot;item&quot;&gt;
@@ -3797,11 +4193,10 @@ $('.datepicker2').datepicker({
       &lt;img src=&quot;http://temp.im/200x600/&quot;&gt;
     &lt;/li&gt;
   &lt;/ul&gt;    
-            </code>
-          </pre>
+                            </code>
+                        </pre>
                         <pre>
-            <code>
-
+                            <code>
   require('masonry');
   require('img-loaded');
 
@@ -3846,8 +4241,94 @@ $('.datepicker2').datepicker({
       loaded = true;
     });
   };
-            </code>
-          </pre>
+                            </code>
+                        </pre>
+                    </td>
+                </tr>
+                <tr id="Mousemenu（右键菜单）">
+                    <td>mousemenu</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>自定义鼠标右键，支持菜单内分组，调用格式为<code> $target.mousemenu( data, option )</code> </p>
+                        <h5>多终端</h5>
+                        <p>不支持</p>
+                        <h5>配置</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>name</th>
+                                <td>将作为菜单id的后缀，以区别多组菜单，只有一组可省略</td>
+                            </tr>
+                            <tr>
+                                <th>offsetX</th>
+                                <td>默认2，单位px，菜单左上角距点击位置横向距离</td>
+                            </tr>
+                            <tr>
+                                <th>offsetY</th>
+                                <td>默认2，单位px，菜单左上角距点击位置纵向距离</td>
+                            </tr>
+                            <tr>
+                                <th>textLimit</th>
+                                <td>默认6，菜单项显示文字个数，超出显示省略号</td>
+                            </tr>
+                            <tr>
+                                <th>beforeShow</th>
+                                <td>菜单显示前回调</td>
+                            </tr>
+                            <tr>
+                                <th>afterShow</th>
+                                <td>菜单显示后回调</td>
+                            </tr>
+                            <tr>
+                                <th>broke</th>
+                                <td>用于点击时做条件判断，返回真值将阻止本次弹出</td>
+                            </tr>
+                        </table>
+                        <h5>示例</h5>
+                        <pre>
+                            <code>
+  &lt;style&gt;
+  /*css*/
+  .demo{height: 400px;border:1px solid #ccc;line-height: 400px;text-align: center;}
+  &lt;/style&gt;
+                              </code>
+                              <code>
+  &lt;!-- html --&gt;
+  &lt;div class=&quot;demo&quot;&gt;测试区域&lt;/div&gt;
+                              </code>
+                            </pre>
+                        <pre>
+                            <code>
+  require('mousemenu');
+  $('.demo').mousemenu(
+      [
+          [{
+              text: "组1-1",
+              func: function() {
+                alert("组1-1");
+              }
+          }, {
+              text: "组1-2",
+              func: function() {
+                alert("组1-2");
+              }
+          }],
+          [{
+              text: "组2-1",
+              func: function() {
+                alert("组2-1");
+              }
+          }, {
+              text: "组2-2",
+              func: function() {
+                alert("组2-2");
+              }
+          }]
+      ], {
+          //配置
+      }
+  );
+                          </code>
+                        </pre>
                     </td>
                 </tr>
                 <tr id="Mousetrap（按键监听）">
@@ -3859,7 +4340,7 @@ $('.datepicker2').datepicker({
                         <p>不支持</p>
                         <h5>示例</h5>
                         <pre>
-              <code>
+                            <code>
   &lt;!-- html --&gt;
   &lt;div class=&quot;demo&quot;&gt;
     &lt;p&gt;单按键：按&quot;a&quot;或&quot;?&quot;或&quot;esc&quot;&lt;/p&gt;
@@ -3867,10 +4348,10 @@ $('.datepicker2').datepicker({
     &lt;p&gt;多组按键绑定同一个事件：按&quot;command k&quot; 或者 &quot;control k&quot;&lt;/p&gt;
     &lt;p&gt;组合键：试试&quot;up up down down left right left right b a enter&quot;&lt;/p&gt;
   &lt;/div&gt;
-              </code>
-            </pre>
+                            </code>
+                        </pre>
                         <pre>
-               <code>
+                            <code>
   //js
   require.async('mousetrap',function(){
     // 单按键
@@ -3907,8 +4388,8 @@ $('.datepicker2').datepicker({
     });
   });
                   
-                  </code>
-</pre>
+                            </code>
+                        </pre>
                     </td>
                 </tr>
                 <tr id="Mousewheel（鼠标滚轮监听）">
@@ -3920,13 +4401,13 @@ $('.datepicker2').datepicker({
                         <p>不支持</p>
                         <h5>示例</h5>
                         <pre>
-          <code>
+                            <code>
   &lt;style&gt;
   /*css*/
   .demo,.control{height: 200px;overflow: auto;border:1px solid #ccc;margin:10px;}
   &lt;/style&gt;
-              </code>
-              <code>
+                            </code>
+                            <code>
   &lt;!-- html --&gt;
   &lt;div class=&quot;demo&quot;&gt;
   滚动测试&lt;br&gt;滚动测试&lt;br&gt;滚动测试&lt;br&gt;滚动测试&lt;br&gt;滚动测试&lt;br&gt;
@@ -3938,10 +4419,10 @@ $('.datepicker2').datepicker({
   滚动测试&lt;br&gt;滚动测试&lt;br&gt;滚动测试&lt;br&gt;滚动测试&lt;br&gt;滚动测试&lt;br&gt;滚动测试&lt;br&gt;滚动测试&lt;br&gt;
   &lt;/div&gt;
   &lt;div class=&quot;control&quot;&gt;&lt;/div&gt;
-          </code>
-        </pre>
+                            </code>
+                        </pre>
                         <pre>
-            <code class="javascript">
+                            <code>
   //js
   require('mousewheel');
   //开始监听
@@ -3953,8 +4434,85 @@ $('.datepicker2').datepicker({
       $('.demo').unmousewheel();
       $('.control').text('监听事件已卸载！');
   },5e3)
-                </code>
-          </pre>
+                            </code>
+                        </pre>
+                    </td>
+                </tr>
+                
+                <tr id="OffCanvas（伸缩菜单）">
+                    <td>offcanvas</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>侧边伸缩导航菜单插件，多用于移动端导航，导航必须具有id属性，与导航控制按钮的href属性相同。</p>
+                        <h5>多终端</h5>
+                        <p>支持</p>
+                        <h5>注意</h5>
+                        <ol>
+                            <li>为避免插件加载期间导航错乱闪现，可以先用样式将导航隐藏，插件运行后会清除原样式。</li>
+                            <li>使用点击预加载方案（PJAX）的情况下菜单会出现点击不收回的情况，需要在使用时增加配置：<code>{ onClick:{ close:true}}</code></li>
+                        </ol>
+                        <h5>配置</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>position</th>
+                                <td>/菜单位置，默认左侧 left || top || right || bottom</td>
+                            </tr>
+                            <tr>
+                                <th>zposition</th>
+                                <td>菜单层次，默认上层，front || next</td>
+                            </tr>
+                            <tr>
+                                <th>slidingSubmenus</th>
+                                <td>菜单展开方向，默认横向，true || false</td>
+                            </tr>
+                            <tr>
+                                <th>isMenu</th>
+                                <td>是否按导航结构初始化，自定义结构和样式需要设为false</td>
+                            </tr>
+                            <tr>
+                                <th>classes</th>
+                                <td>主题class, mm-light || mm-white || mm-black</td>
+                            </tr>
+                        </table>
+                        <h5>示例</h5>
+                        <pre>
+                            <code>
+  &lt;nav class=&quot;demo hide&quot; id=&quot;menu&quot;&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;/1&quot;&gt;导航&lt;/a&gt; &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/2&quot;&gt;导航2&lt;/a&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href=&quot;/#2&quot;&gt;二级&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;/#2&quot;&gt;二级&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;/#2&quot;&gt;二级&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+         &lt;/li&gt;
+         &lt;li&gt;&lt;a href=&quot;/3&quot;&gt;导航3&lt;/a&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href=&quot;/#2&quot;&gt;二级&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;/#2&quot;&gt;二级&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;/#2&quot;&gt;二级&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+         &lt;/li&gt;
+         &lt;li&gt;&lt;a href=&quot;/4&quot;&gt;导航4&lt;/a&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href=&quot;/#2&quot;&gt;二级&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;/#2&quot;&gt;二级&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;/#2&quot;&gt;二级&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+         &lt;/li&gt;
+     &lt;/ul&gt;
+  &lt;/nav&gt;
+  &lt;a href=&quot;#menu&quot; class=&quot;mobile_key&quot;&gt;导航控制按钮&lt;/a&gt;  &lt;!--导航控制按钮--&gt;
+                            </code>
+                        </pre>
+                        <pre>
+                            <code>
+  //js
+  require('offcanvas');
+  $('.demo').offcanvas();
+                            </code>
+                        </pre>
                     </td>
                 </tr>
                 <tr id="On-scroll（滚动监听）">
@@ -3995,7 +4553,7 @@ $('.datepicker2').datepicker({
                         </table>
                         <h5>示例</h5>
                         <pre>
-            <code>
+                            <code>
   &lt;!-- html --&gt;
   &lt;style&gt;
   .target_wrap{height:42px;}
@@ -4040,10 +4598,10 @@ $('.datepicker2').datepicker({
     &lt;img src=&quot;http://temp.im/500x400/&quot;&gt;
   &lt;/textarea&gt;
   &lt;/div&gt;
-            </code>
-          </pre>
+                            </code>
+                        </pre>
                         <pre>
-            <code>
+                            <code>
   // js 参数说明
   require('on-scroll');
   //定位
@@ -4060,171 +4618,8 @@ $('.datepicker2').datepicker({
       })
     }
   })  
-
-            </code>
-          </pre>
-                    </td>
-                </tr>
-                <tr id="OffCanvas（伸缩菜单）">
-                    <td>offcanvas</td>
-                    <td>
-                        <h5>描述</h5>
-                        <p>侧边伸缩导航菜单插件，多用于移动端导航，导航必须具有id属性，与导航控制按钮的href属性相同。</p>
-                        <h5>多终端</h5>
-                        <p>支持</p>
-                        <h5>注意</h5>
-                        <ol>
-                            <li>为避免插件加载期间导航错乱闪现，可以先用样式将导航隐藏，插件运行后会清除原样式。</li>
-                            <li>使用点击预加载方案（PJAX）的情况下菜单会出现点击不收回的情况，需要在使用时增加配置：<code>{ onClick:{ close:true}}</code></li>
-                        </ol>
-                        <h5>配置</h5>
-                        <table class="table table-hover">
-                            <tr>
-                                <th>position</th>
-                                <td>/菜单位置，默认左侧 left || top || right || bottom</td>
-                            </tr>
-                            <tr>
-                                <th>zposition</th>
-                                <td>菜单层次，默认上层，front || next</td>
-                            </tr>
-                            <tr>
-                                <th>slidingSubmenus</th>
-                                <td>菜单展开方向，默认横向，true || false</td>
-                            </tr>
-                            <tr>
-                                <th>isMenu</th>
-                                <td>是否按导航结构初始化，自定义结构和样式需要设为false</td>
-                            </tr>
-                            <tr>
-                                <th>classes</th>
-                                <td>主题class, mm-light || mm-white || mm-black</td>
-                            </tr>
-                        </table>
-                        <h5>示例</h5>
-                        <pre>
-               <code>
-  &lt;nav class=&quot;demo hide&quot; id=&quot;menu&quot;&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;/1&quot;&gt;导航&lt;/a&gt; &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;/2&quot;&gt;导航2&lt;/a&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a href=&quot;/#2&quot;&gt;二级&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a href=&quot;/#2&quot;&gt;二级&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a href=&quot;/#2&quot;&gt;二级&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-         &lt;/li&gt;
-         &lt;li&gt;&lt;a href=&quot;/3&quot;&gt;导航3&lt;/a&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a href=&quot;/#2&quot;&gt;二级&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a href=&quot;/#2&quot;&gt;二级&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a href=&quot;/#2&quot;&gt;二级&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-         &lt;/li&gt;
-         &lt;li&gt;&lt;a href=&quot;/4&quot;&gt;导航4&lt;/a&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a href=&quot;/#2&quot;&gt;二级&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a href=&quot;/#2&quot;&gt;二级&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a href=&quot;/#2&quot;&gt;二级&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-         &lt;/li&gt;
-     &lt;/ul&gt;
-  &lt;/nav&gt;
-  &lt;a href=&quot;#menu&quot; class=&quot;mobile_key&quot;&gt;导航控制按钮&lt;/a&gt;  &lt;!--导航控制按钮--&gt;
-      </code>
-      </pre>
-                        <pre>
-                <code>
-  //js
-  require('offcanvas');
-  $('.demo').offcanvas();
-               </code>
-          </pre>
-                    </td>
-                </tr>
-                <tr id="Mousemenu（右键菜单）">
-                    <td>mousemenu</td>
-                    <td>
-                        <h5>描述</h5>
-                        <p>自定义鼠标右键，支持菜单内分组，调用格式为<code> $target.mousemenu( data, option )</code> </p>
-                        <h5>多终端</h5>
-                        <p>不支持</p>
-                        <h5>配置</h5>
-                        <table class="table table-hover">
-                            <tr>
-                                <th>name</th>
-                                <td>将作为菜单id的后缀，以区别多组菜单，只有一组可省略</td>
-                            </tr>
-                            <tr>
-                                <th>offsetX</th>
-                                <td>默认2，单位px，菜单左上角距点击位置横向距离</td>
-                            </tr>
-                            <tr>
-                                <th>offsetY</th>
-                                <td>默认2，单位px，菜单左上角距点击位置纵向距离</td>
-                            </tr>
-                            <tr>
-                                <th>textLimit</th>
-                                <td>默认6，菜单项显示文字个数，超出显示省略号</td>
-                            </tr>
-                            <tr>
-                                <th>beforeShow</th>
-                                <td>菜单显示前回调</td>
-                            </tr>
-                            <tr>
-                                <th>afterShow</th>
-                                <td>菜单显示后回调</td>
-                            </tr>
-                            <tr>
-                                <th>broke</th>
-                                <td>用于点击时做条件判断，返回真值将阻止本次弹出</td>
-                            </tr>
-                        </table>
-                        <h5>示例</h5>
-                        <pre>
-          <code>
-  &lt;style&gt;
-  /*css*/
-  .demo{height: 400px;border:1px solid #ccc;line-height: 400px;text-align: center;}
-  &lt;/style&gt;
-              </code>
-              <code>
-  &lt;!-- html --&gt;
-  &lt;div class=&quot;demo&quot;&gt;测试区域&lt;/div&gt;
-          </code>
-        </pre>
-                        <pre>
-          <code>
-  require('mousemenu');
-  $('.demo').mousemenu(
-      [
-          [{
-              text: "组1-1",
-              func: function() {
-                alert("组1-1");
-              }
-          }, {
-              text: "组1-2",
-              func: function() {
-                alert("组1-2");
-              }
-          }],
-          [{
-              text: "组2-1",
-              func: function() {
-                alert("组2-1");
-              }
-          }, {
-              text: "组2-2",
-              func: function() {
-                alert("组2-2");
-              }
-          }]
-      ], {
-          //配置
-      }
-  );
-          </code>
-</pre>
+                            </code>
+                        </pre>
                     </td>
                 </tr>
                 <tr id="Photowall（等高图片墙）">
@@ -4251,14 +4646,14 @@ $('.datepicker2').datepicker({
                         </table>
                         <h5>示例</h5>
                         <pre>
-               <code>
+                            <code>
   &lt;style&gt;
   /* css */
   .imgList .imgItem ,.imgList .imgItem a img { display: inline-block; *display: inline;
   zoom: 1; vertical-align: top; overflow: hidden; }
   &lt;/style&gt;
-              </code>
-              <code>
+                            </code>
+                            <code>
   &lt;!-- html --&gt;
   &lt;div class=&quot;imgList&quot;&gt;
      &lt;div class=&quot;imgItem&quot;&gt; &lt;a href=&quot;&quot;&gt; &lt;img src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/view0.jpg&quot; &gt; &lt;/a&gt; &lt;/div&gt;
@@ -4275,10 +4670,10 @@ $('.datepicker2').datepicker({
      &lt;div class=&quot;imgItem&quot;&gt; &lt;a href=&quot;&quot;&gt; &lt;img src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/view3.jpg&quot; &gt; &lt;/a&gt; &lt;/div&gt;
      &lt;div class=&quot;imgItem&quot;&gt; &lt;a href=&quot;&quot;&gt; &lt;img src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/view4.jpg&quot; &gt; &lt;/a&gt; &lt;/div&gt;
   &lt;/div&gt;
-          </code>
-        </pre>
+                            </code>
+                        </pre>
                         <pre>
-                <code>
+                            <code>
   //js
   require.async('photowall',function(photowall){
    photowall({
@@ -4287,8 +4682,65 @@ $('.datepicker2').datepicker({
       border:10              //间距，默认10px
       })
    })
-                  </code>
-          </pre>
+                            </code>
+                        </pre>
+                    </td>
+                </tr>
+                <tr id="Placeholder">
+                    <td>placeholder</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>placeholder特性兼容插件</p>
+                        <h5>示例</h5>
+                        <pre>
+                            <code>
+    &lt;input type=&quot;text&quot; placeholder=&quot;兼容ie8&quot;&gt;
+                            </code>
+                        </pre>
+                        <pre>
+                            <code>
+    require('placeholder');
+    $('input, textarea').placeholder();
+                            </code>
+                        </pre>
+                    </td>
+                </tr>
+                <tr id="Qr（二维码）">
+                    <td>qr</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>生成二维码，封装自<a href="https://github.com/jeromeetienne/jquery-qrcode" target="_blank">jquery-qrcode</a>。</p>
+                        <h5>多终端</h5>
+                        <p>支持</p>
+                        <h5>示例</h5>
+                        <pre>
+                            <code>
+  &lt;style&gt;
+    #qr_container{position: fixed;right:10px;bottom:10px;text-align: center;}
+  &lt;/style&gt;
+                            </code>
+                            <code>
+  &lt;div id=&quot;qr_container&quot;&gt; 微信扫描查看或分享 &lt;/div&gt;
+                            </code>
+                        </pre>
+                        <pre>
+                            <code>
+  //js
+  var qr = require('qr');
+     
+  var qrcode = new qr(document.getElementById("qr_container"), {
+    text: "http://www.jerei.com",             // 生成内容
+    width: 128,                               // 宽
+    height: 128,                              // 高
+    colorDark : "#000000",                    // 颜色
+    colorLight : "#ffffff",                   // 背景色
+    correctLevel : qr.CorrectLevel.H          // 容错级别 L|M|Q|H
+  });
+
+  //qrcode.clear();                           // clear the code.
+  //qrcode.makeCode("http://naver.com");      // make another code.
+                            </code>
+                        </pre>
                     </td>
                 </tr>
                 <tr id="Scroll-bar（滚动条）">
@@ -4345,15 +4797,15 @@ $('.datepicker2').datepicker({
                         </table>
                         <h5>示例</h5>
                         <pre>
-            <code>
+                            <code>
   &lt;style&gt;
   /*css*/
   .demo{position:relative;overflow:hidden;height:320px;max-width: 480px;margin:10px auto;}
   .demo .scroll_cont{background: yellow;}
   .demo .scroll_cont img{max-width: none;}
   &lt;/style&gt;
-              </code>
-              <code>
+                              </code>
+                              <code>
   &lt;!--html--&gt;
   &lt;div class=&quot;demo demo1&quot;&gt;
      &lt;img src=&quot;http://temp.im/480x480/&quot;&gt;&lt;br/&gt;
@@ -4365,18 +4817,18 @@ $('.datepicker2').datepicker({
   &lt;div class=&quot;demo demo2&quot;&gt;
      &lt;img src=&quot;http://temp.im/900x320/&quot;&gt;&lt;br/&gt;
   &lt;/div&gt;
-          </code>
-        </pre>
+                            </code>
+                        </pre>
                         <pre>
-                <code>
+                            <code>
   //js
   require('scroll-bar');
   $('.demo1').scrollBar();
   $('.demo2').scrollBar({
       overflow: "x"
   });
-               </code>
-          </pre>
+                            </code>
+                        </pre>
                     </td>
                 </tr>
                 <tr id="Scroll-col（横向滚动）">
@@ -4458,7 +4910,7 @@ $('.datepicker2').datepicker({
                         </table>
                         <h5>示例</h5>
                         <pre>
-              <code>
+                            <code>
   &lt;style&gt;
   .demo {height: 10em; width:32em; display:none;margin-bottom:2em;}
   .demo li {width:10em; background:yellow;}
@@ -4468,8 +4920,8 @@ $('.datepicker2').datepicker({
   .demo .scroll_nav{position:absolute;left:0;top:0;}
   .demo .scroll_nav .on{color:#39f;}
   &lt;/style&gt;             
-              </code>
-              <code>
+                            </code>
+                            <code>
   &lt;h4&gt;普通模式&lt;/h4&gt;      
   &lt;div class=&quot;demo&quot;&gt;
      &lt;ul&gt;
@@ -4480,8 +4932,8 @@ $('.datepicker2').datepicker({
         &lt;li&gt;&lt;img src=&quot;http://temp.im/300x305/&quot; /&gt;&lt;/li&gt;
      &lt;/ul&gt;
   &lt;/div&gt;
-            </code>
-            <code>
+                            </code>
+                            <code>
   &lt;style&gt;
   .demo-hero { display:none;}
   .demo-hero li {width:980px; background:yellow;}
@@ -4489,8 +4941,8 @@ $('.datepicker2').datepicker({
   .demo-hero .arr_prev{left:0;}
   .demo-hero .arr_next{right:0;}
   &lt;/style&gt;
-          </code>
-          <code>
+                            </code>
+                            <code>
   &lt;h4&gt;hero模式&lt;/h4&gt;  
   &lt;div class=&quot;demo-hero&quot;&gt;
      &lt;ul&gt;
@@ -4502,11 +4954,10 @@ $('.datepicker2').datepicker({
      &lt;/ul&gt;
   &lt;/div&gt;
   &lt;span class=&quot;button myback&quot;&gt;back&lt;/span&gt;&lt;span class=&quot;button myforward&quot;&gt;forward&lt;/span&gt;
-          </code>
-          </pre>
+                            </code>
+                        </pre>
                         <pre>
-
-                <code>
+                            <code>
   //js
   require('scroll-col');
 
@@ -4517,8 +4968,49 @@ $('.datepicker2').datepicker({
     prev: '.myback',
     next: '.myforward'
   });
-                </code>
-          </pre>
+                            </code>
+                        </pre>
+                    </td>
+                </tr>
+                <tr id="Scroll-load（滚动加载）">
+                    <td>scroll-load</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>监听指定元素滚动到底部事件，自动添加加载条，并执行加载方法</p>
+                        <h5>配置</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>distance</th>
+                                <td>距离底部开始加载的距离，默认70，单位px</td>
+                            </tr>
+                            <tr>
+                                <th>callback</th>
+                                <td>触发加载回调，接收加载条为参数，加载结束需手动隐藏</td>
+                            </tr>
+                            <tr>
+                                <th>destory</th>
+                                <td>销毁滚动加载监听，默认false</td>
+                            </tr>
+                        </table>
+                        <h5>示例</h5>
+                        <pre>
+                            <code>
+    require('scroll-load');
+    $('#cont').scrollLoad({
+        callback: function(loading) {
+            $.ajax({
+                url: api.getxxx,
+                data:{}
+                success:function(data){
+                    renderHTML(data);
+                    //加载结束后手动隐藏加载条
+                    loading.hide();
+                }
+            })
+        }
+    });
+                            </code>
+                        </pre>
                     </td>
                 </tr>
                 <tr id="Scroll-row（纵向滚动）">
@@ -4582,7 +5074,7 @@ $('.datepicker2').datepicker({
                         </table>
                         <h5>示例</h5>
                         <pre>
-         <code>
+                            <code>
   &lt;style&gt;
   .demo { position: relative; width: 320px; height: 22em; overflow: hidden; }
   .demo li{ height: 10em; overflow: hidden; margin-bottom:1em; background:yellow; }
@@ -4590,8 +5082,8 @@ $('.datepicker2').datepicker({
   .demo .arr_prev{top:0;}
   .demo .arr_next{top:2em;}
   &lt;/style&gt;
-              </code>
-              <code>
+                          </code>
+                          <code>
   &lt;div class=&quot;demo&quot;&gt;
      &lt;ul class=&quot;row&quot;&gt;
         &lt;li class=&quot;span-4 midd-6 smal-12&quot;&gt;&lt;img src=&quot;http://temp.im/300x300/&quot; /&gt;&lt;/li&gt;
@@ -4607,18 +5099,18 @@ $('.datepicker2').datepicker({
   &lt;/div&gt;
   &lt;div class=&quot;myprev&quot;&gt;prev&lt;/div&gt;
   &lt;div class=&quot;mynext&quot;&gt;next&lt;/div&gt;
-        </code>
-      </pre>
+                            </code>
+                        </pre>
                         <pre>
-        <code>
+                            <code>
   //js
   require('scroll-row');
   $('.demo').scrollRow({
     prev:'.myprev',
     next:'.mynext'
   })
-            </code>
-          </pre>
+                            </code>
+                        </pre>
                     </td>
                 </tr>
                 <tr id="Select（下拉框）">
@@ -4666,7 +5158,7 @@ $('.datepicker2').datepicker({
                         </table>
                         <h5>示例</h5>
                         <pre>
-               <code>
+                            <code>
   &lt;style&gt;
   .demo, button{display: block; width: 200px; margin:10px;}
   &lt;/style&gt;
@@ -4685,10 +5177,10 @@ $('.datepicker2').datepicker({
     
     &lt;button type=&quot;submit&quot;&gt;提交&lt;/button&gt;
   &lt;/form&gt;
-          </code>
-          </pre>
+                            </code>
+                        </pre>
                         <pre>
-                <code>
+                            <code>
   require('select');
   var dataAjax = [
         {
@@ -4724,9 +5216,73 @@ $('.datepicker2').datepicker({
     e.preventDefault();
     alert($(this).serialize())
   })
-                  </code>
-          </pre>
-                    </td>
+                                </code>
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr id="SendCode（短信验证码）">
+                        <td>sendcode</td>
+                        <td>
+                            <h5>描述</h5>
+                            <p>封装带倒计时的短信验证码功能</p>
+                            <h5>配置</h5>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>mobile</th>
+                                    <td>要发送的手机号</td>
+                                </tr>
+                                <tr>
+                                    <th>url</th>
+                                    <td>验证码请求地址</td>
+                                </tr>
+                                <tr>
+                                    <th>keyName</th>
+                                    <td>手机号的数据name，默认<code>"mobile"</code></td>
+                                </tr>
+                                <tr>
+                                    <th>data</th>
+                                    <td>请求附加数据，默认<code>{}</code></td>
+                                </tr>
+                                <tr>
+                                    <th>time</th>
+                                    <td>倒计时时间，默认60，单位s</td>
+                                </tr>
+                                <tr>
+                                    <th>sendBefore</th>
+                                    <td>发送前回调，接收三个参数：手机号，成功回调，失败回调，可用于发送前对手机号做其他校验</td>
+                                </tr>
+                                <tr>
+                                    <th>sendAfter</th>
+                                    <td>发送成功回调</td>
+                                </tr>
+                            </table>
+                            <h5>示例</h5>
+                            <pre>
+                                <code>
+    &lt;a href=&quot;###&quot; class=&quot;btn btn-default&quot; id=&quot;btn&quot;&gt;sendcode&lt;/a&gt;
+                                </code>
+                            </pre>
+                            <pre>
+                                <code>
+    require('sendcode');
+    $('#btn').sendcode({
+        mobile:'156555555',
+        url:seajs.root + '/test/data.json',
+        sendBefore:function(mobile, suc, err){
+            console.log(mobile);
+            if(mobile){
+                suc()
+            }else{
+                err()
+            }
+        },
+        sendAfter:function(){
+            console.log('sendAfter')
+        }
+    });
+                                </code>
+                            </pre>
+                        </td>
                     </tr>
                     <tr id="Slide（幻灯片）">
                         <td>slide</td>
@@ -4826,7 +5382,7 @@ $('.datepicker2').datepicker({
                             </table>
                             <h5>示例</h5>
                             <pre>
-               <code>
+                                <code>
   &lt;style&gt;
   .demo{max-width:1000px;margin:auto;height:0; overflow:hidden; padding-bottom:40%;}
   .demo li{background: yellow;}
@@ -4835,8 +5391,8 @@ $('.datepicker2').datepicker({
   .demo .slide_nav a{float: left;width: 16px;height: 16px;overflow:hidden;background:#ccc;margin:6px;}
   .demo .slide_nav .on{background:#666;}
   &lt;/style&gt;
-              </code>
-              <code>
+                              </code>
+                              <code>
   &lt;div class=&quot;demo&quot;&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;img src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/view0.jpg&quot; /&gt;&lt;/li&gt;
@@ -4847,15 +5403,15 @@ $('.datepicker2').datepicker({
     &lt;/ul&gt;
   &lt;/div&gt;
 
-        </code>
-      </pre>
+                                </code>
+                            </pre>
                             <pre>
-          <code>
+                                <code>
   //js
   require('slide');
   $('.demo').slide();
-                  </code>
-            </pre>
+                                </code>
+                            </pre>
                         </td>
                     </tr>
                     <tr id="Tab（选项卡）">
@@ -4923,7 +5479,7 @@ $('.datepicker2').datepicker({
                             </table>
                             <h5>示例</h5>
                             <pre>
-            <code>
+                                <code>
   &lt;style&gt;
   /*css*/
   .demo{width:480px;}
@@ -4932,8 +5488,8 @@ $('.datepicker2').datepicker({
   .demo .tab_t_cur{background:#39f;}
   .demo .tab_c{height:200px;border:1px solid #ccc;}
   &lt;/style&gt;
-            </code>
-            <code>
+                                </code>
+                                <code>
   &lt;!--html--&gt;
   &lt;div class=&quot;demo&quot;&gt;
      &lt;div class=&quot;tab_b&quot;&gt; 头部自定义内容 &lt;/div&gt;
@@ -4947,15 +5503,15 @@ $('.datepicker2').datepicker({
      &lt;/div&gt;
      &lt;div class=&quot;tab_t&quot; ignore&gt;&lt;a href="http://baidu.com" target="_blank"&gt;忽略选显卡&lt;/a&gt;&lt;/div&gt;
   &lt;/div&gt;
-          </code>
-        </pre>
+                                </code>
+                            </pre>
                             <pre>
-                <code>
+                                <code>
   //js
   require('tab');
   $('.demo').tab();
-               </code>
-            </pre>
+                               </code>
+                            </pre>
                         </td>
                     </tr>
                     <tr id="Tip（提示框）">
@@ -5035,13 +5591,13 @@ $('.datepicker2').datepicker({
                             </table>
                             <h5>示例</h5>
                             <pre>
-         <code>
+                                <code>
   &lt;style&gt;
   /*css*/
   .demo a{margin: 60px;}
   &lt;/style&gt;
-         </code>
-         <code>
+                                 </code>
+                                 <code>
   &lt;!--html--&gt;
   &lt;div class=&quot;wrap demo&quot;&gt;
     &lt;a href=&quot;#1&quot; class=&quot;_tip1 btn btn-default&quot;&gt;左&lt;/a&gt;
@@ -5049,230 +5605,18 @@ $('.datepicker2').datepicker({
     &lt;a href=&quot;#3&quot; class=&quot;_tip3 btn btn-default&quot;&gt;右&lt;/a&gt;
     &lt;a href=&quot;#4&quot; class=&quot;_tip4 btn btn-default&quot;&gt;下&lt;/a&gt;
   &lt;/div&gt;          
-            </code>
-        </pre>
+                                </code>
+                            </pre>
                             <pre>
-         <code>
+                                <code>
   //js
   require('tip');
   $('.demo ._tip1').tip( Math.random );
   $('.demo ._tip2').tip( Math.random , {place:'top-center'});
   $('.demo ._tip3').tip( Math.random , {place:'right-center'});
   $('.demo ._tip4').tip( Math.random , {place:'bottom-center'});
-            </code>
-          </pre>
-                        </td>
-                    </tr>
-                    <tr id="Transit（css3动画扩展）">
-                        <td>Transit</td>
-                        <td>
-                            <h5>描述</h5>
-                            <p>封装<a href="http://ricostacruz.com/jquery.transit/" target="_blank">Transit</a>，扩展jquery的css()方法支持css3属性定义，新增$.fn.transition()方法支持css3属性过渡动画。</p>
-                            <h5>多终端</h5>
-                            <p>支持</p>
-                            <h5>示例</h5>
-                            <pre>
-            <code>
-  &lt;div id=&quot;box&quot; class=&quot;btn btn-default&quot;&gt; Transit测试 &lt;/div&gt;
-            </code>
-          </pre>
-                            <pre>
-            <code>
-  require('transit');
-
-  $("#box").transition({ x: '30px' });               // Move right
-  //$("#box").css({ y: '60px' });               // Move down
-  //$("#box").css({ translate: [60,30] });      // Move right and down
-  //$("#box").css({ rotate: '30deg' });         // Rotate clockwise
-  //$("#box").css({ scale: 2 });                // Scale up 2x (200%)
-  //$("#box").css({ scale: [2, 1.5] });         // Scale horiz and vertical
-  //$("#box").css({ skewX: '30deg' });          // Skew horizontally
-  //$("#box").css({ skewY: '30deg' });          // Skew vertical
-  //$("#box").css({ perspective: 100, rotateX: 30 }); // Webkit 3d rotation
-  //$("#box").css({ rotateY: 30 });
-  //$("#box").css({ rotate3d: [1, 1, 0, 45] });
-
-  //$("#box").transition({ opacity: 0.1, scale: 0.3 });
-  //$("#box").transition({ opacity: 0.1, scale: 0.3 }, 500);                    // duration
-  //$("#box").transition({ opacity: 0.1, scale: 0.3 }, 'fast');                 // easing
-  //$("#box").transition({ opacity: 0.1, scale: 0.3 }, 500, 'in');              // duration+easing
-  //$("#box").transition({ opacity: 0.1, scale: 0.3 }, function() { });         // callback
-  //$("#box").transition({ opacity: 0.1, scale: 0.3 }, 500, 'in', function() { });  // everything
-            </code>
-          </pre>
-                        </td>
-                    </tr>
-                    <tr id="Qr（二维码）">
-                        <td>qr</td>
-                        <td>
-                            <h5>描述</h5>
-                            <p>生成二维码，封装自<a href="https://github.com/jeromeetienne/jquery-qrcode" target="_blank">jquery-qrcode</a>。</p>
-                            <h5>多终端</h5>
-                            <p>支持</p>
-                            <h5>示例</h5>
-                            <pre>
-              <code>
-  &lt;style&gt;
-    #qr_container{position: fixed;right:10px;bottom:10px;text-align: center;}
-  &lt;/style&gt;
-              </code>
-              <code>
-  &lt;div id=&quot;qr_container&quot;&gt; 微信扫描查看或分享 &lt;/div&gt;
-              </code>
-            </pre>
-                            <pre>
-                <code>
-  //js
-  var qr = require('qr');
-     
-  var qrcode = new qr(document.getElementById("qr_container"), {
-    text: "http://www.jerei.com",             // 生成内容
-    width: 128,                               // 宽
-    height: 128,                              // 高
-    colorDark : "#000000",                    // 颜色
-    colorLight : "#ffffff",                   // 背景色
-    correctLevel : qr.CorrectLevel.H          // 容错级别 L|M|Q|H
-  });
-
-  //qrcode.clear();                           // clear the code.
-  //qrcode.makeCode("http://naver.com");      // make another code.
-               </code>
-          </pre>
-                        </td>
-                    </tr>
-                    <tr id="Upload（上传）">
-                        <td>upload</td>
-                        <td>
-                            <h5>描述</h5>
-                            <p>上传插件，支持html5或ifram方式，改自<a href="https://github.com/aralejs/upload" target="_blank">aralejs/upload</a>，集成<a href="https://github.com/think2011/localResizeIMG" target="_blank">localResizeIMG</a>插件实现前端图片压缩，集成<a href="https://github.com/kairyou/html5-make-thumb" target="_blank">html5-make-thumb</a>实现选择图片返回缩略图。</p>
-                            <h5>多终端</h5>
-                            <p>支持</p>
-                            <h5>配置</h5>
-                            <table class="table table-hover">
-                                <tr>
-                                    <th>trigger</th>
-                                    <td>唤出文件选择器，可以是：选择器、element、jQuery Object</td>
-                                </tr>
-                                <tr>
-                                    <th>name</th>
-                                    <td>上传文件时对应的 name</td>
-                                </tr>
-                                <tr>
-                                    <th>action</th>
-                                    <td>表单提交的地址。</td>
-                                </tr>
-                                <tr>
-                                    <th>data</th>
-                                    <td>随表单一起要提交的数据。</td>
-                                </tr>
-                                <tr>
-                                    <th>accept</th>
-                                    <td>支持的文件类型，比如 image/\* 为只上传图片类的文件。可选项。</td>
-                                </tr>
-                                <tr>
-                                    <th>change</th>
-                                    <td>选择文件回调，回调参数为当前所选文件对象。若不设置，选择文件将自动上传，默认null</td>
-                                </tr>
-                                <tr>
-                                    <th>progress</th>
-                                    <td>上传的进度回调，不支持 IE9-。回调的参数分别为 ajaxEvent, 当前上传字节，总字节，进度百分比和当前文件列表。</td>
-                                </tr>
-                                <tr>
-                                    <th>error</th>
-                                    <td>上传失败的回调函数。</td>
-                                </tr>
-                                <tr>
-                                    <th>multiple</th>
-                                    <td>是否支持多文件上传。默认为 false。</td>
-                                </tr>
-                                <tr>
-                                    <th>compress</th>
-                                    <td>图片是否上传前压缩。默认为 false。</td>
-                                </tr>
-                                <tr>
-                                    <th>compressOption</th>
-                                    <td>上传压缩参数。默认 {}，可配置width和height。</td>
-                                </tr>
-                                <tr>
-                                    <th>thumb</th>
-                                    <td>接收缩略图的回调，回调参数为缩略图base64和文件对象。仅支持IE10及以上浏览器。</td>
-                                </tr>
-                                <tr>
-                                    <th>thumbOption</th>
-                                    <td>生成缩略图的配置，默认
-                                        <pre>
-                  <code>
-width: 0,               // thumbnail width
-height: 0,              //thumbnail height
-fill: false,            // fill color when the image is smaller than thumbnails size.
-background: '#fff',     // fill color‎
-type: 'image/jpeg',     // mime-type for thumbnail ('image/jpeg' | 'image/png')
-size: 'contain',        // CSS3 background-size: contain | cover | auto
-mark: {},               // watermark
-  // text watermark.
-  // mark = {padding: 5, height: 18, text: 'test', color: '#000', font: '400 18px Arial'}
-  // font: normal, bold, italic
-  // bgColor: '#ccc' (background color); bgPadding: 5 (padding)
-  // image watermark. (Note: cross-domain is not allowed)
-  // mark = {padding: 5, src: 'mark.png', width: 34, height: 45};
-stretch: false,         // stretch image(small versions) to fill thumbnail (size = auto | contain)
-before: null,           // call function before process image.
-fail: null,             // error function
-always: null            // complete function(done|fail)
-                  </code>
-                </pre>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>success</th>
-                                    <td>上传成功的回调函数。</td>
-                                </tr>
-                            </table>
-                            <h5>演示</h5>
-                            <pre>
-              <code>
-&lt;button type=&quot;button&quot; id=&quot;selectFile&quot; class=&quot;btn btn-primary&quot;&gt;选择&lt;/button&gt;
-&lt;button type=&quot;button&quot; id=&quot;doupload&quot; class=&quot;btn btn-warning&quot;&gt;上传&lt;/button&gt;
-              </code>
-            </pre>
-                            <pre>
-              <code>
-  require.async('upload', function(Uploader) {
-    var uploader = new Uploader({
-      trigger: '#selectFile',
-      name: 'file',
-      action: seajs.root + "/test/fileupload.php",
-      progress: function(event, position, total, percent) {
-        console.log('已上传 ' + position + '/' + total + ' ' + percent + '%')
-      },
-      compress: true,
-      compressOption: {
-        width: 640
-      },
-      change: function(file){
-        console.log(file)
-      },
-      thumb: function(base64, file){
-        var thumb = new Image();
-        thumb.src = base64;
-        thumb.alt = file.title;
-        $('body').append(thumb);
-      },
-      thumbOption: {
-        width: 100,
-        height: 100
-      },
-      success: function(response) {
-        console.log('上传完成')
-      }
-    });
-
-    $('#doupload').on('click', function() {
-      uploader.submit()
-    })
-  })
-              </code>
-            </pre>
+                                </code>
+                            </pre>
                         </td>
                     </tr>
                     <tr id="Zoom（图片放大镜）">
@@ -5323,7 +5667,7 @@ always: null            // complete function(done|fail)
                             </table>
                             <h5>示例</h5>
                             <pre>
-              <code>
+                                <code>
   &lt;!--html--&gt;
   &lt;style&gt;
   .demo{width:400px;height:320px;line-height: 320px; text-align:center;background:#eee;}
@@ -5332,15 +5676,15 @@ always: null            // complete function(done|fail)
   &lt;div class=&quot;demo&quot;&gt;
      &lt;img src=&quot;http://temp.im/320x240/&quot; zoom=&quot;http://temp.im/640x480/&quot;  /&gt;
   &lt;/div&gt;
-                  </code>
-                </pre>
+                                </code>
+                            </pre>
                             <pre>
-                <code>
+                                <code>
   // JS
   require('zoom');
   $('.demo').zoom()
-                </code>
-          </pre>
+                                </code>
+                            </pre>
                         </td>
                     </tr>
         </table>
@@ -5441,7 +5785,7 @@ $.ajax({
         <p>见<a href="#js-base-common">common.js</a>中的topush()方法介绍。</p>
         <h4>内置按需渲染策略</h4>
         <p>见<a href="#js-base-common">common.js</a>scanpush()方法介绍。</p>
-        <h3 id="instantclick">点击预加载</h3>
+        <h3 id="instantclick">链接预加载</h3>
         <p>结合<a href="https://github.com/tower1229/seajs-modules" target="_blank">seajs-modules</a>提供的<a href="http://instantclick.io" target="_blank">instantclick</a>插件，实现链接预加载、无刷新切换（PJAX）、加载进度条等特性，并扩展了页面切换后记住滚动位置的功能。</p>
         <h4>使用</h4>
         <p>预加载技术有一定特殊性，普通模块加载方式将失效，需要使用优化后的pjax专用模板，开发中基本保持了原有模块化开发体验，主要存在以下三点细节上的不同：</p>
@@ -5502,6 +5846,116 @@ $.ajax({
   &lt;a href=&quot;/test/test.html?scrollfixed=1&quot;&gt;
       </code>
     </pre>
+        <h3 id="ajaxcombo">AJAX合并</h3>
+       <h5>base.ajaxCombo(option)</h5>
+       <p>合并ajax请求，设置<code>combo:true</code>$.ajax会被合并，集中以<code>post</code>方式发送到指定url。</p>
+        <pre>
+          <code>
+  /*
+  * option.comboUrl[string]: 合并请求的发送地址，默认"/test/combo.php"
+  * option.comboDataKey[string]: 发送合并数据的key，默认"paramArray"
+  * option.extendData[object]: 合并请求的附加参数，将与option.comboDataKey平级，默认{}
+  * option.duration[number]: 合并等待时间，单位ms，该时间段内连续发起的请求会被合并，默认16
+  * option.everytimeout[number]: 单个请求超时时间，单位ms，默认2000，合并请求达到总超时时间后会终止，并将原ajax重新发起。
+  */
+
+  //发送数据格式示例，数据以"combo1、combo2..."的规则组织：
+  {
+    "paramArray": {
+      "combo1": {
+        "url": "",
+        "data": ""
+      },
+      "combo2": {
+        "url": "",
+        "data": ""
+      }
+    }
+  }
+  //返回数据格式示例，数据按原paramArray的结构返回：
+  {
+    "combo1": {
+      "data": "返回数据"
+    },
+    "combo2": {
+      "data": "返回数据"
+    }
+  }
+
+        </code>
+      </pre>
+      <p>复制以下代码到页面js中，打开页面调试面板查看网络请求和控制台。</p>
+      <pre>
+        <code>
+  //调用并附加参数:  
+  base.ajaxCombo({
+    extendData: {
+      apikey: 'apikey',
+      token: 'token',
+      secretKey: 'secretKey'
+    }
+  });
+  //第一批次合并请求
+  $.ajax({
+    url: seajs.root + '/test/ajax.php',
+    data: {
+      test: 'hello1',
+      sign: 's1'
+    },
+    combo: true,
+    success: function(data) {
+      console.log('第一批ajax1返回')
+    }
+  });
+  $.ajax({
+    type: 'post',
+    url: seajs.root + '/test/ajax.php',
+    data: {
+      test: 'hello2',
+      sign: 's2'
+    },
+    combo: true,
+    success: function(data) {
+      console.log('第一批ajax2返回')
+    }
+  });
+  //第二批次合并请求
+  setTimeout(function() {
+    $.ajax({
+      url: seajs.root + '/test/ajax.php',
+      data: {
+        test: 'hello3',
+        sign: 's3'
+      },
+      combo: true,
+      success: function(data) {
+        console.log('第二批ajax1返回')
+      }
+    });
+    $.ajax({
+      type: 'post',
+      url: seajs.root + '/test/ajax.php',
+      data: {
+        test: 'hello4'
+      },
+      combo: true,
+      success: function(data) {
+        console.log('第二批ajax2返回')
+      }
+    });
+  }, 300);
+  //不参与合并的请求
+  $.ajax({
+    url: seajs.root + '/test/ajax.php',
+    data: {
+      test: '普通未合并ajax'
+    },
+    success: function(data) {
+      console.log(data)
+    }
+  });
+          </code>
+        </pre>
         <h3 id="jscatch">js模块本地缓存</h3>
         <p>使用seajs-localcache插件实现manifest功能，通过manifest.js控制各模块版本（已合并至<code>/lib/seajs.js</code>），公用模块在第一次请求后会缓存到localstorage中，默认版本号1，修改版本号即更新对应模块缓存，版本号必须是真值（非0）。</p>
         <pre>

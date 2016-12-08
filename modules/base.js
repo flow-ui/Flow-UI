@@ -168,14 +168,10 @@ define('base', function(require, exports, module) {
 						localStorage.removeItem(cacheName);
 					}
 				}
-			},
-			error: function(o) {
-				
 			}
 		});
 		$( document ).ajaxError(catchAjaxError);
 	};
-	//_ajaxSetup($);
 	/*
 	 * cookie
 	 */
