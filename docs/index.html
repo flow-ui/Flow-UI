@@ -33,7 +33,7 @@
         <h4>目录结构</h4>
         <pre>
             <code class="javascript"> 
-  |-- ui-template/              //模板项目
+  |-- flow-ui/                  //模板项目
   |    |-- css/                     //css文件
   |    |-- font/                    //字体文件
   |    |-- img/                     //图片文件
@@ -55,9 +55,9 @@
         <p>Github下载：<a href="https://github.com/tower1229/Flow-UI" target="_blank">Flow-UI</a></p>
         <p>自动化工具：<a href="https://github.com/tower1229/Flow-CLI" target="_blank">Flow-CLI</a></p>
         <h4>快速开始</h4>
-        <p>1. 拷贝<code>ui-template/</code>和<code>modules/</code>到项目中；</p>
+        <p>1. 拷贝<code>flow-ui/</code>和<code>modules/</code>到项目中；</p>
         <p>2. 根据需要修改配置，<code>seajs.config.js</code>包含框架所需的所有配置；</p>
-        <p>3. 启动本地服务，访问 <a href="http://localhost/ui-template/index.html" target="_blank">http://localhost/ui-template/index.html</a></p>
+        <p>3. 启动本地服务，访问 <a href="http://localhost/flow-ui/index.html" target="_blank">http://localhost/flow-ui/index.html</a></p>
         <h4>配置</h4>
         <table class="table table-hover">
             <tr>
@@ -1429,175 +1429,8 @@
               </code>
         </pre>
         <h4 id="js-base-common">公用代码common.js</h4>
-        <p>common.js内置了网站常用代码，可以根据需求保留或删除:</p>
-        <nav class="modules_index" id="common_index"></nav>
-        <p>使用示例：</p>
-        <table class="table table-bordered" id="common_list">
-            <tr id="com-gotop（返回顶部）">
-                <td>返回顶部</td>
-                <td>
-                    对$('.gotop')添加点击返回顶部事件
-                </td>
-            </tr>
-            <tr id="com-max-length（textarea长度限制）">
-                <td>扩展textarea:max-length</td>
-                <td>
-                    <p>对textarea标签扩展max-length属性，用于限制最大输入字符数：</p>
-                    <pre>
-                        <code>
-  &lt;textarea max-length='200'&gt;text here...&lt;/textarea&gt;
-                        </code>
-                    </pre>
-                </td>
-            </tr>
-            <tr id="com-getType（获取设备类型）">
-                <td>getType([callback])</td>
-                <td>
-                    <p>获取当前设备类型，回调函数可选，当无回调时返回字符串('Pc','Pad','Mobile')，有回调时回调接受返回字符串为参数：</p>
-                    <pre>
-                        <code>
-   var com=require('./common');
-   
-   //无回调
-   var _type=com.getType();      //"Pc" || "Pad" || "Mobile"
-   
-   //有回调
-   com.getType(function(type){
-      alert(type);                //"Pc" || "Pad" || "Mobile"
-   })
-   
-                        </code>
-                    </pre>
-                </td>
-            </tr>
-            <tr id="com-getOrient（获取设备方向）">
-                <td>getOrient([callback])</td>
-                <td>
-                    <p>获取移动设备屏幕方向，回调函数可选，当无回调时返回字符串('Heng','Shu')，有回调时回调函数将持续监听屏幕方向变化，并接受屏幕方向为参数：</p>
-                    <pre>
-                        <code>
-   var com=require('./common');
-   
-   //无回调
-   var _orient=com.getOrient();// "Heng" || "Shu"
-   
-   //有回调
-   com.getOrient(function(orient){
-      alert(orient);// 每次旋转屏幕都将alert "Heng" 或 "Shu"
-   })
-                        </code>
-                    </pre>
-                </td>
-            </tr>
-            <tr id="com-resImg（图片响应）">
-                <td>resImg(bigSrc, [filter])</td>
-                <td>
-                    <p>全局图片响应方法，common.js中默认调用。</p>
-                    <p>图片的src将在手机端显示，bigSrc参数指定存放大图的自定义属性，可省，默认"data-src"，"data-src"图片地址将在pc和pad端显示。</p>
-                    <p>filter参数传入响应图片的范围，可省，默认检索整个页面。</p>
-                    <pre>
-                        <code>
-  &lt;img src=&quot;small.jpg&quot; data-src=&quot;big.jpg&quot; /&gt; 
-                   </code>
-                  </pre>
-                </td>
-            </tr>
-            <tr id="com-topush（按需渲染）">
-                <td>topush(DOM,callback)</td>
-                <td>
-                    <p><code>&lt;textarea&gt;</code>标签在页面中具有延迟渲染的特性，因此是一个天然的缓存容器，只要将自身隐藏，便实现了html5 <code>template</code>标签的特性，唯一的问题是使用<code>&lt;textarea&gt;</code>暂存的代码中不能包含另一个<code>&lt;textarea&gt;</code>，否则会造成暂存标签意外闭合，这时也可以选择<code>&lt;script type="text/template"&gt;</code>标签代替，它和<code>textarea</code>标签的作用是等价的，并且<code>script</code>标签自身就是不可见的，无须手动隐藏：</p>
-                    <pre>
-                       <code>
-     &lt;!--textarea标签暂存页面片段--&gt;
-     &lt;div class=&quot;demo topush&quot;&gt;
-        &lt;textarea class=&quot;hide&quot;&gt;
-          &lt;a href=&quot;#&quot;&gt;暂存的页面片段&lt;/a&gt;
-          &lt;a href=&quot;#&quot;&gt;暂存的页面片段&lt;/a&gt;
-          &lt;a href=&quot;#&quot;&gt;暂存的页面片段&lt;/a&gt;
-        &lt;/textarea&gt;
-     &lt;/div&gt;
-                    </code>
-                    <code>
-     &lt;!--script标签暂存页面片段--&gt;
-     &lt;div class=&quot;demo topush&quot;&gt;
-        &lt;script type=&quot;text/template&quot;&gt;
-          &lt;a href=&quot;#&quot;&gt;暂存的页面片段&lt;/a&gt;
-          &lt;a href=&quot;#&quot;&gt;暂存的页面片段&lt;/a&gt;
-          &lt;a href=&quot;#&quot;&gt;暂存的页面片段&lt;/a&gt;
-        &lt;/script&gt;
-     &lt;/div&gt;
-                    </code>
-                   </pre>
-                    <p><code>com.topush(DOM,callback)</code>方法专门用来取出暂存标签中的html片段（或发起Ajax）插入到外层元素中，两个参数分别是指定外层元素和取出后的回调函数，均为可选，DOM默认<code>.topush</code>。</p>
-                    <p>加载后的dom会添加<code>pushed</code>类，用来标记暂存代码已经取出。</p>
-                    <p>示例：</p>
-                    <pre>
-                          <code>
-   &lt;!--发起Ajax的例子--&gt;
-   &lt;div class=&quot;demo topush&quot;&gt;
-      &lt;textarea class=&quot;hide&quot; data-url=&quot;/test/ajax.php&quot;&gt; &lt;/textarea&gt;
-   &lt;/div&gt;
-                        </code>
-                        <code>
-   //无参数调用，显示所有".topush"元素中的暂存代码
-   com.topush();  
-   
-   //有回调                  
-   com.topush(function(e){           
-      console.log(e.attr('class')) //"topush ..."
-   });
-   
-   //指定渲染目标                 
-   com.topush('.demo');
-   
-   //传入两个参数
-   com.topush('.demo',function(e){    
-      console.log(e.html())//.demo 渲染后的html
-   });     
-                      </code>
-                  </pre>
-                </td>
-            </tr>
-            <tr id="com-scanpush（重新扫描渲染对象）">
-                <td>scanpush()</td>
-                <td>
-                    <p><code>com.scanpush()</code>方法会扫描页面上具有延迟渲染类名的元素，并按规则对其渲染。</p>
-                    <p>预置的四个按需渲染类是：<code>.PcPush</code>,<code>.UnpcPush</code>,<code>.MobilePush</code>,<code>.UnmobilePush</code>, 分别代表“只有Pc渲染”，“只有非Pc渲染”，“只有手机渲染”，“只有非手机渲染”,渲染完成后会触发该元素的渲染类同名事件，用
-                        <code>$(DOM).on('PcPush'/'UnpcPush'/'MobilePush'/'UnmobilePush')</code>可以捕捉到，事件也会冒泡到<code>body</code>上。</p>
-                    <p>并且这四个类元素下的<code>textarea</code>标签将自动隐藏，不需要手动加隐藏类。</p>
-                    <p>示例：</p>
-                    <pre>
-                        <code>
-  &lt;!-- html --&gt;
- &lt;div class=&quot;PcPush&quot;&gt;
-    &lt;textarea&gt;
-       只在Pc显示
-    &lt;/textarea&gt;
- &lt;/div&gt;
- 
- &lt;div class=&quot;UnmobilePush&quot;&gt;
-    &lt;textarea&gt;
-       除了手机都显示
-    &lt;/textarea&gt;
- &lt;/div&gt;
-                       </code>
-                       <code>
-  //js
-
-  $('body').on('PcPush',function(){
-    console.log( 'PcPush已经被渲染了' )
-  })
-  $('body').on('UnmobilePush',function(){
-    console.log( '.UnmobilePush已经被渲染了' )
-  })
-
-  com.scanpush();
-  
-                       </code>
-                    </pre>
-                </td>
-            </tr>
-        </table>
+        <p>common.js内置了网站常用代码，可以根据需求保留或删除</p>
+        
         <h3 id="js-modules">模块层</h3>
         <p>模块层封装了大量js模块，模块封装相关文档见 <a href="https://github.com/seajs/seajs/issues/242" target="_blank">CMD模块定义规范</a>。 </p>
         <h4>模块目录</h4>
@@ -2971,7 +2804,7 @@ $.ajax({
                                   </pre>
                                  </td>
                               </tr>
-                              <tr id="base-getScript">
+                              <tr>
                                 <td>base.getScript(file, [callabck], [option])</td>
                                 <td>
                                   <p>加载未模块化的普通js文件，可控制jquery依赖、指定css依赖、添加回调，支持批量加载及批量线性依赖加载。</p>
@@ -4751,6 +4584,167 @@ $('.datepicker2').datepicker({
                         </pre>
                     </td>
                 </tr>
+                <tr id="Responsive（响应式工具）">
+                    <td>responsive</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>响应式工具包，包含想响应式所需的js功能</p>
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>getType([callback])</td>
+                                <td>
+                                    <p>获取当前设备类型，回调函数可选，当无回调时返回字符串('Pc','Pad','Mobile')，有回调时回调接受返回字符串为参数：</p>
+                                    <pre>
+                                        <code>
+   var resp = require('responsive');
+   //无回调
+   var type=resp.getType();      //"Pc" || "Pad" || "Mobile"
+   
+   //有回调
+   resp.getType(function(type){
+      alert(type);                //"Pc" || "Pad" || "Mobile"
+   })
+   
+                                        </code>
+                                    </pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>getOrient([callback])</td>
+                                <td>
+                                    <p>获取移动设备屏幕方向，回调函数可选，当无回调时返回字符串('Heng','Shu')，有回调时回调函数将持续监听屏幕方向变化，并接受屏幕方向为参数：</p>
+                                    <pre>
+                                        <code>
+   var resp = require('responsive');
+   //无回调
+   var orient=resp.getOrient();// "Heng" || "Shu"
+   
+   //有回调
+   resp.getOrient(function(orient){
+      alert(orient);// 每次旋转屏幕都将alert "Heng" 或 "Shu"
+   })
+                                        </code>
+                                    </pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>resImg(bigSrc, [filter])</td>
+                                <td>
+                                    <p>全局图片响应方法</p>
+                                    <p>图片的src将在手机端显示，bigSrc参数指定存放大图的自定义属性，可省，默认"data-src"，"data-src"图片地址将在pc和pad端显示。</p>
+                                    <p>filter参数传入响应图片的范围，可省，默认检索整个页面。</p>
+                                    <pre>
+                                        <code>
+    &lt;img src=&quot;small.jpg&quot; data-src=&quot;big.jpg&quot; /&gt; 
+                                        </code>
+                                        <code>
+    var resp = require('responsive');
+    resp.resImg();
+                                        </code>
+                                  </pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>topush(DOM,callback)</td>
+                                <td>
+                                    <p><code>&lt;textarea&gt;</code>标签在页面中具有延迟渲染的特性，因此是一个天然的缓存容器，只要将自身隐藏，便实现了html5 <code>template</code>标签的特性，唯一的问题是使用<code>&lt;textarea&gt;</code>暂存的代码中不能包含另一个<code>&lt;textarea&gt;</code>，否则会造成暂存标签意外闭合，这时也可以选择<code>&lt;script type="text/template"&gt;</code>标签代替，它和<code>textarea</code>标签的作用是等价的，并且<code>script</code>标签自身就是不可见的，无须手动隐藏：</p>
+                                    <pre>
+                                       <code>
+     &lt;!--textarea标签暂存页面片段--&gt;
+     &lt;div class=&quot;demo topush&quot;&gt;
+        &lt;textarea class=&quot;hide&quot;&gt;
+          &lt;a href=&quot;#&quot;&gt;暂存的页面片段&lt;/a&gt;
+          &lt;a href=&quot;#&quot;&gt;暂存的页面片段&lt;/a&gt;
+          &lt;a href=&quot;#&quot;&gt;暂存的页面片段&lt;/a&gt;
+        &lt;/textarea&gt;
+     &lt;/div&gt;
+                                    </code>
+                                    <code>
+     &lt;!--script标签暂存页面片段--&gt;
+     &lt;div class=&quot;demo topush&quot;&gt;
+        &lt;script type=&quot;text/template&quot;&gt;
+          &lt;a href=&quot;#&quot;&gt;暂存的页面片段&lt;/a&gt;
+          &lt;a href=&quot;#&quot;&gt;暂存的页面片段&lt;/a&gt;
+          &lt;a href=&quot;#&quot;&gt;暂存的页面片段&lt;/a&gt;
+        &lt;/script&gt;
+     &lt;/div&gt;
+                                    </code>
+                                   </pre>
+                                    <p><code>resp.topush(DOM,callback)</code>方法专门用来取出暂存标签中的html片段（或发起Ajax）插入到外层元素中，两个参数分别是指定外层元素和取出后的回调函数，均为可选，DOM默认<code>.topush</code>。</p>
+                                    <p>加载后的dom会添加<code>pushed</code>类，用来标记暂存代码已经取出。</p>
+                                    <p>示例：</p>
+                                    <pre>
+                                          <code>
+   &lt;!--发起Ajax的例子--&gt;
+   &lt;div class=&quot;demo topush&quot;&gt;
+      &lt;textarea class=&quot;hide&quot; data-url=&quot;/test/ajax.php&quot;&gt; &lt;/textarea&gt;
+   &lt;/div&gt;
+                                        </code>
+                                        <code>
+    var resp = require('responsive');
+   //无参数调用，显示所有".topush"元素中的暂存代码
+   resp.topush();  
+   
+   //有回调                  
+   resp.topush(function(e){           
+      console.log(e.attr('class')) //"topush ..."
+   });
+   
+   //指定渲染目标                 
+   resp.topush('.demo');
+   
+   //传入两个参数
+   resp.topush('.demo',function(e){    
+      console.log(e.html())//.demo 渲染后的html
+   });     
+                                      </code>
+                                  </pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>scanpush()</td>
+                                <td>
+                                    <p><code>resp.scanpush()</code>方法会扫描页面上具有延迟渲染类名的元素，并按规则对其渲染。</p>
+                                    <p>预置的四个按需渲染类是：<code>.PcPush</code>,<code>.UnpcPush</code>,<code>.MobilePush</code>,<code>.UnmobilePush</code>, 分别代表“只有Pc渲染”，“只有非Pc渲染”，“只有手机渲染”，“只有非手机渲染”,渲染完成后会触发该元素的渲染类同名事件，用
+                                        <code>$(DOM).on('PcPush'/'UnpcPush'/'MobilePush'/'UnmobilePush')</code>可以捕捉到，事件也会冒泡到<code>body</code>上。</p>
+                                    <p>并且这四个类元素下的<code>textarea</code>标签将自动隐藏，不需要手动加隐藏类。</p>
+                                    <p>示例：</p>
+                                    <pre>
+                                        <code>
+  &lt;!-- html --&gt;
+ &lt;div class=&quot;PcPush&quot;&gt;
+    &lt;textarea&gt;
+       只在Pc显示
+    &lt;/textarea&gt;
+ &lt;/div&gt;
+ 
+ &lt;div class=&quot;UnpcPush&quot;&gt;
+    &lt;textarea&gt;
+       除了Pc都显示
+    &lt;/textarea&gt;
+ &lt;/div&gt;
+                                       </code>
+                                   </pre>
+                                   <pre>
+                                       <code>
+    //js
+    var resp = require('responsive');
+    $('body').on('PcPush',function(){
+        console.log( 'PcPush已经被渲染了' )
+    })
+    $('body').on('UnpcPush',function(){
+        console.log( '.UnpcPush已经被渲染了' )
+    })
+
+    resp.scanpush();
+  
+                                       </code>
+                                    </pre>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
                 <tr id="Scroll-bar（滚动条）">
                     <td>scroll-bar</td>
                     <td>
@@ -5700,7 +5694,7 @@ $('.datepicker2').datepicker({
     <section class="wrap" id="patch">
         <h2>解决方案</h2>
 
-        <p>内置解决方法示例页面见项目<code>ui-template/</code>。</p>
+        <p>内置解决方法示例页面见项目<code>flow-ui/</code>。</p>
         <h3 id="f_b">前后端分离</h3>
         <p>前后端分离是系统工程，其中最基本要做到的两点，一是通过数据接口实现数据交互，二是约定交互的数据格式，使<code>view</code>层操作全部落在前端，即可从开发上实现前后端解耦</p>
         <p>框架默认提供一个<code>js/api.js</code>文件，即接口管理模块，业务代码中不再具体写死数据请求地址，而是通过该模块获取指定的api，约定前后端交互数据基本格式如下：</p>
@@ -5757,8 +5751,8 @@ $.ajax({
         <h3 id="CrossTerminal">多终端</h3>
         <p>多终端网站开发除了css媒体查询以外，至少还要具备三项功能：响应式栅格系统、终端识别，响应图片。</p>
         <p>响应式栅格系统使页面布局可以随终端自动调整；</p>
-        <p>终端识别使js可以为每个终端做单独处理，框架通过媒体查询在页面中埋下特殊标记，js通过查找标记分辨当前设备类型，终端识别方法内置在common.js中；</p>
-        <p>响应图片使移动设备可以使用单独定制的小尺寸图片，为加载提速，对应方法已封装在common.js中。</p>
+        <p>终端识别使js可以为每个终端做单独处理，框架通过媒体查询在页面中埋下特殊标记，js通过查找标记分辨当前设备类型，终端识别方法内置在responsive.js中；</p>
+        <p>响应图片使移动设备可以使用单独定制的小尺寸图片，为加载提速，对应方法已封装在responsive.js中。</p>
         <p>默认多终端项目模板的实现方案是：</p>
         <code>
  {Pc} > 1024 > {Pad} > 640 > {Mobile} 
@@ -5790,9 +5784,9 @@ $.ajax({
      </code>
    </pre>
         <h4>延迟渲染</h4>
-        <p>见<a href="#js-base-common">common.js</a>中的topush()方法介绍。</p>
+        <p>见<a href="#Responsive（响应式工具）">responsive.js</a>中的topush()方法介绍。</p>
         <h4>内置按需渲染策略</h4>
-        <p>见<a href="#js-base-common">common.js</a>scanpush()方法介绍。</p>
+        <p>见<a href="#Responsive（响应式工具）">responsive.js</a>scanpush()方法介绍。</p>
         <h3 id="instantclick">链接预加载</h3>
         <p>结合<a href="https://github.com/tower1229/seajs-modules" target="_blank">seajs-modules</a>提供的<a href="http://instantclick.io" target="_blank">instantclick</a>插件，实现链接预加载、无刷新切换（PJAX）、加载进度条等特性，并扩展了页面切换后记住滚动位置的功能。</p>
         <h4>使用</h4>

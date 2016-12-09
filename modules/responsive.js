@@ -1,30 +1,12 @@
-/**
- * name: common
- * version: v3.0.2
- * update: ie8 opc0显示bug
- * date: 2016-08-02
+/*
+ * name: responsive
+ * version: 0.0.1
+ * update: build
+ * date: 2016-12-09
  */
-define(function(require, exports, module) {
+define('responsive', function(require, exports, module) {
+	'use strict';
 	var $ = require('jquery');
-	var base = require('base');
-
-	if(base.browser.ie<8){
-		alert('您的浏览器版本过低，请升级或使用chrome、Firefox等高级浏览器！');
-	}
-	//屏蔽ie78 console未定义错误
-	if (typeof console === 'undefined') {
-	    console = { log: function() {}, warn: function() {} };
-	}
-	//返回顶部
-	$('body').on('click','.gotop',function(){$('html,body').stop(1).animate({scrollTop:'0'},300);return false;});
-	//textarea扩展max-length
-	$('textarea[max-length]').on('change blur keyup',function(){
-		var _val=$(this).val(),_max=$(this).attr('max-length');
-		if(_val.length>_max){
-			$(this).val(_val.substr(0,_max));
-		}
-	});
-
 	/*
 	 * 延迟渲染
 	 */
@@ -134,39 +116,26 @@ define(function(require, exports, module) {
 	/*
 	 * 响应图片
 	 */
-	var ready = require('img-ready');
 	var _resImg = function(bigSrc) {
-		bigSrc = bigSrc ? bigSrc : 'data-src';
+		bigSrc = bigSrc || 'data-src';
 		_getType(function(type) {
 			if (!/Mobile/.test(type)) {
-				$('img[' + bigSrc + ']').each(function(i, e) {
-					$(e).attr('src', $(e).attr(bigSrc));
-					ready($(e).attr('src'), function() {},
-						function(width, height) {
-							$(e).removeAttr(bigSrc);
-						}
-					);
+				require.async('img-ready',function(ready){
+					$('img[' + bigSrc + ']').each(function(i, e) {
+						$(e).attr('src', $(e).attr(bigSrc));
+						ready($(e).attr('src'), function() {},
+							function(width, height) {
+								$(e).removeAttr(bigSrc);
+							}
+						);
+					});
 				});
 			}
 		});
 	};
-	//延时显示
-	if(base.browser.ie<9){
-		$('.opc0').css('filter','unset');
-	}else{
-		$('.opc0').animate({'opacity':'1'},160);
-	}
-	// placeholder
-	require('placeholder');
-	$('input, textarea').placeholder();
-	//按需渲染
-	_scanpush();
-	//响应图片
-	_resImg();
-	
 	/*
-	* 输出
-	*/
+	 * 输出
+	 */
 	module.exports = {
 		getType: _getType,
 		resImg: _resImg,
@@ -174,13 +143,4 @@ define(function(require, exports, module) {
 		topush: _push,
 		scanpush: _scanpush
 	};
-
-	/*
-	* 站内公用
-	*/
- 
-
-	
-	
-	
 });

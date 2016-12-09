@@ -1,8 +1,8 @@
 /*
  * name: common-pjax
- * version: v3.0.2
- * update: 同步common.js v3.0.0
- * date: 2016-04-30
+ * version: v4.0.0
+ * update: 精简
+ * date: 2016-12-09
  */
 define(function(require, exports, module) {
 	var $ = require('jquery');
@@ -10,11 +10,12 @@ define(function(require, exports, module) {
 
 	if(base.browser.ie<8){
 		alert('您的浏览器版本过低，请升级或使用chrome、Firefox等高级浏览器！');
+		//屏蔽ie78 console未定义错误
+		if (typeof console === 'undefined') {
+		    console = { log: function() {}, warn: function() {} };
+		}
 	}
-	//屏蔽ie78 console未定义错误
-	if (typeof console === 'undefined') {
-	    console = { log: function() {}, warn: function() {} }
-	}
+	
 	/*
 	* 常用工具
 	*/
@@ -52,8 +53,6 @@ define(function(require, exports, module) {
 	module.exports = {
 		init:function(){
 
-			// placeholder
-			$('input, textarea').placeholder();
 			//textarea限制字数
 			$('textarea[max-length]').on('change blur keyup',function(){
 				var _val=$(this).val(),_max=$(this).attr('max-length');
@@ -61,12 +60,7 @@ define(function(require, exports, module) {
 					$(this).val(_val.substr(0,_max));
 				}
 			});
-			//按需渲染
-			setTimeout(function(){
-				base.scanpush();
-			},0);
-			//响应图片
-			base.resImg();
+			
 			/*
 			* 站内公用
 			*/

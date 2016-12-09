@@ -1,11 +1,6 @@
-//开发模式
-seajs.develop = true;
 // 模块根路径
 seajs.root = '' ? '/' + '' : ''; 
-// api管理
-seajs.api = {
-	test: seajs.develop ? '/develop' : '/product'
-};
+
 // 插件设置
 seajs.set = {
 	util: {
@@ -16,8 +11,8 @@ seajs.set = {
 seajs.config({
 	base: seajs.root + "/modules",
 	paths: {
-		"js" : "/ui-template/js",
-		"lib": "/ui-template/lib"
+		"js" : "/flow-ui/js",
+		"lib": "/flow-ui/lib"
 	},
 	alias: {
 		"audio"		     : "audio/audio",
@@ -33,8 +28,5 @@ seajs.config({
 		"localResizeIMG" : "upload/localResizeIMG",
 		"video"		     : "video/video",
 		"webuploader"    : "webuploader/webuploader"
-	},
-    localcache:{
-        timeout: 2e4
-    }
+	}
 });

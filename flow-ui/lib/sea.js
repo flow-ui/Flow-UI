@@ -3,6 +3,39 @@
 /* Seajs.style.js */
 !function(){var a,b=/\W/g,c=document,d=document.getElementsByTagName("head")[0]||document.documentElement;seajs.importStyle=function(e,f){if(!f||(f=f.replace(b,"-"),!c.getElementById(f))){var g;if(!a||f?(g=c.createElement("style"),f&&(g.id=f),d.appendChild(g)):g=a,void 0!==g.styleSheet){if(c.getElementsByTagName("style").length>31)throw new Error("Exceed the maximal count of style tags in IE");g.styleSheet.cssText+=e}else g.appendChild(c.createTextNode(e));f||(a=g)}},define("seajs/seajs-style/1.0.2/seajs-style",[],{})}();
 
+// 模块根路径
+seajs.root = '' ? '/' + '' : ''; 
+
+// 插件设置
+seajs.set = {
+	util: {
+		timeout: 1.5e4
+	}
+};
+
+seajs.config({
+	base: seajs.root + "/modules",
+	paths: {
+		"js" : "/flow-ui/js",
+		"lib": "/flow-ui/lib"
+	},
+	alias: {
+		"audio"		     : "audio/audio",
+		"copy"		     : "copy/ZeroClipboard",
+		"flv"		     : "flv/flv",
+		"hook"	 	     : "hook/hook",
+		"jquery" 	     : "jquery/1/jquery",
+		"validform"      : "validform/validform",
+		"My97DatePicker" : "My97DatePicker/WdatePicker",
+		"raty"		     : "raty/raty",
+		"upload"         : "upload/upload",
+		"makethumb"      : "upload/makethumb",
+		"localResizeIMG" : "upload/localResizeIMG",
+		"video"		     : "video/video",
+		"webuploader"    : "webuploader/webuploader"
+	}
+});
+
 (function(seajs){
     var mod = {
         'audio/audio'                       : 'v1.0.1',
@@ -21,14 +54,14 @@
         'album'                             : 'v2.2.10',
         'appcan'                            : 'v0.1.0',
         'autocomplete'                      : 'v0.0.1',
-        'base'                              : 'v3.0.1',
+        'base'                              : 'v3.1.1',
         'bdshare'                           : 'v3.1.2',
         'box'                               : 'v3.10.5',
-        'city-select'                       : 'v0.0.5',
+        'city-select'                       : 'v0.0.7',
         'countdown'                         : 'v1.0.2',
         'counter'                           : 'v0.0.1',
         'datepicker'                        : 'v1.0.0',
-        'drag'                              : 'v0.5.0',
+        'drag'                              : 'v0.7.0',
         'easing'                            : 'v0.0.1',
         'echarts'                           : 'v0.0.2',
         'etpl'                              : 'v0.0.1',
@@ -36,7 +69,7 @@
         'img-loaded'                        : 'v0.0.1',
         'img-ready'                         : 'v1.0.0',
         'instantclick'                      : 'v0.0.1',
-        'lazyload'                          : 'v2.0.1',
+        'lazyload'                          : 'v2.1.0',
         'marquee'                           : 'v0.10.1',
         'masonry'                           : 'v0.0.1',
         'mousemenu'                         : 'v1.0.0',
@@ -48,10 +81,13 @@
         'pjax'                              : 'v0.0.1',
         'placeholder'                       : 'v0.0.1',
         'qr'                                : 'v0.1.0',
+        'responsive'                        : 'v0.0.1',
         'scroll-bar'                        : 'v2.2.7',
         'scroll-col'                        : 'v4.2.4',
+        'scroll-load'                       : 'v0.0.1',
         'scroll-row'                        : 'v3.0.6',
         'select'                            : 'v3.1.9',
+        'sendcode'                          : 'v0.0.1',
         'slide'                             : 'v4.1.8',
         'tab'                               : 'v2.1.2',
         'tip'                               : 'v1.2.4',
@@ -68,7 +104,7 @@
         seajs.data.localcache = {
             timeout: 2e4,
             manifest: manifest
-        }
+        };
     }
 })(seajs);
 /**
