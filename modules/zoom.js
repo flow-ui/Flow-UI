@@ -1,34 +1,36 @@
 /*
  * name: zoom.js
  * version: v2.0.2
- * update: 增加animate和duration配置
- * date: 2016-04-30
+ * update: 优化
+ * date: 2016-12-09
  */
 define('zoom', function(require, exports, module) {
 	"use strict";
+	seajs.importStyle('.zoomdiv{position:absolute;overflow:hidden;z-index:99;opacity:0;display:none}\
+		.zoomdiv.active{opacity:1;}\
+		.jqZoomPup{position:absolute;border:1px solid #aaa;background:#fff;background:rgba(255,255,255,.4);filter:alpha(Opacity=50);cursor:move;z-index:9;display:none}',
+		module.uri);
 	var $ = require('jquery'),
 		ready = require('img-ready'),
 		MouseEvent = function(e) {
 			this.x = e.pageX;
 			this.y = e.pageY;
+		},
+		def = {
+			zoomWidth: $this.outerWidth(),
+			zoomHeight: $this.outerHeight(),
+			zoomScale: 0,
+			offset: 10,
+			offsetTarget: null,
+			position: "right",
+			animate: true,
+			duration: 200,
+			preload: true
 		};
-	seajs.importStyle('.zoomdiv{position:absolute;overflow:hidden;z-index:99;opacity:0;display:none}\
-		.zoomdiv.active{opacity:1;}\
-		.jqZoomPup{position:absolute;border:1px solid #aaa;background:#fff;background:rgba(255,255,255,.4);filter:alpha(Opacity=50);cursor:move;z-index:9;display:none}', module.uri);
+
 	$.fn.zoom = function(config) {
 		return $(this).each(function(i, e) {
 			var $this = $(e),
-				def = {
-					zoomWidth: $this.outerWidth(),
-					zoomHeight: $this.outerHeight(),
-					zoomScale: 0,
-					offset: 10,
-					offsetTarget: null,
-					position: "right",
-					animate: true,
-					duration: 200,
-					preload: true
-				},
 				opt = $.extend(def, config || {}),
 				imageLeft, imageTop, imageWidth, imageHeight, imagePaddingTop,
 				imagePaddingLeft, bigimage, bigwidth, bigheight, dragzoom;
@@ -89,7 +91,7 @@ define('zoom', function(require, exports, module) {
 				}
 			}
 
-			function bindBigImg() {
+			var bindBigImg = function() {
 				ready(bigimage, function(w, h) {
 					// get img size
 					if (Number(opt.zoomScale) > 1) {
@@ -111,7 +113,7 @@ define('zoom', function(require, exports, module) {
 					});
 					$('body').bind("mousemove", dragzoom);
 				});
-			}
+			};
 
 			// 绑定事件
 			$this.on('mouseenter', 'img', function() {
@@ -130,9 +132,9 @@ define('zoom', function(require, exports, module) {
 					"width": opt.zoomWidth,
 					"height": opt.zoomHeight
 				}).html('<img src="' + bigimage + '"/>');
-				setTimeout(function(){
+				setTimeout(function() {
 					$('#zoomdiv').addClass('active');
-				},0);
+				}, 1000 / 6);
 				ready(Original.attr('src'), function(w, h) {
 					imageLeft = Original.offset().left;
 					imageTop = Original.offset().top;

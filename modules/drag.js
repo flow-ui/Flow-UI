@@ -34,7 +34,7 @@ define('drag', function(require, exports, module) {
                         .get(0).style.transform = 'translate(' + translateX + ',' + translateY + ')';
                     moveTimer = clearTimeout(moveTimer);
                     typeof(movecb) === 'function' && movecb(ele);
-                }, 0);
+                }, 1000 / 60);
             } else {
                 moveTimer = setTimeout(function() {
                     $(ele).css({
