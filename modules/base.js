@@ -1,8 +1,8 @@
 /*
  * name: base
- * version: 3.1.1
- * update: 增加getUUID方法
- * date: 2016-12-08
+ * version: 3.1.2
+ * update: getScript()多路加载回调bug
+ * date: 2016-12-14
  */
 define('base', function(require, exports, module) {
 	'use strict';
@@ -465,17 +465,19 @@ define('base', function(require, exports, module) {
 						scriptError = function(xhr, settings, exception) {
 							headNode.removeChild(script);
 							script = document.createElement("script");
-							console.warn('getScript:加载失败，正在重试~');
+							console.warn(settings.url + '加载失败，正在重试~');
 							load(function() {
-								console.warn('getScript:加载失败了!');
+								console.warn(settings.url + '加载失败了!');
 							});
 						},
 						scriptOnload = function(data, status) {
 							if (!data) {
 								data = status = null;
 							}
-							if (hold && typeof(hold) === 'function') {
-								hold();
+							if (hold) {
+								if(typeof(hold) === 'function'){
+									hold();
+								}
 							} else if (typeof(callback) === 'function') {
 								if (data) {
 									callback(data, status);
@@ -564,6 +566,8 @@ define('base', function(require, exports, module) {
 					}
 				}
 			}
+		}else{
+			return console.warn('getScript()参数错误！');
 		}
 	};
 	//ajaxCombo
