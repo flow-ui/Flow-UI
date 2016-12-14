@@ -479,11 +479,7 @@ define('base', function(require, exports, module) {
 									hold();
 								}
 							} else if (typeof(callback) === 'function') {
-								if (data) {
-									callback(data, status);
-								} else {
-									callback();
-								}
+								setTimeout(callback, 0);
 							}
 						},
 						load = function(errorCallback) {
