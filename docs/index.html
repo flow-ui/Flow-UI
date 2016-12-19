@@ -3385,7 +3385,7 @@ $('.demo').citySelect({
                     <td>countdown</td>
                     <td>
                         <h5>描述</h5>
-                        <p>倒计时插件，通过重写render方法可自定义显示格式，封装自<a href="https://github.com/rendro/countdown" target="_blank">countdown</a>。</p>
+                        <p>倒计时插件，通过重写render方法可自定义显示格式。</p>
                         <h5>多终端</h5>
                         <p>支持</p>
                         <h5>注意</h5>
@@ -3415,6 +3415,22 @@ $('.demo').citySelect({
                             <tr>
                                 <th>render</th>
                                 <td>渲染函数，接收两个参数分别是当前DOM和日期</td>
+                            </tr>
+                        </table>
+                        <h5>返回对象</h5>
+                        <p>返回对象包括两个方法，</p>
+                        <table class="table bordered">
+                            <tr>
+                                <td>update(option)</td>
+                                <td>
+                                    <p>更新倒计时参数，如果在onEnd回调中调用update方法，注意避免死循环</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>stop()</td>
+                                <td>
+                                    <p>停止当前倒计时实例</p>
+                                </td>
                             </tr>
                         </table>
                         <h5>示例</h5>
