@@ -3463,60 +3463,7 @@ $('.demo').citySelect({
                         </pre>
                     </td>
                 </tr>
-                <tr id="Counter（加减计数器）">
-                    <td>counter</td>
-                    <td>
-                        <h5>描述</h5>
-                        <p>封装加减计数器插件，将触发元素插入/替换一个加减计数器，自带模板和两种样式</p>
-                        <h5>多终端</h5>
-                        <p>不支持</p>
-                        <h5>配置</h5>
-                        <table class="table table-hover">
-                            <tr>
-                                <th>mode</th>
-                                <td>默认"replace"，生成模式，可选"insert"</td>
-                            </tr>
-                            <tr>
-                                <td>init</td>
-                                <td>默认0，初始数量</td>
-                            </tr>
-                            <tr>
-                                <td>minbuycount</td>
-                                <td>默认1，每次加减数量</td>
-                            </tr>
-                            <tr>
-                                <td>max</td>
-                                <td>默认无限大，最大数量</td>
-                            </tr>
-                            <tr>
-                                <td>style</td>
-                                <td>默认'default'，可选'inline'，计数器样式</td>
-                            </tr>
-                            <tr>
-                                <td>callback</td>
-                                <td>默认无，计数器操作回调，@param ($input)</td>
-                            </tr>
-                        </table>
-                        <h5>示例</h5>
-                        <pre>
-                            <code>
-&lt;!-- html --&gt;
-&lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
-                            </code>
-                          </pre>
-                        <pre>
-                            <code>
-//js
-require('counter');
-$('.demo').counter({
-  callback:function($input){
-    $('body').append('&lt;p&gt;'+$input.val()+'&lt;/p&gt;')
-  }
-})
-                        </code>
-                     </pre>
-                    </td>
-                </tr>
+                
                 <tr id="DatePicker（日期选择器）">
                     <td>DatePicker</td>
                     <td>
@@ -3928,6 +3875,60 @@ $('.datepicker2').datepicker({
   )
                             </code>
                         </pre>
+                    </td>
+                </tr>
+                <tr id="input-number（数字输入框）">
+                    <td>input-number</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>封装数字输入框插件，将触发元素插入/替换一个加减计数器，自带模板和两种样式</p>
+                        <h5>多终端</h5>
+                        <p>不支持</p>
+                        <h5>配置</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>mode</th>
+                                <td>默认"replace"，生成模式，可选"insert"</td>
+                            </tr>
+                            <tr>
+                                <td>init</td>
+                                <td>默认0，初始数量</td>
+                            </tr>
+                            <tr>
+                                <td>minbuycount</td>
+                                <td>默认1，每次加减数量</td>
+                            </tr>
+                            <tr>
+                                <td>max</td>
+                                <td>默认无限大，最大数量</td>
+                            </tr>
+                            <tr>
+                                <td>style</td>
+                                <td>默认'default'，可选'inline'，计数器样式</td>
+                            </tr>
+                            <tr>
+                                <td>callback</td>
+                                <td>默认无，计数器操作回调，@param ($input)</td>
+                            </tr>
+                        </table>
+                        <h5>示例</h5>
+                        <pre>
+                            <code>
+&lt;!-- html --&gt;
+&lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
+                            </code>
+                          </pre>
+                        <pre>
+                            <code>
+//js
+require('input-number');
+$('.demo').inputNumber({
+  callback:function($input){
+    $('body').append('&lt;p&gt;'+$input.val()+'&lt;/p&gt;')
+  }
+})
+                        </code>
+                     </pre>
                     </td>
                 </tr>
                 <tr id="Instantclick（链接预加载）">

@@ -1115,7 +1115,17 @@ big.form-mark {
   font-size: 12px;
   line-height: 1.5;
   height: 30px;
-  padding: 5px 8px;
+  padding: 0 8px;
+}
+.input-group-sm > .input-group-addon {
+  width: 30px;
+  height: 28px;
+  padding: 0;
+}
+.input-group-lg > .input-group-addon {
+  height: 46px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .input-group-addon {
   border-radius: 4px;
@@ -1128,6 +1138,7 @@ big.form-mark {
   border-left-width: 0;
   border-right-width: 0;
   width: 38px;
+  box-sizing: content-box;
   height: 36px;
   line-height: 36px;
   border-right-width: 1px\9;

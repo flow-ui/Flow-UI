@@ -1,43 +1,46 @@
 /*
- * name: counter.js
- * version: v0.0.1
- * update: build
+ * name: input-number.js
+ * version: v0.0.2
+ * update: bug fix
  * date: 2016-10-26
  */
-define("counter", function(require, exports, module) {
+define("input-number", function(require, exports, module) {
 	"use strict";
-	seajs.importStyle('.counter_wrap{position: relative;display: inline-block;vertical-align: middle; padding:0 30px 0 0; white-space: nowrap;}\
-		.pro_counter_val{ width:72px;height: 38px;line-height: 38px; text-align: center;margin:0 1px;padding:0;border:1px solid #a6a5aa;\
-		box-shadow: 3px 3px 6px rgba(0,0,0,.1) inset;margin:0;}\
-		.pro_counter_btn{position: absolute; right:0; width:24px;height:18px; line-height: 18px; margin:0;padding:0;background: #f8f8f8;\
-		border:1px solid #a6a5aa;cursor: pointer; outline: none}\
-		.pro_counter_btn:hover{background:#ddd;border-color:#aaa;}\
-		.pro_counter_btn.disabled{background:#fff;cursor: default;}\
-		.pro_counter_reduce{bottom:0;}\
-		.pro_counter_add{top:0;}\
-		.pro_counter_inline{padding:0 22px;}\
-		.pro_counter_inline .pro_counter_val{width:40px; height: 24px;line-height: 24px;box-shadow: none;border-color:@gray-light;}\
-		.pro_counter_inline .pro_counter_btn{width:22px;height: 26px;line-height: 26px;}\
-		.pro_counter_inline .pro_counter_reduce{right:auto;left: 0;border-right:0;}\
-		.pro_counter_inline .pro_counter_add{border-left: 0;}', module.uri);
+	seajs.importStyle('.pro_counter_val{ min-width:2em;text-align: center;}\
+		.pro_counter_btn{cursor:pointer;user-select:none;}\
+		.pro_counter_btn:hover{color:#000;}\
+		.pro_counter_btn.disabled{background:#fff;cursor: not-allowed;}\
+		.counter_default{position: relative;display: inline-block;vertical-align: middle; padding:0 30px 0 0; white-space: nowrap;}\
+		.counter_default .pro_counter_val{height:38px;line-height:38px;border-radius:4px 0 0 4px;}\
+		.counter_default .pro_counter_btn{position: absolute; right:0; width:29px;height:18px; line-height: 18px; margin:0;padding:0;\
+		background: #f8f8f8; border:1px solid #e8e9eb;border-left:0;text-align:center; outline: none}\
+		.counter_default .pro_counter_btn:hover{background:#eee;}\
+		.counter_default .pro_counter_reduce{bottom:0;border-top:0;border-bottom-right-radius:4px;}\
+		.counter_default .pro_counter_add{top:0;border-bottom:0;border-top-right-radius:4px;}\
+		.counter_wrap:hover .pro_counter_btn, .counter_wrap:hover .pro_counter_val{border-color:#ccc;}', module.uri);
 	var $ = require('jquery');
 	var def = {
 		template: function(style, minbuycount, max, init) {
 			if (!style.split || isNaN(Number(minbuycount)) || isNaN(Number(max)) || isNaN(Number(init))) {
 				return console.warn('模板参数错误！');
 			}
+			var _temp;
 			switch($.trim(style)){
 				case "inline":
-					style = ' pro_counter_inline';
+					_temp = '<div class="counter_wrap counter_inline input-group">\
+                        <div class="pro_counter_btn pro_counter_reduce input-group-addon" data-minbuycount="' + minbuycount + '">-</div>\
+                        <input type="text" value="' + init + '" data-max="' + max + '" class="form-control pro_counter_val">\
+                        <div class="pro_counter_btn pro_counter_add input-group-addon" data-minbuycount="' + minbuycount + '">+</div>\
+                    </div>';
 					break;
 				default:
-					style = '';
-			}
-			return '<div class="counter_wrap' + style + '">\
-                        <button type="button" class="pro_counter_btn pro_counter_reduce" data-minbuycount="' + minbuycount + '">-</button>\
-                        <input type="text" value="' + init + '" data-max="' + max + '" class="pro_counter_val">\
-                        <button type="button" class="pro_counter_btn pro_counter_add" data-minbuycount="' + minbuycount + '">+</button>\
+					_temp = '<div class="counter_wrap counter_default">\
+                        <div class="pro_counter_btn pro_counter_reduce" data-minbuycount="' + minbuycount + '">-</div>\
+                        <input type="text" value="' + init + '" data-max="' + max + '" class="form-control pro_counter_val">\
+                        <div class="pro_counter_btn pro_counter_add" data-minbuycount="' + minbuycount + '">+</div>\
                     </div>';
+			}
+			return _temp;
 		},
 		mode: 'replace', // 'insert' || 'replace'
 		init: 0,
@@ -129,7 +132,7 @@ define("counter", function(require, exports, module) {
 		_input.parents('.counter_wrap').data('countercallback')(_input);
 	};
 
-	$.fn.counter = function(config) {
+	$.fn.inputNumber = function(config) {
 		var $this = $(this),
 			opt = $.extend({}, def, config || {});
 		//统一绑定事件
@@ -138,7 +141,7 @@ define("counter", function(require, exports, module) {
 		}
 		return $this.each(function(i, e) {
 			if (opt.mode === 'insert') {
-				$(e).html(opt.template(opt.style, opt.minbuycount, opt.max, opt.init)).data('countercallback', opt.callback);
+				$(e).html(opt.template(opt.style, opt.minbuycount, opt.max, opt.init)).children('.counter_wrap').data('countercallback', opt.callback);
 			} else {
 				var newDom = $(opt.template(opt.style, opt.minbuycount, opt.max, opt.init)).data('countercallback', opt.callback);
 				$(e).after(newDom);
