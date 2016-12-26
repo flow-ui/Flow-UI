@@ -1,7 +1,7 @@
 /*
  * name: base
- * version: 3.1.2
- * update: getScript()多路加载回调bug
+ * version: 3.1.3
+ * update: ajax localCache 增加debug模式
  * date: 2016-12-14
  */
 define('base', function(require, exports, module) {
@@ -109,7 +109,8 @@ define('base', function(require, exports, module) {
 						cacheNamePrefix = '_ajaxcache',
 						cacheName,
 						cacheDeadline,
-						cacheVal;
+						cacheVal,
+						isDebug = _urlParam('debug');
 					//获取url
 					if (setting.type.toUpperCase() === 'POST' && $.isPlainObject(setting.data)) {
 						var _param = '?';
@@ -146,7 +147,7 @@ define('base', function(require, exports, module) {
 							return false;
 						}
 					});
-					if (setting.localCache && !isNaN(setting.localCache)) {
+					if (!isDebug && setting.localCache && !isNaN(setting.localCache)) {
 						var nowDate = new Date().getTime();
 						if (cacheDeadline && cacheDeadline > nowDate) {
 							//console.log('使用缓存 '+cacheDeadline+'>'+nowDate);
@@ -184,8 +185,11 @@ define('base', function(require, exports, module) {
 						}
 						nowDate = null;
 					} else if(cacheName){
-						console.log('清除缓存');
+						//清除缓存
 						localStorage.removeItem(cacheName);
+						if(isDebug){
+							console.log('debug模式：数据['+cacheName+']已清除');
+						}
 					}
 				}
 			}
