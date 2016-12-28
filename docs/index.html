@@ -1565,7 +1565,7 @@
                     </pre>
                 </td>
                 </tr>
-                <tr id="jquery">
+                <tr id="jQuery">
                     <td>jQuery</td>
                     <td>
                         <h5>描述</h5>
@@ -3877,13 +3877,11 @@ $('.datepicker2').datepicker({
                         </pre>
                     </td>
                 </tr>
-                <tr id="input-number（数字输入框）">
+                <tr id="Input-Number（数字输入框）">
                     <td>input-number</td>
                     <td>
                         <h5>描述</h5>
                         <p>封装数字输入框插件，将触发元素插入/替换一个加减计数器，自带模板和两种样式</p>
-                        <h5>多终端</h5>
-                        <p>不支持</p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
@@ -3934,7 +3932,7 @@ $('.demo').inputNumber({
                 <tr id="Instantclick（链接预加载）">
                     <td>instantclick</td>
                     <td>
-                        <h5>描述</h5>'
+                        <h5>描述</h5>
                         <p>链接预加载插件，详情查看<a href="#instantclick">【链接预加载】</a></p>
                     </td>
                 </tr>
@@ -4533,13 +4531,73 @@ $('.demo').inputNumber({
                         </pre>
                     </td>
                 </tr>
+                <tr id="Page（翻页）">
+                    <td>page</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>按指定配置生成翻页，带点击回调</p>
+                        <h5>配置</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>wrap</th>
+                                <td>默认无，必填，jquery选择器格式，翻页生成容器</td>
+                            </tr>
+                            <tr>
+                                <th>number</th>
+                                <td>默认1，当前页码</td>
+                            </tr>
+                            <tr>
+                                <th>showNum</th>
+                                <td>默认5，显示页数</td>
+                            </tr>
+                            <tr>
+                                <th>totalPages</th>
+                                <td>默认无，必填，总页数</td>
+                            </tr>
+                            <tr>
+                                <th>holder</th>
+                                <td>默认'...'，翻篇占位符</td>
+                            </tr>
+                            <tr>
+                                <th>hook</th>
+                                <td>自定义样式钩子</td>
+                            </tr>
+                            <tr>
+                                <th>onClick</th>
+                                <td>点击回调方法，参数接收点击页码</td>
+                            </tr>
+                            <tr>
+                                <th>size</th>
+                                <td>默认'normal'，内置翻页尺寸，可选'sm / lg'</td>
+                            </tr>
+                        </table>
+                        <h5>示例</h5>
+                        <pre>
+                            <code>
+  &lt;div class=&quot;wrap&quot;&gt;
+  &lt;/div&gt;
+                            </code>
+                        </pre>
+                        <pre>
+                            <code>
+    require.async('page',function(page){
+        page({
+            totalPages:10,
+            wrap: '.wrap',
+            onClick:function(page){
+                console.log(page);
+            }
+        });
+    });
+                            </code>
+                        </pre>
+                    </td>
+                </tr>
                 <tr id="Photowall（等高图片墙）">
                     <td>photowall</td>
                     <td>
                         <h5>描述</h5>
                         <p>类似百度图片搜索结果页的等高图片墙效果</p>
-                        <h5>多终端</h5>
-                        <p>不建议移动端使用</p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
@@ -5048,38 +5106,64 @@ $('.demo').inputNumber({
                     <td>scroll-load</td>
                     <td>
                         <h5>描述</h5>
-                        <p>监听指定元素滚动到底部事件，自动添加加载条，并执行加载方法</p>
+                        <p>监听滚动元素滚动到底事件，自动添加加载条，并执行加载方法</p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
                                 <th>distance</th>
-                                <td>距离底部开始加载的距离，默认70，单位px</td>
+                                <td>默认70，距离底部开始加载的距离，单位px</td>
                             </tr>
                             <tr>
-                                <th>callback</th>
-                                <td>触发加载回调，接收加载条为参数，加载结束需手动隐藏</td>
+                                <th>callback(scrollStop)</th>
+                                <td>默认无，滚动到底部回调，参数接收终止加载方法，需手动调用</td>
                             </tr>
+                            <tr>
+                                <th>force</th>
+                                <td>默认false，强制执行</td>
+                            </tr>
+                            <tr>
+                                <th>loadingTemplate</th>
+                                <td>默认'&lt;div class=&quot;scrollLoadSpinning&quot;&gt;&lt;span class=&quot;_spin&quot;&gt;&lt;/span&gt;&lt;/div&gt;'，加载条html</td>
+                            </tr>
+                        </table>
+                        <h5>返回</h5>
+                        <p>返回实例操作句柄，包含以下方法</p>
+                        <table class="table table-hover">
                             <tr>
                                 <th>destory</th>
-                                <td>销毁滚动加载监听，默认false</td>
+                                <td>销毁监听实例</td>
                             </tr>
                         </table>
                         <h5>示例</h5>
                         <pre>
                             <code>
-    require('scroll-load');
-    $('#cont').scrollLoad({
-        callback: function(loading) {
-            $.ajax({
-                url: api.getxxx,
-                data:{}
-                success:function(data){
-                    renderHTML(data);
-                    //加载结束后手动隐藏加载条
-                    loading.hide();
-                }
-            })
-        }
+    &lt;div class=&quot;cont&quot; style=&quot;width:200px;height: 200px; line-height:2;border:1px solid #ccc;overflow: auto;&quot;&gt;&lt;/div&gt;
+                            </code>
+                        </pre>
+                        <pre>
+                            <code>
+    var testdata = '&lt;p&gt;test data&lt;/p&gt;',
+        cont = $('.cont'),
+        getData = function(length){
+            var i = 0,
+                len = length || 10,
+                r = '';
+            for(; i&lt;len; i++){
+                r += testdata;
+            }
+            return r;
+        };
+
+    cont.html(getData());
+    require.async('scroll-load',function(){
+        cont.scrollLoad({
+            callback:function(scrollStop){
+                setTimeout(function(){
+                    cont.append(getData());
+                    scrollStop();   //加载完成后执行scrollStop方法，终止加载状态
+                },1000);
+            }
+        });
     });
                             </code>
                         </pre>
@@ -5189,23 +5273,17 @@ $('.demo').inputNumber({
                     <td>select</td>
                     <td>
                         <h5>描述</h5>
-                        <p>下拉框美化插件，作用于原生select标签时会创建一个继承样式的模拟结构，并隐藏原select标签，操作模拟select会将结果同步回原生select，支持<code>disabled</code>和<code>selected</code>特性模拟。</p>
-                        <h5>多终端</h5>
-                        <p>支持</p>
-                        <h5>注意</h5>
-                        <ol>
-                            <li>在移动端select可以完全自定义样式，所以不需要创建模拟结构，但仍然支持对select的操作回调</li>
-                        </ol>
+                        <p>下拉框插件，用于创建模拟select组件，并将模拟组件的操作结果同步给原生select</p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
                                 <th>data</th>
-                                <td>优先使用此数据初始化，格式见示例</td>
+                                <td>默认无，将优先使用数据初始化select元素，数据格式见示例</td>
                             </tr>
                             <tr>
                                 <tr>
                                     <th>posi</th>
-                                    <td>下拉方向，默认"bottom"，可选"top"和"auto"，"auto"会计算下拉框距离屏幕上下两端的尺寸，向大的一边展开。</td>
+                                    <td>默认"bottom"，下拉方向，可选"top"和"auto"，"auto"会计算下拉框距离屏幕上下两端的尺寸，向空间大的一边展开。</td>
                                 </tr>
                                 <tr>
                                     <th>hideSelected</th>
@@ -5217,16 +5295,28 @@ $('.demo').inputNumber({
                                 </tr>
                                 <tr>
                                     <th>act</th>
-                                    <td>触发动作，可选 click | mouseenter</td>
+                                    <td>默认"click"，下拉触发动作，可选 "mouseenter"</td>
                                 </tr>
                                 <tr>
                                     <th>hook</th>
-                                    <td>样式钩子，用于自定义皮肤，默认default，生成的类名为<code>select-ui-choose-hook</code>和<code>select-ui-options-hook</code>，具体样式写法参考内置样式; 另外内置<code>thin</code>皮肤，适用语言选择类场景</td>
+                                    <td>默认''，自定义样式钩子</td>
+                                </tr>
+                                <tr>
+                                    <th>name</th>
+                                    <td>默认'select'，当基于非<code>select</code>标签创建实例时，指定生成的<code>select</code>标签name</td>
                                 </tr>
                                 <tr>
                                     <th>callback(value,text)</th>
                                     <td>选中回调，接收option的value值和text值为参数</td>
                                 </tr>
+                        </table>
+                        <h5>返回</h5>
+                        <p>所返回的操作句柄包含以下方法：</p>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>update(data)</th>
+                                <td>用于更新实例数据</td>
+                            </tr>
                         </table>
                         <h5>示例</h5>
                         <pre>
@@ -5235,59 +5325,63 @@ $('.demo').inputNumber({
   .demo, button{display: block; width: 200px; margin:10px;}
   &lt;/style&gt;
   &lt;form id=&quot;test&quot; &gt;
-    &lt;!-- 从原生select初始化 --&gt;
+    &lt;!-- 基于select初始化 --&gt;
     &lt;select class=&quot;demo demo-fromdom&quot; name=&quot;select1&quot;&gt;
-      &lt;option selected&gt;--请选择--&lt;/option&gt;
+      &lt;option selected value="0"&gt;--请选择--&lt;/option&gt;
       &lt;option value=&quot;1&quot;&gt;山东&lt;/option&gt;
       &lt;option value=&quot;2&quot;&gt;山西&lt;/option&gt;
       &lt;option value=&quot;3&quot;&gt;河南&lt;/option&gt;
     &lt;/select&gt;
-    &lt;!-- 从数据初始化 --&gt;
+    &lt;!-- 使用数据初始化 --&gt;
     &lt;select class=&quot;demo demo-fromdata&quot; name=&quot;select2&quot;&gt;
-      &lt;option disabled&gt;--请选择--&lt;/option&gt;
+      &lt;option selected value="0"&gt;--请选择--&lt;/option&gt;
     &lt;/select&gt;
-    
-    &lt;button type=&quot;submit&quot;&gt;提交&lt;/button&gt;
+    &lt;!-- 基于非select初始化 --&gt;
+    &lt;div class=&quot;demo demo-insert&quot; name=&quot;select2&quot;&gt; &lt;/div&gt;
+    &lt;button class="btn btn-default" type=&quot;submit&quot;&gt;提交&lt;/button&gt;
   &lt;/form&gt;
                             </code>
                         </pre>
                         <pre>
                             <code>
-  require('select');
-  var dataAjax = [
+    require('select');
+    var dataAjax = [
         {
           "option":"济南",
-          "value":"ajax1"
+          "value":"1"
         },{
           "option":"烟台",
-          "value":"ajax2",
+          "value":"2",
           "selected":true
         },{
           "option":"青岛",
-          "value":"ajax3"
+          "value":"3"
         }
-      ];
+    ];
 
-  $('.demo-fromdom').select({
-    hideSelected:true,
-    callback: function(value, text) { 
-      console.log('更改级联select的数据,这里以传data为例，也可以修改DOM后重新执行一下select()方法')
-      $('select.demo-fromdata').select({
-        data: dataAjax
-      })
-    }
-  });
+    $('.demo-fromdom').select({
+        callback: function(value, text) { 
+            fromdata.update(dataAjax);
+        }
+    });
 
-  $('.demo-fromdata').select({
-    callback: function(val,txt){
-      alert('选中了'+txt)
-    }
-  })
-  //提交测试
-  $('#test').on('submit',function(e){
-    e.preventDefault();
-    alert($(this).serialize())
-  })
+    var fromdata = $('.demo-fromdata').select({
+        callback: function(val, txt) {
+            console.log('选中了' + txt);
+        }
+    });
+
+    $('.demo-insert').select({
+        data: dataAjax,
+        callback: function(val,txt){
+            console.log('插入模式：'+txt)
+        }
+    })
+    //提交测试
+    $('#test').on('submit',function(e){
+        e.preventDefault();
+        alert($(this).serialize())
+    })
                                 </code>
                             </pre>
                         </td>
