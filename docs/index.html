@@ -3929,6 +3929,175 @@ $('.demo').inputNumber({
                      </pre>
                     </td>
                 </tr>
+                <tr id="Input（输入框）">
+                    <td>input</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>输入框插件，支持input、textarea，如果是其他元素将在其内部生成一个input</p>
+                        <h5>配置</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>color</th>
+                                <td>默认""，情景色配置，可选<code>"success"</code><code>"warning"</code><code>"danger"</code></td>
+                            </tr>
+                            <tr>
+                                <th>id</th>
+                                <td>指定生成input的id，默认自动生成随机id</td>
+                            </tr>
+                            <tr>
+                                <th>width</th>
+                                <td>默认无，组件宽度，默认继承目标元素的class定义的宽度</td>
+                            </tr>
+                            <tr>
+                                <th>button</th>
+                                <td>默认''，按钮文字，默认无按钮</td>
+                            </tr>
+                            <tr>
+                                <th>onClickButton(value, text)</th>
+                                <td>默认无，点击按钮回调</td>
+                            </tr>
+                            <tr>
+                                <th>type</th>
+                                <td>指定生成input的type类型，默认使用目标元素的type类型</td>
+                            </tr>
+                            <tr>
+                                <th>holder</th>
+                                <td>默认''，指定生成input的placeholder文字</td>
+                            </tr>
+                            <tr>
+                                <th>val</th>
+                                <td>默认''，指定初始value</td>
+                            </tr>
+                            <tr>
+                                <th>text</th>
+                                <td>默认''，指定生成input的初始显示值</td>
+                            </tr>
+                            <tr>
+                                <th>icon</th>
+                                <td>默认''，指定icon编码，不传则不显示图标</td>
+                            </tr>
+                            <tr>
+                                <th>iconPosition</th>
+                                <td>默认'right', 图标位置，可选'left'</td>
+                            </tr>
+                            <tr>
+                                <th>size</th>
+                                <td>默认''，生成组件尺寸，可选'sm'/'lg'</td>
+                            </tr>
+                            <tr>
+                                <th>name</th>
+                                <td>默认''，指定input的name值，不传则不会添加或修改原始input的name属性</td>
+                            </tr>
+                            <tr>
+                                <th>disable</th>
+                                <td>默认false，是否禁用</td>
+                            </tr>
+                            <tr>
+                                <th>readonly</th>
+                                <td>默认false，是否只读</td>
+                            </tr>
+                            <tr>
+                                <th>datatype</th>
+                                <td>默认''，验证类型，不传将继承目标元素的datatype属性，释义同<a href="#Validform（表单验证）">【validform组件】</a></td>
+                            </tr>
+                            <tr>
+                                <th>errormsg</th>
+                                <td>默认''，验证错误提示，不传将继承目标元素的errormsg属性，释义同<a href="#Validform（表单验证）">【validform组件】</a></td>
+                            </tr>
+                            <tr>
+                                <th>nullmsg</th>
+                                <td>默认''，验证未填提示，不传将继承目标元素的nullmsg属性，释义同<a href="#Validform（表单验证）">【validform组件】</a></td>
+                            </tr>
+                            <tr>
+                                <th>render(val)</th>
+                                <td>默认无，格式化方法，接收原始值，需返回格式化后的值，用于input组件展示</td>
+                            </tr>
+                            <tr>
+                                <th>onChange(val)</th>
+                                <td>默认无，监听输入变化回调，接收当前值</td>
+                            </tr>
+                        </table>
+                        <h5>返回对象方法</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>disabled([flag])</th>
+                                <td>禁用input实例，若flag为真值将解禁</td>
+                            </tr>
+                            <tr>
+                                <th>readonly([flag])</th>
+                                <td>只读input实例，若flag为真值将恢复可写</td>
+                            </tr>
+                            <tr>
+                                <th>destroy()</th>
+                                <td>销毁实例</td>
+                            </tr>
+                            <tr>
+                                <th>clear()</th>
+                                <td>清空输入</td>
+                            </tr>
+                            <tr>
+                                <th>reset()</th>
+                                <td>恢复实例为初始值</td>
+                            </tr>
+                            <tr>
+                                <th>text([setValue])</th>
+                                <td>读取/设置实例显示值</td>
+                            </tr>
+                            <tr>
+                                <th>val([setValue])</th>
+                                <td>读取/设置实例值</td>
+                            </tr>
+                        </table>
+                        <h5>示例</h5>
+                        <pre>
+                            <code>
+    &lt;form&gt;  
+
+        &lt;input type=&quot;text&quot; name=&quot;input1&quot; class=&quot;input&quot; style=&quot;width:200px&quot;&gt;
+
+        &lt;textarea class=&quot;textarea&quot; name=&quot;area1&quot; style=&quot;width:200px&quot;&gt;&lt;/textarea&gt;
+
+        &lt;div class=&quot;inputdiv&quot; style=&quot;display:inline-block;width:200px;vertical-align: bottom;&quot;&gt;&lt;/div&gt;
+
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-default setreadonly&quot;&gt;设为只读&lt;/button&gt;
+    &lt;/form&gt;
+                            </code>
+                        </pre>
+                        <pre>
+                            <code>
+    require('input');                  
+    var myinput = $('.input').input({
+        button: '确定',
+        val:'100',
+        holder: '输入金额',
+        errormsg: '请输入整数!',
+        datatype:'n',
+        render:function(val){
+            return '$'+val;
+        },
+        onClickButton:function(val, text){
+            console.log('val:',val);
+            console.log('text:',text);
+        },
+        onChange: function(val){
+            console.log('change to',val);
+        }
+    });
+
+    $('.textarea').input();
+
+    $('.inputdiv').input({
+        name:'input2'
+    });  
+    var readable = true;
+    $('.setreadonly').on('click',function(){
+        readable = !readable;
+        myinput.readonly(readable);
+    });
+                            </code>
+                        </pre>
+                    </td>
+                </tr>
                 <tr id="Instantclick（链接预加载）">
                     <td>instantclick</td>
                     <td>

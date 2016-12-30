@@ -909,8 +909,10 @@ fieldset[disabled] .checkbox label {
   position: relative;
 }
 .has-feedback .form-control {
-  padding-right: 42.5px;
-  *padding-right: 0;
+  padding-right: 38px;
+}
+.has-feedback .input-group .form-control {
+  padding-right: 0;
 }
 .form-group .form-control-feedback {
   line-height: 38px;
@@ -923,6 +925,9 @@ fieldset[disabled] .checkbox label {
   height: 38px;
   text-align: center;
   pointer-events: none;
+}
+.has-feedback .input-group .form-control {
+  padding-left: 38px;
 }
 .form-group-lg .form-control-feedback,
 .input-lg + .form-control-feedback {

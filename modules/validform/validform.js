@@ -1,13 +1,11 @@
 /*
 * name: validform.js
-* version: v2.4.2
-* update: 添加tel和phone验证
-* data: 2016-11-25
+* version: v2.4.3
+* update: 不返回validform对象bug;增加checkTime内部配置;主动发起的check方法忽略ignore配置;checkbox验证bug
+* data: 2016-12-30
 */
-
 define('validform',function(require, exports, module) {
 	"use strict";
-	
 	seajs.importStyle('.Validform_right{color:#71b83d}.Validform_wrong{color:red;white-space:nowrap}.Validform_loading{padding-left:20px}.Validform_error{background-color:#ffe7e7}.passwordStrength{display:block;height:18px;line-height:16px;clear:both;overflow:hidden;margin-bottom:5px}.passwordStrength b{font-weight:normal}.passwordStrength b,.passwordStrength span{display:inline-block;vertical-align:middle;line-height:16px;line-height:18px\9;height:16px}.passwordStrength span{width:63px;text-align:center;background-color:#d0d0d0;border-right:1px solid #fff}.passwordStrength .last{border-right:0;width:61px}.passwordStrength .bgStrength{color:#fff;background-color:#71b83d}'
 		,module.uri);
 	var $ = require('jquery');
@@ -45,7 +43,8 @@ define('validform',function(require, exports, module) {
 			tipSweep: false,
 			showAllError: false,
 			postonce: false,
-			ajaxPost: false
+			ajaxPost: false,
+			checkTime: 100 //验证延时
 		};
 	//$.Tipmsg = tipmsg;
 	var Validform = function(forms, settings, inited) {
@@ -60,11 +59,12 @@ define('validform',function(require, exports, module) {
 		if (inited === true) {
 			return false;
 		}
-		return forms.each(function() {
-			if (this.validform_inited == "inited") {
+		forms.each(function() {
+			if (this.validform_inited === "inited") {
 				return true;
 			}
 			this.validform_inited = "inited";
+			this.handle = brothers;
 			var curform = this;
 			var $this = $(curform);
 			curform.settings = $.extend({}, settings);
@@ -75,7 +75,7 @@ define('validform',function(require, exports, module) {
 					var that = this;
 					setTimeout(function(){
 						Validform.util.check.call(that, $this, subpost);
-					},100);
+					},curform.settings.checkTime);
 				})
 				.on('submit',function(){
 					var subflag = Validform.util.submitForm.call($this, curform.settings);
@@ -139,25 +139,26 @@ define('validform',function(require, exports, module) {
 		enhance: function(tiptype, usePlugin, tipSweep, addRule) {
 			var curform = this;
 			curform.find("[datatype]").each(function(i,e) {
-				if (!$(this).siblings(".Validform_checktip").length) {
-					$(this).parent().append("<span class='Validform_checktip' />");
+				var that = this;
+				if (tiptype!==1 && !$(that).siblings(".Validform_checktip").length) {
+					$(that).parent().append("<span class='Validform_checktip' />");
 				}
-				if($(e).is('checkbox') || $(e).is('radio')){
-					if (this.validform_inited == "inited") {
+				if($(that).is(':checkbox') || $(that).is(':radio')){
+					if (that.validform_inited == "inited") {
 						return true;
 					}
-					this.validform_inited = "inited";
-					var name = $(e).attr("name");
+					that.validform_inited = "inited";
+					var name = $(that).attr("name");
 					curform.find("[name='" + name + "']").filter(":checkbox,:radio")
 						.bind("click", function() {
 							setTimeout(function() {
-								$(e).trigger("blur");
+								$(that).trigger("blur");
 							}, 0);
 						});
 				}
-				if($(e).is('select[multiple]')){
+				if($(that).is('select[multiple]')){
 					setTimeout(function() {
-						$(e).trigger("blur");
+						$(that).trigger("blur");
 					}, 0);
 				}
 			})
@@ -410,13 +411,14 @@ define('validform',function(require, exports, module) {
 		cssctl: function(obj) {
 			obj.removeClass("Validform_right Validform_loading").addClass("Validform_checktip Validform_wrong");
 		},
-		check: function(curform, subpost, bool) {
+		check: function(curform, subpost, bool, force) {
 			var settings = curform[0].settings;
 			subpost = subpost || "";
 			var inputval = Validform.util.getValue.call(curform, $(this));
-			if (settings.ignoreHidden && $(this).is(":hidden") || $(this).data("dataIgnore") === "dataIgnore") {
+			if (settings.ignoreHidden && $(this).is(":hidden") || ($(this).data("dataIgnore") === "dataIgnore" && !force)) {
 				return true;
 			}
+
 			if (settings.dragonfly && !$(this).data("cked") && Validform.util.isEmpty.call($(this), inputval) && $(this).attr("ignore") != "ignore") {
 				return false;
 			}
@@ -849,7 +851,7 @@ define('validform',function(require, exports, module) {
 				flag = true;
 			selector = selector || "[datatype]";
 			curform.find(selector).each(function() {
-				Validform.util.check.call(this, curform, "", bool) || (flag = false);
+				Validform.util.check.call(this, curform, "", bool, true) || (flag = false);
 			});
 			return flag;
 		},
