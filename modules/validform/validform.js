@@ -46,7 +46,6 @@ define('validform',function(require, exports, module) {
 			ajaxPost: false,
 			checkTime: 100 //验证延时
 		};
-	//$.Tipmsg = tipmsg;
 	var Validform = function(forms, settings, inited) {
 		settings = $.extend({}, defaults, settings);
 		settings.datatype && $.extend(Validform.util.dataType, settings.datatype);
