@@ -1,25 +1,27 @@
 /*
  * name: input.js
- * version: v0.0.1
- * update: build
- * date: 2016-12-28
+ * version: v0.1.0
+ * update: 支持data-options属性传参；支持flowui-input类自动初始化；支持按钮组；修复bug
+ * date: 2017-01-03
  */
 define('input', function(require, exports, module) {
     "use strict";
     seajs.importStyle('.input-widget{display:inline-block;vertical-align:bottom;margin:0;}\
-    	.icon-left .form-control-feedback{right:auto;left:0;}', module.uri);
+    	.icon-left .form-control-feedback{right:auto;left:0;}\
+        .input-widget .btn{min-width:0;border-left:1px solid #e8e9eb}\
+        .input-widget .btn:first{border-left:0}', module.uri);
     var $ = require('jquery'),
         base = require('base'),
         etpl = require('etpl'),
         def = {
             color: '',
             id: '',
-            width: 0,
-            button: '',
-            onClickButton:null,
+            width: null,
+            buttons: null,
             type: '',
             holder: '',
             val: '',
+            text: '',
             icon: '',
             iconPosition: 'right',
             size: '',
@@ -30,70 +32,134 @@ define('input', function(require, exports, module) {
             errormsg: '',
             nullmsg: '',
             wrapTag: 'div',
-            render: function(val) {
-                return val;
-            },
-            onChange:null
-        },
-        inputTemplate = '<input type="${type}" class="form-control" id="${id}" placeholder="${holder}" value="${val}"<!-- if: ${disable} --> disabled<!-- /if --><!-- if: ${readonly} --> readonly<!-- /if -->>';
+            render: null,
+            onChange: null
+        };
 
     $.fn.input = function(config) {
-    	var inputHandle = {
-    		renderDom:[],
-    		shadowInput:[],
-            disabled: function(flag){
-            	$.each(this.shadowInput, function(i,e){
-            		$(e).prop('disabled', !flag);
-            	});
+        var focusHandle = function(e) {
+                var that = e.target,
+                    opt = $(that).data('opt'),
+                    $this = $(that).data('target');
+                if (typeof(opt.render) === 'function') {
+                    var cleanval = $(that).data('clean');
+                    if (cleanval !== void(0)) {
+                        $(that).val(cleanval);
+                    } else {
+                        $this.val($(this).val());
+                    }
+                }
             },
-            readonly: function(flag){
-            	$.each(this.shadowInput, function(i,e){
-            		$(e).prop('readonly', !flag);
-            	});
+            changeHandle = function(e) {
+                var that = e.target,
+                    opt = $(that).data('opt'),
+                    $this = $(that).data('target'),
+                    newVal = $(that).val();
+                $this.val(newVal);
+                if (typeof(opt.onChange) === 'function') {
+                    opt.onChange(newVal);
+                }
             },
-            destroy: function(){
-            	$.each(this.renderDom, function(i,e){
-            		$(e).remove();
-            	});
-            	this.renderDom = [];
-            	this.shadowInput = [];
+            blurHandle = function(e) {
+                var that = e.target,
+                    opt = $(that).data('opt'),
+                    $this = $(that).data('target'),
+                    lastval = $(that).val(),
+                    validformHandle = $(that).data('validhandle');
+                if ($.trim(lastval) && typeof(opt.render) === 'function') {
+                    if (opt.datatype && validformHandle) {
+                        if (validformHandle.check(false, '#' + opt.id)) {
+                            $(that).data('clean', lastval).val(opt.render(lastval));
+                        } else {
+                            $(that).data('clean', '');
+                            $this.val('');
+                        }
+                    } else {
+                        $(that).data('clean', lastval).val(opt.render(lastval));
+                    }
+                }
             },
-            clear: function(){
-            	$.each(this.shadowInput, function(i,e){
-            		$(e).val('').trigger('change');
-            	});
-            },
-            reset: function(){
-            	$.each(this.shadowInput, function(i,e){
-            		var opt = $(e).data('opt');
-            		$(e).val(opt.val).trigger('change');
-            	});
-            },
-            text: function(input){
-            	if(input){
-            		$.each(this.shadowInput, function(i,e){
-	            		$(e).val(input);
-	            	});
-            	}else{
-            		return this.shadowInput[0].val();
-            	}
-            },
-            val: function(input){
-            	if(input){
-            		$.each(this.shadowInput, function(i,e){
-	            		$(e).val(input).trigger('change').trigger('blur');
-	            	});
-            	}else{
-            		return this.shadowInput[0].data('clean') || '';
-            	}
-            }
-        };
+            returnObject = {
+                renderDom: [],
+                shadowInput: [],
+                disabled: function(flag) {
+                    $.each(this.shadowInput, function(i, e) {
+                        $(e).prop('disabled', !flag);
+                        if (flag) {
+                            $(e)
+                                .on('focus', focusHandle)
+                                .on('change', changeHandle)
+                                .on('blur', blurHandle);
+                        } else {
+                            $(e)
+                                .unbind('focus', focusHandle)
+                                .unbind('change', changeHandle)
+                                .unbind('blur', blurHandle);
+                        }
+                    });
+                },
+                readonly: function(flag) {
+                    $.each(this.shadowInput, function(i, e) {
+                        $(e).prop('readonly', !flag);
+                        if (flag) {
+                            $(e)
+                                .on('focus', focusHandle)
+                                .on('change', changeHandle)
+                                .on('blur', blurHandle);
+                        } else {
+                            $(e)
+                                .unbind('focus', focusHandle)
+                                .unbind('change', changeHandle)
+                                .unbind('blur', blurHandle);
+                        }
+                    });
+                },
+                destroy: function() {
+                    $.each(this.renderDom, function(i, e) {
+                        $(e).remove();
+                    });
+                    this.renderDom = [];
+                    this.shadowInput = [];
+                },
+                clear: function() {
+                    $.each(this.shadowInput, function(i, e) {
+                        $(e).val('').data('clean', '').trigger('change');
+                    });
+                },
+                reset: function() {
+                    $.each(this.shadowInput, function(i, e) {
+                        var opt = $(e).data('opt');
+                        $(e).val(opt.val).trigger('change');
+                    });
+                },
+                text: function(input) {
+                    if (input) {
+                        $.each(this.shadowInput, function(i, e) {
+                            $(e).val(input);
+                        });
+                    } else {
+                        return this.shadowInput[0].val();
+                    }
+                },
+                val: function(input) {
+                    if (input) {
+                        $.each(this.shadowInput, function(i, e) {
+                            $(e).val(input).trigger('change').trigger('blur');
+                        });
+                    } else {
+                        return this.shadowInput[0].data('clean') || '';
+                    }
+                }
+            };
         $(this).each(function(i, e) {
             var $this = $(e),
-                opt = $.extend({}, def, config || {}),
+                opt = $.extend({}, def, config || {}, $.isPlainObject($this.data('options')) ? $this.data('options') : {}),
                 render,
                 tagname = $this.get(0).tagName.toLowerCase(),
-                template = inputTemplate;
+                template = opt.template || ''; //接受自定义模板
+            if (!$this.length) {
+                return null;
+            }
             //数据准备
             if (opt.color && opt.color.split) {
                 opt.color = ' has-' + $.trim(opt.color);
@@ -110,9 +176,6 @@ define('input', function(require, exports, module) {
             if (!opt.type) {
                 opt.type = $this.attr('type') || 'text';
             }
-            if (!opt.width || isNaN(opt.width)) {
-                opt.width = parseInt($this.outerWidth());
-            }
             if (!opt.datatype) {
                 opt.datatype = $this.attr('datatype') || '';
                 if (!opt.errormsg) {
@@ -122,108 +185,108 @@ define('input', function(require, exports, module) {
                     opt.nullmsg = $this.attr('nullmsg') || '';
                 }
             }
-            if(opt.button && opt.button.split){
-            	opt.iconPosition = 'left';
-            }
-            opt.className = $.trim($this.attr('class'));
-            if(!$this.parents('form').length){
-            	opt.wrapTag = 'form';
-            }
-            if (tagname === 'textarea') {
-                template = '<${wrapTag} class="input-widget form-group${color}${wrapSizeClass}<!-- if: ${className} --> ${className}<!-- /if -->"<!-- if: ${width} --> style="width:${width}px"<!-- /if -->>\
-								<textarea class="form-control" id="${id}" placeholder="${holder}" value="${val}"<!-- if: ${disable} --> disabled<!-- /if --><!-- if: ${readonly} --> readonly<!-- /if --><!-- if: ${datatype} --> datatype="${datatype}"<!-- if: ${errormsg} --> errormsg="${errormsg}"<!-- /if --><!-- if: ${nullmsg} --> nullmsg="${nullmsg}"<!-- /if --><!-- /if -->></textarea>\
-							</${wrapTag}>';
+            if ($.isArray(opt.buttons) && opt.buttons.length) {
+                opt.iconPosition = 'left';
             } else {
-            	template = '<${wrapTag} class="input-widget form-group${color}${wrapSizeClass}<!-- if: ${iconPosition} === "left" --> icon-left<!-- /if --><!-- if: ${icon} --> has-feedback<!-- /if --><!-- if: ${className} --> ${className}<!-- /if -->"<!-- if: ${width} --> style="width:${width}px"<!-- /if -->>' +
-            					'<!-- if: ${button} --><div class="input-group${groupSizeClass}"><!-- /if -->' + 
-		            			inputTemplate +
-		            			'<!-- if: ${button} -->\
-				                <span class="input-group-addon btn">${button}</span>\
-				                </div>\
-				                <!-- /if -->\
-				            	<!-- if: ${icon} -->\
-				                <i class="ion form-control-feedback">${icon | raw}</i>\
-				                <!-- /if -->\
-			                </${wrapTag}>';
+                opt.buttons = null;
+            }
+            opt.className = $.trim($this.attr('class').replace(/flowui-input/g, '').split(' ').join(' '));
+            if (!$this.parents('form').length) {
+                opt.wrapTag = 'form';
+            }
+            if (!template) {
+                if (tagname === 'textarea') {
+                    template = '<${wrapTag} data-input-init="true" class="input-widget form-group${color}${wrapSizeClass}<!-- if: ${className} --> ${className}<!-- /if -->"<!-- if: ${width} --> style="width:${width}px"<!-- /if -->>\
+                                    <textarea class="form-control" id="${id}" placeholder="${holder}" value="${val}"<!-- if: ${disable} --> disabled<!-- /if --><!-- if: ${readonly} --> readonly<!-- /if --><!-- if: ${datatype} --> datatype="${datatype}"<!-- if: ${errormsg} --> errormsg="${errormsg}"<!-- /if --><!-- if: ${nullmsg} --> nullmsg="${nullmsg}"<!-- /if --><!-- /if -->></textarea>\
+                                </${wrapTag}>';
+                } else {
+                    template = '<${wrapTag} data-input-init="true" class="input-widget form-group${color}${wrapSizeClass}<!-- if: ${iconPosition} === "left" --> icon-left<!-- /if --><!-- if: ${icon} --> has-feedback<!-- /if --><!-- if: ${className} --> ${className}<!-- /if -->"<!-- if: ${width} --> style="width:${width}px"<!-- /if -->>\
+                                    <!-- if: ${buttons} --><div class="input-group${groupSizeClass}"><!-- /if -->\
+                                    <input type="${type}" class="form-control" id="${id}" placeholder="${holder}" value="${text}"<!-- if: ${disable} --> disabled<!-- /if --><!-- if: ${readonly} --> readonly<!-- /if -->>\
+                                    <!-- if: ${buttons} -->\
+                                    <!-- for: ${buttons} as ${btn}, ${index} -->\
+                                    <span class="input-group-addon btn" data-index="${index}">${btn.text}</span>\
+                                    <!-- /for -->\
+                                    </div>\
+                                    <!-- /if -->\
+                                    <!-- if: ${icon} -->\
+                                    <i class="ion form-control-feedback">${icon | raw}</i>\
+                                    <!-- /if -->\
+                                </${wrapTag}>';
+                }
             }
             render = etpl.compile(template);
             var renderDom = $(render(opt)),
-            	shadowInput = renderDom.find('#' + opt.id),
-            	validformHandle;
-            inputHandle.shadowInput.push(shadowInput.data('opt',opt));
-            inputHandle.renderDom.push(renderDom);
-        	//生成
-        	if (tagname === 'textarea' || tagname === 'input') {
+                shadowInput = renderDom.find('#' + opt.id),
+                validformHandle;
+            if ($this.data('input-init')) {
+                return true;
+            } else {
+                $this.data('input-init', true);
+            }
+
+            //生成
+            if (tagname === 'textarea' || tagname === 'input') {
                 $this.hide().after(renderDom);
-                if(opt.name && opt.name.split){
-                	$this.attr('name',opt.name);
+                if (opt.name && opt.name.split) {
+                    $this.attr('name', opt.name);
+                }
+                if (opt.val) {
+                    $this.val(opt.val);
                 }
             } else {
-            	shadowInput.attr('name',opt.name || opt.id);
+                shadowInput.attr('name', opt.name || opt.id);
                 $this.html(renderDom);
             }
             //按钮事件
-            if(opt.button && opt.button.split && typeof(opt.onClickButton) === 'function'){
-            	renderDom.on('click','.input-group-addon',function(){
-            		opt.onClickButton(shadowInput.data('clean') || '',shadowInput.val());
-            	});
+            if ($.isArray(opt.buttons) && opt.buttons.length) {
+                renderDom.on('click', '.input-group-addon', function() {
+                    if (!shadowInput.prop('readonly') && !shadowInput.prop('disabled')) {
+                        var clickHandle = opt.buttons[$(this).data('index')].click;
+                        if (typeof clickHandle === 'function') {
+                            clickHandle(shadowInput.data('clean') || '', shadowInput.val());
+                        }
+                    }
+                });
             }
             //验证
             if (opt.datatype) {
                 require.async('validform', function() {
-                	//等待可能的其他validform实例化完成
-            		setTimeout(function(){
-            			if(shadowInput.parents('form').get(0).handle){
-	                		validformHandle = shadowInput.parents('form').get(0).handle;
-	                	}else{
-	                		validformHandle = shadowInput.parents('form').Validform({
-		                        checkTime: 0
-		                    });
-	                	}
-	                	if(validformHandle){
-	                		validformHandle.addRule([{
-	                			ele:"#" + opt.id,
-						        datatype:opt.datatype,
-						        nullmsg:opt.nullmsg,
-						        errormsg:opt.errormsg
-	                		}]).ignore("#" + opt.id);
-	                	}
-            		}, 0);
+                    //等待可能的其他validform实例化完成
+                    setTimeout(function() {
+                        if (shadowInput.parents('form').get(0).handle) {
+                            validformHandle = shadowInput.parents('form').get(0).handle;
+                        } else {
+                            validformHandle = shadowInput.parents('form').Validform({
+                                checkTime: 0
+                            });
+                        }
+                        if (validformHandle) {
+                            validformHandle.addRule([{
+                                ele: "#" + opt.id,
+                                datatype: opt.datatype,
+                                nullmsg: opt.nullmsg,
+                                errormsg: opt.errormsg
+                            }]).ignore("#" + opt.id);
+                        }
+                    }, 0);
                 });
             }
             //修饰
-            shadowInput.on('focus', function() {
-            	if (typeof(opt.render) === 'function') {
-                    var cleanval = $(this).data('clean');
-                    if (cleanval!==void(0)) {
-                        $(this).val(cleanval);
-                    }else{
-                    	$this.val($(this).val());
-                    }
-                }
-            }).on('change', function(){
-            	var newVal = $(this).val();
-        		$this.val(newVal);
-            	if(typeof(opt.onChange)==='function'){
-            		opt.onChange(newVal);
-            	}
-            }).on('blur', function() {
-            	var that = this,
-                    lastval = $(that).val();
-                if ($.trim(lastval) && typeof(opt.render) === 'function') {
-                	if(opt.datatype && validformHandle){
-                		if(validformHandle.check(false, '#' + opt.id)){
-	                        $(that).data('clean', lastval).val(opt.render(lastval));
-	                	}else{
-	                		$(that).data('clean', '');
-	                		$this.val('');
-	                	}
-                	}else{
-                		$(that).data('clean', lastval).val(opt.render(lastval));
-                	}
-                }
-            });
+            if (!shadowInput.prop('readonly') && !shadowInput.prop('disabled')) {
+                shadowInput
+                    .on('focus', focusHandle)
+                    .on('change', changeHandle)
+                    .on('blur', blurHandle);
+            }
+            //返回对象
+            setTimeout(function() {
+                returnObject.shadowInput.push(shadowInput.data('opt', opt).data('target', $this).data('validhandle', validformHandle));
+                returnObject.renderDom.push(renderDom);
+            }, 0);
         });
-		return inputHandle;
-	};
+        return returnObject;
+    };
+    //自动初始化
+    return $('.flowui-input').input();
 });

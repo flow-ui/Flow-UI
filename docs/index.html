@@ -1808,7 +1808,11 @@
                         <pre>
                         <code>
   require('raty');
-  $('.demo').raty();
+  $('.demo').raty({
+    click:function(val){
+        console.log('打了'+val+'颗星');
+    }
+  });
                           </code>
                         </pre>
                     </td>
@@ -3881,50 +3885,65 @@ $('.datepicker2').datepicker({
                     <td>input-number</td>
                     <td>
                         <h5>描述</h5>
-                        <p>封装数字输入框插件，将触发元素插入/替换一个加减计数器，自带模板和两种样式</p>
+                        <p>数字输入框插件，继承<a href="#Input（输入框）">【input】</a>插件配置和方法（部分配置无效），支持标签<code>data-options</code>属性传参</p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
-                                <th>mode</th>
-                                <td>默认"replace"，生成模式，可选"insert"</td>
+                                <th>min</th>
+                                <td>默认0，最小值</td>
                             </tr>
                             <tr>
-                                <td>init</td>
-                                <td>默认0，初始数量</td>
+                                <th>val</th>
+                                <td>默认1，初始值</td>
                             </tr>
                             <tr>
-                                <td>minbuycount</td>
+                                <th>countstep</th>
                                 <td>默认1，每次加减数量</td>
                             </tr>
                             <tr>
-                                <td>max</td>
-                                <td>默认无限大，最大数量</td>
+                                <th>max</th>
+                                <td>默认无限大，最大值</td>
                             </tr>
                             <tr>
-                                <td>style</td>
+                                <th>style</th>
                                 <td>默认'default'，可选'inline'，计数器样式</td>
                             </tr>
                             <tr>
-                                <td>callback</td>
-                                <td>默认无，计数器操作回调，@param ($input)</td>
+                                <th>onChange(val)</th>
+                                <td>默认无，数值变更回调</td>
                             </tr>
                         </table>
                         <h5>示例</h5>
                         <pre>
                             <code>
-&lt;!-- html --&gt;
-&lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
+    &lt;style type=&quot;text/css&quot;&gt;
+        .demo{width:200px;margin-bottom: 1em;}
+    &lt;/style&gt;                           
+    &lt;input type=&quot;text&quot; name=&quot;count&quot; class=&quot;demo mytest&quot;&gt;
+
+    &lt;div class=&quot;demo flowui-input-number&quot; data-options={&quot;name&quot;:&quot;countnumber&quot;}&gt;&lt;/div&gt;                  
+                              
+    &lt;button type=&quot;button&quot; id=&quot;act1&quot; class=&quot;btn btn-default&quot;&gt;切换实例1禁用状态&lt;/button&gt;  
                             </code>
                           </pre>
                         <pre>
                             <code>
-//js
-require('input-number');
-$('.demo').inputNumber({
-  callback:function($input){
-    $('body').append('&lt;p&gt;'+$input.val()+'&lt;/p&gt;')
-  }
-})
+    require('input-number');
+    var mycount = $('.mytest').inputNumber({
+        min:2,
+        max:9,
+        val: 5,
+        style: 'inline',
+        onChange: function(val) {
+            $('body').append('&lt;p&gt;实例1的值：' + val + '&lt;/p&gt;');
+        }
+    });
+
+    var disable = false;
+    $('#act1').on('click',function(){
+        disable = !disable;
+        mycount.disabled(!disable);
+    });
                         </code>
                      </pre>
                     </td>
@@ -3933,7 +3952,7 @@ $('.demo').inputNumber({
                     <td>input</td>
                     <td>
                         <h5>描述</h5>
-                        <p>输入框插件，支持input、textarea，如果是其他元素将在其内部生成一个input</p>
+                        <p>输入框插件，可以基于input、textarea生成文本框，也可以基于其他元素在标签内部插入一个文本框，支持<code>data-options</code>属性传参</p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
@@ -3949,12 +3968,20 @@ $('.demo').inputNumber({
                                 <td>默认无，组件宽度，默认继承目标元素的class定义的宽度</td>
                             </tr>
                             <tr>
-                                <th>button</th>
-                                <td>默认''，按钮文字，默认无按钮</td>
-                            </tr>
-                            <tr>
-                                <th>onClickButton(value, text)</th>
-                                <td>默认无，点击按钮回调</td>
+                                <th>buttons</th>
+                                <td>默认无，按钮配置，格式如下：
+                                <pre>
+                                    <code>
+    [{
+        text: '确定',
+        click: function(){}
+    }, {
+        text: '清除',
+        click: function(){}
+    }]
+                                    </code>
+                                </pre>
+                                </td>
                             </tr>
                             <tr>
                                 <th>type</th>
@@ -4051,23 +4078,40 @@ $('.demo').inputNumber({
                         <h5>示例</h5>
                         <pre>
                             <code>
-    &lt;form&gt;  
+    &lt;style&gt;
+        .demo{display:inline-block;width:250px;vertical-align: bottom;}
+    &lt;/style&gt;                        
+    &lt;form class=&quot;wrap&quot;&gt;  
+        &lt;!-- 基于input标签 --&gt;
+        &lt;input type=&quot;text&quot; name=&quot;input1&quot; class=&quot;demo input1&quot;&gt;
+        &lt;!-- 基于textarea标签 --&gt;
+        &lt;textarea class=&quot;demo flowui-input&quot; name=&quot;area1&quot;&gt;&lt;/textarea&gt;
+        &lt;!-- 基于其他标签 --&gt;
+        &lt;div class=&quot;demo inputdiv flowui-input&quot; data-options={&quot;name&quot;:&quot;input2&quot;}&gt;&lt;/div&gt;
 
-        &lt;input type=&quot;text&quot; name=&quot;input1&quot; class=&quot;input&quot; style=&quot;width:200px&quot;&gt;
-
-        &lt;textarea class=&quot;textarea&quot; name=&quot;area1&quot; style=&quot;width:200px&quot;&gt;&lt;/textarea&gt;
-
-        &lt;div class=&quot;inputdiv&quot; style=&quot;display:inline-block;width:200px;vertical-align: bottom;&quot;&gt;&lt;/div&gt;
-
-        &lt;button type=&quot;button&quot; class=&quot;btn btn-default setreadonly&quot;&gt;设为只读&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-default setreadonly&quot;&gt;切换input1只读状态&lt;/button&gt;
     &lt;/form&gt;
                             </code>
                         </pre>
                         <pre>
                             <code>
     require('input');                  
-    var myinput = $('.input').input({
-        button: '确定',
+    var myinput = $('.input1').input({
+        buttons: [
+            {
+                text: '确定',
+                click:function(val, text){
+                    console.log('val:',val);
+                    console.log('text:',text);
+                }
+            },
+            {
+                text: '清除',
+                click:function(val, text){
+                    myinput.clear();
+                }
+            }
+        ],
         val:'100',
         holder: '输入金额',
         errormsg: '请输入整数!',
@@ -4075,20 +4119,11 @@ $('.demo').inputNumber({
         render:function(val){
             return '$'+val;
         },
-        onClickButton:function(val, text){
-            console.log('val:',val);
-            console.log('text:',text);
-        },
         onChange: function(val){
             console.log('change to',val);
         }
     });
 
-    $('.textarea').input();
-
-    $('.inputdiv').input({
-        name:'input2'
-    });  
     var readable = true;
     $('.setreadonly').on('click',function(){
         readable = !readable;

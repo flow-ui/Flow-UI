@@ -1,8 +1,8 @@
 /*
  * name: input-number.js
- * version: v0.0.2
- * update: bug fix
- * date: 2016-10-26
+ * version: v0.1.0
+ * update: 继承input
+ * date: 2017-01-03
  */
 define("input-number", function(require, exports, module) {
 	"use strict";
@@ -18,136 +18,156 @@ define("input-number", function(require, exports, module) {
 		.counter_default .pro_counter_reduce{bottom:0;border-top:0;border-bottom-right-radius:4px;}\
 		.counter_default .pro_counter_add{top:0;border-bottom:0;border-top-right-radius:4px;}\
 		.counter_wrap:hover .pro_counter_btn, .counter_wrap:hover .pro_counter_val{border-color:#ccc;}', module.uri);
-	var $ = require('jquery');
-	var def = {
-		template: function(style, minbuycount, max, init) {
-			if (!style.split || isNaN(Number(minbuycount)) || isNaN(Number(max)) || isNaN(Number(init))) {
-				return console.warn('模板参数错误！');
-			}
-			var _temp;
-			switch($.trim(style)){
-				case "inline":
-					_temp = '<div class="counter_wrap counter_inline input-group">\
-                        <div class="pro_counter_btn pro_counter_reduce input-group-addon" data-minbuycount="' + minbuycount + '">-</div>\
-                        <input type="text" value="' + init + '" data-max="' + max + '" class="form-control pro_counter_val">\
-                        <div class="pro_counter_btn pro_counter_add input-group-addon" data-minbuycount="' + minbuycount + '">+</div>\
-                    </div>';
-					break;
-				default:
-					_temp = '<div class="counter_wrap counter_default">\
-                        <div class="pro_counter_btn pro_counter_reduce" data-minbuycount="' + minbuycount + '">-</div>\
-                        <input type="text" value="' + init + '" data-max="' + max + '" class="form-control pro_counter_val">\
-                        <div class="pro_counter_btn pro_counter_add" data-minbuycount="' + minbuycount + '">+</div>\
-                    </div>';
-			}
-			return _temp;
+	require('input');
+	var $ = require('jquery'),
+		def = {
+			val: 1,
+			countstep: 1,
+			min: 0,
+			max: Number.POSITIVE_INFINITY,
+			style: 'default'
 		},
-		mode: 'replace', // 'insert' || 'replace'
-		init: 0,
-		minbuycount: 1,
-		max: Number.POSITIVE_INFINITY,
-		style: 'default', // 'default' || 'inline'
-		callback: function() {}
-	};
-	var catchClickEvent = function(e) {
-		var target = $(e.target),
-			_input,
-			_min,
-			_plus,
-			_max,
-			minBuyCount;
-		//计数器减
-		if (target.is('.pro_counter_reduce') || target.parents('.pro_counter_reduce').length) {
-			e.preventDefault();
-			if (target.parents('.pro_counter_reduce').length) {
-				target = target.parents('.pro_counter_reduce');
+		syncButtonStatus = function(_val, _opt, _reduce, _plus){
+			if (_val < (_opt.min + _opt.countstep)) {
+				_reduce.addClass('disabled');
+			} else {
+				_reduce.removeClass('disabled');
 			}
-			_input = target.parent().find('.pro_counter_val');
-			_min = target;
-			_plus = target.parent().find('.pro_counter_add');
-			_max = _input.data('max') ? Number(_input.data('max')) : Number.POSITIVE_INFINITY;
-			minBuyCount = target.data('minbuycount') || 1;
-
-			if (target.hasClass('disabled')) {
-				return null;
-			}
-			if (parseInt(_input.val()) <= (1 + minBuyCount)) {
-				_input.val(minBuyCount);
-				_min.addClass('disabled');
+			if (_val <= (_opt.max - _opt.countstep)) {
 				_plus.removeClass('disabled');
 			} else {
-				_input.val(parseInt(_input.val()) <= _max ? (parseInt(_input.val()) - minBuyCount) : _max);
-				_plus.removeClass('disabled');
-			}
-			_input.parents('.counter_wrap').data('countercallback')(_input);
-		}
-		//计数器增加
-		if (target.is('.pro_counter_add') || target.parents('.pro_counter_add').length) {
-			e.preventDefault();
-			if (target.parents('.pro_counter_add').length) {
-				target = target.parents('.pro_counter_add');
-			}
-			_input = target.parent().find('.pro_counter_val');
-			_min = target.parent().find('.pro_counter_reduce');
-			_plus = target;
-			_max = _input.data('max') ? Number(_input.data('max')) : Number.POSITIVE_INFINITY;
-			minBuyCount = target.data('minbuycount') || 1;
-			if (target.hasClass('disabled')) {
-				return null;
-			}
-			if (parseInt(_input.val()) < _max - minBuyCount) {
-				_input.val(parseInt(_input.val()) + minBuyCount);
-				_min.removeClass('disabled');
-			} else {
-				_input.val(_max);
 				_plus.addClass('disabled');
-				_min.removeClass('disabled');
 			}
-			_input.parents('.counter_wrap').data('countercallback')(_input);
-		}
-	};
-	var catchBlurEvent = function(e) {
-		var target = $(e.target),
-			_input,
-			_min,
-			_plus,
-			_max,
-			_val;
-		_input = target;
-		_min = target.parent().find('.pro_counter_reduce');
-		_plus = target.parent().find('.pro_counter_add');
-		_max = _input.data('max') ? Number(_input.data('max')) : Number.POSITIVE_INFINITY;
-		_val = isNaN(parseInt(_input.val().replace(/\D/g, ""))) ? 0 : parseInt(_input.val().replace(/\D/g, ""));
-		_input.val(_val);
-
-		if (_val <= 1) {
-			_input.val('1');
-		} else if (_val >= _max) {
-			_input.val(_max);
-			_plus.addClass('disable');
-		} else {
-			_min.removeClass('disable');
-			_plus.removeClass('disable');
-		}
-		_input.parents('.counter_wrap').data('countercallback')(_input);
-	};
+		},
+		catchClickEvent = function(e) {
+			var target = $(e.target),
+				_input,
+				_reduce,
+				_plus,
+				_opt,
+				_val;
+			//计数器减
+			if (target.is('.pro_counter_reduce') || target.parents('.pro_counter_reduce').length) {
+				e.preventDefault();
+				if (target.parents('.pro_counter_reduce').length) {
+					target = target.parents('.pro_counter_reduce');
+				}
+				_input = target.parent().find('.pro_counter_val');
+				if (target.hasClass('disabled') || _input.prop('disabled') || _input.prop('readonly')) {
+					return null;
+				}
+				_opt = _input.data('opt');
+				_reduce = target;
+				_plus = target.parent().find('.pro_counter_add');
+				_val = parseFloat(_input.val());
+				if (_val < (_opt.min + _opt.countstep)) {
+					_input.val(_opt.min);
+					_reduce.addClass('disabled');
+				} else {
+					_input.val(_val <= _opt.max ? (_val - _opt.countstep) : _opt.max);
+					_reduce.removeClass('disabled');
+				}
+				_input.trigger('change');
+			}
+			//计数器增加
+			if (target.is('.pro_counter_add') || target.parents('.pro_counter_add').length) {
+				e.preventDefault();
+				if (target.parents('.pro_counter_add').length) {
+					target = target.parents('.pro_counter_add');
+				}
+				_input = target.parent().find('.pro_counter_val');
+				if (target.hasClass('disabled') || _input.prop('disabled') || _input.prop('readonly')) {
+					return null;
+				}
+				_opt = _input.data('opt');
+				_reduce = target.parent().find('.pro_counter_reduce');
+				_plus = target;
+				_val = parseFloat(_input.val());
+				if (_val <= (_opt.max - _opt.countstep)) {
+					_input.val(_val + _opt.countstep);
+					_plus.removeClass('disabled');
+				} else {
+					_input.val(_opt.max);
+					_plus.addClass('disabled');
+				}
+				_input.trigger('change');
+			}
+			//更新按钮状态
+			if(_input){
+				_val = parseFloat(_input.val());
+				syncButtonStatus(_val, _opt, _reduce, _plus);
+			}
+		},
+		catchBlurEvent = function(e) {
+			var target = $(e.target),
+				_input,
+				_opt,
+				_reduce,
+				_plus,
+				_val;
+			_input = target;
+			_opt = _input.data('opt');
+			_reduce = target.parent().find('.pro_counter_reduce');
+			_plus = target.parent().find('.pro_counter_add');
+			_val = _input.val(); //校验原始值合法性
+			if (isNaN(_val)) {
+				_val = isNaN(parseFloat(_val.replace(/\D/g, ""))) ? 0 : parseFloat(_val.replace(/\D/g, ""));
+				setTimeout(function() {
+					_input.trigger('change');
+				}, 0);
+			}
+			_input.val(_val);
+			if (_val < _opt.min) {
+				_input.val(_opt.min);
+				setTimeout(function() {
+					_input.trigger('change');
+				}, 0);
+			} else if (_val > _opt.max) {
+				_input.val(_opt.max);
+				setTimeout(function() {
+					_input.trigger('change');
+				}, 0);
+			}
+			syncButtonStatus(_val, _opt, _reduce, _plus);
+		};
 
 	$.fn.inputNumber = function(config) {
 		var $this = $(this),
-			opt = $.extend({}, def, config || {});
-		//统一绑定事件
-		if (!$('body').data('countereventinit')) {
-			$('body').on('click', catchClickEvent).on('blur', '.pro_counter_val', catchBlurEvent).data('countereventinit', 1);
+			opt = $.extend({}, def, config || {}, $.isPlainObject($this.data('options')) ? $this.data('options') : {}),
+			template,
+			inputObject;
+		if (!$this.length) {
+			return null;
 		}
-		return $this.each(function(i, e) {
-			if (opt.mode === 'insert') {
-				$(e).html(opt.template(opt.style, opt.minbuycount, opt.max, opt.init)).children('.counter_wrap').data('countercallback', opt.callback);
-			} else {
-				var newDom = $(opt.template(opt.style, opt.minbuycount, opt.max, opt.init)).data('countercallback', opt.callback);
-				$(e).after(newDom);
-				$(e).remove();
-				newDom = null;
-			}
-		});
+		switch ($.trim(opt.style)) {
+			case "inline":
+				template = '<${wrapTag} data-input-init="true" class="counter_wrap counter_inline input-group${color}<!-- if: ${className} --> ${className}<!-- /if -->"<!-- if: ${width} --> style="width:${width}px"<!-- /if -->>\
+                    <div class="pro_counter_btn pro_counter_reduce input-group-addon">-</div>\
+                    <input type="${type}" id="${id}" placeholder="${holder}" value="${val}" class="form-control pro_counter_val"<!-- if: ${disable} --> disabled<!-- /if --><!-- if: ${readonly} --> readonly<!-- /if -->>\
+                    <div class="pro_counter_btn pro_counter_add input-group-addon">+</div>\
+                </${wrapTag}>';
+				break;
+			default:
+				template = '<${wrapTag} data-input-init="true" class="counter_wrap counter_default${color}<!-- if: ${className} --> ${className}<!-- /if -->"<!-- if: ${width} --> style="width:${width}px"<!-- /if -->>\
+                    <div class="pro_counter_btn pro_counter_reduce">-</div>\
+                    <input type="${type}" id="${id}" placeholder="${holder}" value="${val}" class="form-control pro_counter_val"<!-- if: ${disable} --> disabled<!-- /if --><!-- if: ${readonly} --> readonly<!-- /if -->>\
+                    <div class="pro_counter_btn pro_counter_add">+</div>\
+                </${wrapTag}>';
+		}
+		opt.template = template;
+
+		inputObject = $this.input(opt);
+		setTimeout(function() {
+			$.each(inputObject.renderDom, function(i, e) {
+				$(e).on('click', catchClickEvent);
+
+			});
+			$.each(inputObject.shadowInput, function(i, e) {
+				$(e).on('blur', catchBlurEvent);
+			});
+		}, 0);
+		return inputObject;
 	};
+	//自动初始化
+	return $('.flowui-input-number').inputNumber();
 });
