@@ -3620,7 +3620,6 @@ $().datepicker({
 &lt;p&gt; 内嵌 &lt;/p&gt;
 &lt;input class=&quot;datepicker2&quot;&gt;
 
-&lt;div style="height:300px;width:300px;border:1px solid #ccc" class=&quot;main&quot;&gt;&lt;/div&gt;
                           </code>
                         </pre>
                         <pre>
@@ -3632,8 +3631,8 @@ $('.datepicker').datepicker({
 });
 
 $('.datepicker2').datepicker({
-  inline: true,
-  container: '.main'
+  autohide: true,
+  format:'yyyy/mm'
 });
 
                           </code>
@@ -5516,16 +5515,56 @@ $('.datepicker2').datepicker({
                                     <td>默认'select'，当基于非<code>select</code>标签创建实例时，指定生成的<code>select</code>标签name</td>
                                 </tr>
                                 <tr>
-                                    <th>callback(value,text)</th>
-                                    <td>选中回调，接收option的value值和text值为参数</td>
+                                    <th>disabled</th>
+                                    <td>默认false，是否禁用</td>
+                                </tr>
+                                <tr>
+                                    <th>readonly</th>
+                                    <td>默认false，是否只读</td>
+                                </tr>
+                                <tr>
+                                    <th>multi</th>
+                                    <td>默认false，是否可以多选</td>
+                                </tr>
+                                <tr>
+                                    <th>onChange(value,text)</th>
+                                    <td>选中回调，参数接收最新的value和text</td>
                                 </tr>
                         </table>
-                        <h5>返回</h5>
+                        <h5>返回对象</h5>
                         <p>所返回的操作句柄包含以下方法：</p>
                         <table class="table table-hover">
                             <tr>
                                 <th>update(data)</th>
                                 <td>用于更新实例数据</td>
+                            </tr>
+                            <tr>
+                                <th>disabled([flag])</th>
+                                <td>禁用实例，若flag为真值将解禁</td>
+                            </tr>
+                            <tr>
+                                <th>readonly([flag])</th>
+                                <td>只读实例，若flag为真值将恢复可写</td>
+                            </tr>
+                            <tr>
+                                <th>destroy()</th>
+                                <td>销毁实例</td>
+                            </tr>
+                            <tr>
+                                <th>clear()</th>
+                                <td>清空输入</td>
+                            </tr>
+                            <tr>
+                                <th>reset()</th>
+                                <td>恢复实例为初始值</td>
+                            </tr>
+                            <tr>
+                                <th>text([setValue])</th>
+                                <td>读取/设置实例显示值</td>
+                            </tr>
+                            <tr>
+                                <th>val([setValue])</th>
+                                <td>读取/设置实例值，多选情况下赋值支持数组和字符串两种格式，字符串多个值用<code>,</code>隔开</td>
                             </tr>
                         </table>
                         <h5>示例</h5>
@@ -5536,19 +5575,21 @@ $('.datepicker2').datepicker({
   &lt;/style&gt;
   &lt;form id=&quot;test&quot; &gt;
     &lt;!-- 基于select初始化 --&gt;
-    &lt;select class=&quot;demo demo-fromdom&quot; name=&quot;select1&quot;&gt;
-      &lt;option selected value="0"&gt;--请选择--&lt;/option&gt;
+    &lt;select class=&quot;demo demo-fromdom&quot; name=&quot;select1&quot; &gt;
+      &lt;option disabled&gt;--请选择--&lt;/option&gt;
       &lt;option value=&quot;1&quot;&gt;山东&lt;/option&gt;
       &lt;option value=&quot;2&quot;&gt;山西&lt;/option&gt;
       &lt;option value=&quot;3&quot;&gt;河南&lt;/option&gt;
     &lt;/select&gt;
     &lt;!-- 使用数据初始化 --&gt;
     &lt;select class=&quot;demo demo-fromdata&quot; name=&quot;select2&quot;&gt;
-      &lt;option selected value="0"&gt;--请选择--&lt;/option&gt;
+      &lt;option disabled&gt;--请选择--&lt;/option&gt;
     &lt;/select&gt;
     &lt;!-- 基于非select初始化 --&gt;
-    &lt;div class=&quot;demo demo-insert&quot; name=&quot;select2&quot;&gt; &lt;/div&gt;
-    &lt;button class="btn btn-default" type=&quot;submit&quot;&gt;提交&lt;/button&gt;
+    &lt;div class=&quot;demo demo-insert&quot;&gt; &lt;/div&gt;
+    &lt;button class=&quot;btn btn-default set1&quot; type=&quot;button&quot;&gt;切换select1禁用状态&lt;/button&gt;
+    &lt;button class=&quot;btn btn-default set2&quot; type=&quot;button&quot;&gt;更新select2数据&lt;/button&gt;
+    &lt;button class=&quot;btn btn-default&quot; type=&quot;submit&quot;&gt;提交&lt;/button&gt;
   &lt;/form&gt;
                             </code>
                         </pre>
@@ -5569,29 +5610,42 @@ $('.datepicker2').datepicker({
         }
     ];
 
-    $('.demo-fromdom').select({
-        callback: function(value, text) { 
-            fromdata.update(dataAjax);
+    var select1 = $('.demo-fromdom').select({
+        val: [1,2],
+        multi: true,
+        onChange: function(value, text) { 
+            console.log('select1值更新为' + value);
         }
     });
 
-    var fromdata = $('.demo-fromdata').select({
-        callback: function(val, txt) {
-            console.log('选中了' + txt);
+    var select2 = $('.demo-fromdata').select({
+        onChange: function(val, txt) {
+            console.log('select2选中了' + txt);
         }
     });
 
-    $('.demo-insert').select({
+    var select3 = $('.demo-insert').select({
+        filterable: true,
         data: dataAjax,
-        callback: function(val,txt){
-            console.log('插入模式：'+txt)
+        onChange: function(val, txt) {
+            console.log('select3选中了' + txt);
         }
-    })
+    });
     //提交测试
     $('#test').on('submit',function(e){
         e.preventDefault();
-        alert($(this).serialize())
-    })
+        alert($(this).serialize());
+    });
+    //set1
+    var disabled = false;
+    $('.set1').on('click',function(){
+        disabled = !disabled;
+        select1.disabled(!disabled);
+    });
+    //set2
+    $('.set2').on('click',function(){
+        select2.update(dataAjax);
+    });
                                 </code>
                             </pre>
                         </td>

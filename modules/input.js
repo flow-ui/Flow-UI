@@ -132,34 +132,40 @@ define('input', function(require, exports, module) {
                         $(e).val(opt.val).trigger('change');
                     });
                 },
-                text: function(input) {
-                    if (input) {
+                text: function(text) {
+                    if (text !== void(0)) {
+                        text = $.trim(text);
                         $.each(this.shadowInput, function(i, e) {
-                            $(e).val(input);
+                            $(e).val(text);
                         });
                     } else {
                         return this.shadowInput[0].val();
                     }
                 },
-                val: function(input) {
-                    if (input) {
+                val: function(val) {
+                    if (val !== void(0)) {
+                        val = $.trim(val);
                         $.each(this.shadowInput, function(i, e) {
-                            $(e).val(input).trigger('change').trigger('blur');
+                            $(e).val(val).trigger('change').trigger('blur');
                         });
                     } else {
                         return this.shadowInput[0].data('clean') || '';
                     }
                 }
             };
+        if (!$(this).length) {
+            return null;
+        }
         $(this).each(function(i, e) {
             var $this = $(e),
                 opt = $.extend({}, def, config || {}, $.isPlainObject($this.data('options')) ? $this.data('options') : {}),
                 render,
                 tagname = $this.get(0).tagName.toLowerCase(),
                 template = opt.template || ''; //接受自定义模板
-            if (!$this.length) {
-                return null;
+            if ($this.data('input-init')) {
+                return true;
             }
+            $this.data('input-init', true);
             //数据准备
             if (opt.color && opt.color.split) {
                 opt.color = ' has-' + $.trim(opt.color);
@@ -219,11 +225,6 @@ define('input', function(require, exports, module) {
             var renderDom = $(render(opt)),
                 shadowInput = renderDom.find('#' + opt.id),
                 validformHandle;
-            if ($this.data('input-init')) {
-                return true;
-            } else {
-                $this.data('input-init', true);
-            }
 
             //生成
             if (tagname === 'textarea' || tagname === 'input') {
