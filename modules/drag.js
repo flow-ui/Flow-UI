@@ -1,23 +1,23 @@
 /*
  * name: drag
- * vertion: v0.7.1
- * update: 优化
- * date: 2016-12-09
+ * vertion: v0.7.2
+ * update: bug fix
+ * date: 2017-01-09
  */
 define('drag', function(require, exports, module) {
     'use strict';
-    var $ = require('jquery');
-    var base = require('base');
-    var ready = require('img-ready');
-    var def = {
-        wrap: null,
-        overflow: false,
-        dragStart: null,
-        drag: null,
-        dragEnd: null
-    };
-    var moveTimer;
-    var moveIt = function(ele, offset) {
+    var $ = require('jquery'),
+        base = require('base'),
+        ready = require('img-ready'),
+        def = {
+            wrap: null,
+            overflow: false,
+            dragStart: null,
+            drag: null,
+            dragEnd: null
+        },
+        moveTimer,
+        moveIt = function(ele, offset) {
         if (!moveTimer) {
             if (base.browser.support3d) {
                 var translateX = $(ele).data('translateX') || '0px';
@@ -118,13 +118,13 @@ define('drag', function(require, exports, module) {
                         } else {
                             movey = ry;
                         }
-                        return moveIt($this, [rx, ry]);
+                        return moveIt($this, [movex, movey]);
                     },
                     mouseup = function() {
-                        $(document).unbind('mousemove', mousemove).unbind('mouseup', mouseup);
+                        $(document).off('mousemove', mousemove).off('mouseup', mouseup);
                         typeof(opt.dragEnd) === 'function' && opt.dragEnd($this);
                     };
-                $this.bind("mousedown", function(e) {
+                $this.on("mousedown", function(e) {
                     ox = parseInt($this.offset().left) || 0;
                     oy = parseInt($this.offset().top) || 0;
                     if (!$this.data('start')) {
@@ -135,7 +135,7 @@ define('drag', function(require, exports, module) {
                     }
                     mx = e.clientX;
                     my = e.clientY;
-                    $(document).bind({
+                    $(document).on({
                         'mousemove': mousemove,
                         'mouseup': mouseup
                     });

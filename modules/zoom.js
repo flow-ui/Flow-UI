@@ -1,8 +1,8 @@
 /*
  * name: zoom.js
- * version: v2.0.2
- * update: 优化
- * date: 2016-12-09
+ * version: v2.0.3
+ * update: bug fix
+ * date: 2017-01-09
  */
 define('zoom', function(require, exports, module) {
 	"use strict";
@@ -17,8 +17,8 @@ define('zoom', function(require, exports, module) {
 			this.y = e.pageY;
 		},
 		def = {
-			zoomWidth: $this.outerWidth(),
-			zoomHeight: $this.outerHeight(),
+			zoomWidth: null,
+			zoomHeight: null,
 			zoomScale: 0,
 			offset: 10,
 			offsetTarget: null,
@@ -43,7 +43,12 @@ define('zoom', function(require, exports, module) {
 					$this.css('position', 'relative');
 				}
 			})();
-
+			if(!opt.zoomWidth){
+				opt.zoomWidth = $this.outerWidth();
+			}
+			if(!opt.zoomHeight){
+				opt.zoomHeight = $this.outerHeight();
+			}
 			if (!$('#zoomdiv').length) {
 				$('body').append('<div class="zoomdiv" id="zoomdiv"></div>');
 			}
@@ -74,7 +79,8 @@ define('zoom', function(require, exports, module) {
 			var offsetTarget = $(opt.offsetTarget).length ? $(opt.offsetTarget).eq(0) : $this,
 				offsetWidth = offsetTarget.outerWidth(),
 				offsetLeft = offsetTarget.offset().left,
-				offsetTop = offsetTarget.offset().top;
+				offsetTop = offsetTarget.offset().top,
+				leftpos;
 
 			// 大图位置
 			if (opt.position == "right") {
