@@ -58,10 +58,9 @@ seajs.config({
         'bdshare'                           : 'v3.1.2',
         'box'                               : 'v3.10.5',
         'city-select'                       : 'v0.0.7',
-        'countdown'                         : 'v1.0.2',
-        'counter'                           : 'v0.0.1',
+        'countdown'                         : 'v1.1.0',
         'datepicker'                        : 'v1.0.0',
-        'drag'                              : 'v0.7.0',
+        'drag'                              : 'v0.7.2',
         'easing'                            : 'v0.0.1',
         'echarts'                           : 'v0.0.2',
         'etpl'                              : 'v0.0.1',
@@ -89,13 +88,13 @@ seajs.config({
         'scroll-col'                        : 'v4.2.4',
         'scroll-load'                       : 'v1.0.0',
         'scroll-row'                        : 'v3.0.6',
-        'select'                            : 'v4.1.0',
+        'select'                            : 'v4.2.0',
         'sendcode'                          : 'v0.0.1',
         'slide'                             : 'v4.1.8',
         'tab'                               : 'v2.1.2',
         'tip'                               : 'v1.2.4',
         'touch'                             : 'v0.1.1',
-        'zoom'                              : 'v2.0.2'
+        'zoom'                              : 'v2.0.3'
     };
     var manifest = {};
     for(var key in mod){

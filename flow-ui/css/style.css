@@ -1775,7 +1775,7 @@ big.form-mark {
   font-size: 14px;
   line-height: 1.7;
   display: inline-block;
-  margin: 0 .5em;
+  margin-left: .5em;
   padding: 0 .5em;
   cursor: default;
   color: #fff;
