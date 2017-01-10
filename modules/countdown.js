@@ -1,8 +1,8 @@
 /*
  * name: countdown.js
- * version: v1.1.0
- * update: 返回对象添加update和stop方法
- * data: 2016-12-19
+ * version: v1.1.1
+ * update: ie8 日期格式兼容
+ * data: 2017-01-10
  */
 define('countdown', function(require, exports, module) {
 	'use strict';
@@ -16,10 +16,32 @@ define('countdown', function(require, exports, module) {
 			return (Array(length).join('0') + num).substr(-length);
 		},
 		startLocal,
+		fromISO= function(s){
+	        var day, tz,
+	        rx=/^(\d{4}\-\d\d\-\d\d([tT ][\d:\.]*)?)([zZ]|([+\-])(\d\d):(\d\d))?$/,
+	        p= rx.exec(s) || [];
+	        if(p[1]){
+	            day= p[1].split(/\D/);
+	            for(var i= 0, L= day.length; i<L; i++){
+	                day[i]= parseInt(day[i], 10) || 0;
+	            }
+	            day[1]-= 1;
+	            day= new Date(Date.UTC.apply(Date, day));
+	            if(!day.getDate()) return NaN;
+	            if(p[5]){
+	                tz= (parseInt(p[5], 10)*60);
+	                if(p[6]) tz+= parseInt(p[6], 10);
+	                if(p[4]== '+') tz*= -1;
+	                if(tz) day.setUTCMinutes(day.getUTCMinutes()+ tz);
+	            }
+	            return day;
+	        }
+	        return NaN;
+	    },
 		getDiffDate = function(startDate, endDate, offset, noDiff) {
 			var _startServer = new Date(startDate).getTime(),
 				_endServer = new Date(endDate).getTime(),
-				diff = (_endServer - (_startServer + new Date().getTime() - startLocal) + parseInt(offset)) / 1000,
+				diff,
 				dateData = {
 					years: 0,
 					days: 0,
@@ -28,6 +50,19 @@ define('countdown', function(require, exports, module) {
 					sec: 0,
 					millisec: 0
 				};
+			if(isNaN(_startServer)){
+				if(startDate.indexOf(' ')){
+					startDate = startDate.replace(' ','T');
+				}
+				_startServer = fromISO(startDate).getTime();
+			}
+			if(isNaN(_endServer)){
+				if(endDate.indexOf(' ')){
+					endDate = endDate.replace(' ','T');
+				}
+				_endServer = fromISO(endDate).getTime();
+			}
+			diff = (_endServer - (_startServer + new Date().getTime() - startLocal) + parseInt(offset)) / 1000;
 			if (diff <= 0) {
 				typeof(noDiff) === 'function' && noDiff();
 				dateData.hours = leadingZeros(dateData.hours);
