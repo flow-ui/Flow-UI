@@ -5667,7 +5667,7 @@ $('.datepicker2').datepicker({
                                 </tr>
                                 <tr>
                                     <th>keyName</th>
-                                    <td>手机号的数据name，默认<code>"mobile"</code></td>
+                                    <td>手机号在请求参数中的key，默认<code>"mobile"</code></td>
                                 </tr>
                                 <tr>
                                     <th>data</th>
@@ -5679,11 +5679,23 @@ $('.datepicker2').datepicker({
                                 </tr>
                                 <tr>
                                     <th>sendBefore</th>
-                                    <td>发送前回调，接收三个参数：手机号，成功回调，失败回调，可用于发送前对手机号做其他校验</td>
+                                    <td>发送前回调，接收三个参数：手机号，继续发送回调，终止发送回调，可用于发送前对手机号做校验</td>
                                 </tr>
                                 <tr>
                                     <th>sendAfter</th>
                                     <td>发送成功回调</td>
+                                </tr>
+                                <tr>
+                                    <th>renderTarget</th>
+                                    <td>默认无，倒计时渲染对象，默认当前元素</td>
+                                </tr>
+                                <tr>
+                                    <th>render</th>
+                                    <td>倒计时渲染方法</td>
+                                </tr>
+                                <tr>
+                                    <th>reSendText</th>
+                                    <td>默认"重发验证码"，重发验证码的提示文字</td>
                                 </tr>
                             </table>
                             <h5>示例</h5>
@@ -5696,18 +5708,23 @@ $('.datepicker2').datepicker({
                                 <code>
     require('sendcode');
     $('#btn').sendcode({
-        mobile:'156555555',
-        url:seajs.root + '/test/data.json',
-        sendBefore:function(mobile, suc, err){
-            console.log(mobile);
-            if(mobile){
-                suc()
-            }else{
-                err()
-            }
+        mobile: '156555555',
+        time: 10,
+        render: function(sec) {
+          return sec + 's';
         },
-        sendAfter:function(){
-            console.log('sendAfter')
+        url: "http://rap.taobao.org/mockjsdata/9195/common/getYes/",
+        sendBefore: function(mobile, suc, err) {
+          alert('sendBefore:mobile is ' + mobile);
+          if (mobile === '156555555') {
+            suc();
+          } else {
+            err();
+            alert('手机号验证不通过！');
+          }
+        },
+        sendAfter: function() {
+          alert('sendAfter callback');
         }
     });
                                 </code>
