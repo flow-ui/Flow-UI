@@ -1,8 +1,8 @@
 /*
  * name: box.js
- * version: v3.10.6
- * update: 遮罩层样式内嵌
- * date: 2016-11-29          
+ * version: v3.10.7
+ * update: hide方法将销毁传入的box实例
+ * date: 2017-01-10          
  * base on: zhangxinxu
  */
 define('box', function(require, exports, module) {
@@ -332,6 +332,7 @@ define('box', function(require, exports, module) {
 					if ($.isFunction($o.s.onclose)) {
 						$o.s.onclose();
 					}
+					$o = null;
 				}, _to);
 			}
 		},

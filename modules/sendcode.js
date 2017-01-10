@@ -1,52 +1,80 @@
 /*
  * name: sendcode.js
- * version: v0.0.2
- * update: ajax错误处理
- * date: 2016-12-08
+ * version: v0.1.0
+ * update: 增加renderTarget & render & reSendText配置
+ * date: 2017-01-10
  */
 define("sendcode", function(require, exports, module) {
 	"use strict";
-	var $ = require('jquery');
 	require('box');
-	var def = {
-		url: null,
-		keyName: 'mobile',
-		data: null,
-		time: 60,
-		mobile: null,
-		sendBefore: null,
-		sendAfter: null
-	};
+	var $ = require('jquery'),
+		def = {
+			url: null,
+			keyName: 'mobile',
+			data: null,
+			time: 60,
+			mobile: null,
+			renderTarget: null,
+			render: function(sec) {
+				return sec + '秒后重发';
+			},
+			reSendText: '重发验证码',
+			sendBefore: null,
+			sendAfter: null
+		},
+		setAble = function(dom, flag) {
+			if (flag) {
+				return dom.removeClass('unable').data('unable', false);
+			} else {
+				return dom.addClass('unable').data('unable', true);
+			}
+		};
+
 	$.fn.sendcode = function(option) {
-		var opt = $.extend(def, option || {});
-		if (!opt.mobile || !opt.url) {
-			return console.warn('sendcode():缺少参数！');
-		}
-		var intv,
+		var opt = $.extend(def, option || {}),
+			intv,
 			loading,
-			tick = function(o) {
-				if (opt.time) {
-					$(o).text(--opt.time + '秒后重发');
+			ticktime, 
+			renderTarget,
+			tick = function(renderTarget) {
+				if (ticktime) {
+					if (typeof opt.render === 'function') {
+						renderTarget.text(opt.render(--ticktime));
+					}
 				} else {
 					clearInterval(intv);
-					opt.time = 60;
-					$(o).removeClass('unable').text('重发验证码');
+					ticktime = parseInt(opt.time);
+					renderTarget.text(opt.reSendText);
+					if (renderTarget.data('that')) {
+						setAble(renderTarget.data('that'), true);
+					} else {
+						setAble(renderTarget, true);
+					}
+					if(loading){
+						$.box.hide(loading);
+					}
 				}
 			},
 			sendmsg = function(mobileNumber, callback) {
-				var that = this;
-				var thedata = {};
+				var thedata = {},
+					renderTarget;
+				if (opt.renderTarget && $(opt.renderTarget).length) {
+					renderTarget = $(opt.renderTarget).data('that', $(this));
+				} else {
+					renderTarget = $(this);
+				}
 				thedata[opt.keyName] = mobileNumber;
 				$.extend(thedata, opt.data || {});
-				$(that).addClass('unable');
+				setAble($(this),false);
 				$.ajax({
 					url: opt.url,
 					data: thedata,
 					success: function(res) {
+						$.box.hide(loading);
 						if (res.status === 'Y') {
 							//开始倒计时
 							intv = setInterval(function() {
-								tick(that);
+								tick(renderTarget);
 							}, 1000);
 							if (typeof callback === 'function') {
 								callback();
@@ -55,17 +83,31 @@ define("sendcode", function(require, exports, module) {
 							$.box.msg(res.msg || '出错了');
 						}
 					},
-					always:function(){
+					error:function(){
 						$.box.hide(loading);
+						$.box.msg('请求异常！',{
+							color:'danger',
+							delay:2000
+						});
 					}
 				});
 			};
-
+		if (!opt.mobile || !opt.url) {
+			return console.warn('sendcode():缺少"mobile/url"参数！');
+		}
+		if(!isNaN(parseInt(opt.time))){
+			ticktime = parseInt(opt.time);
+		}else{
+			return console.warn('sendcode():"time"参数异常！');
+		}
 		return $(this).each(function(i, e) {
-			$(e).on('click', function(e) {
+			if ($(e).data('sendcodeinit')) {
+				return null;
+			}
+			$(e).data('sendcodeinit', true).on('click', function(e) {
 				e.preventDefault();
 				var that = this;
-				if ($(that).hasClass('unable')) {
+				if ($(that).data('unable')) {
 					return null;
 				}
 				if (typeof opt.mobile == 'function') {
@@ -76,11 +118,11 @@ define("sendcode", function(require, exports, module) {
 				}
 				loading = $.box.msg('正在发送验证码...');
 				if (typeof opt.sendBefore === 'function') {
-					$(that).addClass('unable');
+					setAble($(that),false);
 					opt.sendBefore(opt.mobile, function() {
 						sendmsg.call(that, opt.mobile, opt.sendAfter);
 					}, function() {
-						$(that).removeClass('unable');
+						setAble($(that),true);
 						$.box.hide(loading);
 					});
 				} else {
@@ -89,5 +131,4 @@ define("sendcode", function(require, exports, module) {
 			});
 		});
 	};
-
 });
