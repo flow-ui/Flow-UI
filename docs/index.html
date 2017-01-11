@@ -2484,11 +2484,11 @@ always: null            // complete function(done|fail)
                                     <td>默认无，存放展示图片地址的img属性，注意<code>data-src</code>已被响应图片方案占用，避免冲突</td>
                                 </tr>
                                 <tr>
-                                    <th>callback</th>
+                                    <th>onSlide</th>
                                     <td>回调，参数同slide.js</td>
                                 </tr>
                                 <tr>
-                                    <th>ext</th>
+                                    <th>callback</th>
                                     <td>扩展，参数同slide.js</td>
                                 </tr>
                             </table>
@@ -5768,7 +5768,7 @@ $('.datepicker2').datepicker({
                                 </tr>
                                 <tr>
                                     <th>duration</th>
-                                    <td>默认200，切换动画时长(ms)</td>
+                                    <td>默认300，切换动画时长(ms)</td>
                                 </tr>
                                 <tr>
                                     <th>start</th>
@@ -5819,12 +5819,12 @@ $('.datepicker2').datepicker({
                                     <td>默认false，是否劫持触屏事件</td>
                                 </tr>
                                 <tr>
-                                    <th>callback</th>
-                                    <td>回调，@param (效果元素，切换元素，当前帧序号) </td>
+                                    <th>onSlide</th>
+                                    <td>幻灯片切换回调，@param (效果元素，切换元素，当前帧序号) </td>
                                 </tr>
                                 <tr>
-                                    <th>ext</th>
-                                    <td>扩展，@param (效果元素，切换元素，总帧数)</td>
+                                    <th>callback</th>
+                                    <td>幻灯片执行成功回调，@param (效果元素，切换元素，总帧数)</td>
                                 </tr>
                             </table>
                             <h5>示例</h5>

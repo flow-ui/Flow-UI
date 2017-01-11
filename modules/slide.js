@@ -1,10 +1,11 @@
 /*
  * name: slide.js
- * version: v4.1.8
- * update: wrap默认找第一个匹配元素
- * date: 2016-06-27
+ * version: v4.2.0
+ * update: 回调函数更名
+ * date: 2017-01-11
  */
 define('slide', function(require, exports, module) {
+    "use strict";
     seajs.importStyle('.slide{display:block;position:relative;overflow:hidden}\
         .slide_wrap{position:relative;width:100%}\
         .slide_wrap img{max-width: none;}\
@@ -24,7 +25,7 @@ define('slide', function(require, exports, module) {
             effect: 'slide', //切换 slide | fade | toggle
             direction: 'x', //slide方向
             animate: 'ease',
-            duration: 200,
+            duration: 300,
             start: 0,
             auto: true,
             pause: true, // true | false | (jquery selector)
@@ -37,8 +38,28 @@ define('slide', function(require, exports, module) {
             navs: null,
             imgattr: 'slide-src',
             handletouch: false,
-            callback: function() {},
-            ext: function() {}
+            onSlide: null,
+            callback: null
+        },
+        getPrev = function(number, _step, count) {
+            _step = _step || 1;
+            number = number <= 0 ? count - _step : number - _step;
+            return number;
+        },
+        getNext = function(number, _step, count) {
+            _step = _step || 1;
+            number = number >= count - _step ? 0 : number + _step;
+            return number;
+        },
+        setNavs = function($navs, count, current, step) {
+            var _step = step || 1,
+                _prev = getPrev(current, _step, count),
+                _next = getNext(current, _step, count);
+
+            $navs.removeClass('on nav_prev nav_next')
+                .eq(current).addClass('on')
+                .end().eq(_prev).addClass("nav_prev")
+                .end().eq(_next).addClass("nav_next");
         };
 
     $.fn.slide = function(config) {
@@ -53,34 +74,15 @@ define('slide', function(require, exports, module) {
                 $arrs,
                 origin = 0,
                 width = 0,
-                efftct = function() {},
-                init = function() {},
-                windowLock = false,
-                getPrev = function(number, _step) {
-                    _step = _step ? _step : 1;
-                    number = number <= 0 ? count - _step : number - _step;
-                    return number;
-                },
-                getNext = function(number, _step) {
-                    _step = _step ? _step : 1;
-                    number = number >= count - _step ? 0 : number + _step;
-                    return number;
-                },
-                setNavs = function(current, step){
-                    var _step = step ? step : 1,
-                        _prev = getPrev(current, _step),
-                        _next = getNext(current, _step);
-
-                    $navs.removeClass('on nav_prev nav_next')
-                        .eq(current).addClass('on')
-                        .end().eq(_prev).addClass("nav_prev")
-                        .end().eq(_next).addClass("nav_next");
-                },H;
+                H,
+                efftct,
+                init,
+                windowLock = false;
             if ($this.css('height').indexOf('%') > 0) {
                 H = parseInt($this.parent().css('height')) * ($this.css('height').split('%')[0] / 100);
             } else {
                 H = parseInt($this.outerHeight());
-            };
+            }
             //运行条件检测
             if (count <= 1) {
                 $this.addClass('unable');
@@ -88,13 +90,13 @@ define('slide', function(require, exports, module) {
                     'height': H
                 }).addClass('slide_wrap');
                 $cell.unbind().addClass('slide_c')._loadimg(opt.imgattr).show();
-                typeof(opt.callback) === 'function' && opt.callback($this, $cell, origin);
-                typeof(opt.ext) === 'function' && opt.ext($this, $cell, count);
-                return $this
+                typeof(opt.onSlide) === 'function' && opt.onSlide($this, $cell, origin);
+                typeof(opt.callback) === 'function' && opt.callback($this, $cell, count);
+                return $this;
             }
             if ($this.data('slideruning')) {
-                return $this
-            };
+                return $this;
+            }
             $this.addClass('slide slide_effect_' + opt.effect);
             //初始化
             (function() {
@@ -117,10 +119,10 @@ define('slide', function(require, exports, module) {
                                 }
                                 if (Math.abs(_distance) > _Distance / 4 || (_touchAction && _touchAction.split)) {
                                     if (_distance < 0 || _touchAction == 'next') {
-                                        efftct(getNext(origin), 1);
+                                        efftct(getNext(origin, 1, count), 1);
                                     } else if (_distance > 0 || _touchAction == 'prev') {
-                                        efftct(getPrev(origin), 0);
-                                    };
+                                        efftct(getPrev(origin), 0, count);
+                                    }
                                     _touchAction = null;
                                 } else {
                                     $wrap.css('transition', 'all ' + opt.duration / 2 + 'ms ' + opt.animate)._css(_Direction, -_Distance + 'px');
@@ -142,7 +144,7 @@ define('slide', function(require, exports, module) {
                             } else {
                                 _Distance = parseInt($this.css(_Target));
                             }
-                        };
+                        }
                         _wrapcss.height = H;
                         _wrapcss[_Target] = _Distance * 3 + 'px';
                         $cell.css(_Target, _Distance + 'px').addClass('slide_c');
@@ -158,7 +160,7 @@ define('slide', function(require, exports, module) {
                                         touchStart = _startY;
                                     } else {
                                         touchStart = _startX;
-                                    };
+                                    }
                                     opt.auto && clearInterval(timer);
                                     $this.addClass('ontouch').data('moveTrigger', true);
                                 },
@@ -171,29 +173,29 @@ define('slide', function(require, exports, module) {
                                             _isDirect = _moveY > _moveX;
                                         } else {
                                             _isDirect = _moveY < _moveX;
-                                        };
+                                        }
                                         if (opt.handletouch || _isDirect) {
                                             event.preventDefault();
-                                        };
+                                        }
                                         return $this.data('moveTrigger', false);
-                                    };
+                                    }
                                     if (opt.handletouch || _isDirect) {
                                         event.preventDefault();
-                                    };
+                                    }
                                     if (windowLock) {
                                         return $this.data('moveTrigger', false);
-                                    };
+                                    }
                                     if (opt.direction === 'y') {
                                         _distance = e.pageY - touchStart;
                                     } else {
                                         _distance = e.pageX - touchStart;
-                                    };
+                                    }
                                     $wrap._css(_Direction, -_Distance + _distance + 'px');
                                     if (_distance < 0) {
-                                        $cell.eq(getNext(origin))._loadimg(opt.imgattr);
+                                        $cell.eq(getNext(origin, 1, count))._loadimg(opt.imgattr);
                                     }
                                     if (_distance > 0) {
-                                        $cell.eq(getPrev(origin))._loadimg(opt.imgattr);
+                                        $cell.eq(getPrev(origin, 1, count))._loadimg(opt.imgattr);
                                     }
                                 },
                                 'touchend': moveEnd,
@@ -209,13 +211,13 @@ define('slide', function(require, exports, module) {
                 //核心方法
                 efftct = function(current, direct, step, isInit) {
                     var _step = step ? step : 1,
-                        _prev = getPrev(current, _step),
-                        _next = getNext(current, _step),
-                        toggleCellClass = function(){
+                        _prev = getPrev(current, _step, count),
+                        _next = getNext(current, _step, count),
+                        toggleCellClass = function() {
                             $cell.removeClass('active').eq(current)._loadimg(opt.imgattr).addClass('active');
                         };
                     windowLock = true;
-                    setNavs(current,step);
+                    setNavs($navs, count, current, step);
                     switch (opt.effect) {
                         case 'fade':
                             toggleCellClass();
@@ -237,23 +239,23 @@ define('slide', function(require, exports, module) {
                                 targetClass = direct ? 'slide_next' : 'slide_prev';
                             if (isInit) {
                                 toggleCellClass();
-                            }else{
+                            } else {
                                 $cell.removeClass('slide_prev slide_next').eq(current).addClass(targetClass);
                                 $wrap.css('transition', 'all ' + opt.duration + 'ms ' + opt.animate)._css(_Direction, wrap_move + 'px');
                                 setTimeout(function() {
                                     $wrap.css('transition', 'all 0s')._css(_Direction, -_Distance + 'px');
                                     toggleCellClass();
-                                }, opt.duration); 
-                            };
+                                }, opt.duration);
+                            }
                             break;
                         default:
                             console.warn('slide()：effect参数不合法！');
                             break;
-                    };
+                    }
                     origin = current;
                     $this.data('play', origin);
                     setTimeout(function() {
-                        typeof(opt.callback) === 'function' && opt.callback($this, $cell, origin);
+                        typeof(opt.onSlide) === 'function' && opt.onSlide($this, $cell, origin);
                         windowLock = false;
                     }, opt.duration);
                 };
@@ -295,7 +297,7 @@ define('slide', function(require, exports, module) {
                     $navs = $('<div class="slide_nav"></div>');
                     appendNav();
                     $this.append($navs);
-                };
+                }
                 $navs = $navs.children('a');
             })();
             //添加左右按钮
@@ -312,9 +314,9 @@ define('slide', function(require, exports, module) {
             }
             if (opt.nextHtml && opt.nextHtml.split) {
                 $arrs.filter('.arr_next').html(opt.nextHtml);
-            };
+            }
             //初始化导航
-            setNavs(opt.start);
+            setNavs($navs, count, opt.start);
             //事件绑定
             if ($navs.filter(':visible').length) {
                 $navs.on(opt.act, function(e) {
@@ -323,19 +325,19 @@ define('slide', function(require, exports, module) {
                     var index = $(this).index(),
                         _dir, _step;
                     if (windowLock || $this.hasClass('ontouch') || index >= count || $(this).hasClass("on")) {
-                        return null
-                    };
+                        return null;
+                    }
                     //初始加载
                     if (index === origin) {
                         origin = count - 1;
                         _dir = 1;
                         efftct(index, _dir);
                         return null;
-                    };
+                    }
                     _dir = index > origin ? true : false;
                     efftct(index, _dir);
-                })
-            };
+                });
+            }
             if ($arrs.filter(':visible').length) {
                 $arrs.on('click', function(e) {
                     e.preventDefault();
@@ -343,17 +345,17 @@ define('slide', function(require, exports, module) {
                         return null;
                     }
                     if ($(this).hasClass('arr_prev')) {
-                        efftct(getPrev(origin), 0);
+                        efftct(getPrev(origin), 0, count);
                     }
                     if ($(this).hasClass('arr_next')) {
-                        efftct(getNext(origin), 1);
+                        efftct(getNext(origin, 1, count), 1);
                     }
-                })
-            };
+                });
+            }
             //自动 & 暂停
             if (opt.auto) {
                 timer = setInterval(function() {
-                    efftct(getNext(origin), 1);
+                    efftct(getNext(origin, 1, count), 1);
                 }, opt.interval);
                 if (opt.pause === true) {
                     $this.on({
@@ -363,7 +365,7 @@ define('slide', function(require, exports, module) {
                         'mouseleave': function() {
                             clearInterval(timer);
                             timer = setInterval(function() {
-                                efftct(getNext(origin), 1);
+                                efftct(getNext(origin, 1, count), 1);
                             }, opt.interval);
                         }
                     });
@@ -375,7 +377,7 @@ define('slide', function(require, exports, module) {
                             $(this).removeClass('pause');
                             clearInterval(timer);
                             timer = setInterval(function() {
-                                efftct(getNext(origin), 1);
+                                efftct(getNext(origin, 1, count), 1);
                             }, opt.interval);
                         } else {
                             $this.data('slidepause', true);
@@ -384,25 +386,24 @@ define('slide', function(require, exports, module) {
                         }
                     });
                 }
-            };
+            }
             $this.data('slideruning', 1).parent().on('DOMNodeRemoved', function(e) {
                 if ($(e.target).is($this)) {
                     //DOM移除后释放全局变量
                     timer && clearInterval(timer);
                 }
             });
-            typeof(opt.ext) === 'function' && opt.ext($this, $cell, count);
             //开始
             if ($this.data('play')) {
                 $navs.eq($this.data('play')).trigger(opt.act);
             } else {
                 efftct(opt.start, true, 1, true);
-            };
+            }
             //响应式
             $(window).bind("orientationchange, resize", function(event) {
                 if (windowLock) {
-                    return null
-                };
+                    return null;
+                }
                 windowLock = true;
                 init();
                 efftct($this.data('play'), true, 1, true);
@@ -410,6 +411,7 @@ define('slide', function(require, exports, module) {
                     windowLock = false;
                 }, 0);
             });
+            typeof(opt.callback) === 'function' && opt.callback($this, $cell, count);
         });
     };
 });

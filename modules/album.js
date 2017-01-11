@@ -1,11 +1,11 @@
 /*
  * name: album.js
- * version: v2.2.10
- * update: 匹配slideV4
- * date: 2016-06-27
+ * version: v2.2.11
+ * update: 匹配slide v4.2.0
+ * date: 2017-01-11
  */
 define('album', function(require, exports, module) {
-	var $ = require('jquery');
+	"use strict";
 	seajs.importStyle('.album_ordinary,.album_wrap{width:100%;height:100%}\
 		.album_wrap{position:fixed!important;left:0;top:0;z-index:98;background:rgba(0,0,0,.8);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#99000000", endColorstr="#99000000")}\
 		.album_ordinary .slide_c{text-align:center}\
@@ -42,22 +42,23 @@ define('album', function(require, exports, module) {
 			.album_gallery .slide_nav{display:none}}'
 		, module.uri);
 	require('slide');
-	var def = {
-		blankclose: false,
-		title: null,
-		cell: 'li',
-		trigger: null,
-		type: 1,
-		hook: '',
-		effect: 'slide', //slide, fade, toggle
-		animate: 'ease',
-		duration: 480,
-		imgattr: null,
-		prevHtml: '<i class="ion">&#xe6c3;</i>',
-		nextHtml: '<i class="ion">&#xe6c4;</i>',
-		callback: function() {},
-		ext: function() {}
-	};
+	var $ = require('jquery'),
+			def = {
+			blankclose: false,
+			title: null,
+			cell: 'li',
+			trigger: null,
+			type: 1,
+			hook: '',
+			effect: 'slide', //slide, fade, toggle
+			animate: 'ease',
+			duration: 480,
+			imgattr: null,
+			prevHtml: '<i class="ion">&#xe6c3;</i>',
+			nextHtml: '<i class="ion">&#xe6c4;</i>',
+			onSlide: null,
+			callback: null
+		};
 	$.fn.album = function(config) {
 		return $(this).each(function(i, e) {
 			var $this = $(e).addClass('albumID' + parseInt(Math.random() * 1e5)),
@@ -155,13 +156,13 @@ define('album', function(require, exports, module) {
 						start: Start,
 						imgattr: opt.imgattr,
 						auto: false,
-						callback: function(o, b, now) {
+						onSlide: function(o, b, now) {
 							if (o.find('.album_page_now').length) {
 								o.find('.album_page_now').text(now + 1)
 							}
-							typeof(opt.callback) === 'function' && opt.callback(o, b, now);
+							typeof(opt.onSlide) === 'function' && opt.onSlide(o, b, now);
 						},
-						ext: function(o, b, count) {
+						callback: function(o, b, count) {
 							//点空白关闭
 							if (opt.blankclose) {
 								o.on('click', function(e) {
@@ -187,11 +188,11 @@ define('album', function(require, exports, module) {
 									}, 320);
 								}, i * 160)
 							});
-							typeof(opt.ext) === 'function' && opt.ext(o, b, count);
+							typeof(opt.callback) === 'function' && opt.callback(o, b, count);
 						}
 					});
 			});
 			$this.data('albuminit', true);
 		})
 	}
-})
+});
