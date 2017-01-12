@@ -1,14 +1,15 @@
 /*
  * name: upload:preview
- * version: 1.1.0
- * update: form v1.1.0
- * date: 2016-05-13
+ * version: 1.1.1
+ * update: 支持无附件提交数据；data参数支持同步返回方法
+ * date: 2017-01-12
  * author: https://github.com/aralejs/upload
  */
 define('upload', function(require, exports, module) {
-  var $ = require('jquery');
-  var iframeCount = 0;
-  
+  'use strict';
+  var $ = require('jquery'),
+    iframeCount = 0;
+
   function Uploader(options) {
     if (!(this instanceof Uploader)) {
       return new Uploader(options);
@@ -59,7 +60,9 @@ define('upload', function(require, exports, module) {
     this.form.attr('target', this.iframe.attr('name'));
 
     var data = this.settings.data;
-    this.form.append(createInputs(data));
+    if($.isPlainObject(data)){
+      this.form.append(createInputs(data));
+    }
     if (window.FormData) {
       this.form.append(createInputs({
         '_uploader_': 'formdata'
@@ -124,16 +127,16 @@ define('upload', function(require, exports, module) {
   Uploader.prototype.bindInput = function() {
     var self = this;
     //缩略图
-    if($.isFunction(self.settings.thumb)){
-      require.async('makethumb',function(){
+    if ($.isFunction(self.settings.thumb)) {
+      require.async('makethumb', function() {
         $(self.input).makeThumb($.extend({
-           done: function(dataURL,file){
-            self.settings.thumb(dataURL,file)
-           }
-        },self.settings.thumbOption));
+          done: function(dataURL, file) {
+            self.settings.thumb(dataURL, file);
+          }
+        }, self.settings.thumbOption));
       });
-    };
-    
+    }
+
     self.input.change(function(e) {
       // ie9 don't support FileList Object
       // http://stackoverflow.com/questions/12830058/ie8-input-type-file-get-files
@@ -144,7 +147,7 @@ define('upload', function(require, exports, module) {
       if (self.settings.compress) {
         require.async('localResizeIMG', function(lrz) {
           $.each(self._files, function(i, file) {
-            lrz(file, $.extend(self.settings.compressOption,{
+            lrz(file, $.extend(self.settings.compressOption, {
               fieldName: self.settings.name
             })).then(function(rst) {
               self.compressList.push(rst.formData);
@@ -170,7 +173,7 @@ define('upload', function(require, exports, module) {
   // prepare for submiting form
   Uploader.prototype.submit = function() {
     var self = this;
-    if (window.FormData && self._files) {
+    if (window.FormData) {
       var form;
       var ajaxUpload = function(form) {
         var optionXhr;
@@ -205,19 +208,24 @@ define('upload', function(require, exports, module) {
       };
       if (self.compressList.length) {
         $.each(self.compressList, function(i, form) {
-          ajaxUpload(form)
+          ajaxUpload(form);
         });
         self.compressList.length = 0;
         self._files = null;
       } else {
         // build a FormData
-        form = new FormData(self.form.get(0));
+        if(typeof self.settings.data === 'function'){
+          self.form.append(createInputs(self.settings.data()));
+        }
         // use FormData to upload
-        form.append(self.settings.name, self._files);
-        ajaxUpload(form)
+        form = new FormData(self.form.get(0));
+        if(self._files){
+          form.append(self.settings.name, self._files);
+        }
+        ajaxUpload(form);
       }
       return this;
-    } else if(self._files){
+    } else if (self._files) {
       // iframe upload
       self.iframe = newIframe();
       self.form.attr('target', self.iframe.attr('name'));

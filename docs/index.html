@@ -1840,7 +1840,7 @@
                             </tr>
                             <tr>
                                 <th>data</th>
-                                <td>随表单一起要提交的数据。</td>
+                                <td>随表单一起要提交的数据，支持object格式或同步返回数据的function。</td>
                             </tr>
                             <tr>
                                 <th>accept</th>
@@ -1908,6 +1908,11 @@ always: null            // complete function(done|fail)
                             <h5>演示</h5>
                             <pre>
                                 <code>
+&lt;form id=&quot;myform&quot;&gt;
+    &lt;p&gt;测试数据：&lt;input type=&quot;text&quot; name=&quot;key1&quot; value=&quot;value1&quot;&gt;&lt;/p&gt;
+    &lt;p&gt;测试数据：&lt;input type=&quot;text&quot; name=&quot;key2&quot; value=&quot;value2&quot;&gt;&lt;/p&gt;
+    &lt;p&gt;文件名称：&lt;input type=&quot;text&quot; readonly id=&quot;filename&quot;&gt;&lt;/p&gt;
+&lt;/form&gt;                                    
 &lt;button type=&quot;button&quot; id=&quot;selectFile&quot; class=&quot;btn btn-primary&quot;&gt;选择&lt;/button&gt;
 &lt;button type=&quot;button&quot; id=&quot;doupload&quot; class=&quot;btn btn-warning&quot;&gt;上传&lt;/button&gt;
                               </code>
@@ -1918,36 +1923,31 @@ always: null            // complete function(done|fail)
     var uploader = new Uploader({
       trigger: '#selectFile',
       name: 'file',
+      data:function(){
+        var serializeArray = $('#myform').serializeArray(),
+          formData = {};
+        $.each(serializeArray,function(i,e){
+          formData[e.name] = e.value;
+        });
+        return formData;
+      },
       action: seajs.root + "/test/fileupload.php",
-      progress: function(event, position, total, percent) {
-        console.log('已上传 ' + position + '/' + total + ' ' + percent + '%')
-      },
-      compress: true,
-      compressOption: {
-        width: 640
-      },
       change: function(file){
-        console.log(file)
+        //不自动上传
+        $('#filename').val(file[0].name);
       },
-      thumb: function(base64, file){
-        var thumb = new Image();
-        thumb.src = base64;
-        thumb.alt = file.title;
-        $('body').append(thumb);
-      },
-      thumbOption: {
-        width: 100,
-        height: 100
+      progress: function(event, position, total, percent) {
+        console.log('已上传 ' + position + '/' + total + ' ' + percent + '%');
       },
       success: function(response) {
-        console.log('上传完成')
+        console.log('完成');
       }
     });
 
     $('#doupload').on('click', function() {
-      uploader.submit()
-    })
-  })
+      uploader.submit();
+    });
+  });
                           </code>
                         </pre>
                     </td>
