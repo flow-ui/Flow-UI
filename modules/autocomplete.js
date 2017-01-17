@@ -1,8 +1,8 @@
 /*
  * name: autocomplete.js
- * version: v0.0.1
- * update: build
- * date: 2015-09-28
+ * version: v0.1.0
+ * update: 添加suggestionsKey配置服务端返回数据名称
+ * date: 2017-01-17
  */
 define('autocomplete',function(require, exports, module) {
 /**
@@ -68,6 +68,7 @@ define('autocomplete',function(require, exports, module) {
                 onSearchError: noop,
                 preserveInput: false,
                 containerClass: 'autocomplete-suggestions',
+                suggestionsKey: 'suggestions',
                 tabDisabled: false,
                 dataType: 'text',
                 currentRequest: null,
@@ -537,9 +538,9 @@ define('autocomplete',function(require, exports, module) {
 
             if ($.isFunction(options.lookup)){
                 options.lookup(q, function (data) {
-                    that.suggestions = data.suggestions;
+                    that.suggestions = data[options.suggestionsKey];
                     that.suggest();
-                    options.onSearchComplete.call(that.element, q, data.suggestions);
+                    options.onSearchComplete.call(that.element, q, data[options.suggestionsKey]);
                 });
                 return;
             }
@@ -554,10 +555,10 @@ define('autocomplete',function(require, exports, module) {
                 response = that.cachedResponse[cacheKey];
             }
 
-            if (response && $.isArray(response.suggestions)) {
-                that.suggestions = response.suggestions;
+            if (response && $.isArray(response[options.suggestionsKey])) {
+                that.suggestions = response[options.suggestionsKey];
                 that.suggest();
-                options.onSearchComplete.call(that.element, q, response.suggestions);
+                options.onSearchComplete.call(that.element, q, response[options.suggestionsKey]);
             } else if (!that.isBadQuery(q)) {
                 if (that.currentRequest) {
                     that.currentRequest.abort();
@@ -577,7 +578,7 @@ define('autocomplete',function(require, exports, module) {
                     that.currentRequest = null;
                     result = options.transformResult(data);
                     that.processResponse(result, q, cacheKey);
-                    options.onSearchComplete.call(that.element, q, result.suggestions);
+                    options.onSearchComplete.call(that.element, q, result[options.suggestionsKey]);
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     options.onSearchError.call(that.element, q, jqXHR, textStatus, errorThrown);
                 });
@@ -786,7 +787,7 @@ define('autocomplete',function(require, exports, module) {
             var that = this,
                 options = that.options;
 
-            result.suggestions = that.verifySuggestionsFormat(result.suggestions);
+            result.suggestions = that.verifySuggestionsFormat(result[options.suggestionsKey]);
 
             // Cache results if cache is not disabled:
             if (!options.noCache) {
