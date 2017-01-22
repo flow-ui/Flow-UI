@@ -3776,8 +3776,29 @@ $('.datepicker2').datepicker({
                     <td>
                         <h5>描述</h5>
                         <p>模板引擎，用于相对大量的视图渲染，详见<a href="https://github.com/ecomfe/etpl" target="_blank">项目主页</a></p>
-                        <h5>多终端</h5>
-                        <p>支持</p>
+                        <h5>内置过滤器</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>html</th>
+                                <td>默认过滤器，html转义</td>
+                            </tr>
+                            <tr>
+                                <th>url</th>
+                                <td>url转义</td>
+                            </tr>
+                            <tr>
+                                <th>raw</th>
+                                <td>不进行任何转义</td>
+                            </tr>
+                            <tr>
+                                <th>date</th>
+                                <td>日期过滤，可选参数<code>outFormat</code>（默认'YYYY-MM-DD'）, <code>inFormat</code>（默认'YYYY年MM月DD日'）</td>
+                            </tr>
+                            <tr>
+                                <th>dec</th>
+                                <td>数字过滤，可选参数<code>format</code>（默认'#,###.00'）</td>
+                            </tr>
+                        </table>
                         <h5>示例</h5>
                         <pre>
                             <code>
