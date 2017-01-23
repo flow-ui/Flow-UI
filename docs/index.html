@@ -1569,7 +1569,7 @@
                     <td>jQuery</td>
                     <td>
                         <h5>描述</h5>
-                        <p>封装1.x和2.x版本的jquery，seajs.config.js中已配置别名，默认使用1.x</p>
+                        <p>封装1.x、2.x和3.x版本的jquery，seajs.config.js中已配置别名，默认使用1.x</p>
                         <h5>示例</h5>
                         <pre>
                             <code>
@@ -2686,7 +2686,7 @@ $.ajax({
                                  </td>
                               </tr>
                               <tr>
-                                 <td>base.browser</td>
+                                 <td>browser</td>
                                  <td>
                                   <p>浏览器信息：</p>
                                   <table class="table table-hover">
@@ -2711,6 +2711,46 @@ $.ajax({
                                       <td>[boolean]是否支持3d转换</td>
                                     </tr>
                                   </table>
+                                 </td>
+                              </tr>
+                              <tr>
+                                     <td>url</td>
+                                     <td>
+                                     <p>url操作方法</p>
+                                     <table class="table">
+                                         <tr>
+                                             <th>get(name, [url])</th>
+                                             <td>
+                                                 <pre>
+                                                    <code>
+  /*
+  * @name：要获取的参数名
+  * @url：要检索的url，可选，默认检索当前窗口url
+  */
+
+  // 当前url
+  http://localhost:8001/web/pro-list.htm?cat_id=2643
+
+  // js
+  console.log(base.url.get('cat_id'));  // 输出 2643
+  console.log(base.url.get('cat_id','http://a.b.c?cat_id=wakaka'));  // 输出 wakaka
+                                                </code>
+                                              </pre>
+                                             </td>
+                                         </tr>
+                                         <tr>
+                                             <th>set(name, val, [url])</th>
+                                             <td>
+                                                 <pre>
+                                                     <code>
+  console.log(base.url.set('cat_id','test', 'http://a.b.c?cat_id=wakaka'));  
+  // 输出 'http://a.b.c?cat_id=test'
+                                                     </code>
+                                                 </pre>
+                                             </td>
+                                         </tr>
+                                         
+                                     </table>
                                  </td>
                               </tr>
                               <tr>
@@ -2791,27 +2831,7 @@ $.ajax({
                                       </pre>
                                      </td>
                                   </tr>
-                                  <tr>
-                                     <td>base.getUrlParam(name, [url])</td>
-                                     <td>
-                                     <p>获取url参数。</p>
-                                      <pre>
-                                        <code>
-  /*
-  * @name：要获取的参数名
-  * @url：要检索的url，可选，默认检索当前窗口url
-  */
-
-  // 当前url
-  http://localhost:8001/web/pro-list.htm?cat_id=2643
-
-  // js
-  console.log(base.getUrlParam('cat_id'));                // 输出 2643
-  console.log(base.getUrlParam('cat_id','http://a.b.c?cat_id=wakaka'));  // 输出 wakaka
-                                    </code>
-                                  </pre>
-                                 </td>
-                              </tr>
+                                  
                               <tr>
                                 <td>base.getScript(file, [callabck], [option])</td>
                                 <td>
@@ -6380,7 +6400,7 @@ $.ajax({
           </code>
         </pre>
         <h3 id="jscatch">js模块本地缓存</h3>
-        <p>使用seajs-localcache插件实现manifest功能，通过manifest.js控制各模块版本（已合并至<code>/lib/seajs.js</code>），公用模块在第一次请求后会缓存到localstorage中，默认版本号1，修改版本号即更新对应模块缓存，版本号必须是真值（非0）。</p>
+        <p>使用seajs-localcache插件实现manifest功能，通过manifest.js控制各模块版本（已合并至<code>/lib/seajs.js</code>），manifest.js中注册的模块在第一次请求后会缓存到localstorage中，修改版本号即更新对应模块缓存。</p>
         <pre>
             <code>
   /*

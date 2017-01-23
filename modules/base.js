@@ -1,8 +1,8 @@
 /*
  * name: base
- * version: 3.1.3
- * update: ajax localCache 增加debug模式
- * date: 2016-12-14
+ * version: 3.2.0
+ * update: 增加url对象，支持get和set方法
+ * date: 2017-01-23
  */
 define('base', function(require, exports, module) {
 	'use strict';
@@ -110,7 +110,7 @@ define('base', function(require, exports, module) {
 						cacheName,
 						cacheDeadline,
 						cacheVal,
-						isDebug = _urlParam('debug');
+						isDebug = _getUrlParam('debug');
 					//获取url
 					if (setting.type.toUpperCase() === 'POST' && $.isPlainObject(setting.data)) {
 						var _param = '?';
@@ -344,17 +344,30 @@ define('base', function(require, exports, module) {
 			}
 		};
 	};
-
+	
 	/*
 	 * 获取url参数
-	 * @name：要获取的键；@search：可选，url
 	 */
-	var _urlParam = function getQueryString(name, url) {
-		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	var _getUrlParam = function (name, url) {
+		var urlParamReg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
 		var s = url ? (url.split('?')[1] ? url.split('?')[1] : '') : window.location.search.substr(1);
-		var r = s.match(reg);
+		var r = s.match(urlParamReg);
 		if (r !== null) {
 			return decodeURI(r[2]);
+		}
+		return null;
+	};
+	/*
+	 * 设置url参数
+	 */
+	var _setUrlParam = function(name, val, url){
+		var urlParamReg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var s = url ? (url.split('?')[1] ? url.split('?')[1] : '') : window.location.search.substr(1);
+		var r = s.match(urlParamReg);
+		if(r !== null){
+			var ori = r[0].replace(/&/g,'');
+			var result = url || window.location.href;
+			return result.replace(ori, name + '=' + val);
 		}
 		return null;
 	};
@@ -697,7 +710,10 @@ define('base', function(require, exports, module) {
 		getStyle: _getStyle,
 		toload: _toload,
 		throttle: _throttle,
-		getUrlParam: _urlParam,
+		url: {
+			get: _getUrlParam,
+			set: _setUrlParam
+		},
 		getScript: _getScript,
 		ajaxCombo: _ajaxCombo,
 		ajaxSetup: _ajaxSetup
