@@ -167,7 +167,7 @@ th {
 .btn {
   font-size: 14px;
   font-weight: normal;
-  line-height: 31.92px;
+  line-height: 38px;
   display: inline-block;
   margin-bottom: 0;
   cursor: pointer;
@@ -500,8 +500,8 @@ fieldset[disabled] .btn-link:focus {
 }
 .btn-sm {
   font-size: 12px;
-  height: 27.6px;
-  line-height: 27.6px;
+  height: 30px;
+  line-height: 30px;
 }
 .btn-block {
   display: block;
