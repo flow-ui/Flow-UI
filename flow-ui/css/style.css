@@ -2001,15 +2001,15 @@ big.form-mark {
   padding-right: 33.6px;
 }
 .p-b-lg {
-  margin-bottom: 33.6px;
+  padding-bottom: 33.6px;
 }
 .p-lr-lg {
-  margin-left: 33.6px;
-  margin-right: 33.6px;
+  padding-left: 33.6px;
+  padding-right: 33.6px;
 }
 .p-tb-lg {
-  margin-top: 33.6px;
-  margin-bottom: 33.6px;
+  padding-top: 33.6px;
+  padding-bottom: 33.6px;
 }
 .table {
   width: 100%;
