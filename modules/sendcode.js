@@ -1,8 +1,8 @@
 /*
  * name: sendcode.js
- * version: v0.1.0
- * update: 增加renderTarget & render & reSendText配置
- * date: 2017-01-10
+ * version: v0.2.0
+ * update: mobile配置支持jquery选择器，用来获取value
+ * date: 2017-02-22
  */
 define("sendcode", function(require, exports, module) {
 	"use strict";
@@ -106,27 +106,32 @@ define("sendcode", function(require, exports, module) {
 			}
 			$(e).data('sendcodeinit', true).on('click', function(e) {
 				e.preventDefault();
-				var that = this;
+				var that = this,
+					sendNumber;
 				if ($(that).data('unable')) {
 					return null;
 				}
 				if (typeof opt.mobile == 'function') {
-					opt.mobile = opt.mobile();
+					sendNumber = opt.mobile();
+				} else if ($(opt.mobile).is('input') || $(opt.mobile).is('textarea')) {
+					sendNumber = $(opt.mobile).val();
+				} else {
+					sendNumber = opt.mobile;
 				}
-				if (!opt.mobile) {
+				if (!sendNumber) {
 					return console.warn('sendcode():mobile参数错误！');
 				}
 				loading = $.box.msg('正在发送验证码...');
 				if (typeof opt.sendBefore === 'function') {
 					setAble($(that),false);
-					opt.sendBefore(opt.mobile, function() {
-						sendmsg.call(that, opt.mobile, opt.sendAfter);
+					opt.sendBefore(sendNumber, function() {
+						sendmsg.call(that, sendNumber, opt.sendAfter);
 					}, function() {
 						setAble($(that),true);
 						$.box.hide(loading);
 					});
 				} else {
-					sendmsg.call(that, opt.mobile, opt.sendAfter);
+					sendmsg.call(that, sendNumber, opt.sendAfter);
 				}
 			});
 		});
