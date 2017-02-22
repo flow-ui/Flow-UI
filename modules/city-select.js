@@ -1,8 +1,8 @@
 /*
  * name: city-selector.js
- * version: v0.0.7
- * update: bug fix
- * date: 2016-12-06
+ * version: v0.1.0
+ * update: 增加readOnly配置项
+ * date: 2017-02-22
  */
 define('city-select', function(require, exports, module) {
 	'use strict';
@@ -31,6 +31,7 @@ define('city-select', function(require, exports, module) {
 						<div class="city-selector-items"></div>\
 					</div>\
 				</div>',
+			readOnly: true,
 			callback: function() {}
 		},
 		citySelectorThis,
@@ -131,7 +132,11 @@ define('city-select', function(require, exports, module) {
 			} else if(!opt.data || !opt.data.split){
 				return console.log('data配置错误！');
 			}
-
+			if(opt.readOnly && ($this.is('input') || $this.is('textarea'))){
+				$this.on('focus',function(e){
+					$this.blur();
+				});
+			}
 			$this.on('click', function(e) {
 				e.preventDefault();
 				citySelectorThis = $this;
