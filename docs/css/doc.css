@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'Consolas';
-    src: url('/docs/font/consola.woff') format('woff'),
-         url('/docs/font/consola.ttf') format('truetype');
+    src: url('/Flow-UI/docs/font/consola.woff') format('woff'),
+         url('/Flow-UI/docs/font/consola.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }

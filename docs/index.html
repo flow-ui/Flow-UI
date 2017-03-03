@@ -10,16 +10,16 @@
     <meta name="google-site-verification" content="SjjczL6NgmwBRTTTv54cEKARc3XU6b3JzUvDhTuIcRY" />
     <meta content="Flow-CLI,front-flow" name="Keywords">
     <meta content="Flow-CLI是专为front-flow前端工作流开发的命令行工具，实现自动初始化、组件化开发、预处理、静态资源优化、图片压缩等前端自动化需求。" name="Description">
-    <link href="/docs/favicon.ico" rel="icon">
-<link href="/docs/css/style.css" rel="stylesheet">
-<link href="/docs/css/doc.css" rel="stylesheet">
-<link href="/docs/lib/highlight/styles/github.css" rel="stylesheet">
+    <link href="/Flow-UI/docs/favicon.ico" rel="icon">
+<link href="/Flow-UI/docs/css/style.css" rel="stylesheet">
+<link href="/Flow-UI/docs/css/doc.css" rel="stylesheet">
+<link href="/Flow-UI/docs/lib/highlight/styles/github.css" rel="stylesheet">
 <script type="text/javascript">
 	if(window.location.href.indexOf('https')===0){
 		document.write('<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />');
 	}
 </script>
-<!--[if lt IE 9]><script src="/docs/lib/H5shiv.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="/Flow-UI/docs/lib/H5shiv.js"></script><![endif]-->
 </head>
 
 <body class="hasNav">
@@ -3723,6 +3723,85 @@ $('.datepicker2').datepicker({
                       </pre>
                     </td>
                 </tr>
+                <tr id="Dropdown（下拉菜单）">
+                    <td>Dropdown</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>下拉菜单插件，继承<a href="#Tip（提示框）" title="#Tip（提示框）">【tip】</a>插件配置和方法，返回Dropdown方法，语法：<code>Dropdown(config)</code>，或者使用jquery插件语法：<code>$el.dropdown(config);</code></p>
+                        <h5>配置</h5>
+                        <table class="table">
+                            <tr>
+                                <th>el</th>
+                                <td>默认<code>null</code>，制定触发元素，直接调用Tip方法必填，jquery插件调用时可忽略</td>
+                            </tr>
+                            <tr>
+                                <th>trigger</th>
+                                <td>默认<code>"hover"</code>，触发动作 hover | click | custom</td>
+                            </tr>
+                            <tr>
+                                <th>place</th>
+                                <td>默认<code>"bottom-center"</code></td>
+                            </tr>
+                            <tr>
+                                <th>items</th>
+                                <td>默认<code>[]</code>，下拉数据，必须，每一项必须是包含<code>text</code>属性的对象，此外可添加自定义属性，对象将在<code>onclick</code>回调中接收</td>
+                            </tr>
+                            <tr>
+                                <th>theme</th>
+                                <td>默认<code>"dropdown-default"</code>，通过该hook可自定义下拉菜单皮肤</td>
+                            </tr>
+                            <tr>
+                                <th>onclick</th>
+                                <td>默认无，点击菜单项回调方法，接受对应的items数据项为参数</td>
+                            </tr>
+                        </table>
+                        <h5>示例</h5>
+                        <pre>
+                            <code>
+    &lt;div class=&quot;wrap&quot;&gt;
+        &lt;div id=&quot;demo1&quot; class=&quot;btn btn-success&quot;&gt;菜单1&lt;/div&gt; &lt;div id=&quot;demo2&quot; class=&quot;btn btn-warning&quot;&gt;菜单2&lt;/div&gt; 
+    &lt;/div&gt; 
+                            </code>
+                        </pre>
+                        <pre>
+                            <code>
+    var Dropdown = require('dropdown');
+    Dropdown({
+        el: '#demo1',
+        items: [{
+            text: '个人设置',
+            data: 'demo1'
+        }, {
+            text: '数据统计',
+            data: 'demo1'
+        }, {
+            text: '立即更新',
+            data: 'demo1'
+        }],
+        onclick: function(item){
+            console.log(item);
+        }
+    });
+
+    $('#demo2').dropdown({
+        items: [{
+            text: '个人设置',
+            data: 'demo2'
+        }, {
+            text: '数据统计',
+            data: 'demo2'
+        }, {
+            text: '立即更新',
+            data: 'demo2'
+        }],
+        onclick: function(item){
+            console.log(item);
+        }
+    });
+                            </code>
+                        </pre>
+                    </td>
+                </tr>
                 <tr id="Easing（animate动画扩展）">
                     <td>easing</td>
                     <td>
@@ -3942,15 +4021,15 @@ $('.datepicker2').datepicker({
                         <table class="table table-hover">
                             <tr>
                                 <th>min</th>
-                                <td>默认0，最小值</td>
+                                <td>默认<code>0</code>，最小值</td>
                             </tr>
                             <tr>
                                 <th>val</th>
-                                <td>默认1，初始值</td>
+                                <td>默认<code>1</code>，初始值</td>
                             </tr>
                             <tr>
                                 <th>countstep</th>
-                                <td>默认1，每次加减数量</td>
+                                <td>默认<code>1</code>，每次加减数量</td>
                             </tr>
                             <tr>
                                 <th>max</th>
@@ -3958,7 +4037,7 @@ $('.datepicker2').datepicker({
                             </tr>
                             <tr>
                                 <th>style</th>
-                                <td>默认'default'，可选'inline'，计数器样式</td>
+                                <td>默认<code>'default'</code>，可选'inline'，计数器样式</td>
                             </tr>
                             <tr>
                                 <th>onChange(val)</th>
@@ -4010,11 +4089,11 @@ $('.datepicker2').datepicker({
                         <table class="table table-hover">
                             <tr>
                                 <th>color</th>
-                                <td>默认""，情景色配置，可选<code>"success"</code><code>"warning"</code><code>"danger"</code></td>
+                                <td>默认<code>""</code>，情景色配置，可选<code>"success"</code><code>"warning"</code><code>"danger"</code></td>
                             </tr>
                             <tr>
                                 <th>id</th>
-                                <td>指定生成input的id，默认自动生成随机id</td>
+                                <td>默认自动生成随机id，指定生成input的id</td>
                             </tr>
                             <tr>
                                 <th>width</th>
@@ -4042,51 +4121,51 @@ $('.datepicker2').datepicker({
                             </tr>
                             <tr>
                                 <th>holder</th>
-                                <td>默认''，指定生成input的placeholder文字</td>
+                                <td>默认<code>''</code>，指定生成input的placeholder文字</td>
                             </tr>
                             <tr>
                                 <th>val</th>
-                                <td>默认''，指定初始value</td>
+                                <td>默认<code>''</code>，指定初始value</td>
                             </tr>
                             <tr>
                                 <th>text</th>
-                                <td>默认''，指定生成input的初始显示值</td>
+                                <td>默认<code>''</code>，指定生成input的初始显示值</td>
                             </tr>
                             <tr>
                                 <th>icon</th>
-                                <td>默认''，指定icon编码，不传则不显示图标</td>
+                                <td>默认<code>''</code>，指定icon编码，不传则不显示图标</td>
                             </tr>
                             <tr>
                                 <th>iconPosition</th>
-                                <td>默认'right', 图标位置，可选'left'</td>
+                                <td>默认<code>'right'</code>, 图标位置，可选'left'</td>
                             </tr>
                             <tr>
                                 <th>size</th>
-                                <td>默认''，生成组件尺寸，可选'sm'/'lg'</td>
+                                <td>默认<code>''</code>，生成组件尺寸，可选'sm'/'lg'</td>
                             </tr>
                             <tr>
                                 <th>name</th>
-                                <td>默认''，指定input的name值，不传则不会添加或修改原始input的name属性</td>
+                                <td>默认<code>''</code>，指定input的name值，不传则不会添加或修改原始input的name属性</td>
                             </tr>
                             <tr>
                                 <th>disable</th>
-                                <td>默认false，是否禁用</td>
+                                <td>默认<code>false</code>，是否禁用</td>
                             </tr>
                             <tr>
                                 <th>readonly</th>
-                                <td>默认false，是否只读</td>
+                                <td>默认<code>false</code>，是否只读</td>
                             </tr>
                             <tr>
                                 <th>datatype</th>
-                                <td>默认''，验证类型，不传将继承目标元素的datatype属性，释义同<a href="#Validform（表单验证）">【validform组件】</a></td>
+                                <td>默认<code>''</code>，验证类型，不传将继承目标元素的datatype属性，释义同<a href="#Validform（表单验证）">【validform组件】</a></td>
                             </tr>
                             <tr>
                                 <th>errormsg</th>
-                                <td>默认''，验证错误提示，不传将继承目标元素的errormsg属性，释义同<a href="#Validform（表单验证）">【validform组件】</a></td>
+                                <td>默认<code>''</code>，验证错误提示，不传将继承目标元素的errormsg属性，释义同<a href="#Validform（表单验证）">【validform组件】</a></td>
                             </tr>
                             <tr>
                                 <th>nullmsg</th>
-                                <td>默认''，验证未填提示，不传将继承目标元素的nullmsg属性，释义同<a href="#Validform（表单验证）">【validform组件】</a></td>
+                                <td>默认<code>''</code>，验证未填提示，不传将继承目标元素的nullmsg属性，释义同<a href="#Validform（表单验证）">【validform组件】</a></td>
                             </tr>
                             <tr>
                                 <th>render(val)</th>
@@ -6025,63 +6104,63 @@ $('.datepicker2').datepicker({
                             <table class="table table-hover">
                                 <tr>
                                     <th>el</th>
-                                    <td>默认null，制定触发元素，直接调用Tip方法必填，jquery插件调用时可忽略</td>
+                                    <td>默认<code>null</code>，制定触发元素，直接调用Tip方法必填，jquery插件调用时可忽略</td>
                                 </tr>
                                 <tr>
                                     <th>trigger</th>
-                                    <td>默认"hover"，触发动作 hover | click | custom</td>
+                                    <td>默认<code>"hover"</code>，触发动作 hover | click | custom</td>
                                 </tr>
                                 <tr>
                                     <th>place</th>
-                                    <td>弹出元素相对于$handle的显示位置，默认"left-center"，规则"第一轴向-第二轴向-[定位模式]"，第一轴向可选"left | right | top | bottom"，第二轴向除四个方位外还可以选择"center"，定位模式非必填，可选"in"，"in"定位模式表示$target将覆盖$handle</td>
+                                    <td>默认<code>"left-center"</code>，弹出元素相对于$handle的显示位置，规则"第一轴向-第二轴向-[定位模式]"，第一轴向可选"left | right | top | bottom"，第二轴向除四个方位外还可以选择"center"，定位模式非必填，可选"in"，"in"定位模式表示$target将覆盖$handle</td>
                                 </tr>
                                 <tr>
                                     <th>title</th>
-                                    <td>标题文字，默认false，不显示标题栏</td>
+                                    <td>默认<code>false</code>，标题文字，不显示标题栏</td>
                                 </tr>
                                 <tr>
                                     <th>hasarr</th>
-                                    <td>默认true，提示框有无箭头</td>
+                                    <td>默认<code>true</code>，提示框有无箭头</td>
                                 </tr>
                                 <tr>
                                     <th>offset</th>
-                                    <td>提示框与元素间距，默认0</td>
+                                    <td>默认<code>0</code>，提示框与元素间距</td>
                                 </tr>
                                 <tr>
                                     <th>type</th>
-                                    <td>默认'auto'，弹出文本内容自带边框，DOM元素不带边框，可选'content'，所有元素均自带边框弹出</td>
+                                    <td>默认<code>"auto"</code>，弹出文本内容自带边框，DOM元素不带边框，可选'content'，所有元素均自带边框弹出</td>
                                 </tr>
                                 <tr>
                                     <th>modal</th>
                                     <td>
-                                        是否带半透明背景，默认false
+                                        默认<code>false</code>，是否带半透明背景
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>opacity</th>
                                     <td>
-                                        模态背景透明度，默认0.5
+                                        默认<code>0.5</code>，模态背景透明度
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>hook</th>
                                     <td>
-                                        class钩子，将添加到弹出元素上，默认无
+                                        默认无，字符型，class钩子，将添加到弹出元素上
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>show</th>
                                     <td>
-                                        立即显示，默认false，显示后只能用返回对象中的hide()方法关闭
+                                        默认<code>false</code>，立即显示，显示后只能用返回对象中的hide()方法关闭
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>onshow</th>
-                                    <td>显示回调，接收当前对象为参数</td>
+                                    <td>默认无，显示回调，接收当前对象为参数</td>
                                 </tr>
                                 <tr>
                                     <th>onhide</th>
-                                    <td>关闭回调</td>
+                                    <td>默认无，关闭回调</td>
                                 </tr>
                             </table>
                             <h5>返回</h5>
@@ -6460,7 +6539,7 @@ $.ajax({
 	Acknowledgements : seajs \ bootstrap \ foundation \ ... </p>
 	</div>
 </footer>
-    <script src="/docs/lib/sea.js" id="seajsnode"></script>
+    <script src="/Flow-UI/docs/lib/sea.js" id="seajsnode"></script>
     <script>
     seajs.use('js/doc');
     </script>

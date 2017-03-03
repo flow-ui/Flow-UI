@@ -48,9 +48,9 @@ define('tip', function(require, exports, module) {
 		$blank = $("#boxBlank"),
 		$tipbox = $('#tip-box'),
 		closeTip = function($this, opt) {
-			$tipbox.stop(1).fadeOut(160).find('#tip-object').empty();
+			$tipbox.hide().find('#tip-object').empty();
 			$this.removeClass('showTip');
-			$blank.hide();
+			if(opt.modal) $blank.hide();
 			if (typeof(opt.onclose) === 'function') opt.onclose();
 		};
 	if ($blank.length) {
@@ -192,14 +192,14 @@ define('tip', function(require, exports, module) {
 						.css({
 							'left': _tipLeft,
 							'top': _tipTop
-						}).stop(1).fadeIn(160);
-
+						}).stop(true).fadeIn(160);
 					$this.addClass('showTip');
 					if (opt.modal && opt.trigger === 'click') {
 						$blank.show();
 					}
 					typeof(opt.onshow) === 'function' && opt.onshow($this);
 				};
+
 			if (opt.show) {
 				show();
 			}
@@ -207,7 +207,7 @@ define('tip', function(require, exports, module) {
 				if (opt.trigger === 'hover') {
 					$this
 						.on('mouseenter', function() {
-							show();
+							setTimeout(show, 32);
 							$tipbox
 								.unbind()
 								.on('mouseenter', function() {
@@ -222,21 +222,22 @@ define('tip', function(require, exports, module) {
 						.on('mouseleave', function() {
 							$this.timer = setTimeout(function() {
 								closeTip($this, opt);
-							}, 16);
+							}, 32);
 						});
-
 				} else if (opt.trigger === 'click') {
+					$this.documentHandler = function(e) {
+						if ($this.get(0).contains(e.target) || $tipbox.get(0).contains(e.target)) {
+							return true;
+						}
+						closeTip($this, opt);
+					};
+					document.addEventListener('click', $this.documentHandler);
 					$tipbox.unbind();
-					$('body').on('click', function(e) {
-						if ($this.is(e.target) || $this.has(e.target).length) {
-							e.preventDefault();
-							if (!$('#tip-box:visible').length) {
-								setTimeout(show, 0);
-							} else {
-								closeTip($this, opt);
-							}
-						} else if (!$tipbox.has(e.target).length) {
+					$this.on('click', function(e) {
+						if ($this.hasClass('showTip')) {
 							closeTip($this, opt);
+						} else {
+							show();
 						}
 					});
 				} else {
