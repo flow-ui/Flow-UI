@@ -10,16 +10,16 @@
     <meta name="google-site-verification" content="SjjczL6NgmwBRTTTv54cEKARc3XU6b3JzUvDhTuIcRY" />
     <meta content="Flow-CLI,front-flow" name="Keywords">
     <meta content="Flow-CLI是专为front-flow前端工作流开发的命令行工具，实现自动初始化、组件化开发、预处理、静态资源优化、图片压缩等前端自动化需求。" name="Description">
-    <link href="/Flow-UI/docs/favicon.ico" rel="icon">
-<link href="/Flow-UI/docs/css/style.css" rel="stylesheet">
-<link href="/Flow-UI/docs/css/doc.css" rel="stylesheet">
-<link href="/Flow-UI/docs/lib/highlight/styles/github.css" rel="stylesheet">
+    <link href="/docs/favicon.ico" rel="icon">
+<link href="/docs/css/style.css" rel="stylesheet">
+<link href="/docs/css/doc.css" rel="stylesheet">
+<link href="/docs/lib/highlight/styles/github.css" rel="stylesheet">
 <script type="text/javascript">
 	if(window.location.href.indexOf('https')===0){
 		document.write('<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />');
 	}
 </script>
-<!--[if lt IE 9]><script src="/Flow-UI/docs/lib/H5shiv.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="/docs/lib/H5shiv.js"></script><![endif]-->
 </head>
 
 <body class="hasNav">
@@ -6019,16 +6019,17 @@ $('.datepicker2').datepicker({
                         <td>tip</td>
                         <td>
                             <h5>描述</h5>
-                            <p>提示框插件，语法：<code>
-              $handle.tip($target,option);
-            </code>，$target是被弹出内容，支持文本，html，jQuery元素（将清除默认样式）</p>
-                            <h5>多终端</h5>
-                            <p>支持</p>
+                            <p>提示框插件，返回Tip方法，语法：<code>Tip(TipContent, config)</code>，或者使用jquery插件语法： <code>$el.tip(TipContent, config);</code></p>
+                            <p><code>TipContent</code>支持文本，html，jQuery元素（将清除默认样式）</p>
                             <h5>配置</h5>
                             <table class="table table-hover">
                                 <tr>
-                                    <th>act</th>
-                                    <td>默认‘mouseenter’，触发动作 mouseenter | click</td>
+                                    <th>el</th>
+                                    <td>默认null，制定触发元素，直接调用Tip方法必填，jquery插件调用时可忽略</td>
+                                </tr>
+                                <tr>
+                                    <th>trigger</th>
+                                    <td>默认"hover"，触发动作 hover | click | custom</td>
                                 </tr>
                                 <tr>
                                     <th>place</th>
@@ -6071,7 +6072,7 @@ $('.datepicker2').datepicker({
                                 <tr>
                                     <th>show</th>
                                     <td>
-                                        立即显示，默认false，若为true将忽略act事件，要用返回值中的hide()方法关闭
+                                        立即显示，默认false，显示后只能用返回对象中的hide()方法关闭
                                     </td>
                                 </tr>
                                 <tr>
@@ -6083,7 +6084,7 @@ $('.datepicker2').datepicker({
                                     <td>关闭回调</td>
                                 </tr>
                             </table>
-                            <h5>返回值</h5>
+                            <h5>返回</h5>
                             <table class="table table-hover">
                                 <tr>
                                     <th>obj.hide()</th>
@@ -6110,12 +6111,34 @@ $('.datepicker2').datepicker({
                             </pre>
                             <pre>
                                 <code>
-  //js
-  require('tip');
-  $('.demo ._tip1').tip( Math.random );
-  $('.demo ._tip2').tip( Math.random , {place:'top-center'});
-  $('.demo ._tip3').tip( Math.random , {place:'right-center'});
-  $('.demo ._tip4').tip( Math.random , {place:'bottom-center'});
+    //js
+    var Tip = require('tip');
+    
+    $('.demo ._tip1').tip(Math.random);
+    $('.demo ._tip2').tip(Math.random, {
+        place: 'top-center'
+    });
+
+    var tip3 = $('.demo ._tip3').tip(Math.random, {
+        place: 'right-center',
+        show: true
+    });
+    setTimeout(function() {
+        tip3.hide();
+    }, 1000);
+
+    var tip4 = Tip(Math.random, {
+        el: $('.demo ._tip4'),
+        place: 'bottom-center',
+        trigger: 't4show'
+    });
+    setTimeout(function() {
+        $('.demo ._tip4').trigger('t4show');
+    }, 1000);
+
+    setTimeout(function() {
+        tip4.hide();
+    }, 2000);
                                 </code>
                             </pre>
                         </td>
@@ -6437,7 +6460,7 @@ $.ajax({
 	Acknowledgements : seajs \ bootstrap \ foundation \ ... </p>
 	</div>
 </footer>
-    <script src="/Flow-UI/docs/lib/sea.js" id="seajsnode"></script>
+    <script src="/docs/lib/sea.js" id="seajsnode"></script>
     <script>
     seajs.use('js/doc');
     </script>
