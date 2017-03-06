@@ -1,8 +1,8 @@
 /*
  * name: tip.js
- * version: v1.3.1
- * update: 修复hover触发bug
- * date: 2017-03-03
+ * version: v1.3.2
+ * update: 弹窗事件绑定混淆bug
+ * date: 2017-03-06
  */
 define('tip', function(require, exports, module) {
 	'use strict';
@@ -54,7 +54,7 @@ define('tip', function(require, exports, module) {
 			if (typeof(opt.onclose) === 'function') opt.onclose();
 		};
 	if ($blank.length) {
-		$blank = $('<div id="boxBlank" style="position:fixed;z-index:98;left:0;top:0;width:100%;height:100%;background: #000;" onselectstart="return false" />').css('opacity', opt.opacity);
+		$blank = $('<div id="boxBlank" style="position:fixed;z-index:98;left:0;top:0;width:100%;height:100%;background: #000;" onselectstart="return false" />');
 		$('body').append($blank);
 	}
 
@@ -66,7 +66,7 @@ define('tip', function(require, exports, module) {
 	var Tip = function(tip, config) {
 		var opt = $.extend({}, def, config || {});
 		var $el = $(opt.el);
-
+		$blank.css('opacity', opt.opacity);
 		$el.each(function(i, e) {
 			var $this = $(e),
 				place = opt.place.split('-'),
@@ -192,11 +192,23 @@ define('tip', function(require, exports, module) {
 						.css({
 							'left': _tipLeft,
 							'top': _tipTop
-						}).stop(true).fadeIn(160);
-					$this.addClass('showTip');
+						}).stop(true).fadeIn(160).unbind();
+					
 					if (opt.modal && opt.trigger === 'click') {
 						$blank.show();
 					}
+					if(opt.trigger === 'hover'){
+						$tipbox
+							.on('mouseenter', function() {
+								if ($this.timer) {
+									clearTimeout($this.timer);
+								}
+							})
+							.on('mouseleave', function() {
+								closeTip($this, opt);
+							});
+					}
+					$this.addClass('showTip');
 					typeof(opt.onshow) === 'function' && opt.onshow($this);
 				};
 
@@ -208,16 +220,6 @@ define('tip', function(require, exports, module) {
 					$this
 						.on('mouseenter', function() {
 							setTimeout(show, 32);
-							$tipbox
-								.unbind()
-								.on('mouseenter', function() {
-									if ($this.timer) {
-										clearTimeout($this.timer);
-									}
-								})
-								.on('mouseleave', function() {
-									closeTip($this, opt);
-								});
 						})
 						.on('mouseleave', function() {
 							$this.timer = setTimeout(function() {
@@ -232,7 +234,6 @@ define('tip', function(require, exports, module) {
 						closeTip($this, opt);
 					};
 					document.addEventListener('click', $this.documentHandler);
-					$tipbox.unbind();
 					$this.on('click', function(e) {
 						if ($this.hasClass('showTip')) {
 							closeTip($this, opt);

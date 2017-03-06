@@ -1,15 +1,18 @@
 /*
  * name: dropdown.js
- * version: v0.0.1
- * update: build
- * date: 2017-03-02
+ * version: v0.1.0
+ * update: 支持disabled属性；支持分组
+ * date: 2017-03-06
  */
 define('dropdown', function(require, exports, module) {
 	"use strict";
 	seajs.importStyle('.dropdown{position:relative;}\
 		.dropdown-default{background:#fff;color:#434343;border-radius:4px;overflow:hidden;box-shadow: 0 1px 6px rgba(0,0,0,.2);}\
-		.dropdown-item{padding:0 1em;line-height:2.6em;cursor:pointer;white-space:nowrap;}\
-		.dropdown-default .dropdown-item:hover{background:#dedede;}', module.uri);
+		.dropdown-item{text-align:center;min-width:4em; padding:0 1.5em;line-height:2.6em;cursor:pointer;white-space:nowrap;}\
+		.dropdown-item.disabled{color:#ccc; cursor:not-allowed;}\
+		.dropdown-default .dropdown-item:hover{background:#dedede;}\
+		.dropdown-default .dropdown-item.disabled:hover{background:inherit;}\
+		.dropdown-default .dropdown-group{padding:4px 0; border-bottom:1px solid #eee;}', module.uri);
 
 	var $ = require('jquery'),
 		Tip = require('tip'),
@@ -17,7 +20,7 @@ define('dropdown', function(require, exports, module) {
 			el: null,
 			trigger: 'hover',
 			place: 'bottom-center',
-			items: [],
+			items: [], //text, disabled
 			theme: 'dropdown-default',
 			onclick: function() {}
 		},
@@ -26,7 +29,11 @@ define('dropdown', function(require, exports, module) {
 			var i = 0,
 				len = data.length;
 			for (; i < len; i++) {
-				result += ('<li class="dropdown-item">' + data[i].text + '</li>');
+				if($.isPlainObject(data[i])){
+					result += ('<li class="dropdown-item' + (data[i].disabled ? ' disabled' : '') + '">' + data[i].text + '</li>');
+				}else if($.isArray(data[i])){
+					result += ('<li class="dropdown-group">' + render(data[i]) + '</li>');
+				}
 			}
 			result += '</ul>';
 			return result;
@@ -46,8 +53,10 @@ define('dropdown', function(require, exports, module) {
 			onshow: function() {
 				menuHtml.on('click', '.dropdown-item', function() {
 					var item = opt.items[$(this).index()];
-					model.hide();
-					typeof(opt.onclick) === 'function' && opt.onclick(item);
+					if (!$(this).hasClass('disabled')) {
+						model.hide();
+						typeof(opt.onclick) === 'function' && opt.onclick(item);
+					}
 				});
 			}
 		}));

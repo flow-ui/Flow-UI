@@ -4623,8 +4623,6 @@ $('.datepicker2').datepicker({
                     <td>
                         <h5>描述</h5>
                         <p>鼠标滚轮监听，回调函数的event包含三个属性：deltaX，deltaY，deltaFactor；分别代表横向滚动方向，纵向滚动方向，滚动长度(不同浏览器下该值不一致)</p>
-                        <h5>多终端</h5>
-                        <p>不支持</p>
                         <h5>示例</h5>
                         <pre>
                             <code>
@@ -4664,14 +4662,82 @@ $('.datepicker2').datepicker({
                         </pre>
                     </td>
                 </tr>
-                
+                <tr id="Notice（通知提醒）">
+                    <td>Notice</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>在界面右上角显示可关闭的全局通知，常用于以下场景：通知内容带有描述信息、系统主动推送。返回Notice方法</p>
+                        <h5>配置</h5>
+                        <table class="table">
+                            <tr>
+                                <th>title</th>
+                                <td>
+                                   默认<code>""</code>，通知提醒的标题 
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>desc</th>
+                                <td>
+                                    默认<code>""</code>，通知提醒的内容，为空或不填时，自动应用仅标题模式下的样式
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>delay</th>
+                                <td>
+                                    默认<code>0</code>，自动关闭的延时，单位毫秒
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>onClose</th>
+                                <td>
+                                    默认无，关闭时的回调
+                                </td>
+                            </tr>
+                        </table>
+                        <h5>返回</h5>
+                        <table class="table">
+                            <tr>
+                                <th>obj.hide()</th>
+                                <td>
+                                    关闭当前notice实例
+                                </td>
+                            </tr>
+                        </table>
+                        <h5>示例</h5>
+                        <pre>
+                            <code>
+    &lt;div class=&quot;wrap&quot;&gt;
+        &lt;div class=&quot;btn btn-primary open&quot;&gt;打开notice&lt;/div&gt;
+    &lt;/div&gt; 
+                            </code>
+                        </pre>
+                        <pre>
+                            <code>
+    var Notice = require('notice');
+    var colors = ['primary', 'success', 'info', 'warning', 'danger'];
+    var count = 0;
+
+    $('.open').on('click',function(){
+        Notice({
+            title: '这是标题' + parseInt(Math.random() * 1e6),
+            desc: '这里是描述',
+            color: colors[count],
+            delay: 3000
+        });
+        count++;
+        if(count===colors.length){
+            count = 0;
+        }
+    });
+                            </code>
+                        </pre>
+                    </td>
+                </tr>
                 <tr id="OffCanvas（伸缩菜单）">
                     <td>offcanvas</td>
                     <td>
                         <h5>描述</h5>
                         <p>侧边伸缩导航菜单插件，多用于移动端导航，导航必须具有id属性，与导航控制按钮的href属性相同。</p>
-                        <h5>多终端</h5>
-                        <p>支持</p>
                         <h5>注意</h5>
                         <ol>
                             <li>为避免插件加载期间导航错乱闪现，可以先用样式将导航隐藏，插件运行后会清除原样式。</li>
