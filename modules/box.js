@@ -1,42 +1,41 @@
 /*
  * name: box.js
- * version: v3.10.8
- * update: 返回box方法
- * date: 2017-02-28
- * base on: zhangxinxu
+ * version: v3.11.0
+ * update: 返回Box方法；原来box()由Box.open()代替
+ * date: 2017-03-06
  */
 define('box', function(require, exports, module) {
 	"use strict";
-	seajs.importStyle('.box_wrap_close a,.box_wrap_close a:hover{text-decoration:none}\
-		.box_wrap_close a:hover{color:#fd7b6d}\
-		.box_wrap_close a,.box_wrap_msg_clo{text-align:center;cursor:pointer}\
-		.box_wrap_in{min-width:9em}\
-		.box_wrap_out{z-index:100;}\
-		.box_wrap_out_posi{position:absolute;border-radius:4px;overflow:hidden;max-width:100%;}\
-		.box_wrap_out_posi.init{-webkit-transform:scale(.5);transform:scale(.5);opacity:0}\
-		.box_wrap_out_posi.show{-webkit-transform:scale(1);transform:scale(1);opacity:1;\
+	seajs.importStyle('.box-wrap-close a,.box-wrap-close a:hover{text-decoration:none}\
+		.box-wrap-close a:hover{color:#fd7b6d}\
+		.box-wrap-close a,.box-wrap-msg-clo{text-align:center;cursor:pointer}\
+		.box-wrap-in{min-width:9em}\
+		.box-wrap-out{z-index:100;}\
+		.box-wrap-out-posi{position:absolute;border-radius:4px;overflow:hidden;max-width:100%;}\
+		.box-wrap-out-posi.init{-webkit-transform:scale(.5);transform:scale(.5);opacity:0}\
+		.box-wrap-out-posi.show{-webkit-transform:scale(1);transform:scale(1);opacity:1;\
 			-webkit-transition:all 160ms ease-in-out;transition:all 160ms ease-in-out}\
-		.box_wrap_out_drag{-webkit-transition:none;transition:none}\
-		.box_wrap_bar{position:relative;height:52px;line-height:52px; -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}\
-		.box_wrap_title{padding-left:1em;margin:0;font-weight:400;font-size:16px;color:#fff;line-height:inherit}\
-		.box_wrap_close{position:absolute;right:0;top:0;}\
-		.box_wrap_close a,.box_wrap_msg_clo a{font:700 1.5em/20px Tahoma;padding:.5em}\
-		.box_img_close{background:#fff;border-radius:4px}\
-		.box_wrap_body {background:#fff;overflow-x:hidden;overflow-y:auto}\
-		.box_wrap_remind{font-size:16px; padding:2em 2em;min-width:14em;overflow:hidden}\
-		.box_wrap_foot{position:relative; min-width:12em;overflow:hidden;text-align:right;border-top:1px solid #ccc;background:#f6f6f6;height:50px;line-height:50px}\
-		.box_wrap_foot .btn{border:0;background:none;margin:0 10px 0 0}\
-		.box_wrap_foot .btn:hover{background:#ccc}\
-		.box_wrap_foot .boxconfirm{position:relative;color:#286090}\
-		.box_wrap_foot._confirm .boxconfirm:after{content:"";position:absolute; display:inline-block;width:1px;height:1.8em;right:-5px;background:#ccc}\
-		.box_wrap_msg{position:relative;width:500px;max-width:100%}\
-		.box_wrap_msg_cont{padding:15px 40px 15px 15px;line-height:22px;color:#fff}\
-		.box_wrap_msg_clo{position:absolute; height:52px;line-height:52px;right:0;top:0}\
-		.box_wrap_msg_clo .ion{margin:0;font-size:16px}\
-		.box_wrap_msg_clo:hover{opacity:.8}', module.uri);
-	var $ = require('jquery');
-	var base = require('base');
-	var Language = [{
+		.box-wrap-out-drag{-webkit-transition:none;transition:none}\
+		.box-wrap-bar{position:relative;height:52px;line-height:52px; -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}\
+		.box-wrap-title{padding-left:1em;margin:0;font-weight:400;font-size:16px;color:#fff;line-height:inherit}\
+		.box-wrap-close{position:absolute;right:0;top:0;}\
+		.box-wrap-close a,.box-wrap-msg-clo a{font:700 1.5em/20px Tahoma;padding:.5em}\
+		.box-img-close{background:#fff;border-radius:4px}\
+		.box-wrap-body {background:#fff;overflow-x:hidden;overflow-y:auto}\
+		.box-wrap-remind{font-size:16px; padding:2em 2em;min-width:14em;overflow:hidden}\
+		.box-wrap-foot{position:relative; min-width:12em;overflow:hidden;text-align:right;border-top:1px solid #ccc;background:#f6f6f6;height:50px;line-height:50px}\
+		.box-wrap-foot .btn{border:0;background:none;margin:0 10px 0 0}\
+		.box-wrap-foot .btn:hover{background:#ccc}\
+		.box-wrap-foot .boxconfirm{position:relative;color:#286090}\
+		.box-wrap-foot.-confirm .boxconfirm:after{content:"";position:absolute; display:inline-block;width:1px;height:1.8em;right:-5px;background:#ccc}\
+		.box-wrap-msg{position:relative;width:500px;max-width:100%}\
+		.box-wrap-msg-cont{padding:15px 40px 15px 15px;line-height:22px;color:#fff}\
+		.box-wrap-msg-clo{position:absolute; height:52px;line-height:52px;right:0;top:0}\
+		.box-wrap-msg-clo .ion{margin:0;font-size:16px}\
+		.box-wrap-msg-clo:hover{opacity:.8}', module.uri);
+	var $ = require('jquery'),
+		base = require('base'),
+		Language = [{
 			close: "关闭",
 			confirm: "确认",
 			cancel: "取消",
@@ -58,13 +57,14 @@ define('box', function(require, exports, module) {
 			height: "auto",
 			layout: true, //是否使用默认弹出框
 			setposi: true, //是否自动定位
-			hook: null, //自定义样式名
+			hook: '', //自定义样式名
 			bar: true, //是否显示标题栏
 			bg: true, //是否显示背景
 			fix: true, //是否弹出框固定在页面上
 			bgclose: true, //是否点击半透明背景隐藏弹出框
 			drag: false, //是否可拖拽
 			protect: false, //保护装载的内容
+			opacity: 0.5, // 背景透明度
 			onshow: null, //弹窗显示后触发事件
 			onclose: null, //弹窗关闭后触发事件
 			delay: 0, //弹窗打开后关闭的时间, 0和负值不触发
@@ -72,11 +72,12 @@ define('box', function(require, exports, module) {
 			color: "info", //msg方法情景色，info，primary，success，warning，danger
 			animate: true
 		},
-		eleBlank = $("#boxBlank").length ? $('#boxBlank') :
-		$('<div id="boxBlank" style="display:none; position:fixed;z-index:99;left:0;top:0;width:100%;height:100%;background:#000;filter:alpha(opacity=50);background:rgba(0,0,0,.5)" ontouchmove="return false" onselectstart="return false" />').appendTo('body');
-	eleBlank.click(function() {
-		$.box.hide(false, true);
-	});
+		$blank = $("#boxBlank");
+	if (!$blank.length) {
+		$blank = $('<div id="boxBlank" style="display:none; position:fixed;z-index:98;left:0;top:0;width:100%;height:100%;background:#000;" onselectstart="return false" />');
+		$('body').append($blank);
+	}
+	
 	//全局配置
 	if (window.innerWidth < 640) {
 		def.animate = false;
@@ -85,120 +86,122 @@ define('box', function(require, exports, module) {
 		$.extend(def, window.boxGlobal);
 	}
 
-	$.box = function(elements, options) {
-		if (!elements) {
-			return console.warn('no elements to $.box()');
-		}
-		var s = $.extend({}, def, options || {}),
-			hook = '',
-			boxID = 'boxID' + parseInt(Math.random() * 1e5),
-			$o,
-			eleOut;
-
-		if (s.hook && /^\w*$/.test(s.hook)) {
-			hook = s.hook;
-		}
-		typeof(elements) === 'function' && (elements = elements());
-		if (typeof(elements) === 'object' && elements.length) {
-			//现有dom
-			elements.show();
-			if (elements.context) {
-				s.protect = true;
+	var Box = {
+		open: function(cont, options) {
+			if (cont === void(0) || cont === null) {
+				return null;
 			}
-		} else if ($.parseHTML($.trim(elements + ''))[0].nodeType === 1) {
-			//dom字符串
-			elements = $(elements);
-		} else {
-			//纯字符串
-			elements = $('<div class="box_wrap_remind">' + elements + '</div>');
-			s.layout || (elements.css('min-width', '0'));
-		}
-
-		eleOut = (function() {
-			var _;
-			if (s.layout) {
-				_ = $('<div class="box_wrap_out_posi">' +
-					'<div class="box_wrap_in">' +
-					'<div class="box_wrap_bar bg-primary" onselectstart="return false;">' +
-					'<h4 class="box_wrap_title"></h4>' +
-					(s.shut ? '<div class="box_wrap_close"><a href="#" title="' + Language[s.lang].close + '"></a></div>' : '') +
-					'</div>' +
-					'<div class="box_wrap_body"></div>' +
-					'</div>' +
-					'</div>');
-				_.find('.box_wrap_body').append(elements);
-			} else if (s.setposi) {
-				_ = $('<div class="box_wrap_out_posi" />').append(elements);
+			var s = $.extend({}, def, options || {}),
+				$o,
+				eleOut;
+			$blank.css('opacity', s.opacity);
+			if (typeof(cont) === 'function') cont = cont();
+			if (typeof(cont) === 'object' && cont.length) {
+				//现有dom
+				cont.show();
+				if (cont.context) {
+					//默认保护
+					s.protect = true;
+				}
+			} else if ($.parseHTML($.trim(cont + ''))[0].nodeType === 1) {
+				//dom字符串
+				cont = $(cont);
 			} else {
-				_ = elements;
+				//纯字符串
+				cont = $('<div class="box-wrap-remind">' + cont + '</div>');
+				if (!s.layout) cont.css('min-width', '0');
 			}
 
-			return _.addClass(hook + ' box_wrap_out ' + boxID)
-				.attr('box-ui-bg', !!s.bg)
-				.data({
-					protect: s.protect,
-					bgclose: s.bgclose,
-					setposi: s.setposi
-				})
-				.appendTo('body');
-		})();
+			eleOut = (function() {
+				var result;
+				if (s.layout) {
+					result = $('<div class="box-wrap-out-posi">' +
+						'<div class="box-wrap-in">' +
+						(s.bar ? ('<div class="box-wrap-bar bg-primary" onselectstart="return false;">' +
+							'<h4 class="box-wrap-title">' + s.title + '</h4>' +
+							(s.shut ? '<div class="box-wrap-close"><a href="#" title="' + Language[s.lang].close + '">' + s.shut + '</a></div>' : '') +
+							'</div>') : '') +
+						'<div class="box-wrap-body"></div>' +
+						'</div>' +
+						'</div>');
+					result.find('.box-wrap-body').append(cont);
+				} else if (s.setposi) {
+					result = $('<div class="box-wrap-out-posi" />').append(cont);
+				} else {
+					result = cont;
+				}
 
-		$o = {
-			s: s,
-			ele: elements,
-			bg: eleBlank,
-			out: eleOut,
-			tit: eleOut.find(".box_wrap_title"),
-			bar: eleOut.find(".box_wrap_bar"),
-			clo: eleOut.find(".box_wrap_close a")
-		};
-		$o.tit.html(s.title);
-		$o.clo.html(s.shut);
+				return result.addClass(s.hook + ' box-wrap-out ')
+					.attr('box-ui-bg', !!s.bg)
+					.data({
+						protect: s.protect,
+						bgclose: s.bgclose,
+						setposi: s.setposi
+					})
+					.appendTo('body');
+			})();
 
-		if ($.isFunction(s.onshow)) {
-			setTimeout(function() {
-				s.onshow(eleOut);
-			}, 0);
-		}
-		if (!s.bar) {
-			$.box.barHide($o);
-		}
-		if (s.setposi) {
-			$.box.setSize($o);
-		}
-		if (s.fix && s.setposi) {
-			$.box.setFixed($o);
-		}
-		if (s.drag) {
-			$.box.drag($o);
-		} else if (!window.PluginBoxResizeHandel) {
-			window.PluginBoxResizeHandel = base.throttle(function() {
-				$.box.setSize($o);
-			});
-			$(window).on('resize', PluginBoxResizeHandel);
-		}
+			$o = {
+				id: parseInt(Math.random() * 1e6),
+				s: s,
+				ele: cont,
+				bg: $blank,
+				out: eleOut
+			};
 
-		if (!s.bg) {
-			$.box.bgHide();
-		} else {
-			$.box.bgShow();
-		}
-		$o.clo.click(function(e) {
-			e.preventDefault();
-			return $.box.hide($o);
-		});
-		if (s.delay > 0) {
-			setTimeout(function() {
-				$.box.hide($o);
-			}, s.delay);
-		}
-		//返回box元素
-		return $o;
-	};
-	$.extend($.box, {
+			if (typeof(s.onshow) === 'function') {
+				setTimeout(function() {
+					s.onshow(eleOut);
+				}, 0);
+			}
+			if (s.setposi) {
+				Box.setSize($o);
+				if (s.fix) {
+					$o.out.css({
+						position: "fixed"
+					});
+				} else if (!s.drag) {
+					var PluginBoxResizeHandel = base.throttle(function() {
+						Box.setSize($o);
+					});
+					$(window).on('resize', PluginBoxResizeHandel);
+				}
+			}
+			if (s.drag) {
+				require.async('drag', function() {
+					$o.out.drag({
+						dragStart: function($this) {
+							$this.addClass('box-wrap-out-drag');
+						},
+						dragEnd: function($this) {
+							$this.removeClass('box-wrap-out-drag');
+						}
+					});
+				});
+			}
+
+			if (!s.bg) {
+				Box.bgCheck();
+			} else {
+				$blank.show();
+			}
+			if (s.bar && s.shut) {
+				$o.out.find(".box-wrap-close a").on('click', function(e) {
+					e.preventDefault();
+					return Box.hide($o);
+				});
+			}
+			if (s.delay > 0) {
+				setTimeout(function() {
+					Box.hide($o);
+				}, s.delay);
+			}
+			//返回box元素
+			return $o;
+		},
 		setSize: function($o, config) {
-			if (!$o.bg.length || !$o.ele.length || !$o.out.length) {
-				return;
+			if (!$o.ele.length || !$o.out.length) {
+				return null;
 			}
 			var w = $(window).width(),
 				h = $(window).height(),
@@ -211,20 +214,21 @@ define('box', function(require, exports, module) {
 					xw = config.width;
 				}
 				if (config.height) {
-					xw = config.height;
+					xh = config.height;
 				}
-			} else {
+			}
+			if (!xw) {
 				if ($o.s.width == 'auto') {
 					xw = Math.min($o.out.width(), w);
 				} else {
 					xw = Math.min($o.s.width, w);
 				}
-				$o.out.css({
-					"width": xw
-				});
+			}
+			if (!xh) {
 				if ($o.s.height === 'auto') {
 					if ($o.s.layout) {
-						outHeight = $o.out.find('.box_wrap_body').removeAttr('style').outerHeight(true) + $o.out.find('.box_wrap_bar').outerHeight(true);
+						//jquery可以通过hide获取真实高度
+						outHeight = $o.out.find('.box-wrap-body').hide().outerHeight(true) + ($o.s.bar ? $o.out.find('.box-wrap-bar').outerHeight(true) : 0);
 					} else {
 						outHeight = $o.out.height();
 					}
@@ -234,12 +238,12 @@ define('box', function(require, exports, module) {
 					console.log('box高度自定调整为窗口最大高度：' + h);
 				}
 			}
-			$o.bg.height(h);
 			$o.out.css({
+				"width": xw,
 				"height": xh
 			});
 			if ($o.s.layout) {
-				$o.out.find('.box_wrap_body').height(xh - $o.out.find('.box_wrap_bar').outerHeight(true));
+				$o.out.find('.box-wrap-body').show();
 			}
 			if ($o.s.setposi) {
 				var l = (w - xw) / 2,
@@ -264,30 +268,11 @@ define('box', function(require, exports, module) {
 			}
 			return $o;
 		},
-		setFixed: function($o) {
-			if (!$o.out || !$o.out.length) {
-				return false;
-			}
-			return $o.out.css({
-				position: "fixed"
-			});
-		},
 		bgCheck: function() {
-			if (!$('.box_wrap_out[box-ui-bg=true]').length) {
+			if (!$('.box-wrap-out[box-ui-bg=true]').length) {
 				setTimeout(function() {
-					eleBlank.hide();
+					$blank.hide();
 				}, 0);
-			}
-		},
-		bgHide: function() {
-			$.box.bgCheck();
-		},
-		bgShow: function() {
-			eleBlank.show();
-		},
-		barHide: function($o) {
-			if ($o.bar && $o.bar.length) {
-				$o.bar.remove();
 			}
 		},
 		hide: function($o, fromBgClick) {
@@ -296,28 +281,28 @@ define('box', function(require, exports, module) {
 				window.PluginBoxResizeHandel = null;
 			}
 			if (!$o) {
-				var _allBox = $('.box_wrap_out');
+				var allBox = $('.box-wrap-out');
 				if (fromBgClick) {
-					_allBox = _allBox.filter(function() {
+					allBox = allBox.filter(function() {
 						return $(this).data('bgclose') === true;
 					});
 				}
-				_allBox.each(function(i, e) {
-					var _this = $(e);
-					if (!_this.data('setposi')) {
+				allBox.each(function(i, e) {
+					var that = $(e);
+					if (!that.data('setposi')) {
 						//actionSheet插件关闭
-						_this.removeClass('action-sheet-up');
+						that.removeClass('action-sheet-up');
 					}
-					if (_this.data('protect')) {
-						var _ele = _this.find('.box_wrap_body').length ? _this.find('.box_wrap_body').children() : _this.children();
-						_ele.hide().appendTo($("body"));
+					if (that.data('protect')) {
+						var $ele = that.find('.box-wrap-body').length ? that.find('.box-wrap-body').children() : that.children();
+						$ele.hide().appendTo($("body"));
 					}
-					_this.remove();
-					$.box.bgCheck();
+					that.remove();
+					Box.bgCheck();
 				});
-				return (_allBox = null);
+				return null;
 			} else if ($o.ele && $o.out.length && $o.out.css("display") !== "none") {
-				var _to = $o.s.animate ? 200 : 0;
+				var to = $o.s.animate ? 200 : 0;
 				if ($o.s.setposi && $o.s.animate) {
 					$o.out.removeClass('show');
 				} else {
@@ -328,63 +313,48 @@ define('box', function(require, exports, module) {
 						$o.ele.hide().appendTo($("body"));
 					}
 					$o.out.remove();
-					$.box.bgCheck();
+					Box.bgCheck();
 					if ($.isFunction($o.s.onclose)) {
 						$o.s.onclose();
 					}
 					$o = null;
-				}, _to);
+				}, to);
 			}
-		},
-		drag: function($o) {
-			if (!$o.out.length || !$o.bar.length) {
-				return false;
-			}
-			require.async('drag', function() {
-				$o.out.drag({
-					dragStart: function($this) {
-						$this.addClass('box_wrap_out_drag');
-					},
-					dragEnd: function($this) {
-						$this.removeClass('box_wrap_out_drag');
-					}
-				});
-			});
 		},
 		loading: function(s) {
-			return $.box(Language[s.lang].loading, {
+			return Box.open(Language[s.lang].loading, {
 				bar: false,
 				bgclose: false
 			});
 		},
 		confirm: function(message, sureCall, cancelCall, options) {
 			var s = $.extend({}, def, options || {});
-			var element = $('<div class="box_wrap_remind">' + message + '</div>' + '<div class="box_wrap_foot _confirm"><button class="btn boxconfirm">' + (s.oktext ? s.oktext : Language[s.lang].confirm) + '</button><button class="btn boxcancel">' + (s.canceltext ? s.canceltext : Language[s.lang].cancel) + '</button></div>');
-			var _o = $.box(element, s);
-			_o.out.find(".boxconfirm").click(function() {
+			var element = $('<div class="box-wrap-remind">' + message + '</div>' + '<div class="box-wrap-foot -confirm"><button class="btn boxconfirm">' + (s.oktext ? s.oktext : Language[s.lang].confirm) + '</button><button class="btn boxcancel">' + (s.canceltext ? s.canceltext : Language[s.lang].cancel) + '</button></div>');
+			var o = Box.open(element, s);
+			o.out.find(".boxconfirm").click(function() {
 				if ($.isFunction(sureCall)) {
 					sureCall.call(this);
 				}
 			}).focus();
-			_o.out.find(".boxcancel").click(function() {
+			o.out.find(".boxcancel").click(function() {
 				if (cancelCall && $.isFunction(cancelCall)) {
 					cancelCall.call(this);
 				}
-				$.box.hide(_o);
+				Box.hide(o);
 			});
-			return _o;
+			return o;
 		},
 		alert: function(message, callback, options) {
 			var s = $.extend({}, def, options || {});
-			var element = $('<div class="box_wrap_remind">' + message + '</div>' + '<div class="box_wrap_foot"><button class="btn boxconfirm">' + (s.oktext ? s.oktext : Language[s.lang].confirm) + '</button></div>');
-			var _o = $.box(element, s);
-			_o.out.find(".boxconfirm").click(function() {
+			var element = $('<div class="box-wrap-remind">' + message + '</div>' + '<div class="box-wrap-foot"><button class="btn boxconfirm">' + (s.oktext ? s.oktext : Language[s.lang].confirm) + '</button></div>');
+			var o = Box.open(element, s);
+			o.out.find(".boxconfirm").click(function() {
 				if (callback && $.isFunction(callback)) {
 					callback.call(this);
 				}
-				$.box.hide(_o);
+				Box.hide(o);
 			}).focus();
-			return _o;
+			return o;
 		},
 		msg: function(message, options) {
 			var s = $.extend({}, def, options || {}),
@@ -393,32 +363,32 @@ define('box', function(require, exports, module) {
 			s.layout = false;
 			s.bg = false;
 			if (s.delay) {
-				element = '<div class="box_wrap_msg"><div class="box_wrap_msg_cont bg-' + s.color + '">' + message + '</div></div>';
+				element = '<div class="box-wrap-msg"><div class="box-wrap-msg-cont bg-' + s.color + '">' + message + '</div></div>';
 			} else {
-				element = '<div class="box_wrap_msg"><div class="box_wrap_msg_cont bg-' + s.color + '">' + message + '</div><div class="box_wrap_msg_clo"><a href="#" title="' + Language[s.lang].close + '">×</a></div></div>';
+				element = '<div class="box-wrap-msg"><div class="box-wrap-msg-cont bg-' + s.color + '">' + message + '</div><div class="box-wrap-msg-clo"><a href="#" title="' + Language[s.lang].close + '">×</a></div></div>';
 			}
-			var _o = $.box(element, s);
-			_o.out.find(".box_wrap_msg_clo").one('click', function() {
-				$.box.hide(_o);
+			var o = Box.open(element, s);
+			o.out.find(".box-wrap-msg-clo").one('click', function() {
+				Box.hide(o);
 			});
-			return _o;
+			return o;
 		},
 		ajax: function(uri, params, options) {
 			var s = $.extend({}, def, options || {});
 			if (uri) {
-				var _loading = $.box.loading(s);
+				var loading = Box.loading(s);
 				options = options || {};
 				options.protect = false;
 				$.ajax({
 					url: uri,
 					data: params || {},
 					success: function(html, other) {
-						$.box.hide(_loading);
-						return $.box(html, options);
+						Box.hide(loading);
+						return Box.open(html, options);
 					},
 					error: function() {
-						$.box.hide(_loading);
-						return $.box.alert(Language[s.lang].error);
+						Box.hide(loading);
+						return Box.alert(Language[s.lang].error);
 					}
 				});
 			}
@@ -430,33 +400,40 @@ define('box', function(require, exports, module) {
 				options.protect = false;
 				params = params || {};
 				html = '<iframe name="' + (params.name || '') + '" src="' + uri + '" width="' + (params.width || 640) + '" height="' + (params.height || 480) + '" frameborder="0"></iframe>';
-				return $.box(html, options);
+				return Box.open(html, options);
 			}
 		},
 		img: function(src, options) {
 			if (!src || !src.split) return;
 			var s = $.extend({}, def, options || {}),
-				_loading = $.box.loading(s),
+				loading = Box.loading(s),
 				$img = '<img src="' + src + '">',
 				imgBox;
 			options = options || {};
 			options.bg = true;
 			options.layout = false;
 			options.onshow = function($box) {
-				$box.append('<div class="box_wrap_close box_img_close"><a>x</a></div>')
-					.find('.box_img_close').on('click', function() {
-						$.box.hide(imgBox);
+				$box.append('<div class="box-wrap-close box-img-close"><a>x</a></div>')
+					.find('.box-img-close').on('click', function() {
+						Box.hide(imgBox);
 					});
 			};
 			require.async('img-ready', function(ready) {
 				ready(src, function(width, height) {
 					options.width = width;
 					options.height = height;
-					$.box.hide(_loading);
-					return (imgBox = $.box($img, options));
+					Box.hide(loading);
+					return (imgBox = Box.open($img, options));
 				});
 			});
 		}
+	};
+
+	$blank.click(function() {
+		Box.hide(false, true);
 	});
-	return $.box;
+	
+	$.box = Box;
+
+	module.exports = Box;
 });
