@@ -1,13 +1,13 @@
 /*
  * name: select.js
- * version: v4.2.0
- * update: 支持元素data-options传参；支持多选；返回对象增加方法；
- * date: 2017-01-06
+ * version: v4.3.0
+ * update: 支持级联
+ * date: 2017-03-07
  */
 define('select', function(require, exports, module) {
     "use strict";
     var animationDuration = 350;
-    seajs.importStyle('.select-ui-choose{position:relative;display:inline-block;overflow:hidden;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;vertical-align:middle}\
+    seajs.importStyle('.select-ui-choose{position:relative;display:inline-block;overflow:hidden;-webkit-user-select:none;user-select:none;vertical-align:middle;}\
         .select-ui-choose.disabled, .select-ui-choose.disabled ._txt .label{cursor:not-allowed;}\
         .select-ui-choose.readonly, .select-ui-choose.readonly ._txt .label{cursor:default;}\
         .select-ui-choose ._txt{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;padding:0 20px 0 8px;border:0;height:100%;line-height:inherit}\
@@ -19,17 +19,18 @@ define('select', function(require, exports, module) {
         .select-ui-choose.on ._arrow .arr{transform:rotateZ(180deg);margin-top:-.5em\9;border-color:transparent transparent #333\9}\
         .select-ui-choose-top.on{border-radius:0 0 4px 4px}\
         .select-ui-choose-bottom.on{border-radius:4px 4px 0 0}\
-        .select-ui-options{transition:transform ease ' + animationDuration + 'ms;transform-origin:50% 0%;transform:rotateX(90deg);\
-            position:absolute;z-index:101;font-size:.9em;top:-999em;opacity:.5}\
+        .select-ui-options{transition:transform ease ' + animationDuration + 'ms;transform-origin:50% 0%;transform:rotateX(90deg);}\
+        .select-ui-options{position:absolute;z-index:101;font-size:.9em;top:-999em;opacity:.5;white-space:nowrap;overflow:auto;max-height:12em;border:1px solid #e8e9eb;background:#fff}\
+        .select-ui-cascader ul{display:inline-block;min-width:100px;height:12em;border-right:1px solid #e3e8ee;}\
         .select-ui-options.on{transform:rotateX(0deg);opacity:1}\
-        .select-ui-options li{cursor:pointer}.select-ui-options li._disabled{cursor:default}\
-        .select-ui-options{overflow:auto;max-height:12em;border:1px solid #e8e9eb;background:#fff}\
-        .select-ui-options li{line-height:1.8em;padding:.4em 1em}\
+        .select-ui-options li{position:relative;line-height:1.8em;padding:.4em 1em;cursor:pointer}\
+        .select-ui-options li._disabled{cursor:default}\
         .select-ui-options li._disabled{color:#aaa}\
         .select-ui-options li._selected{background:#eee}\
         .select-ui-options li:hover, .select-ui-options li.hover{color:#fff;background:#7b7bff}\
         .select-ui-options li._disabled:hover{color:#aaa;background:inherit}\
         .select-ui-options li._selected:hover{color:inherit;background:#eee}\
+        .select-ui-options li._hasChildren:after{content:">";position:absolute;right:.5em;}\
         .select-ui-options-top{border-bottom:0;border-radius:4px 4px 0 0}\
         .select-ui-options-bottom{border-top:0;border-radius:0 0 4px 4px}', module.uri);
     var $ = require('jquery'),
@@ -47,7 +48,10 @@ define('select', function(require, exports, module) {
             readonly: false,
             multi: false,
             filterable: false,
-            onChange: null
+            onChange: null,
+            format: function(textArray) {
+                return textArray.join(' / ');
+            }
         },
         multitext = function(dataOrigin) {
             var text = [],
@@ -63,62 +67,104 @@ define('select', function(require, exports, module) {
                 value: value.join(',')
             };
         },
-        createDom = function($this, sortData, formUpdate, noTriggerChange) {
-            //创建DOM
+        isCascader = function(selectData) {
+            var hasChildren = false;
+            $.each(selectData, function(i, e) {
+                if ($.isArray(e.children) && e.children.length) {
+                    hasChildren = true;
+                    return false;
+                }
+            });
+            return hasChildren;
+        },
+        clearStatus = function(data){
+                    $.each(data, function(i,e){
+                        delete e.selected;
+                        if(e.children){
+                            clearStatus(e.children);
+                        }
+                    });
+                },
+        render = function(renderData, opt, selectedCB, path) {
             var _options = '',
-                _lis = '',
+                _doms = '',
+                _path = '',
+                selectedChildren,
+                each = function(data){
+                    var key = 0,
+                        _lis = '',
+                        thisTurnPath = _path;
+                    selectedChildren = null;
+                    for (; key < data.length; key++) {
+                        var value = data[key].value ? data[key].value : key;
+                        var text = data[key].option;
+                        var checkDefault = !!data[key].checkDefault;
+                        var selected = data[key].selected;
+                        var disabled = data[key].disabled;
+                        var hasChildren = $.isArray(data[key].children) && data[key].children.length;
+                        if(!hasChildren){
+                            //原生结构
+                            _options += '<option' + (disabled ? ' disabled' : '') +
+                                (selected ? ' selected' : '') + ' value="' + value + '">' + text + '</option>';
+                        }
+                        //模拟结构
+                        if (!(selected && opt && opt.hideSelected) && !(disabled && opt && opt.hideDisabled)) {
+                            _lis += ('<li class="' + (disabled ? '_disabled' : '') + (selected ? ' _selected' : '') + (hasChildren ? ' _hasChildren' : '') + '" data-val="' + value + '"' + (hasChildren || thisTurnPath ? ' data-path="' + (thisTurnPath || '') + key + '"' : '') + '>' + text + '</li>');
+                        }
+                        if(selected && hasChildren){
+                            selectedChildren = data[key].children;
+                            _path += (key + '/');
+                        }
+                        if (selected && typeof selectedCB === 'function') {
+                            selectedCB({
+                                text: text,
+                                value: value,
+                                disabled: disabled
+                            });
+                        }
+                    }
+                    if(!_lis){
+                        _lis = '<li class="_disabled">暂无数据</li>';
+                    }
+                    _doms += ('<ul>' + _lis + '</ul>');
+                    if(selectedChildren){
+                        each(selectedChildren);
+                    }
+                };
+            each(renderData);
+            return {
+                options: _options,
+                doms: _doms
+            };
+        },
+        createDom = function($this, sortData, formUpdate, noTriggerChange) {
+            var renderResult,
                 isSort = !!sortData,
-                key = 0,
                 initSelsectd,
                 selectData = $.isArray(sortData) ? sortData : $this.data('data'),
-                opt = $this.data('opt');
-            if (opt.multi) {
-                initSelsectd = [];
-            }
-            for (; key < selectData.length; key++) {
-                var value = selectData[key].value ? selectData[key].value : key;
-                var text = selectData[key].option;
-                var checkDefault = !!selectData[key].checkDefault;
-                var selected = selectData[key].selected;
-                var disabled = selectData[key].disabled;
-                //原生结构
-                _options += '<option' + (disabled ? ' disabled' : '') +
-                    (selected ? ' selected' : '') + ' value="' + value + '">' + text + '</option>';
-                //模拟结构
-                if (!(selected && opt.hideSelected) && !(disabled && opt.hideDisabled)) {
-                    _lis += '<li class="' + (disabled ? '_disabled' : '') +
-                        (selected ? '_selected' : '') + '" data-val="' + value + '">' + text + '</li>';
-                }
-                if (selected) {
-                    if (opt.multi) {
-                        initSelsectd.push({
-                            text: text,
-                            value: value,
-                            disabled: disabled
-                        });
-                    } else {
-                        initSelsectd = {
-                            text: text,
-                            value: value,
-                            disabled: disabled
-                        };
+                opt = $this.data('opt'),
+                hasChildren = isCascader(selectData),
+                iscascader = $this.data('iscascader');
+            renderResult = render(selectData, opt, function(selectItem) {
+                if (opt.multi || hasChildren) {
+                    if (!$.isArray(initSelsectd)) {
+                        initSelsectd = [];
                     }
+                    initSelsectd.push(selectItem);
+                } else {
+                    initSelsectd = selectItem;
                 }
-            }
-            if (!_lis) {
-                _lis = '<li class="_disabled">暂无数据</li>';
-            }
+            });
+            
             //未定义selected默认第一项
-            if (opt.multi) {
-                if (!initSelsectd.length) {
+            if (!initSelsectd) {
+                if (opt.multi || hasChildren) {
                     initSelsectd = [{
                         text: selectData[0].option,
                         value: selectData[0].value,
                         disabled: selectData[0].disabled
                     }];
-                }
-            } else {
-                if (!initSelsectd) {
+                } else {
                     initSelsectd = {
                         text: selectData[0].option,
                         value: selectData[0].value,
@@ -128,9 +174,13 @@ define('select', function(require, exports, module) {
             }
             //初始化数据
             var lastvalue = $this.data('lastvalue'),
-                nowvalue, 
+                nowvalue,
                 nowtext;
-            if (opt.multi) {
+            if (hasChildren) {
+                nowvalue = multitext(initSelsectd).value;
+                nowtext = multitext(initSelsectd).text;
+                $this.next('.select-ui-choose').find('span._txt').html(opt.format(nowtext.split(',')));
+            } else if (opt.multi) {
                 nowvalue = multitext(initSelsectd).value;
                 nowtext = multitext(initSelsectd).text;
                 $this.next('.select-ui-choose').find('span._txt').html(multiValRender(initSelsectd));
@@ -144,12 +194,12 @@ define('select', function(require, exports, module) {
                     $this.next('.select-ui-choose').find('span._txt').text(initSelsectd.text);
                 }
             }
-            $this.data('lastvalue', nowvalue).data('lasttext', nowtext).data('filterchange', isSort).html(_options);
+            $this.data('lastvalue', nowvalue).data('lasttext', nowtext).data('filterchange', isSort).html(renderResult.options);
             if (!formUpdate) {
-                selectOptions.html(_lis).data('cellheight', parseInt(selectOptions.find('li').outerHeight()));
+                selectOptions.html(renderResult.doms).data('cellheight', parseInt(selectOptions.find('li').outerHeight()));
             }
             //change事件
-            if(!noTriggerChange && (lastvalue !== nowvalue) && (typeof opt.onChange === 'function')){
+            if ((!hasChildren || (hasChildren && iscascader)) && !noTriggerChange && (lastvalue !== nowvalue) && (typeof opt.onChange === 'function')) {
                 opt.onChange(nowvalue, nowtext);
             }
         },
@@ -173,14 +223,11 @@ define('select', function(require, exports, module) {
         },
         chooseHookTop = 'select-ui-choose-top',
         chooseHookBottom = 'select-ui-choose-bottom',
-        selectOptions;
-    //公用下拉DOM
-    if ($('.select-ui-options').length) {
         selectOptions = $('.select-ui-options');
-    } else {
-        selectOptions = $('<ul class="select-ui-options" />').appendTo('body');
-        //绑定optionS事件
-        selectOptions.on('click', 'li', function(e) {
+    //selectOptions & event
+    if (!selectOptions.length) {
+        selectOptions = $('<div class="select-ui-options"><ul></ul></div>')
+        .on('click', 'li', function(e) {
             e.stopPropagation();
             e.preventDefault();
             if ($(this).hasClass('_disabled')) {
@@ -191,9 +238,24 @@ define('select', function(require, exports, module) {
                 _thisSelect = selectOptions.data('choosetarget'),
                 _thisOriginSelect = _thisSelect.prev('select'),
                 _data = _thisOriginSelect.data('data'),
-                _opt = _thisOriginSelect.data('opt');
-            //加工原始数据 
-            if (_opt.multi) {
+                _opt = _thisOriginSelect.data('opt'),
+                dataPath = $(this).data('path'),
+                cascader;
+            if (dataPath!==void(0)) {
+                //级联
+                var children = _data;
+                cascader = !$(this).hasClass('_hasChildren');
+                clearStatus(children);
+                $.each(String(dataPath).split('/'), function(pathIndex, path) {
+                    $.each(children, function(childIndex, child){
+                        if(childIndex === parseInt(path)){
+                            child.selected = true;
+                        }
+                    });
+                    children = children[path].children;
+                });
+            } else if (_opt.multi) {
+                //多选
                 var isRepeat,
                     multival = [];
                 if (_thisOriginSelect.data('multitarget').val()) {
@@ -223,6 +285,7 @@ define('select', function(require, exports, module) {
                 _val = multitext(_data).value;
                 _text = multitext(_data).text;
             } else {
+                //单选
                 var _key = 0;
                 for (; _key < _data.length; _key++) {
                     if ($.trim(_data[_key].value) === _val) {
@@ -233,18 +296,22 @@ define('select', function(require, exports, module) {
                 }
             }
             //重新生成DOM
-            createDom(_thisOriginSelect.data('data', _data).data('lasttext', _text));
-            hideOption();
+            createDom(_thisOriginSelect.data('data', _data).data('lasttext', _text).data('iscascader', cascader));
+            if(!dataPath || (dataPath && cascader)){
+                hideOption();
+            }
         });
+        $('body').append(selectOptions);
     }
-    $.fn.select = function(config) {
+
+    var Select = function(config) {
         var returnObject = {
             elements: [],
             update: function(data) {
                 if (data.length) {
                     $.each(this.elements, function(i, e) {
-                        if($(e).prop('disabled') || $(e).prop('readonly')){
-                            return console.warn(e,'元素为只读或禁用状态！');
+                        if ($(e).prop('disabled') || $(e).prop('readonly')) {
+                            return console.warn(e, '元素为只读或禁用状态！');
                         }
                         createDom($(e).data('data', data), false, true);
                     });
@@ -255,9 +322,9 @@ define('select', function(require, exports, module) {
             disabled: function(flag) {
                 $.each(this.elements, function(i, e) {
                     $(e).prop('disabled', !flag);
-                    if(flag){
+                    if (flag) {
                         $(e).next('.select-ui-choose').removeClass('disabled');
-                    }else{
+                    } else {
                         $(e).next('.select-ui-choose').addClass('disabled');
                     }
                 });
@@ -265,9 +332,9 @@ define('select', function(require, exports, module) {
             readonly: function(flag) {
                 $.each(this.elements, function(i, e) {
                     $(e).prop('readonly', !flag);
-                    if(flag){
+                    if (flag) {
                         $(e).next('.select-ui-choose').removeClass('readonly');
-                    }else{
+                    } else {
                         $(e).next('.select-ui-choose').addClass('readonly');
                     }
                 });
@@ -282,8 +349,8 @@ define('select', function(require, exports, module) {
             clear: function() {
                 var obj = this;
                 $.each(this.elements, function(i, e) {
-                    if($(e).prop('disabled') || $(e).prop('readonly')){
-                        return console.warn(e,'元素为只读或禁用状态！');
+                    if ($(e).prop('disabled') || $(e).prop('readonly')) {
+                        return console.warn(e, '元素为只读或禁用状态！');
                     }
                     obj.val('', e);
                 });
@@ -291,8 +358,8 @@ define('select', function(require, exports, module) {
             reset: function() {
                 var obj = this;
                 $.each(this.elements, function(i, e) {
-                    if($(e).prop('disabled') || $(e).prop('readonly')){
-                        return console.warn(e,'元素为只读或禁用状态！');
+                    if ($(e).prop('disabled') || $(e).prop('readonly')) {
+                        return console.warn(e, '元素为只读或禁用状态！');
                     }
                     var opt = $(e).data('opt');
                     obj.val(opt.val, e);
@@ -302,16 +369,16 @@ define('select', function(require, exports, module) {
                 if (text !== void(0)) {
                     text = $.trim(text);
                     $.each(this.elements, function(i, e) {
-                        if($(e).prop('disabled') || $(e).prop('readonly')){
-                            return console.warn(e,'元素为只读或禁用状态！');
+                        if ($(e).prop('disabled') || $(e).prop('readonly')) {
+                            return console.warn(e, '元素为只读或禁用状态！');
                         }
                         $(e).next('.select-ui-choose').find('._txt').val(text).text(text);
                     });
                 } else {
                     var data = this.elements[0].data('data'),
                         getText = [];
-                    $.each(data,function(i,d){
-                        if(d.selected){
+                    $.each(data, function(i, d) {
+                        if (d.selected) {
                             getText.push(d.option);
                         }
                     });
@@ -323,15 +390,11 @@ define('select', function(require, exports, module) {
                     var setVal = function() {
                         var data = $(this).data('data'),
                             opt = $(this).data('opt');
-                        if($(this).prop('disabled') || $(this).prop('readonly')){
-                            return console.warn(this,'元素为只读或禁用状态！');
+                        if ($(this).prop('disabled') || $(this).prop('readonly')) {
+                            return console.warn(this, '元素为只读或禁用状态！');
                         }
                         //抹掉原值
-                        $.each(data, function(i, d) {
-                            if (d.selected) {
-                                d.selected = false;
-                            }
-                        });
+                        clearStatus(data);
                         //设置新值
                         if (opt.multi) {
                             value = value.split(',');
@@ -342,6 +405,23 @@ define('select', function(require, exports, module) {
                                             d.selected = true;
                                         }
                                     });
+                                });
+                            }
+                        } else if(isCascader(data)){
+                            value = value.split(',');
+                            if (value.length) {
+                                var eachData = data,
+                                    eachFunc = function(v){
+                                        $.each(eachData, function(i, d) {
+                                            if (v === d.value) {
+                                                d.selected = true;
+                                                eachData = d.children;
+                                                return false;
+                                            }
+                                        });
+                                    };
+                                $.each(value, function(i, v) {
+                                    eachFunc(v);
                                 });
                             }
                         } else {
@@ -367,10 +447,10 @@ define('select', function(require, exports, module) {
                 }
             }
         };
-        if (!$(this).length) {
+        if (!$(config.el).length) {
             return null;
         }
-        $(this).each(function(i, e) {
+        $(config.el).each(function(i, e) {
             var $this = $(e),
                 opt = $.extend({}, def, config || {}, $.isPlainObject($this.data('options')) ? $this.data('options') : {}),
                 selectData = [],
@@ -379,11 +459,12 @@ define('select', function(require, exports, module) {
             if ($this.data('select-init')) {
                 return true;
             }
+            if (typeof opt.format !== 'function') {
+                opt.format = def.format;
+            }
             if ($this.get(0).tagName.indexOf('ELE') === -1) {
-                var createSelect = $('<select style="display:none"></select>');
-                $this.html(createSelect);
-                $this = createSelect;
-                createSelect = null;
+                $this.html('<select style="display:none"></select>');
+                $this = $this.children('select');
             } else {
                 $this.hide();
             }
@@ -454,17 +535,19 @@ define('select', function(require, exports, module) {
             returnObject.elements.push($this);
             //selectChoose
             var chooseClass = ["select-ui-choose", "form-control"];
-            if($.trim(opt.hook)){
+            var hasChildren = isCascader(selectData);
+
+            if ($.trim(opt.hook)) {
                 chooseClass.push($.trim(opt.hook));
             }
-            if(opt.readonly){
+            if (opt.readonly) {
                 chooseClass.push('readonly');
             }
-            if(opt.disabled){
+            if (opt.disabled) {
                 chooseClass.push('disabled');
             }
             selectChoose = $('<span class="' + chooseClass.join(" ") + '">' +
-                    (opt.filterable ? '<input type="text" class="_txt" />' : '<span class="_txt"></span>') +
+                    (opt.filterable && !hasChildren ? '<input type="text" class="_txt" />' : '<span class="_txt"></span>') +
                     '<span class="_arrow"><i class="arr"></i></span>' +
                     '</span>')
                 .addClass($this.attr('class'))
@@ -472,7 +555,12 @@ define('select', function(require, exports, module) {
                 .on(opt.act, function(e) {
                     e.stopPropagation();
                     var thischoose = $(this);
-                    if($this.prop('disabled') || $this.prop('readonly')){
+                    var selectChooseOS = thischoose.offset();
+                    var selectOptionsCss = {
+                        "left": selectChooseOS.left,
+                        "width": "auto"
+                    };
+                    if ($this.prop('disabled') || $this.prop('readonly')) {
                         return null;
                     }
                     if (thischoose.hasClass('on')) {
@@ -482,9 +570,9 @@ define('select', function(require, exports, module) {
                     if (e.type === 'click' && ($(e.target).is('.label') || $(e.target).parents('.label').length)) {
                         var deleteval,
                             data = $this.data('data');
-                        if($(e.target).is('.label')){
+                        if ($(e.target).is('.label')) {
                             deleteval = $.trim($(e.target).data('val'));
-                        }else{
+                        } else {
                             deleteval = $(e.target).parents('.label').data('val');
                         }
                         $.each(data, function(i, d) {
@@ -496,12 +584,11 @@ define('select', function(require, exports, module) {
                         return createDom($this.data('data', data));
                     }
                     //展开selectOptions
-                    var selectChooseOS = thischoose.offset();
-                    var selectChooseBorder = parseInt(thischoose.css('border-left-width')) + parseInt(thischoose.css('border-right-width'));
-                    var selectOptionsCss = {
-                        "left": selectChooseOS.left,
-                        "width": thischoose.outerWidth() - selectChooseBorder
-                    };
+
+                    if (!hasChildren) {
+                        var selectChooseBorder = parseInt(thischoose.css('border-left-width')) + parseInt(thischoose.css('border-right-width'));
+                        selectOptionsCss.width = thischoose.outerWidth() - selectChooseBorder;
+                    }
                     thischoose.addClass('on').find('input._txt').focus();
                     if (!selectOptions.data('choosetarget') || !selectOptions.data('choosetarget').is(thischoose)) {
                         //刷新DOM
@@ -514,7 +601,7 @@ define('select', function(require, exports, module) {
                             }
                             $this.data('opt', opt);
                         }
-                        selectOptions.attr('class', 'select-ui-options select-ui-options-' + opt.posi + (opt.hook && opt.hook.split ? ' ' + opt.hook : '')).css(selectOptionsCss);
+                        selectOptions.attr('class', 'select-ui-options select-ui-options-' + opt.posi + (hasChildren ? ' select-ui-cascader' : '') + (opt.hook && opt.hook.split ? ' ' + opt.hook : '')).css(selectOptionsCss);
                     } else if ($this.data('filterchange')) {
                         //搜索导致DOM变化
                         createDom($this);
@@ -616,11 +703,19 @@ define('select', function(require, exports, module) {
                     });
             }
             //初始化
-            createDom($this.data('data', selectData), false, false, true);
+            createDom($this.data('data', selectData).data('data-back', selectData), false, false, true);
         });
         //返回对象
         return returnObject;
     };
+
+    $.fn.select = function(config) {
+        return Select($.extend(config, {
+            el: $(this)
+        }));
+    };
     //自动初始化
-    return $('.flowui-select').select();
+    $('.flowui-select').select();
+
+    module.exports = Select;
 });

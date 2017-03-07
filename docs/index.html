@@ -5710,6 +5710,10 @@ $('.datepicker2').datepicker({
                                     <th>onChange(value,text)</th>
                                     <td>选中回调，参数接收最新的value和text</td>
                                 </tr>
+                                <tr>
+                                    <th>format(textArray)</th>
+                                    <td>级联选择文字显示格式，默认<code>return textArray.join(' / ');</code></td>
+                                </tr>
                         </table>
                         <h5>返回对象</h5>
                         <p>所返回的操作句柄包含以下方法：</p>
@@ -5767,8 +5771,12 @@ $('.datepicker2').datepicker({
     &lt;/select&gt;
     &lt;!-- 基于非select初始化 --&gt;
     &lt;div class=&quot;demo demo-insert&quot;&gt; &lt;/div&gt;
+
+    &lt;div class=&quot;demo demo-cascader&quot;&gt; &lt;/div&gt;
+
     &lt;button class=&quot;btn btn-default set1&quot; type=&quot;button&quot;&gt;切换select1禁用状态&lt;/button&gt;
     &lt;button class=&quot;btn btn-default set2&quot; type=&quot;button&quot;&gt;更新select2数据&lt;/button&gt;
+    &lt;button class=&quot;btn btn-default set4&quot; type=&quot;button&quot;&gt;设置select4的值&lt;/button&gt;
     &lt;button class=&quot;btn btn-default&quot; type=&quot;submit&quot;&gt;提交&lt;/button&gt;
   &lt;/form&gt;
                             </code>
@@ -5776,25 +5784,23 @@ $('.datepicker2').datepicker({
                         <pre>
                             <code>
     require('select');
-    var dataAjax = [
-        {
-          "option":"济南",
-          "value":"1"
-        },{
-          "option":"烟台",
-          "value":"2",
-          "selected":true
-        },{
-          "option":"青岛",
-          "value":"3"
-        }
-    ];
+    var dataAjax = [{
+        "option": "济南",
+        "value": "jinan"
+    }, {
+        "option": "烟台",
+        "value": "yantai",
+        "selected": true
+    }, {
+        "option": "青岛",
+        "value": "qingdao"
+    }];
 
     var select1 = $('.demo-fromdom').select({
-        val: [1,2],
+        val: [1, 2],
         multi: true,
-        onChange: function(value, text) { 
-            console.log('select1值更新为' + value);
+        onChange: function(value, text) {
+            console.log('select1值更新为', value);
         }
     });
 
@@ -5811,20 +5817,61 @@ $('.datepicker2').datepicker({
             console.log('select3选中了' + txt);
         }
     });
+
+    var select4 = $('.demo-cascader').select({
+        data: [{
+            "option": "济南",
+            "value": "jinan"
+        }, {
+            "option": "烟台",
+            "value": "yantai",
+            "children": [{
+                "option": '莱山',
+                "value": 'laishan'
+            }, {
+                "option": '芝罘',
+                "value": 'zhifu'
+            }, {
+                "option": '开发区',
+                "value": 'kaifaqu'
+            }]
+        }, {
+            "option": "青岛",
+            "value": "qingdao",
+            "children": [{
+                "option": '崂山',
+                "value": 'laoshan'
+            }, {
+                "option": '四方',
+                "value": 'sifang'
+            }, {
+                "option": '胶南',
+                "value": 'jiaonan'
+            }]
+        }],
+        onChange: function(value, text){
+            console.log(value, text);
+        }
+    });
+
     //提交测试
-    $('#test').on('submit',function(e){
+    $('#test').on('submit', function(e) {
         e.preventDefault();
         alert($(this).serialize());
     });
     //set1
     var disabled = false;
-    $('.set1').on('click',function(){
+    $('.set1').on('click', function() {
         disabled = !disabled;
         select1.disabled(!disabled);
     });
     //set2
-    $('.set2').on('click',function(){
+    $('.set2').on('click', function() {
         select2.update(dataAjax);
+    });
+
+    $('.set4').on('click',function(){
+        select4.val('qingdao,sifang');
     });
                                 </code>
                             </pre>
