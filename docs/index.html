@@ -5783,7 +5783,7 @@ $('.datepicker2').datepicker({
                         </pre>
                         <pre>
                             <code>
-    require('select');
+    var Select = require('select');
     var dataAjax = [{
         "option": "济南",
         "value": "jinan"
@@ -5818,38 +5818,59 @@ $('.datepicker2').datepicker({
         }
     });
 
-    var select4 = $('.demo-cascader').select({
+    var select4 = Select({
+        el:'.demo-cascader',
         data: [{
-            "option": "济南",
-            "value": "jinan"
-        }, {
-            "option": "烟台",
-            "value": "yantai",
+            "option": "山东",
+            "value": "shandong",
             "children": [{
-                "option": '莱山',
-                "value": 'laishan'
+                "option": "济南",
+                "value": "jinan"
             }, {
-                "option": '芝罘',
-                "value": 'zhifu'
+                "option": "烟台",
+                "value": "yantai",
+                "children": [{
+                    "option": '莱山',
+                    "value": 'laishan'
+                }, {
+                    "option": '芝罘',
+                    "value": 'zhifu'
+                }, {
+                    "option": '开发区',
+                    "value": 'kaifaqu'
+                }, {
+                    "option": '福山',
+                    "value": 'fushan'
+                }, {
+                    "option": '牟平',
+                    "value": 'muping'
+                }]
             }, {
-                "option": '开发区',
-                "value": 'kaifaqu'
+                "option": "青岛",
+                "value": "qingdao",
+                "children": [{
+                    "option": '崂山',
+                    "value": 'laoshan'
+                }, {
+                    "option": '四方',
+                    "value": 'sifang'
+                }]
             }]
-        }, {
-            "option": "青岛",
-            "value": "qingdao",
+        },{
+            "option": "江苏",
+            "value": "jiangsu",
             "children": [{
-                "option": '崂山',
-                "value": 'laoshan'
-            }, {
-                "option": '四方',
-                "value": 'sifang'
-            }, {
-                "option": '胶南',
-                "value": 'jiaonan'
+                "option": "浙江",
+                "value": "zhejiang"
+            },{
+                "option": "杭州",
+                "value": "hangzhou"
+            },{
+                "option": "南京",
+                "value": "nanjing"
             }]
         }],
-        onChange: function(value, text){
+        onChange: function(value, text) {
             console.log(value, text);
         }
     });
@@ -5870,8 +5891,8 @@ $('.datepicker2').datepicker({
         select2.update(dataAjax);
     });
 
-    $('.set4').on('click',function(){
-        select4.val('qingdao,sifang');
+    $('.set4').on('click', function() {
+        select4.val('shandong,qingdao,sifang');
     });
                                 </code>
                             </pre>

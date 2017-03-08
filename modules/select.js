@@ -21,7 +21,7 @@ define('select', function(require, exports, module) {
         .select-ui-choose-bottom.on{border-radius:4px 4px 0 0}\
         .select-ui-options{transition:transform ease ' + animationDuration + 'ms;transform-origin:50% 0%;transform:rotateX(90deg);}\
         .select-ui-options{position:absolute;z-index:101;font-size:.9em;top:-999em;opacity:.5;white-space:nowrap;overflow:auto;max-height:12em;border:1px solid #e8e9eb;background:#fff}\
-        .select-ui-cascader ul{display:inline-block;min-width:100px;height:12em;border-right:1px solid #e3e8ee;}\
+        .select-ui-cascader ul{display:inline-block;vertical-align:top; min-width:100px;height:12em;overflow:auto; border-left:1px solid #e3e8ee;margin:0 0 0 -1px;}\
         .select-ui-options.on{transform:rotateX(0deg);opacity:1}\
         .select-ui-options li{position:relative;line-height:1.8em;padding:.4em 1em;cursor:pointer}\
         .select-ui-options li._disabled{cursor:default}\
@@ -32,7 +32,9 @@ define('select', function(require, exports, module) {
         .select-ui-options li._selected:hover{color:inherit;background:#eee}\
         .select-ui-options li._hasChildren:after{content:">";position:absolute;right:.5em;}\
         .select-ui-options-top{border-bottom:0;border-radius:4px 4px 0 0}\
-        .select-ui-options-bottom{border-top:0;border-radius:0 0 4px 4px}', module.uri);
+        .select-ui-options-bottom{border-top:0;border-radius:0 0 4px 4px}\
+        .select-ui-options-top.select-ui-cascader{border-bottom:1px solid #e3e8ee;margin-bottom:-1px;}\
+        .select-ui-options-bottom.select-ui-cascader{border-top:1px solid #e3e8ee;margin-top:-1px;}', module.uri);
     var $ = require('jquery'),
         base = require('base'),
         def = {
@@ -297,7 +299,7 @@ define('select', function(require, exports, module) {
             }
             //重新生成DOM
             createDom(_thisOriginSelect.data('data', _data).data('lasttext', _text).data('iscascader', cascader));
-            if(!dataPath || (dataPath && cascader)){
+            if(dataPath===void(0) || (dataPath!==void(0) && cascader)){
                 hideOption();
             }
         });
