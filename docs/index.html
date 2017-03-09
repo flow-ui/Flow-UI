@@ -3107,7 +3107,7 @@ $.ajax({
                         <td>
                             <h5>描述</h5>
                             <p>弹窗插件，具有弹出任意内容、提醒、消息、询问、ajax、图片模式。</p>
-                            <p>返回Box方法，语法：Box.open(params...)，或者使用jquery插件语法：$.box(params...);</p>
+                            <p>返回<code>Box</code>方法，语法：<code>Box.open(params...)</code>，或者使用jquery插件语法：<code>$.box(params...)</code></p>
                             <h5>方法</h5>
                             <table class="table">
                                 <tr>
@@ -5822,7 +5822,9 @@ $('.datepicker2').datepicker({
                     <td>select</td>
                     <td>
                         <h5>描述</h5>
-                        <p>下拉框插件，用于创建模拟select组件，并将模拟组件的操作结果同步给原生select，支持级联选择</p>
+                        <p>下拉框插件，使用模拟的增强下拉选择器来代替浏览器原生的选择器。
+选择器支持单选、多选、搜索，以及键盘快捷操作。</p>
+                        <p>返回<code>Select</code>方法，语法<code>Select(config)</code>，或使用jquery插件语法<code>$el.select(config)</code></p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
