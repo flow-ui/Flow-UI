@@ -3746,13 +3746,90 @@ $('.datepicker2').datepicker({
                         </pre>
                     </td>
                 </tr>
+                <tr id="DragPanel（拖拽面板）">
+                    <td>dragPanel</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>拖拽面板插件，配合card(卡片)组件和flex(栅格)组件实现可拖拽面板；返回<code>DragPanel</code>方法，语法：<code>DragPanel(config)</code>，或使用jquery插件语法：<code>$el.dragPanel(config)</code></p>
+                        <h5>配置</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>el</th>
+                                <td>默认<code>null</code>，拖拽面板外边界，直接调用DragPanel方法必填，jquery插件调用时可忽略</td>
+                            </tr>
+                            <tr>
+                                <th>dragable</th>
+                                <td>默认<code>".dragable"</code>，可拖拽元素</td>
+                            </tr>
+                            <tr>
+                                <th>dragline</th>
+                                <td>默认<code>".flex-row"</code>，可拖拽元素的包裹行元素</td>
+                            </tr>
+                        </table>
+                        <h5>示例</h5>
+                        <pre>
+                            <code>
+    &lt;div class=&quot;wrap&quot; id=&quot;wrapper&quot;&gt;
+        &lt;div class=&quot;flex-row&quot;&gt;
+            &lt;div class=&quot;flex-1 m dragable&quot;&gt;
+                &lt;div class=&quot;card card-bordered&quot;&gt;
+                    &lt;div class=&quot;card-head&quot;&gt;
+                        &lt;div class=&quot;card-title&quot;&gt; Hello Card&lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;card-body&quot;&gt;
+                        mycard1
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex-1 m dragable&quot;&gt;
+                &lt;div class=&quot;card card-shadow&quot;&gt;
+                    &lt;div class=&quot;card-head&quot;&gt;
+                        &lt;div class=&quot;card-title&quot;&gt; Hello Card&lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;card-body&quot;&gt;
+                        mycard2
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;flex-row&quot;&gt;
+            &lt;div class=&quot;flex-1 m dragable&quot;&gt;
+                &lt;div class=&quot;card card-bordered&quot;&gt;
+                    &lt;div class=&quot;card-head&quot;&gt;
+                        &lt;div class=&quot;card-title&quot;&gt; Hello Card&lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;card-body&quot;&gt;
+                        mycard3
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex-1 m dragable&quot;&gt;
+                &lt;div class=&quot;card card-shadow&quot;&gt;
+                    &lt;div class=&quot;card-head&quot;&gt;
+                        &lt;div class=&quot;card-title&quot;&gt; Hello Card&lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;card-body&quot;&gt;
+                        mycard4
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+                            </code>
+                        </pre>
+                        <pre>
+                            <code>
+    require('drag-panel');
+    $('#wrapper').dragPanel();
+                            </code>
+                        </pre>
+                    </td>
+                </tr>
                 <tr id="Drag（拖拽）">
                     <td>drag</td>
                     <td>
                         <h5>描述</h5>
                         <p>拖拽插件，拖拽元素大于拖拽范围或者小于拖拽范围都可以，两种情况都支持边缘检测</p>
-                        <h5>多终端</h5>
-                        <p>不支持</p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
