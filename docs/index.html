@@ -6115,8 +6115,6 @@ $('.datepicker2').datepicker({
                             <h5>描述</h5>
                             <p>选项卡，默认识别".tab_t"为标签，".tab_c"为内容，标签和内容的结构没有限制，当前显示的标签和内容分别会添加".tab_t_cur"和".tab_c_cur"类名用于定义样式，第一个标签还会额外添加".first"类名，默认通过样式隐藏显示内容，如果指定非".tab_c"元素作为选项卡内容，显示隐藏的样式也需要自己定义</p>
                             <p>忽略选项卡：当选项卡标签元素具有"ignore"属性时，该标签不参与选项卡的互动效果</p>
-                            <h5>多终端</h5>
-                            <p>支持</p>
                             <h5>配置</h5>
                             <table class="table table-hover">
                                 <tr>
@@ -6209,6 +6207,120 @@ $('.datepicker2').datepicker({
                             </pre>
                         </td>
                     </tr>
+                    <tr id="TimePicker（时间选择器）">
+                        <td>TimePicker</td>
+                        <td>
+                            <h5>描述</h5>
+                            <p>时间选择插件，返回<code>TimePicker</code>方法，语法：<code>TimePicker(config)</code>，或使用jquery插件语法：<code>$el.timepicker(config);</code></p>
+                            <h5>配置</h5>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>el</th>
+                                    <td>
+                                        <p>默认<code>null</code>，制定触发元素，直接调用TimePicker方法必填，jquery插件调用时可忽略；当元素具有<code>value</code>属性时，value将自动同步所选时间</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>trigger</th>
+                                    <td>默认<code>"click"</code>，触发动作 hover | click</td>
+                                </tr>
+                                <tr>
+                                    <th>value</th>
+                                    <td>
+                                        默认当前时间，选择器初始值，配置时间必须符合<code>format</code>所设置的格式
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>format</th>
+                                    <td>
+                                        默认<code>"hh:mm:ss"</code>，格式化输出
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>hours</th>
+                                    <td>
+                                        默认<code>24</code>，时制，可选 12
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>place</th>
+                                    <td>
+                                        默认<code>"bottom-left"</code>，选择器出现位置，选项同Tip插件
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>checkClass</th>
+                                    <td>
+                                        默认<code>"text-primary"</code>，选中时间项附加样式
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>confirm</th>
+                                    <td>
+                                        默认<code>false</code>，是否显示底部确认按钮
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>show</th>
+                                    <td>
+                                        默认<code>false</code>，是否初始化后立即显示
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>onchange</th>
+                                    <td>
+                                        默认无，时间发生变化时触发回调，参数接收格式化后的值
+                                    </td>
+                                </tr>
+                            </table>
+                            <h5>返回</h5>
+                            <p>同Tip插件</p>
+                            <h5>演示</h5>
+                            <pre>
+                                <code>
+    &lt;div class=&quot;wrap&quot;&gt;
+        &lt;div class=&quot;row&quot;&gt;
+            &lt;div class=&quot;span-2&quot;&gt;
+                &lt;div class=&quot;demo1 btn btn-default&quot;&gt;打开时间选择器&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;span-2&quot;&gt;
+                &lt;input type=&quot;text&quot; class=&quot;demo2 form-control&quot; &gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;span-2&quot;&gt;
+                &lt;div class=&quot;btn btn-default toggle2&quot;&gt;切换demo2可用状态&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+                                </code>
+                            </pre>
+                            <pre>
+                                <code>
+    var TimePicker = require('timepicker');
+
+    TimePicker({
+        el: '.demo1',
+        show: true,
+        onchange: function(time) {
+            $('.demo1').text('onchange:' + time);
+        }
+    });
+
+    var picker2 = $('.demo2').timepicker({
+        format: 'hh点mm分',
+        value: '11点30分',
+        confirm: true,
+        onchange: function(time){
+            alert('onchange:' + time);
+        }
+    });
+
+    $('.toggle2').on('click',function(){
+        picker2.disabled($('.demo2').prop('disabled'));
+    });
+                                </code>
+                            </pre>
+                        </td>
+                    </tr>
                     <tr id="Tip（提示框）">
                         <td>tip</td>
                         <td>
@@ -6283,6 +6395,10 @@ $('.datepicker2').datepicker({
                                 <tr>
                                     <th>obj.hide()</th>
                                     <td>关闭当前tip实例</td>
+                                </tr>
+                                <tr>
+                                    <th>obj.disabled(flag)</th>
+                                    <td>禁用当前tip实例，若flag为真值将解禁</td>
                                 </tr>
                             </table>
                             <h5>示例</h5>

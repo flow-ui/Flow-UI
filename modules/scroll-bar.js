@@ -1,8 +1,8 @@
 /*
  * name:scrollbar
- * vertion: v2.2.7
- * update: 增加错误提示
- * date: 2016-04-06
+ * vertion: v2.2.8
+ * update: 部分情况无法检测元素尺寸bug
+ * date: 2017-03-08
  */
 define('scroll-bar', function(require, exports, module) {
     "use strict";
@@ -31,7 +31,6 @@ define('scroll-bar', function(require, exports, module) {
 
     $.fn.scrollBar = function(config) {
         var opt = $.extend({}, def, config || {});
-
         if (base.browser.isMobile) {
             return $(this).css({
                 'overflow': 'auto',
@@ -64,7 +63,6 @@ define('scroll-bar', function(require, exports, module) {
         }
 
         return $(this).each(function(i, e) {
-            
             var $this = $(e).addClass('scrollbar-ui').fadeIn(320),
                 scrollCont, sliderBar, sliderLength, prop, wheelHandler, init, passive, setSlider,
                 _length, _breadth, _posiLength, _posiBreadth, _scrollContLength, thisLength,
@@ -210,20 +208,22 @@ define('scroll-bar', function(require, exports, module) {
             };
             init = function(fromMonitor) {
                 //获取滚动内容长度
-                if (opt.overflow === 'x') {
-                    scrollCont.hide();
-                }
+                scrollCont.hide();
                 _scrollContLength = parseFloat(scrollCont.css(_length));
-                if(_scrollContLength===0){
-                    return console.warn('there is something wrong with "scrollBar()", check whether the element is hidden.');
-                }
                 scrollCont.show();
+                if(_scrollContLength===0){
+                    var scrollContClone = scrollCont.clone();
+                    _scrollContLength = parseFloat(scrollContClone.css('visibility','hidden').appendTo('body').css(_length));
+                    scrollContClone.remove();
+                    if(_scrollContLength===0){
+                        return console.warn('there is something wrong with "scrollBar()", check whether the element is hidden.');
+                    }
+                }
                 if (_scrollContLength > thisLength) {
                     //计算滚动条长度
                     sliderLength = parseFloat(scrollSlider.css(_length)) ?
                         parseFloat(scrollSlider.css(_length)) :
                         Math.round(thisLength / _scrollContLength * thisLength);
-
                     sliderBar.show();
                     isWork = true;
                 } else {
@@ -240,14 +240,12 @@ define('scroll-bar', function(require, exports, module) {
                     }
                 }
                 scrollSlider.css(_length, sliderLength);
-                
                 //计算比率
                 prop = (_scrollContLength - thisLength) < 0 ? 0 :
                     (_scrollContLength - thisLength) / (thisLength - opt.btnLength * 2 - sliderLength);
 
                 setSlider();
                 if (fromMonitor && isWork) return;//监听高度改变不重复绑定事件
-
                 //滚轮事件
                 wheelHandler = function(e) {
                     e.preventDefault();
@@ -289,7 +287,6 @@ define('scroll-bar', function(require, exports, module) {
                     }
                 });
             };
-
             //初始化
             if (scrollCont.find('img').length) {
                 require.async('img-loaded', function() {

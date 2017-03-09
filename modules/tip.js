@@ -1,8 +1,8 @@
 /*
  * name: tip.js
- * version: v1.3.2
- * update: 弹窗事件绑定混淆bug
- * date: 2017-03-06
+ * version: v1.4.0
+ * update: 增加disabled方法
+ * date: 2017-03-09
  */
 define('tip', function(require, exports, module) {
 	'use strict';
@@ -50,7 +50,7 @@ define('tip', function(require, exports, module) {
 		closeTip = function($this, opt) {
 			$tipbox.hide().find('#tip-object').empty();
 			$this.removeClass('showTip');
-			if(opt.modal) $blank.hide();
+			if (opt.modal) $blank.hide();
 			if (typeof(opt.onclose) === 'function') opt.onclose();
 		};
 	if ($blank.length) {
@@ -81,25 +81,31 @@ define('tip', function(require, exports, module) {
 						_classCatch = opt.hook ? ($.trim(opt.hook) + ' ') : '',
 						_tipConent = '',
 						_tipObj = '',
-						_title = '';
-
-					if (typeof(tip) === 'object' && !!tip.length || ($.parseHTML($.trim(tip + ''))[0].nodeType === 1)) {
+						_title = '',
+						_mytip = tip;
+					if ($this.prop('disabled') === true || $this.data('disabled') === true) {
+						return console.warn('tip: $el is disabled!');
+					}
+					if (typeof(tip) === 'function') {
+						_mytip = tip();
+					}
+					if (typeof(_mytip) === 'object' && !!_mytip.length || ($.parseHTML($.trim(_mytip + ''))[0].nodeType === 1)) {
 						//现有dom或dom字符串
 						if (opt.type == 'content') {
 							_classCatch += 'tip-withContent ';
 						} else {
 							_classCatch += 'tip-withObject ';
 						}
-						if ($(tip).get(0).tagName === 'IMG') {
+						if ($(_mytip).get(0).tagName === 'IMG') {
 							//ie8图片无法撑开宽度bug
-							_tipObj = $('<div />').width($(tip).width()).append($(tip).show());
+							_tipObj = $('<div />').width($(_mytip).width()).append($(_mytip).show());
 						} else {
-							_tipObj = $(tip).show();
+							_tipObj = $(_mytip).show();
 						}
 					} else {
 						//字符串或数字
 						_classCatch += 'tip-withContent ';
-						_tipConent = tip;
+						_tipConent = _mytip;
 					}
 
 					if (opt.title) {
@@ -192,12 +198,12 @@ define('tip', function(require, exports, module) {
 						.css({
 							'left': _tipLeft,
 							'top': _tipTop
-						}).stop(true).fadeIn(160).unbind();
-					
+						}).stop(true).fadeIn(160).unbind().data('from', $this);
+
 					if (opt.modal && opt.trigger === 'click') {
 						$blank.show();
 					}
-					if(opt.trigger === 'hover'){
+					if (opt.trigger === 'hover') {
 						$tipbox
 							.on('mouseenter', function() {
 								if ($this.timer) {
@@ -231,14 +237,16 @@ define('tip', function(require, exports, module) {
 						if ($this.get(0).contains(e.target) || $tipbox.get(0).contains(e.target)) {
 							return true;
 						}
-						closeTip($this, opt);
+						if ($tipbox.data('from') && $tipbox.data('from').is($this)) {
+							closeTip($this, opt);
+						}
 					};
 					document.addEventListener('click', $this.documentHandler);
 					$this.on('click', function(e) {
 						if ($this.hasClass('showTip')) {
 							closeTip($this, opt);
 						} else {
-							show();
+							setTimeout(show, 0);
 						}
 					});
 				} else {
@@ -250,6 +258,13 @@ define('tip', function(require, exports, module) {
 		return {
 			hide: function() {
 				closeTip($el, opt);
+			},
+			disabled: function(flag) {
+				if ($el.prop('disabled') === void(0)) {
+					$el.data('disabled', !flag);
+				} else {
+					$el.prop('disabled', !flag);
+				}
 			}
 		};
 	};
