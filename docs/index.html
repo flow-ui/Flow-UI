@@ -113,71 +113,45 @@
     </section>
     <section class="wrap" id="css">
         <h2>CSS</h2>
-        <h3 id="css-demo">演示</h3>
+        <h3 id="css-demo">UI展示</h3>
         <h4>栅格系统</h4>
         <div class="row m-b">
-            <div class="span-1">
-                <div class="p bg-info">.span-1</div>
+            <div class="span-2">
+                <div class="p bg-info">.span-2</div>
             </div>
-            <div class="span-1">
-                <div class="p bg-info">.span-1</div>
+            <div class="span-2">
+                <div class="p bg-info">.span-2</div>
             </div>
-            <div class="span-1">
-                <div class="p bg-info">.span-1</div>
+            <div class="span-2">
+                <div class="p bg-info">.span-2</div>
             </div>
-            <div class="span-1">
-                <div class="p bg-info">.span-1</div>
+            <div class="span-2">
+                <div class="p bg-info">.span-2</div>
             </div>
-            <div class="span-1">
-                <div class="p bg-info">.span-1</div>
+            <div class="span-2">
+                <div class="p bg-info">.span-2</div>
             </div>
-            <div class="span-1">
-                <div class="p bg-info">.span-1</div>
-            </div>
-            <div class="span-1">
-                <div class="p bg-info">.span-1</div>
-            </div>
-            <div class="span-1">
-                <div class="p bg-info">.span-1</div>
-            </div>
-            <div class="span-1">
-                <div class="p bg-info">.span-1</div>
-            </div>
-            <div class="span-1">
-                <div class="p bg-info">.span-1</div>
-            </div>
-            <div class="span-1">
-                <div class="p bg-info">.span-1</div>
-            </div>
-            <div class="span-1">
-                <div class="p bg-info">.span-1</div>
+            <div class="span-2">
+                <div class="p bg-info">.span-2</div>
             </div>
         </div>
         <div class="row m-b">
+            <div class="span-4">
+                <div class="p bg-info">.span-4</div>
+            </div>
+            <div class="span-4">
+                <div class="p bg-info">.span-4</div>
+            </div>
+            <div class="span-4">
+                <div class="p bg-info">.span-4</div>
+            </div>
+        </div>
+        <div class="full-row m-b">
             <div class="span-8">
-                <div class="p bg-info">.span-8</div>
+                <div class="p bg-primary">.full-row .span-8</div>
             </div>
             <div class="span-4">
-                <div class="p bg-info">.span-4</div>
-            </div>
-        </div>
-        <div class="row m-b">
-            <div class="span-4">
-                <div class="p bg-info">.span-4</div>
-            </div>
-            <div class="span-4">
-                <div class="p bg-info">.span-4</div>
-            </div>
-            <div class="span-4">
-                <div class="p bg-info">.span-4</div>
-            </div>
-        </div>
-        <div class="row m-b">
-            <div class="span-6">
-                <div class="p bg-info">.span-6</div>
-            </div>
-            <div class="span-6">
-                <div class="p bg-info">.span-6</div>
+                <div class="p bg-success">.full-row .span-4</div>
             </div>
         </div>
         <div class="full-row m-b">
@@ -189,6 +163,7 @@
             </div>
         </div>
         <h4>按钮</h4>
+        <h5>普通按钮</h5>
         <div class="m-b">
             <button type="button" class="btn btn-lg btn-default">default</button>
             <button type="button" class="btn btn-lg btn-primary">primary</button>
@@ -213,6 +188,7 @@
             <button type="button" class="btn btn-sm btn-warning">warning</button>
             <button type="button" class="btn btn-sm btn-danger">danger</button>
         </div>
+        <h5>幽灵按钮</h5>
         <div class="m-b">
             <a href="#" class="btn btn-ghost btn-lg btn-default">default</a>
             <a href="#" class="btn btn-ghost btn-lg btn-primary">primary</a>
@@ -237,6 +213,7 @@
             <a href="#" class="btn btn-ghost btn-sm btn-warning">warning</a>
             <a href="#" class="btn btn-ghost btn-sm btn-danger">danger</a>
         </div>
+        <h5>链接按钮</h5>
         <div class="m-b">
             <a href="#" class="btn btn-link">链接按钮</a>
         </div>
@@ -325,40 +302,129 @@
         </table>
         <h4>色彩</h4>
         <div class="m-b">
-            <p class="p text-primary">以你的风采</p>
-            <p class="p text-success">以你的风采</p>
-            <p class="p text-info">以你的风采</p>
-            <p class="p text-warning">以你的风采</p>
-            <p class="p text-danger">以你的风采</p>
+            <div class="row">
+                <div class="span-2 tc text-primary">主色</div>
+                <div class="span-2 tc text-auxiliary">辅色</div>
+                <div class="span-2 tc text-success">成功</div>
+                <div class="span-2 tc text-info">信息</div>
+                <div class="span-2 tc text-warning">警告</div>
+                <div class="span-2 tc text-danger">危险</div>
+            </div>
         </div>
         <div class="m-b">
-            <p class="p m-tb bg-primary">无聊的对话造就无聊的人生</p>
-            <p class="p m-tb bg-success">无聊的对话造就无聊的人生</p>
-            <p class="p m-tb bg-info">无聊的对话造就无聊的人生</p>
-            <p class="p m-tb bg-warning">无聊的对话造就无聊的人生</p>
-            <p class="p m-tb bg-danger">无聊的对话造就无聊的人生</p>
+            <div class="row">
+                <div class="span-2 tc bg-primary">以你的风采</div>
+                <div class="span-2 tc bg-auxiliary">以你的风采</div>
+                <div class="span-2 tc bg-success">以你的风采</div>
+                <div class="span-2 tc bg-info">以你的风采</div>
+                <div class="span-2 tc bg-warning">以你的风采</div>
+                <div class="span-2 tc bg-danger">以你的风采</div>
+            </div>
         </div>
         <h4>表单</h4>
-        <h5>基本实例</h5>
-        <form role="form m-b">
-            <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+        <div class="wrap">
+            <div class="row">
+                <div class="span-6">
+                    <h5>基本实例</h5>
+                    <form role="form m-b">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        </div>
+                        <label class="checkbox">
+                            <input type="checkbox">Check me out
+                        </label>
+                        <div class="form-group">
+                            <div class="help-block">Example block-level help text here.</div>
+                        </div>
+                        <button type="button" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <div class="span-6">
+                    <h5>水平排列</h5>
+                    <form class="form-horizontal m-b" role="form">
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="span-2 control-label">Email</label>
+                            <div class="span-10">
+                                <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword3" class="span-2 control-label">Password</label>
+                            <div class="span-10">
+                                <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="pull-right-2 span-10">
+                                <label class="checkbox">
+                                    <input type="checkbox"> Remember me
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="pull-right-2 span-10">
+                                <div class="help-block">Example block-level help text here.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="pull-right-2 span-10">
+                                <button type="button" class="btn btn-primary">Sign in</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <div class="row m-tb">
+                <div class="span-6">
+                    <h5>单选和多选</h5>
+                    <label class="checkbox">
+                        <input type="checkbox" value=""> Option one is this and that&mdash;be sure to include why it's great
+                    </label>
+                    <label class="checkbox disabled">
+                        <input type="checkbox" value="" disabled> Option two is disabled
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked> Option one is this and that&mdash;be sure to include why it's great
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"> Option two can be something else and selecting it will deselect option one
+                    </label>
+                    <label class="radio disabled">
+                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled> Option three is disabled
+                    </label>
+                </div>
+                <div class="span-6">
+                    <h5>内联单选和多选</h5>
+                    <div class="m-b">
+                        <label class="checkbox checkbox-inline">
+                            <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+                        </label>
+                        <label class="checkbox checkbox-inline">
+                            <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
+                        </label>
+                        <label class="checkbox checkbox-inline">
+                            <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
+                        </label>
+                    </div>
+                    <div class="m-b">
+                        <label class="radio radio-inline">
+                            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1
+                        </label>
+                        <label class="radio radio-inline">
+                            <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 2
+                        </label>
+                        <label class="radio radio-inline">
+                            <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 3
+                        </label>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="exampleInputFile">File input</label>
-                <input type="file" id="exampleInputFile">
-                <p class="help-block">Example block-level help text here.</p>
-            </div>
-            <label class="checkbox">
-                <input type="checkbox">Check me out
-            </label>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </form>
+        </div>
         <h5>内联表单</h5>
         <form class="form-inline m-b">
             <label class="sr-only" for="exampleInputEmail2">Email address</label>
@@ -368,78 +434,10 @@
                 <input class="form-control" type="email" placeholder="Enter email">
             </div>
             <label class="sr-only" for="exampleInputPassword2">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
-            <label class="checkbox">
-                <input type="checkbox">Check me out
-            </label>
-            <button type="submit" class="btn btn-default">Sign in</button>
+            <input type="password" class="form-control" id="exampleInputPassword2
+" placeholder="Password">
+            <button type="button" class="btn btn-primary">Sign in</button>
         </form>
-        <h5>水平排列</h5>
-        <form class="form-horizontal m-b" role="form">
-            <div class="form-group row">
-                <label for="inputEmail3" class="span-2 control-label">Email</label>
-                <div class="span-10">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="inputPassword3" class="span-2 control-label">Password</label>
-                <div class="span-10">
-                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="pull-right-2 span-10">
-                    <label class="checkbox">
-                        <input type="checkbox"> Remember me
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="pull-right-2 span-10">
-                    <button type="submit" class="btn btn-default">Sign in</button>
-                </div>
-            </div>
-        </form>
-        <h5>单选和多选</h5>
-        <label class="checkbox">
-            <input type="checkbox" value=""> Option one is this and that&mdash;be sure to include why it's great
-        </label>
-        <label class="checkbox disabled">
-            <input type="checkbox" value="" disabled> Option two is disabled
-        </label>
-        <label class="radio">
-            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked> Option one is this and that&mdash;be sure to include why it's great
-        </label>
-        <label class="radio">
-            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"> Option two can be something else and selecting it will deselect option one
-        </label>
-        <label class="radio disabled">
-            <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled> Option three is disabled
-        </label>
-        <h5>内联单选和多选</h5>
-        <div class="m-b">
-            <label class="checkbox checkbox-inline">
-                <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
-            </label>
-            <label class="checkbox checkbox-inline">
-                <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
-            </label>
-            <label class="checkbox checkbox-inline">
-                <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
-            </label>
-        </div>
-        <div class="m-b">
-            <label class="radio radio-inline">
-                <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1
-            </label>
-            <label class="radio radio-inline">
-                <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 2
-            </label>
-            <label class="radio radio-inline">
-                <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 3
-            </label>
-        </div>
         <h5>特殊样式</h5>
         <form class="form-horizontal m-b">
             <div class="form-group form-group-sm row has-success has-feedback">
@@ -470,38 +468,41 @@
                 </div>
             </div>
         </form>
-        <h4>字体图标</h4> 内置图标使用
-        <a href="http://www.iconfont.cn/" target="_blank">阿里巴巴矢量图标库</a>管理，详情访问<a href="http://zangtao.org/projects/icons/" target="_blank" class="btn btn-link">图标库</a>项目主页。
+
         <h4>标签</h4>
         <div class="label-list">
-            <span class="label label-sm label-primary">标签-primary</span>
-            <span class="label label-sm label-success">标签-success</span>
-            <span class="label label-sm label-info">标签-info</span>
-            <span class="label label-sm label-warning">标签-warning</span>
-            <span class="label label-sm label-danger">标签-danger</span>
+            <span class="label label-sm label-primary">primary</span>
+            <span class="label label-sm label-success">success</span>
+            <span class="label label-sm label-info">info</span>
+            <span class="label label-sm label-warning">warning</span>
+            <span class="label label-sm label-danger">danger</span>
         </div>
         <div class="label-list">
-            <span class="label label-primary">标签-primary</span>
-            <span class="label label-success">标签-success</span>
-            <span class="label label-info">标签-info</span>
-            <span class="label label-warning">标签-warning</span>
-            <span class="label label-danger">标签-danger</span>
+            <span class="label label-primary">primary</span>
+            <span class="label label-success">success</span>
+            <span class="label label-info">info</span>
+            <span class="label label-warning">warning</span>
+            <span class="label label-danger">danger</span>
         </div>
         <div class="label-list">
-            <span class="label label-lg label-primary">标签-primary</span>
-            <span class="label label-lg label-success">标签-success</span>
-            <span class="label label-lg label-info">标签-info</span>
-            <span class="label label-lg label-warning">标签-warning</span>
-            <span class="label label-lg label-danger">标签-danger</span>
+            <span class="label label-lg label-primary">primary</span>
+            <span class="label label-lg label-success">success</span>
+            <span class="label label-lg label-info">info</span>
+            <span class="label label-lg label-warning">warning</span>
+            <span class="label label-lg label-danger">danger</span>
         </div>
-        <h3 id="css-compile">编译</h3>
-        <p>Flow-UI的项目代码是使用<a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>，编译<a href="https://github.com/front-flow/front-flow-template" target="_blank">front-flow-template</a>而来。</p>
-        <p>front-flow-template基于less实现UI组件化管理，并抽离出全站样式配置文件，可实现灵活的组件选配，出于演示目的Flow-UI打包了所有的UI组件，如<code>flex</code>和<code>responsive</code>属于只在特定场景应用的组件，在front-flow-template中是默认不引入的。</p>
-        <p>若希望进一步自定义UI风格，可以参考<a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>的详细介绍。</p>
+        <h3 id="css-compile">定制与编译</h3>
+        <p>Flow-UI基于<code>less</code>实现UI组件化，从全站样式中抽离出配置文件，可实现灵活的风格控制和组件选配，要充分发挥Flow-UI的定制性，需要搭配自动化编译工具<a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>使用。</p>
+        <p>进一步了解<a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>的详细介绍。</p>
         <h3 id="css-component">组件列表</h3>
         <nav class="modules_index" id="component_index"></nav>
-        <h4>示例</h4>
         <table class="table table-bordered" id="component_list">
+            <tr id="icon（图标）">
+                <td>Flow-ICON</td>
+                <td>
+                    <p>详情访问<a href="https://github.com/tower1229/Flow-ICON" target="_blank" class="btn btn-link">Flow-ICON</a>项目主页。</p>
+                </td>
+            </tr>
             <tr id="btn（按钮）">
                 <td>btn.less</td>
                 <td>
@@ -1526,7 +1527,6 @@
         </pre>
         <h4 id="js-base-common">公用代码common.js</h4>
         <p>common.js内置了网站常用代码，可以根据需求保留或删除</p>
-        
         <h3 id="js-modules">模块层</h3>
         <p>模块层封装了大量js模块，模块封装相关文档见 <a href="https://github.com/seajs/seajs/issues/242" target="_blank">CMD模块定义规范</a>。 </p>
         <h4>模块目录</h4>
@@ -1562,7 +1562,6 @@
                 </pre>
                 </td>
             </tr>
-            
             <tr id="Copy（复制到剪贴板）">
                 <td>Copy</td>
                 <td>
@@ -1994,15 +1993,15 @@ fail: null,             // error function
 always: null            // complete function(done|fail)
                                           </code>
                                         </pre>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>success</th>
-                                    <td>上传成功的回调函数。</td>
-                                </tr>
-                            </table>
-                            <h5>演示</h5>
-                            <pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>success</th>
+                                <td>上传成功的回调函数。</td>
+                            </tr>
+                        </table>
+                        <h5>演示</h5>
+                        <pre>
                                 <code>
 &lt;form id=&quot;myform&quot;&gt;
     &lt;p&gt;测试数据：&lt;input type=&quot;text&quot; name=&quot;key1&quot; value=&quot;value1&quot;&gt;&lt;/p&gt;
@@ -2013,7 +2012,7 @@ always: null            // complete function(done|fail)
 &lt;button type=&quot;button&quot; id=&quot;doupload&quot; class=&quot;btn btn-warning&quot;&gt;上传&lt;/button&gt;
                               </code>
                             </pre>
-                            <pre>
+                        <pre>
                                 <code>
   require.async('upload', function(Uploader) {
     var uploader = new Uploader({
@@ -2414,7 +2413,7 @@ always: null            // complete function(done|fail)
   &lt;/div&gt;
                                 </code>
                               </pre>
-                                <pre>
+                            <pre>
                                     <code>
   var WebUploader = require('webuploader');
 
@@ -2713,18 +2712,18 @@ always: null            // complete function(done|fail)
                             <h5>功能列表</h5>
                             <table class="table table-bordered js-base-table">
                                 <tr>
-                                     <td>getUID</td>
-                                     <td>返回一个递增数字</td>
-                                 </tr>
-                                 <tr>
-                                     <td>getUUID</td>
-                                     <td>返回一个随机数字字母组合，接收长度参数，不传默认6位</td>
-                                 </tr>
-                              <tr>
-                                 <td>ajaxSetup</td>
-                                 <td>
-                                  <p>$.ajax增强，对请求的json数据做如下格式要求：</p>
-                                  <pre>
+                                    <td>getUID</td>
+                                    <td>返回一个递增数字</td>
+                                </tr>
+                                <tr>
+                                    <td>getUUID</td>
+                                    <td>返回一个随机数字字母组合，接收长度参数，不传默认6位</td>
+                                </tr>
+                                <tr>
+                                    <td>ajaxSetup</td>
+                                    <td>
+                                        <p>$.ajax增强，对请求的json数据做如下格式要求：</p>
+                                        <pre>
                                     <code>
 {
   status: "Y/N",   //必须，代表操作是否成功
@@ -2733,19 +2732,19 @@ always: null            // complete function(done|fail)
 }
                                     </code>
                                   </pre>
-                                  <ol>
-                                    <li>默认超时时间配置，见seajs.config.js文件：
-                                    <code>
+                                        <ol>
+                                            <li>默认超时时间配置，见seajs.config.js文件：
+                                                <code>
 seajs.set = {
   util: {
     timeout: 1.5e4
   }
 };
                                       </code>
-                                    </li>
-                                    <li>默认<code>dataType</code>为<code>"json"</code>；</li>
-                                    <li>支持数据本地缓存，需浏览器支持localStorage，<code>localCache</code>参数传入数字将作为超时时间（毫秒数），传入0或任意假值将清除该缓存，示例
-                                        <pre>
+                                            </li>
+                                            <li>默认<code>dataType</code>为<code>"json"</code>；</li>
+                                            <li>支持数据本地缓存，需浏览器支持localStorage，<code>localCache</code>参数传入数字将作为超时时间（毫秒数），传入0或任意假值将清除该缓存，示例
+                                                <pre>
                                             <code>
 var $ = require('jquery');
 var base = require('base');
@@ -2759,9 +2758,9 @@ $.ajax({
 })
                                             </code>
                                         </pre>
-                                    </li>
-                                    <li><code>success</code>回调增强，success回调除了请求返回的数据以外还将收到一个err参数，布尔值，代表请求是否失败（根据status值判断，跟默认的error回调无关），如果返回数据带有msg信息，将以box插件的msg方法提示2s，提示结束后继续执行success，示例：
-                                      <pre>
+                                            </li>
+                                            <li><code>success</code>回调增强，success回调除了请求返回的数据以外还将收到一个err参数，布尔值，代表请求是否失败（根据status值判断，跟默认的error回调无关），如果返回数据带有msg信息，将以box插件的msg方法提示2s，提示结束后继续执行success，示例：
+                                                <pre>
                                         <code>
 $.ajax({
   url: seajs.root + '/test/data.json',
@@ -2774,50 +2773,49 @@ $.ajax({
 })
                                         </code>
                                       </pre>
-                                    </li>
-                                    <li><code>error</code>回调默认处理，根据ajax的四种错误原因使用box插件弹出提示</li>
-                                    <li>ajax请求合并，见 <a href="#ajaxcombo">【解决方案-AJAX合并】</a></li>
-                                  </ol>
-                                  
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>browser</td>
-                                 <td>
-                                  <p>浏览器信息：</p>
-                                  <table class="table table-hover">
-                                    <tr>
-                                      <th>base.browser.isMobile:</th>
-                                      <td>[boolean]是否移动设备 </td>
-                                    </tr>
-                                    <tr>
-                                      <th>base.browser.ie:</th>
-                                      <td>[number]返回ie版本，ie11及以上和非ie返回0</td>
-                                    </tr>
-                                    <tr>
-                                      <th>base.browser.platform:</th>
-                                      <td>[string]浏览器运行平台</td>
-                                    </tr>
-                                    <tr>
-                                      <th>base.browser.agent:</th>
-                                      <td>[string]浏览器用户代理头信息</td>
-                                    </tr>
-                                    <tr>
-                                      <th>base.browser.support3d:</th>
-                                      <td>[boolean]是否支持3d转换</td>
-                                    </tr>
-                                  </table>
-                                 </td>
-                              </tr>
-                              <tr>
-                                     <td>url</td>
-                                     <td>
-                                     <p>url操作方法</p>
-                                     <table class="table">
-                                         <tr>
-                                             <th>get(name, [url])</th>
-                                             <td>
-                                                 <pre>
+                                            </li>
+                                            <li><code>error</code>回调默认处理，根据ajax的四种错误原因使用box插件弹出提示</li>
+                                            <li>ajax请求合并，见 <a href="#ajaxcombo">【解决方案-AJAX合并】</a></li>
+                                        </ol>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>browser</td>
+                                    <td>
+                                        <p>浏览器信息：</p>
+                                        <table class="table table-hover">
+                                            <tr>
+                                                <th>base.browser.isMobile:</th>
+                                                <td>[boolean]是否移动设备 </td>
+                                            </tr>
+                                            <tr>
+                                                <th>base.browser.ie:</th>
+                                                <td>[number]返回ie版本，ie11及以上和非ie返回0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>base.browser.platform:</th>
+                                                <td>[string]浏览器运行平台</td>
+                                            </tr>
+                                            <tr>
+                                                <th>base.browser.agent:</th>
+                                                <td>[string]浏览器用户代理头信息</td>
+                                            </tr>
+                                            <tr>
+                                                <th>base.browser.support3d:</th>
+                                                <td>[boolean]是否支持3d转换</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>url</td>
+                                    <td>
+                                        <p>url操作方法</p>
+                                        <table class="table">
+                                            <tr>
+                                                <th>get(name, [url])</th>
+                                                <td>
+                                                    <pre>
                                                     <code>
   /*
   * @name：要获取的参数名
@@ -2832,37 +2830,36 @@ $.ajax({
   console.log(base.url.get('cat_id','http://a.b.c?cat_id=wakaka'));  // 输出 wakaka
                                                 </code>
                                               </pre>
-                                             </td>
-                                         </tr>
-                                         <tr>
-                                             <th>set(name, val, [url])</th>
-                                             <td>
-                                                 <pre>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>set(name, val, [url])</th>
+                                                <td>
+                                                    <pre>
                                                      <code>
   console.log(base.url.set('cat_id','test', 'http://a.b.c?cat_id=wakaka'));  
   // 输出 'http://a.b.c?cat_id=test'
                                                      </code>
                                                  </pre>
-                                             </td>
-                                         </tr>
-                                         
-                                     </table>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>base.getStyle(ele,attr)</td>
-                                 <td>获取元素的属性值，ele：元素；attr：要获取的属性，返回属性值</td>
-                              </tr>
-                              <tr>
-                                 <td>$.cookie(name,value)</td>
-                                 <td>操作cookie，name：键名；value：设置为的值，一个参数取值，返回value，两个参数赋值，无返回值</td>
-                              </tr>
-                              <tr>
-                                 <td>base.toload(option)</td>
-                                 <td>
-                                   <p>通用分页加载，自动生成递增页码，支持多进程。</p>
-                                   <p></p>
-                                <pre>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>base.getStyle(ele,attr)</td>
+                                    <td>获取元素的属性值，ele：元素；attr：要获取的属性，返回属性值</td>
+                                </tr>
+                                <tr>
+                                    <td>$.cookie(name,value)</td>
+                                    <td>操作cookie，name：键名；value：设置为的值，一个参数取值，返回value，两个参数赋值，无返回值</td>
+                                </tr>
+                                <tr>
+                                    <td>base.toload(option)</td>
+                                    <td>
+                                        <p>通用分页加载，自动生成递增页码，支持多进程。</p>
+                                        <p></p>
+                                        <pre>
                                 <code>
   /*
   * @option.type(string):请求方式，默认'post'
@@ -2902,13 +2899,13 @@ $.ajax({
 
                                         </code>
                                       </pre>
-                                     </td>
-                                  </tr>
-                                  <tr>
-                                     <td>base.throttle(fn, [delay], [duration])</td>
-                                     <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>base.throttle(fn, [delay], [duration])</td>
+                                    <td>
                                         <p>函数节流，用于过滤resize，mousemove，scroll这类频连续繁触发事件</p>
-                                      <pre>
+                                        <pre>
                                         <code>
   /*
   * @fn(function)：要节流执行的函数
@@ -2925,14 +2922,13 @@ $.ajax({
   $(window).on('resize',thro);
                                         </code>
                                       </pre>
-                                     </td>
-                                  </tr>
-                                  
-                              <tr>
-                                <td>base.getScript(file, [callabck], [option])</td>
-                                <td>
-                                  <p>加载未模块化的普通js文件，可控制jquery依赖、指定css依赖、添加回调，支持批量加载及批量线性依赖加载。</p>
-                                  <pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>base.getScript(file, [callabck], [option])</td>
+                                    <td>
+                                        <p>加载未模块化的普通js文件，可控制jquery依赖、指定css依赖、添加回调，支持批量加载及批量线性依赖加载。</p>
+                                        <pre>
                                     <code>
   /*
   * @file:(string/array) 加载的js路径，规则与require/require.async方法相同
@@ -2963,12 +2959,12 @@ $.ajax({
   })
                                     </code>
                                   </pre>
-                                </td>
-                              </tr>
-                              <tr>
-                                  <td>ajaxCombo</td>
-                                  <td>
-                                       <p>扩展jQuery.ajax方法，使支持请求合并，设置<code>combo:true</code>ajax会被合并，集中以<code>post</code>方式发送到指定url，示例：</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ajaxCombo</td>
+                                    <td>
+                                        <p>扩展jQuery.ajax方法，使支持请求合并，设置<code>combo:true</code>ajax会被合并，集中以<code>post</code>方式发送到指定url，示例：</p>
                                         <pre>
                                           <code>
   /*
@@ -3017,9 +3013,9 @@ $.ajax({
 
                                         </code>
                                       </pre>
-                                  </td>
-                              </tr>
-                           </table>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                     <tr id="Bdshare（百度分享）">
@@ -3123,13 +3119,13 @@ $.ajax({
                                 <th>Box.setSize(boxid,[config])</th>
                                 <td>
                                     <p>box尺寸重设，接收弹窗id和尺寸配置为参数，无配置时将重计算指定弹窗的尺寸</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Box.alert()</th>
-                                    <td>
-                                        <p>提醒弹窗，弹出短信息，有一个确认按钮</p>
-                                        <pre>
+                                </td>
+                    </tr>
+                    <tr>
+                        <th>Box.alert()</th>
+                        <td>
+                            <p>提醒弹窗，弹出短信息，有一个确认按钮</p>
+                            <pre>
                                             <code>
   /*
   * @param.message[string]:消息内容
@@ -3140,13 +3136,13 @@ $.ajax({
   Box.alert( message, [callback], [options] );
                                         </code>
                                       </pre>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Box.msg()</th>
-                                    <td>
-                                        <p>消息弹窗，在屏幕顶部显示一条全局消息，特有一个color配置用来定义消息请景色，可选"info，primary，success，warning，danger"</p>
-                                        <pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Box.msg()</th>
+                        <td>
+                            <p>消息弹窗，在屏幕顶部显示一条全局消息，特有一个color配置用来定义消息请景色，可选"info，primary，success，warning，danger"</p>
+                            <pre>
                                             <code>
   /*
   * @param.message[string]:消息内容
@@ -3156,13 +3152,13 @@ $.ajax({
   Box.msg( message, [options] );
                                         </code>
                                       </pre>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Box.confirm()</th>
-                                    <td>
-                                        <p>确认弹窗，弹出一条确认信息，有一个确认按钮和一个取消按钮</p>
-                                        <pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Box.confirm()</th>
+                        <td>
+                            <p>确认弹窗，弹出一条确认信息，有一个确认按钮和一个取消按钮</p>
+                            <pre>
                                             <code>
   /*
   * @param.message[string]:消息内容
@@ -3174,13 +3170,13 @@ $.ajax({
   Box.confirm( message, [sureCall], [cancelCall], [options] );
                                         </code>
                                       </pre>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Box.ajax()</th>
-                                    <td>
-                                        <p>ajax弹窗，弹出ajax获得的内容</p>
-                                        <pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Box.ajax()</th>
+                        <td>
+                            <p>ajax弹窗，弹出ajax获得的内容</p>
+                            <pre>
                                             <code>
   /*
   * @param.uri[string]:ajax地址
@@ -3191,13 +3187,13 @@ $.ajax({
   Box.ajax( uri, [params], [options] );
                                         </code>
                                       </pre>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Box.ifram()</th>
-                                    <td>
-                                        <p>弹出一个ifram窗口</p>
-                                        <pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Box.ifram()</th>
+                        <td>
+                            <p>弹出一个ifram窗口</p>
+                            <pre>
                                             <code>
   /*
   * @param.uri[string]:ifram页面地址
@@ -3208,13 +3204,13 @@ $.ajax({
   Box.ifram( uri, [params], [options] );
                                         </code>
                                       </pre>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Box.img()</th>
-                                    <td>
-                                        <p>弹出一张图片</p>
-                                        <pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Box.img()</th>
+                        <td>
+                            <p>弹出一张图片</p>
+                            <pre>
                                             <code>
   /*
   * @param.src[string]:图片地址
@@ -3224,108 +3220,108 @@ $.ajax({
   Box.img( src, [options] );
                                         </code>
                                       </pre>
-                                    </td>
-                                </tr>
-                            </table>
-                        <h5>配置</h5>
-                        <table class="table table-hover">
-                            <tr>
-                                <th>top</th>
-                                <td>默认无，若有值将固定弹窗据window顶部距离</td>
-                            </tr>
-                            <tr>
-                                <th>title</th>
-                                <td>默认<code>"对话框"</code>，对话框标题html</td>
-                            </tr>
-                            <tr>
-                                <th>oktext</th>
-                                <td>默认<code>"确定"</code>，确定按钮的文字</td>
-                            </tr>
-                            <tr>
-                                <th>canceltext</th>
-                                <td>默认<code>"取消"</code>，取消按钮的文字</td>
-                            </tr>
-                            <tr>
-                                <th>shut</th>
-                                <td>默认<code>"×"</code>，关闭按钮html，传入false将没有关闭按钮</td>
-                            </tr>
-                            <tr>
-                                <th>width</th>
-                                <td>默认<code>"auto"</code>，弹窗宽度</td>
-                            </tr>
-                            <tr>
-                                <th>height</th>
-                                <td>默认<code>"auto"</code>，弹窗高度</td>
-                            </tr>
-                            <tr>
-                                <th>layout</th>
-                                <td>默认<code>true</code>，是否包含边框</td>
-                            </tr>
-                            <tr>
-                                <th>setposi</th>
-                                <td>默认<code>true</code>，无layout的情况下，是否自动添加定位样式，手动定位需要设为false</td>
-                            </tr>
-                            <tr>
-                                <th>bar</th>
-                                <td>默认<code>true</code>，是否显示标题栏</td>
-                            </tr>
-                            <tr>
-                                <th>bg</th>
-                                <td>默认<code>true</code>，是否显示背景层</td>
-                            </tr>
-                            <tr>
-                                <th>fix</th>
-                                <td>默认<code>true</code>，弹窗是否框固定在页面上</td>
-                            </tr>
-                            <tr>
-                                <th>bgclose</th>
-                                <td>默认<code>true</code>，是否点击背景层关闭</td>
-                            </tr>
-                            <tr>
-                                <th>drag</th>
-                                <td>默认<code>false</code>，是否可拖拽</td>
-                            </tr>
-                            <tr>
-                                <th>protect</th>
-                                <td>默认<code>false</code>，若为true，关闭后会将弹出的元素<code>appendTo('body')</code></td>
-                            </tr>
-                            <tr>
-                                <th>delay</th>
-                                <td>默认<code>0</code>，弹窗自动关闭时间, 0和负值不触发</td>
-                            </tr>
-                            <tr>
-                                <th>lang</th>
-                                <td>默认<code>0</code>，语言选择，0：中文 1：英文</td>
-                            </tr>
-                            <tr>
-                                <th>hook</th>
-                                <td>默认无，自定义样式钩子，用于给弹窗附加class修改样式</td>
-                            </tr>
-                            <tr>
-                                <th>color</th>
-                                <td>默认"info"，Box.msg方法的情景色，使用的是ui.css提供的几种背景色，可选info，primary，success，warning，danger</td>
-                            </tr>
-                            <tr>
-                                <th>onshow(box)</th>
-                                <td>默认无，弹窗打开事件，接收弹窗DOM对象为参数</td>
-                            </tr>
-                            <tr>
-                                <th>onclose()</th>
-                                <td>默认无，弹窗关闭事件</td>
-                            </tr>
-                        </table>
-                        <h5>返回</h5>
-                        <table class="table">
-                            <tr>
-                                <th>boxid</th>
-                                <td>
-                                    <p>每次Box调用都将返回一个boxid，用于Box.hide()的参数时，可关闭本弹窗实例</p>
-                                    <p><code>var mybox = Box(...);</code></p>
-                                </td>
-                            </tr>
-                        </table>
-                        <h5>示例</h5>
-                        <pre>
+                        </td>
+                    </tr>
+                    </table>
+                    <h5>配置</h5>
+                    <table class="table table-hover">
+                        <tr>
+                            <th>top</th>
+                            <td>默认无，若有值将固定弹窗据window顶部距离</td>
+                        </tr>
+                        <tr>
+                            <th>title</th>
+                            <td>默认<code>"对话框"</code>，对话框标题html</td>
+                        </tr>
+                        <tr>
+                            <th>oktext</th>
+                            <td>默认<code>"确定"</code>，确定按钮的文字</td>
+                        </tr>
+                        <tr>
+                            <th>canceltext</th>
+                            <td>默认<code>"取消"</code>，取消按钮的文字</td>
+                        </tr>
+                        <tr>
+                            <th>shut</th>
+                            <td>默认<code>"×"</code>，关闭按钮html，传入false将没有关闭按钮</td>
+                        </tr>
+                        <tr>
+                            <th>width</th>
+                            <td>默认<code>"auto"</code>，弹窗宽度</td>
+                        </tr>
+                        <tr>
+                            <th>height</th>
+                            <td>默认<code>"auto"</code>，弹窗高度</td>
+                        </tr>
+                        <tr>
+                            <th>layout</th>
+                            <td>默认<code>true</code>，是否包含边框</td>
+                        </tr>
+                        <tr>
+                            <th>setposi</th>
+                            <td>默认<code>true</code>，无layout的情况下，是否自动添加定位样式，手动定位需要设为false</td>
+                        </tr>
+                        <tr>
+                            <th>bar</th>
+                            <td>默认<code>true</code>，是否显示标题栏</td>
+                        </tr>
+                        <tr>
+                            <th>bg</th>
+                            <td>默认<code>true</code>，是否显示背景层</td>
+                        </tr>
+                        <tr>
+                            <th>fix</th>
+                            <td>默认<code>true</code>，弹窗是否框固定在页面上</td>
+                        </tr>
+                        <tr>
+                            <th>bgclose</th>
+                            <td>默认<code>true</code>，是否点击背景层关闭</td>
+                        </tr>
+                        <tr>
+                            <th>drag</th>
+                            <td>默认<code>false</code>，是否可拖拽</td>
+                        </tr>
+                        <tr>
+                            <th>protect</th>
+                            <td>默认<code>false</code>，若为true，关闭后会将弹出的元素<code>appendTo('body')</code></td>
+                        </tr>
+                        <tr>
+                            <th>delay</th>
+                            <td>默认<code>0</code>，弹窗自动关闭时间, 0和负值不触发</td>
+                        </tr>
+                        <tr>
+                            <th>lang</th>
+                            <td>默认<code>0</code>，语言选择，0：中文 1：英文</td>
+                        </tr>
+                        <tr>
+                            <th>hook</th>
+                            <td>默认无，自定义样式钩子，用于给弹窗附加class修改样式</td>
+                        </tr>
+                        <tr>
+                            <th>color</th>
+                            <td>默认"info"，Box.msg方法的情景色，使用的是ui.css提供的几种背景色，可选info，primary，success，warning，danger</td>
+                        </tr>
+                        <tr>
+                            <th>onshow(box)</th>
+                            <td>默认无，弹窗打开事件，接收弹窗DOM对象为参数</td>
+                        </tr>
+                        <tr>
+                            <th>onclose()</th>
+                            <td>默认无，弹窗关闭事件</td>
+                        </tr>
+                    </table>
+                    <h5>返回</h5>
+                    <table class="table">
+                        <tr>
+                            <th>boxid</th>
+                            <td>
+                                <p>每次Box调用都将返回一个boxid，用于Box.hide()的参数时，可关闭本弹窗实例</p>
+                                <p><code>var mybox = Box(...);</code></p>
+                            </td>
+                        </tr>
+                    </table>
+                    <h5>示例</h5>
+                    <pre>
                             <code>
   &lt;style&gt;
   button{margin:.5em;}
@@ -3455,7 +3451,6 @@ $.ajax({
                             <tr>
                                 <td>readOnly</td>
                                 <td>默认<code>true</code>，若触发元素为<code>input/textarea</code>是否禁止用户输入
-                                    
                                 </td>
                             </tr>
                             <tr>
@@ -3574,7 +3569,6 @@ $('.demo').citySelect({
                         </pre>
                     </td>
                 </tr>
-                
                 <tr id="DatePicker（日期选择器）">
                     <td>DatePicker</td>
                     <td>
@@ -4255,7 +4249,7 @@ $('.datepicker2').datepicker({
                             <tr>
                                 <th>buttons</th>
                                 <td>默认无，按钮配置，格式如下：
-                                <pre>
+                                    <pre>
                                     <code>
     [{
         text: '确定',
@@ -4480,7 +4474,7 @@ $('.datepicker2').datepicker({
   &lt;/div&gt;
                                 </code>
                               </pre>
-                            <pre>
+                        <pre>
                             <code>
   //js
   require('lazyload');
@@ -4844,7 +4838,7 @@ $('.datepicker2').datepicker({
                             <tr>
                                 <th>title</th>
                                 <td>
-                                   默认<code>""</code>，通知提醒的标题 
+                                    默认<code>""</code>，通知提醒的标题
                                 </td>
                             </tr>
                             <tr>
@@ -5408,7 +5402,7 @@ $('.datepicker2').datepicker({
  &lt;/div&gt;
                                        </code>
                                    </pre>
-                                   <pre>
+                                    <pre>
                                        <code>
     //js
     var resp = require('responsive');
@@ -5855,7 +5849,7 @@ $('.datepicker2').datepicker({
                                 <tr>
                                     <th>filterable</th>
                                     <td>
-                                       默认false，是否支持搜索 
+                                        默认false，是否支持搜索
                                     </td>
                                 </tr>
                                 <tr>
@@ -6068,7 +6062,7 @@ $('.datepicker2').datepicker({
     });
                                 </code>
                             </pre>
-                        </td>
+                    </td>
                     </tr>
                     <tr id="SendCode（短信验证码）">
                         <td>sendcode</td>
@@ -6697,7 +6691,6 @@ $('.datepicker2').datepicker({
     </section>
     <section class="wrap" id="patch">
         <h2>解决方案</h2>
-
         <p>内置解决方法示例页面见项目<code>flow-ui/</code>。</p>
         <h3 id="f_b">前后端分离</h3>
         <p>前后端分离是系统工程，其中最基本要做到的两点，一是通过数据接口实现数据交互，二是约定交互的数据格式，使<code>view</code>层操作全部落在前端，即可从开发上实现前后端解耦</p>
@@ -6822,19 +6815,19 @@ $.ajax({
   }
               </code>
             </pre>
-            <h4>其他小问题：</h4>
-            <p>页面中所有的资源路径（包括图片）必须是绝对路径，因为相对路径全部是相对于着陆页而言的，当跳转路径跨层级时相对路径会报错。</p>
-            <p>PJAX切换模式还会导致某些插件表现异常，本质上都是因为页面没有刷新，比如mmenu.js点击后不收回，需要添加如下配置：<code> { onClick:{ close:true}}</code></p>
-            <h5>黑名单</h5>
-            <p>这几种情况下的a标签不会触发预加载和pjax切换：</p>
-            <ol>
-                <li>具有<code>target</code>或<code>download</code>或<code>data-no-instant</code>属性；</li>
-                <li>指向不同的域；</li>
-                <li>指向"#"或"#"开头的地址</li>
-            </ol>
-            <h5>记住滚动位置</h5>
-            <p>当href地址中含有<code>scrollfixed</code>参数时，切换后会记住当前的页面滚动位置：</p>
-            <pre>
+        <h4>其他小问题：</h4>
+        <p>页面中所有的资源路径（包括图片）必须是绝对路径，因为相对路径全部是相对于着陆页而言的，当跳转路径跨层级时相对路径会报错。</p>
+        <p>PJAX切换模式还会导致某些插件表现异常，本质上都是因为页面没有刷新，比如mmenu.js点击后不收回，需要添加如下配置：<code> { onClick:{ close:true}}</code></p>
+        <h5>黑名单</h5>
+        <p>这几种情况下的a标签不会触发预加载和pjax切换：</p>
+        <ol>
+            <li>具有<code>target</code>或<code>download</code>或<code>data-no-instant</code>属性；</li>
+            <li>指向不同的域；</li>
+            <li>指向"#"或"#"开头的地址</li>
+        </ol>
+        <h5>记住滚动位置</h5>
+        <p>当href地址中含有<code>scrollfixed</code>参数时，切换后会记住当前的页面滚动位置：</p>
+        <pre>
           <code>
       &lt;a href=&quot;/test/test.html?scrollfixed=1&quot;&gt;
           </code>
@@ -6948,13 +6941,20 @@ $.ajax({
     </script>
     <script>
     //google analysis
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-33205757-2', 'auto');
-  ga('send', 'pageview');
-</script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-33205757-2', 'auto');
+    ga('send', 'pageview');
+    </script>
 </body>
 
 </html>
