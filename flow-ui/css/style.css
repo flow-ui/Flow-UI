@@ -548,6 +548,60 @@ input[type='button'].btn-block {
 .btn.btn-ghost:hover {
   color: #fff;
 }
+.card {
+  font-size: 14px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  height: 100%;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  border-radius: 4px;
+  background: #fff;
+  -webkit-box-orient: vertical;
+}
+.card:hover {
+  border-color: #eeeeee;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+}
+.card-shadow {
+  border-color: #eeeeee;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+}
+.card-bordered {
+  border: 1px solid #e8e9eb;
+}
+.card-head {
+  line-height: 1;
+  line-height: 38px;
+  height: 38px;
+  padding: 4px 22.4px;
+  border-bottom: 1px solid #e8e9eb;
+}
+.card-title {
+  font-weight: 700;
+  display: inline-block;
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #555555;
+}
+.card-extra {
+  position: absolute;
+  top: 4px;
+  right: 22.4px;
+}
+.card-body {
+  padding: 22.4px;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
 .text-muted {
   color: #999999;
 }
@@ -1077,10 +1131,12 @@ fieldset[disabled] .checkbox label {
   right: 2%;
 }
 .form-horizontal .form-group-lg .control-label {
+  font-size: 16px;
   height: 48px;
   line-height: 48px;
 }
 .form-horizontal .form-group-sm .control-label {
+  font-size: 12px;
   height: 30px;
   line-height: 30px;
 }
@@ -2205,87 +2261,6 @@ table th[class*='col-'] {
 .opc0 {
   opacity: 0 ;
   filter: alpha(opacity=0);
-}
-.UnpcPush textarea,
-.PcPush textarea,
-.MobilePush textarea,
-.UnmobilePush textarea {
-  display: none;
-}
-body:after {
-  display: block;
-  height: 0;
-  line-height: 0;
-  overflow: hidden;
-  visibility: hidden;
-  content: 'Pc';
-}
-.PcMode:after {
-  content: 'Pc' !important;
-}
-.UnpcPush,
-.MobilePush {
-  display: none;
-}
-img[data-src] {
-  opacity: 0 ;
-  filter: alpha(opacity=0);
-}
-@media only screen and (max-device-width: 1024px) {
-  body:after {
-    content: 'Pad';
-  }
-  body {
-    -moz-user-select: none;
-     -ms-user-select: none;
-         user-select: none;
-    -webkit-user-select: none;
-    min-width: 0;
-  }
-  body,
-  input,
-  textarea,
-  button,
-  select {
-    font-size: 14px;
-  }
-  .wrap {
-    padding-left: 2%;
-    padding-right: 2%;
-    width: auto;
-    min-width: 0;
-  }
-  .PcPush {
-    display: none;
-  }
-  .UnpcPush {
-    display: block;
-  }
-}
-@media only screen and (max-device-width: 640px) {
-  body:after {
-    content: 'Mobile';
-  }
-  body,
-  input,
-  textarea,
-  button,
-  select {
-    font-size: 16px;
-  }
-  .wrap {
-    padding-left: 4%;
-    padding-right: 4%;
-  }
-  .UnmobilePush {
-    display: none;
-  }
-  .MobilePush {
-    display: block;
-  }
-  img[data-src] {
-    opacity: 1;
-  }
 }
 /* mystyle */
 .head {
