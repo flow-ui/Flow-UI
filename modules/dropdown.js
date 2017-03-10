@@ -1,13 +1,13 @@
 /*
  * name: dropdown.js
- * version: v0.1.0
- * update: 支持disabled属性；支持分组
+ * version: v0.2.0
+ * update: text => item; add width;
  * date: 2017-03-06
  */
 define('dropdown', function(require, exports, module) {
 	"use strict";
 	seajs.importStyle('.dropdown{position:relative;}\
-		.dropdown-default{background:#fff;color:#434343;border-radius:4px;overflow:hidden;box-shadow: 0 1px 6px rgba(0,0,0,.2);}\
+		.dropdown-default{background:#fff;color:#434343;border-radius:4px;overflow:hidden;box-shadow: 0 1px 6px rgba(0,0,0,.2);border:1px solid #eee;padding:.5em 0;}\
 		.dropdown-item{text-align:center;min-width:4em; padding:0 1.5em;line-height:2.6em;cursor:pointer;white-space:nowrap;}\
 		.dropdown-item.disabled{color:#ccc; cursor:not-allowed;}\
 		.dropdown-default .dropdown-item:hover{background:#dedede;}\
@@ -20,7 +20,8 @@ define('dropdown', function(require, exports, module) {
 			el: null,
 			trigger: 'hover',
 			place: 'bottom-center',
-			items: [], //text, disabled
+			items: [], //item, disabled
+			width: null,
 			theme: 'dropdown-default',
 			onclick: function() {}
 		},
@@ -30,7 +31,7 @@ define('dropdown', function(require, exports, module) {
 				len = data.length;
 			for (; i < len; i++) {
 				if($.isPlainObject(data[i])){
-					result += ('<li class="dropdown-item' + (data[i].disabled ? ' disabled' : '') + '">' + data[i].text + '</li>');
+					result += ('<li class="dropdown-item' + (data[i].disabled ? ' disabled' : '') + '">' + data[i].item + '</li>');
 				}else if($.isArray(data[i])){
 					result += ('<li class="dropdown-group">' + render(data[i]) + '</li>');
 				}
@@ -48,7 +49,9 @@ define('dropdown', function(require, exports, module) {
 			return console.warn('dorpdown: items 参数有误:', opt.items);
 		}
 		menuHtml = $(render(opt.items, opt.theme));
-
+		if(!isNaN(parseInt(opt.width))){
+			menuHtml.css('min-width',opt.width);
+		}
 		var model = Tip(menuHtml, $.extend(opt, {
 			onshow: function() {
 				menuHtml.on('click', '.dropdown-item', function() {

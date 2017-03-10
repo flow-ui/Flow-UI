@@ -491,6 +491,87 @@
             <span class="label label-lg label-warning">warning</span>
             <span class="label label-lg label-danger">danger</span>
         </div>
+        <h4>菜单</h4>
+        <div class="wrap">
+            <nav class="m-b">
+                <ul class="menu-ui menu-horizontal menu-light">
+                    <li class="menu-item menu-item-active"><i class="ion">&#xe64a;</i>首页</li>
+                    <li class="menu-item">订单</li>
+                    <li class="menu-item">会员 <i class="menu-sub-ion ion">&#xe609;</i></li>
+                    <li class="menu-item">店铺</li>
+                    <li class="menu-item">系统</li>
+                </ul>
+            </nav>
+            <nav class="m-b">
+                <ul class="menu-ui menu-horizontal menu-dark">
+                    <li class="menu-item menu-item-active"><i class="ion">&#xe64a;</i>首页</li>
+                    <li class="menu-item">订单</li>
+                    <li class="menu-item">会员 <i class="menu-sub-ion ion">&#xe609;</i></li>
+                    <li class="menu-item">店铺</li>
+                    <li class="menu-item">系统</li>
+                </ul>
+            </nav>
+            <nav class="m-b">
+                <ul class="menu-ui menu-horizontal menu-primary">
+                    <li class="menu-item menu-item-active"><i class="ion">&#xe64a;</i>首页</li>
+                    <li class="menu-item">订单</li>
+                    <li class="menu-item">会员 <i class="menu-sub-ion ion">&#xe609;</i></li>
+                    <li class="menu-item">店铺</li>
+                    <li class="menu-item">系统</li>
+                </ul>
+            </nav>
+            <div class="row m-t">
+                <nav class="span-3">
+                    <ul class="menu-ui menu-vertical menu-light">
+                        <li class="menu-item">首页<i class="menu-sub-ion ion">&#xe609;</i></li>
+                        <li class="menu-item">订单</li>
+                        <li class="menu-submenu menu-opened">
+                            <div class="menu-item-title">会员<i class="menu-sub-ion ion">&#xe609;</i></div>
+                            <ul class="menu-sub-group">
+                                <li class="menu-item  menu-item-active">文章管理</li>
+                                <li class="menu-item">评论管理</li>
+                                <li class="menu-item">举报管理</li>
+                            </ul>
+                        </li>
+                        <li class="menu-item">店铺</li>
+                        <li class="menu-item">系统</li>
+                    </ul>
+                </nav>
+                <nav class="span-3">
+                    <ul class="menu-ui menu-vertical menu-dark">
+                        <li class="menu-item">首页<i class="menu-sub-ion ion">&#xe609;</i></li>
+                        <li class="menu-item">订单</li>
+                        <li class="menu-submenu menu-opened">
+                            <div class="menu-item-title">会员<i class="menu-sub-ion ion">&#xe609;</i></div>
+                            <ul class="menu-sub-group">
+                                <li class="menu-item  menu-item-active">文章管理</li>
+                                <li class="menu-item">评论管理</li>
+                                <li class="menu-item">举报管理</li>
+                            </ul>
+                        </li>
+                        <li class="menu-item">店铺</li>
+                        <li class="menu-item">系统</li>
+                    </ul>
+                </nav>
+                <nav class="span-3">
+                    <ul class="menu-ui menu-vertical menu-primary">
+                        <li class="menu-item">首页<i class="menu-sub-ion ion">&#xe609;</i></li>
+                        <li class="menu-item">订单</li>
+                        <li class="menu-submenu menu-opened">
+                            <div class="menu-item-title">会员<i class="menu-sub-ion ion">&#xe609;</i></div>
+                            <ul class="menu-sub-group">
+                                <li class="menu-item  menu-item-active">文章管理</li>
+                                <li class="menu-item">评论管理</li>
+                                <li class="menu-item">举报管理</li>
+                            </ul>
+                        </li>
+                        <li class="menu-item">店铺</li>
+                        <li class="menu-item">系统</li>
+                    </ul>
+                </nav>
+            </div>    
+        </div>
+
         <h3 id="css-compile">定制与编译</h3>
         <p>Flow-UI基于<code>less</code>实现UI组件化，从全站样式中抽离出配置文件，可实现灵活的风格控制和组件选配，要充分发挥Flow-UI的定制性，需要搭配自动化编译工具<a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>使用。</p>
         <p>进一步了解<a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>的详细介绍。</p>
@@ -1430,7 +1511,7 @@
             <tr id="tools（常用工具）">
                 <td>tools.less</td>
                 <td>
-                    <table class="table table-hover table-condensed">
+                    <table class="table table-hover">
                         <tr>
                             <td>.wrap</td>
                             <td>定义主体内容区域，默认宽度自适应，最大宽度1000px，在移动端左右两边各有2%的间距，宽度支持自定义。</td>
@@ -1482,6 +1563,47 @@
                     </table>
                 </td>
             </tr>
+            <tr id="menu（菜单）">
+                <td>menu.less</td>
+                <td>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>.menu-ui</td>
+                            <td>定义菜单元素</td>
+                        </tr>
+                        <tr>
+                            <td>.menu-horizontal/.menu-vertical</td>
+                            <td>叠加在菜单元素上，定义菜单方向类型</td>
+                        </tr>
+                        <tr>
+                            <td>.menu-light/.menu-dark/.menu-primary</td>
+                            <td>叠加在菜单元素上，定义菜单主题</td>
+                        </tr>
+                        <tr>
+                            <td>.menu-item</td>
+                            <td>定义菜单项目</td>
+                        </tr>
+                        <tr>
+                            <td>.menu-item-active</td>
+                            <td>叠加在菜单项目上，定义激活状态</td>
+                        </tr>
+                        <tr>
+                            <td>.menu-sub-ion</td>
+                            <td>在菜单项目内定义菜单子项目状态图标</td>
+                        </tr>
+                        <tr>
+                            <td>menu-submenu</td>
+                            <td>定义包含子菜单的项</td>
+                        </tr>
+                        <tr>
+                            <td>.menu-opened</td>
+                            <td>叠加在menu-submenu上指示子菜单为打开状态</td>
+                        </tr>
+
+                    </table>
+                </td>
+            </tr>
+
         </table>
     </section>
     <section class="wrap" id="js">
@@ -3752,12 +3874,20 @@ $('.datepicker2').datepicker({
                                 <td>默认<code>null</code>，拖拽面板外边界，直接调用DragPanel方法必填，jquery插件调用时可忽略</td>
                             </tr>
                             <tr>
+                                <th>sortkey</th>
+                                <td>默认<code>"data-key"</code>，拖拽元素的排序标识</td>
+                            </tr>
+                            <tr>
                                 <th>dragable</th>
                                 <td>默认<code>".dragable"</code>，可拖拽元素</td>
                             </tr>
                             <tr>
                                 <th>dragline</th>
-                                <td>默认<code>".flex-row"</code>，可拖拽元素的包裹行元素</td>
+                                <td>默认<code>".flex-row"</code>，拖拽元素的行元素</td>
+                            </tr>
+                            <tr>
+                                <th>ondrag</th>
+                                <td>默认无，拖拽结束回调，返回新的排序标识数据</td>
                             </tr>
                         </table>
                         <h5>示例</h5>
@@ -3765,7 +3895,7 @@ $('.datepicker2').datepicker({
                             <code>
     &lt;div class=&quot;wrap&quot; id=&quot;wrapper&quot;&gt;
         &lt;div class=&quot;flex-row&quot;&gt;
-            &lt;div class=&quot;flex-1 m dragable&quot;&gt;
+            &lt;div class=&quot;flex-1 m dragable&quot; data-key=&quot;1&quot;&gt;
                 &lt;div class=&quot;card card-bordered&quot;&gt;
                     &lt;div class=&quot;card-head&quot;&gt;
                         &lt;div class=&quot;card-title&quot;&gt; Hello Card&lt;/div&gt;
@@ -3775,7 +3905,7 @@ $('.datepicker2').datepicker({
                     &lt;/div&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
-            &lt;div class=&quot;flex-1 m dragable&quot;&gt;
+            &lt;div class=&quot;flex-1 m dragable&quot; data-key=&quot;2&quot;&gt;
                 &lt;div class=&quot;card card-shadow&quot;&gt;
                     &lt;div class=&quot;card-head&quot;&gt;
                         &lt;div class=&quot;card-title&quot;&gt; Hello Card&lt;/div&gt;
@@ -3787,7 +3917,7 @@ $('.datepicker2').datepicker({
             &lt;/div&gt;
         &lt;/div&gt;
         &lt;div class=&quot;flex-row&quot;&gt;
-            &lt;div class=&quot;flex-1 m dragable&quot;&gt;
+            &lt;div class=&quot;flex-1 m dragable&quot; data-key=&quot;3&quot;&gt;
                 &lt;div class=&quot;card card-bordered&quot;&gt;
                     &lt;div class=&quot;card-head&quot;&gt;
                         &lt;div class=&quot;card-title&quot;&gt; Hello Card&lt;/div&gt;
@@ -3797,7 +3927,7 @@ $('.datepicker2').datepicker({
                     &lt;/div&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
-            &lt;div class=&quot;flex-1 m dragable&quot;&gt;
+            &lt;div class=&quot;flex-1 m dragable&quot; data-key=&quot;4&quot;&gt;
                 &lt;div class=&quot;card card-shadow&quot;&gt;
                     &lt;div class=&quot;card-head&quot;&gt;
                         &lt;div class=&quot;card-title&quot;&gt; Hello Card&lt;/div&gt;
@@ -3814,7 +3944,11 @@ $('.datepicker2').datepicker({
                         <pre>
                             <code>
     require('drag-panel');
-    $('#wrapper').dragPanel();
+    $('#wrapper').dragPanel({
+        ondrag: function(newSort) {
+            console.log(newSort);
+        }
+    });
                             </code>
                         </pre>
                     </td>
@@ -3891,7 +4025,11 @@ $('.datepicker2').datepicker({
                             </tr>
                             <tr>
                                 <th>items</th>
-                                <td>默认<code>[]</code>，下拉数据，必须，每一项必须是包含<code>text</code>属性的对象，此外可添加自定义属性，对象将在<code>onclick</code>回调中接收</td>
+                                <td>默认<code>[]</code>，下拉数据，必须，每一项必须是包含<code>item</code>属性的对象，此外可添加自定义属性，对象将在<code>onclick</code>回调中接收</td>
+                            </tr>
+                            <tr>
+                                <th>width</th>
+                                <td>默认无，可设置菜单最小宽度</td>
                             </tr>
                             <tr>
                                 <th>theme</th>
@@ -3916,13 +4054,13 @@ $('.datepicker2').datepicker({
     Dropdown({
         el: '#demo1',
         items: [{
-            text: '个人设置',
+            item: '个人设置',
             data: 'demo1'
         }, {
-            text: '数据统计',
+            item: '数据统计',
             data: 'demo1'
         }, {
-            text: '立即更新',
+            item: '立即更新',
             data: 'demo1'
         }],
         onclick: function(item){
@@ -3932,13 +4070,13 @@ $('.datepicker2').datepicker({
 
     $('#demo2').dropdown({
         items: [{
-            text: '个人设置',
+            item: '个人设置',
             data: 'demo2'
         }, {
-            text: '数据统计',
+            item: '数据统计',
             data: 'demo2'
         }, {
-            text: '立即更新',
+            item: '立即更新',
             data: 'demo2'
         }],
         onclick: function(item){
@@ -4637,13 +4775,125 @@ $('.datepicker2').datepicker({
                         </pre>
                     </td>
                 </tr>
+                <tr id="Menu（菜单）">
+                    <td>menu</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>为页面和功能提供导航的菜单列表，常用于网站顶部和左侧。返回<code>Menu</code>方法，语法：<code>Menu(config)</code>，或者使用jquery插件语法：<code>$el.menu(config)</code> </p>
+                        <h5>配置</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>el</th>
+                                <td>默认<code>null</code>，制定触发元素，直接调用Menu方法必填，jquery插件调用时可忽略</td>
+                            </tr>
+                            <tr>
+                                <th>data</th>
+                                <td>默认无，菜单数据，必填</td>
+                            </tr>
+                            <tr>
+                                <th>key</th>
+                                <td>默认无，菜单项的唯一标识，必填</td>
+                            </tr>
+                            <tr>
+                                <th>mode</th>
+                                <td>默认<code>"horizontal"</code>，菜单类型，可选值为 horizontal | vertical</td>
+                            </tr>
+                            <tr>
+                                <th>theme</th>
+                                <td>默认<code>"primary"</code>，主题，可选值为 light、dark、primary</td>
+                            </tr>
+                            <tr>
+                                <th>subicon</th>
+                                <td>默认<code>"&amp;#xe609;"</code>，多重菜单标题右侧指示图标</td>
+                            </tr>
+                            <tr>
+                                <th>actived</th>
+                                <td>默认无，当前激活的菜单项<code>key</code>值</td>
+                            </tr>
+                            <tr>
+                                <th>opened</th>
+                                <td>默认<code>[]</code>，当前打开的菜单项<code>key</code>值组成的数组，horizontal模式只打开第一个</td>
+                            </tr>
+                            <tr>
+                                <th>toggle</th>
+                                <td>默认<code>true</code>，是否显示切换效果，只对vertical模式有效</td>
+                            </tr>
+                            <tr>
+                                <th>onselect</th>
+                                <td>选择菜单时触发回调，返回当前项<code>key</code>值</td>
+                            </tr>
+                        </table>
+                        <h5>返回方法</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>open(key)</th>
+                                <td>打开指定<code>key</code>值的项</td>
+                            </tr>
+                            <tr>
+                                <th>active(key)</th>
+                                <td>激活指定<code>key</code>值的项</td>
+                            </tr>
+                        </table>
+                        <h5>示例</h5>
+                        <pre>
+                            <code>
+    &lt;div class=&quot;wrap&quot;&gt;
+        &lt;nav id=&quot;menu&quot;&gt;&lt;/nav&gt;
+    &lt;/div&gt;
+                            </code>
+                        </pre>
+                        <pre>
+                            <code>
+    var Menu = require('menu');
+    var mymenu = Menu({
+        el:'#menu',
+        //theme: 'dark',
+        data: [
+            {
+                item: '&lt;i class=&quot;ion&quot;&gt;&amp;#xe64a;&lt;/i&gt;首页',
+                id: 1
+            },{
+                item: '订单',
+                id: 2
+            },{
+                item: '会员',
+                id: 3,
+                sub:[
+                    {
+                        item: '会员统计',
+                        id: 30
+                    },{
+                        item: '会员群发',
+                        id: 31
+                    },{
+                        item: '会员管理',
+                        id: 32
+                    }
+                ]
+            },{
+                item: '店铺',
+                id: 4
+            },{
+                item: '系统',
+                id: 5
+            }
+        ],
+        key: 'id',
+        actived: 1,
+        toggle: false,
+        onselect: function(key){
+            console.log(key);
+        }
+    });
+                            </code>
+                        </pre>
+                    </td>
+                </tr>
                 <tr id="Mousemenu（右键菜单）">
                     <td>mousemenu</td>
                     <td>
                         <h5>描述</h5>
                         <p>自定义鼠标右键，支持菜单内分组，调用格式为<code> $target.mousemenu( data, option )</code> </p>
-                        <h5>多终端</h5>
-                        <p>不支持</p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>

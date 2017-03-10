@@ -1,8 +1,8 @@
 /*
  * name: drag-panel.js
- * version: v0.0.1
- * update: build
- * date: 2017-03-09
+ * version: v0.0.2
+ * update: 增加sortkey，ondrag配置
+ * date: 2017-03-10
  */
 define('drag-panel', function(require, exports, module) {
 	"use strict";
@@ -12,8 +12,10 @@ define('drag-panel', function(require, exports, module) {
 	var $ = require('jquery'),
 		def = {
 			el: null,
+			sortkey: 'data-key',
 			dragable: '.dragable',
-			dragline: '.flex-row'
+			dragline: '.flex-row',
+			ondrag: null
 		},
 		dragshadow = $('#dragshadow'),
 		documentMoveInit,
@@ -87,6 +89,17 @@ define('drag-panel', function(require, exports, module) {
 				.on('dragend', opt.dragable, function(e) {
 					e.preventDefault();
 					clearnode(this);
+					var newSort = [];
+					$this.find(opt.dragline).each(function(i, line){
+						var lineSort = [];
+						$(line).find(opt.dragable).each(function(i, dragable){
+							lineSort.push($(dragable).attr(opt.sortkey));
+						});
+						newSort.push(lineSort);
+					});
+					if(typeof opt.ondrag === 'function'){
+						opt.ondrag(newSort);
+					}
 				})
 				.on('mouseup', opt.dragable, function(e) {
 					clearnode(this);
