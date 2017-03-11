@@ -439,35 +439,41 @@
             <button type="button" class="btn btn-primary">Sign in</button>
         </form>
         <h5>特殊样式</h5>
-        <form class="form-horizontal m-b">
-            <div class="form-group form-group-sm row has-success has-feedback">
-                <label class="control-label span-2" for="inputSuccess3">Input with success</label>
-                <div class="span-10">
-                    <input type="text" class="form-control" id="inputSuccess3" placeholder="小尺寸"> <i class="ion form-control-feedback" aria-hidden="true">&#xe6a9;</i>
+        <div class="wrap m-b">
+            <div class="row">
+                <div class="span-6">
+                    <form class="form-horizontal">
+                        <div class="form-group form-group-sm row has-success has-feedback">
+                            <label class="control-label span-3">Input with success</label>
+                            <div class="span-9">
+                                <input type="text" class="form-control" placeholder="小尺寸"> <i class="ion form-control-feedback">&#xe60c;</i>
+                            </div>
+                        </div>
+                        <div class="form-group row has-warning has-feedback">
+                            <label class="control-label span-3">Input with warning</label>
+                            <div class="span-9">
+                                <input type="text" class="form-control" placeholder="普通尺寸"> <i class="ion form-control-feedback">&#xe60d;</i>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-lg row has-error has-feedback">
+                            <label class="control-label span-3">Input with error</label>
+                            <div class="span-9">
+                                <input type="text" class="form-control" placeholder="大尺寸"> <i class="ion form-control-feedback">&#xe623;</i>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="control-label span-3" for="inputGroupSuccess2">带徽标控件<big class="form-mark">*</big></label>
+                            <div class="span-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">@</span>
+                                    <input type="text" class="form-control" id="inputGroupSuccess2" aria-describedby="inputGroupSuccess2Status">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="form-group row has-warning has-feedback">
-                <label class="control-label span-2" for="inputSuccess3">Input with warning</label>
-                <div class="span-10">
-                    <input type="text" class="form-control" id="inputSuccess3" placeholder="普通尺寸"> <i class="ion form-control-feedback" aria-hidden="true">&#xe60a;</i>
-                </div>
-            </div>
-            <div class="form-group form-group-lg row has-error has-feedback">
-                <label class="control-label span-2" for="inputSuccess3">Input with error</label>
-                <div class="span-10">
-                    <input type="text" class="form-control" id="inputSuccess3" placeholder="大尺寸"> <i class="ion form-control-feedback" aria-hidden="true">&#xe6b0;</i>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="control-label span-2" for="inputGroupSuccess2">带徽标控件<big class="form-mark">*</big></label>
-                <div class="span-10">
-                    <div class="input-group">
-                        <span class="input-group-addon">@</span>
-                        <input type="text" class="form-control" id="inputGroupSuccess2" aria-describedby="inputGroupSuccess2Status">
-                    </div>
-                </div>
-            </div>
-        </form>
+        </div>
 
         <h4>标签</h4>
         <div class="label-list">
@@ -577,7 +583,7 @@
         <p>进一步了解<a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>的详细介绍。</p>
         <h3 id="css-component">组件列表</h3>
         <nav class="modules_index" id="component_index"></nav>
-        <table class="table table-bordered" id="component_list">
+        <table class="table table-bordered m-t" id="component_list">
             <tr id="icon（图标）">
                 <td>Flow-ICON</td>
                 <td>
