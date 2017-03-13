@@ -3239,21 +3239,28 @@ $.ajax({
                             <h5>方法</h5>
                             <table class="table">
                                 <tr>
+                                    <th>Box.open(anything, [config])</th>
+                                    <td>
+                                        <p>打开弹窗</p>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th>Box.hide([boxid])</th>
                                     <td>
                                         <p>关闭弹窗，接收弹窗id为参数，无参数将关闭页面上所有弹窗</p>
                                     </td>
                                 </tr>
-                                <th>Box.setSize(boxid,[config])</th>
-                                <td>
-                                    <p>box尺寸重设，接收弹窗id和尺寸配置为参数，无配置时将重计算指定弹窗的尺寸</p>
-                                </td>
-                    </tr>
-                    <tr>
-                        <th>Box.alert()</th>
-                        <td>
-                            <p>提醒弹窗，弹出短信息，有一个确认按钮</p>
-                            <pre>
+                                <tr>
+                                    <th>Box.setSize(boxid,[config])</th>
+                                    <td>
+                                        <p>box尺寸重设，接收弹窗id和尺寸配置为参数，无配置时将重计算指定弹窗的尺寸</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Box.alert()</th>
+                                    <td>
+                                        <p>提醒弹窗，弹出短信息，有一个确认按钮</p>
+                                        <pre>
                                             <code>
   /*
   * @param.message[string]:消息内容
@@ -3264,13 +3271,13 @@ $.ajax({
   Box.alert( message, [callback], [options] );
                                         </code>
                                       </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Box.msg()</th>
-                        <td>
-                            <p>消息弹窗，在屏幕顶部显示一条全局消息，特有一个color配置用来定义消息请景色，可选"info，primary，success，warning，danger"</p>
-                            <pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Box.msg()</th>
+                                    <td>
+                                        <p>消息弹窗，在屏幕顶部显示一条全局消息，特有一个color配置用来定义消息请景色，可选"info，primary，success，warning，danger"</p>
+                                        <pre>
                                             <code>
   /*
   * @param.message[string]:消息内容
@@ -3280,13 +3287,13 @@ $.ajax({
   Box.msg( message, [options] );
                                         </code>
                                       </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Box.confirm()</th>
-                        <td>
-                            <p>确认弹窗，弹出一条确认信息，有一个确认按钮和一个取消按钮</p>
-                            <pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Box.confirm()</th>
+                                    <td>
+                                        <p>确认弹窗，弹出一条确认信息，有一个确认按钮和一个取消按钮</p>
+                                        <pre>
                                             <code>
   /*
   * @param.message[string]:消息内容
@@ -3298,13 +3305,13 @@ $.ajax({
   Box.confirm( message, [sureCall], [cancelCall], [options] );
                                         </code>
                                       </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Box.ajax()</th>
-                        <td>
-                            <p>ajax弹窗，弹出ajax获得的内容</p>
-                            <pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Box.ajax()</th>
+                                    <td>
+                                        <p>ajax弹窗，弹出ajax获得的内容</p>
+                                        <pre>
                                             <code>
   /*
   * @param.uri[string]:ajax地址
@@ -3315,13 +3322,13 @@ $.ajax({
   Box.ajax( uri, [params], [options] );
                                         </code>
                                       </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Box.ifram()</th>
-                        <td>
-                            <p>弹出一个ifram窗口</p>
-                            <pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Box.ifram()</th>
+                                    <td>
+                                        <p>弹出一个ifram窗口</p>
+                                        <pre>
                                             <code>
   /*
   * @param.uri[string]:ifram页面地址
@@ -3332,13 +3339,13 @@ $.ajax({
   Box.ifram( uri, [params], [options] );
                                         </code>
                                       </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Box.img()</th>
-                        <td>
-                            <p>弹出一张图片</p>
-                            <pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Box.img()</th>
+                                    <td>
+                                        <p>弹出一张图片</p>
+                                        <pre>
                                             <code>
   /*
   * @param.src[string]:图片地址
