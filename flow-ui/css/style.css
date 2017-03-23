@@ -2162,8 +2162,8 @@ big.form-mark {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
-.pagination > .unable a,
-.pagination > .unable a:hover {
+.pagination > li > .unable,
+.pagination > .unable:hover {
   cursor: default;
   color: #ccc;
   background: #fff;

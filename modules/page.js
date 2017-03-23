@@ -19,7 +19,7 @@ define('page', function(require, exports, module) {
 		def = {
 			el: null,
 			current: 1,
-			pageSize: 5,
+			showNum: 5,
 			total: null,
 			holder: '...',
 			onClick: null,
@@ -32,20 +32,20 @@ define('page', function(require, exports, module) {
 				showEnd,
 				i,
 				_;
-			if (pageData.total < pageData.pageSize) {
-				pageData.pageSize = pageData.total;
+			if (pageData.total < pageData.showNum) {
+				pageData.showNum = pageData.total;
 			}
 			if (pageData.total < pageData.current) {
 				pageData.current = pageData.total;
 			}
-			if (pageData.current <= pageData.pageSize) {
+			if (pageData.current <= pageData.showNum) {
 				showStart = 1;
-			} else if (pageData.total - pageData.current >= pageData.pageSize) {
+			} else if (pageData.total - pageData.current >= pageData.showNum) {
 				showStart = pageData.current;
 			} else {
-				showStart = pageData.total - pageData.pageSize + 1;
+				showStart = pageData.total - pageData.showNum + 1;
 			}
-			showEnd = showStart + pageData.pageSize - 1;
+			showEnd = showStart + pageData.showNum - 1;
 			pageData.pages = [];
 			for (i = showStart; i <= showEnd; i++) {
 				_ = {
@@ -58,10 +58,10 @@ define('page', function(require, exports, module) {
 				pageData.pages.push(_);
 			}
 
-			if (showStart > pageData.pageSize) {
+			if (showStart > pageData.showNum) {
 				pageData.pages.splice(0, 0, {
 					num: pageData.holder,
-					to: pageData.current - pageData.pageSize
+					to: pageData.current - pageData.showNum
 				});
 			}
 			if (pageData.total > showEnd) {
@@ -88,7 +88,7 @@ define('page', function(require, exports, module) {
 					if (pageData && conf && $.isPlainObject(conf)) {
 						pageData.current = conf.current || pageData.current;
 						pageData.total = conf.total || pageData.total;
-						pageData.pageSize = conf.pageSize || pageData.pageSize;
+						pageData.showNum = conf.showNum || pageData.showNum;
 						render($(opt.el), pageData);
 					}
 				};

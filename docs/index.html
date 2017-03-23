@@ -580,7 +580,7 @@
         <h4>分页</h4>
         <div class="wrap">
             <ul class="pagination">
-                <li class="unable"><a href="javascript:;">上一页</a></li>
+                <li><a href="javascript:;" class="unable">上一页</a></li>
                 <li class="active"><a href="javascript:;">1</a></li>
                 <li><a href="javascript:;">2</a></li>
                 <li><a href="javascript:;">3</a></li>
@@ -1610,14 +1610,13 @@
                             <td>在菜单项目内定义菜单子项目状态图标</td>
                         </tr>
                         <tr>
-                            <td>menu-submenu</td>
+                            <td>.menu-submenu</td>
                             <td>定义包含子菜单的项</td>
                         </tr>
                         <tr>
                             <td>.menu-opened</td>
                             <td>叠加在menu-submenu上指示子菜单为打开状态</td>
                         </tr>
-
                     </table>
                 </td>
             </tr>
@@ -1630,11 +1629,11 @@
                             <td>定义分页</td>
                         </tr>
                         <tr>
-                            <td>li.unable</td>
-                            <td>不可用的分页元素</td>
+                            <td>.pagination > li > a.unable</td>
+                            <td>不可用的分页链接</td>
                         </tr>
                         <tr>
-                            <td>li.active</td>
+                            <td>.pagination > li.active</td>
                             <td>当前页</td>
                         </tr>
                     </table>
@@ -3425,7 +3424,7 @@ $.ajax({
                             <td>默认无，弹窗关闭事件</td>
                         </tr>
                     </table>
-                    <h5>返回</h5>
+                    <h5>返回方法</h5>
                     <table class="table">
                         <tr>
                             <th>boxid</th>
@@ -5109,7 +5108,7 @@ $('.datepicker2').datepicker({
                                 </td>
                             </tr>
                         </table>
-                        <h5>返回</h5>
+                        <h5>返回方法</h5>
                         <table class="table">
                             <tr>
                                 <th>obj.hide()</th>
@@ -5329,16 +5328,16 @@ $('.datepicker2').datepicker({
                         </pre>
                     </td>
                 </tr>
-                <tr id="Page（翻页）">
+                <tr id="Page（分页）">
                     <td>page</td>
                     <td>
                         <h5>描述</h5>
-                        <p>按指定配置生成翻页组件，返回Page方法，语法：<code>Page(config)</code>，或者使用jquery插件语法：<code>$el.page(config);</code></p>
+                        <p>按指定配置生成分页组件，返回Page方法，语法：<code>Page(config)</code>，或者使用jquery插件语法：<code>$el.page(config);</code></p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
                                 <th>el</th>
-                                <td>默认无，必填，翻页展示容器，jquery选择器格式，直接调用Page方法必填，jquery插件调用时可忽略</td>
+                                <td>默认无，必填，分页展示容器，jquery选择器格式，直接调用Page方法必填，jquery插件调用时可忽略</td>
                             </tr>
                             <tr>
                                 <th>current</th>
@@ -5366,7 +5365,7 @@ $('.datepicker2').datepicker({
                             </tr>
                             <tr>
                                 <th>size</th>
-                                <td>默认<code>'normal'</code>，内置翻页尺寸，可选'sm / lg'</td>
+                                <td>默认<code>'normal'</code>，内置尺寸，可选'sm / lg'</td>
                             </tr>
                             <tr>
                                 <th>auto</th>
@@ -5935,7 +5934,7 @@ $('.datepicker2').datepicker({
                                 <td>默认'&lt;div class=&quot;scrollLoadSpinning&quot;&gt;&lt;span class=&quot;_spin&quot;&gt;&lt;/span&gt;&lt;/div&gt;'，加载条html</td>
                             </tr>
                         </table>
-                        <h5>返回</h5>
+                        <h5>返回方法</h5>
                         <p>返回实例操作句柄，包含以下方法</p>
                         <table class="table table-hover">
                             <tr>
@@ -6814,7 +6813,7 @@ $('.datepicker2').datepicker({
                                     </td>
                                 </tr>
                             </table>
-                            <h5>返回</h5>
+                            <h5>返回方法</h5>
                             <table class="table table-hover">
                                 <tr>
                                     <th>data([newData])</th>
@@ -7049,7 +7048,7 @@ $('.datepicker2').datepicker({
                                     </td>
                                 </tr>
                             </table>
-                            <h5>返回</h5>
+                            <h5>返回方法</h5>
                             <p>同Tip插件</p>
                             <h5>演示</h5>
                             <pre>
@@ -7166,7 +7165,7 @@ $('.datepicker2').datepicker({
                                     <td>默认无，关闭回调</td>
                                 </tr>
                             </table>
-                            <h5>返回</h5>
+                            <h5>返回方法</h5>
                             <table class="table table-hover">
                                 <tr>
                                     <th>obj.hide()</th>
