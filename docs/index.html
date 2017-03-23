@@ -577,7 +577,19 @@
                 </nav>
             </div>    
         </div>
-
+        <h4>分页</h4>
+        <div class="wrap">
+            <ul class="pagination">
+                <li class="unable"><a href="javascript:;">上一页</a></li>
+                <li class="active"><a href="javascript:;">1</a></li>
+                <li><a href="javascript:;">2</a></li>
+                <li><a href="javascript:;">3</a></li>
+                <li><a href="javascript:;">4</a></li>
+                <li><a href="javascript:;">5</a></li>
+                <li><a href="javascript:;">...</a></li>
+                <li><a href="javascript:;">下一页</a></li>
+            </ul>
+        </div>
         <h3 id="css-compile">定制与编译</h3>
         <p>Flow-UI基于<code>less</code>实现UI组件化，从全站样式中抽离出配置文件，可实现灵活的风格控制和组件选配，要充分发挥Flow-UI的定制性，需要搭配自动化编译工具<a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>使用。</p>
         <p>进一步了解<a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>的详细介绍。</p>
@@ -1609,7 +1621,25 @@
                     </table>
                 </td>
             </tr>
-
+            <tr id="page（分页）">
+                <td>page.less</td>
+                <td>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>.pagination</td>
+                            <td>定义分页</td>
+                        </tr>
+                        <tr>
+                            <td>li.unable</td>
+                            <td>不可用的分页元素</td>
+                        </tr>
+                        <tr>
+                            <td>li.active</td>
+                            <td>当前页</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
         </table>
     </section>
     <section class="wrap" id="js">
@@ -1798,56 +1828,6 @@
                             <code>
     var $ = require('jquery');
     console.log($);
-                            </code>
-                        </pre>
-                    </td>
-                </tr>
-                <tr id="My97DatePicker（日期选择器）">
-                    <td>My97DatePicker</td>
-                    <td>
-                        <h5>描述</h5>
-                        <p>日期选择器，返回日期选择器方法：详细文档见：<a href="http://www.my97.net/dp/demo/index.html" target="_blank">官网</a></p>
-                        <h5>多终端</h5>
-                        <p>支持，样式待美化</p>
-                        <h5>配置</h5>
-                        <table class="table table-hover">
-                            <tr>
-                                <th>skin</th>
-                                <td>皮肤，默认'whyGreen'</td>
-                            </tr>
-                            <tr>
-                                <th>dateFmt</th>
-                                <td>自定义输出格式，例如<code>yyyy年MM月dd日 HH时mm分ss秒</code></td>
-                            </tr>
-                        </table>
-                        <h5>示例</h5>
-                        <pre>
-                            <code>
-  &lt;!-- html --&gt;
-  &lt;div class=&quot;wrap&quot;&gt;
-    &lt;p&gt;1.点选日期选择器 &lt;/p&gt;
-    &lt;input id=&quot;birthday&quot; type=&quot;text&quot;&gt;
-
-    &lt;p&gt;2.平面日期选择器 &lt;/p&gt;
-    &lt;div id=&quot;calendar&quot;&gt; &lt;/div&gt;
-  &lt;/div&gt;
-                          </code>
-                        </pre>
-                        <pre>
-                            <code>
-  //js
-  var datepicker=require('My97DatePicker');
-  $('#birthday').on('click',function(){
-     datepicker();
-  });
-
-  //静态日历
-  datepicker({
-    lang:'en',
-    eCont:'calendar',               //日历容器id
-    onpicked:function(date){        //点选回调
-      alert('你选择的日期是:'+date.cal.getDateStr())
-    }})
                             </code>
                         </pre>
                     </td>
@@ -4050,7 +4030,7 @@ $('.datepicker2').datepicker({
                             </tr>
                             <tr>
                                 <th>onclick</th>
-                                <td>默认无，点击菜单项回调方法，接受对应的items数据项为参数</td>
+                                <td>默认无，点击菜单项回调方法。@param(item, isCurrent) : 对应的items数据项，是否为当前已选项</td>
                             </tr>
                         </table>
                         <h5>示例</h5>
@@ -5353,40 +5333,51 @@ $('.datepicker2').datepicker({
                     <td>page</td>
                     <td>
                         <h5>描述</h5>
-                        <p>按指定配置生成翻页，带点击回调</p>
+                        <p>按指定配置生成翻页组件，返回Page方法，语法：<code>Page(config)</code>，或者使用jquery插件语法：<code>$el.page(config);</code></p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
-                                <th>wrap</th>
-                                <td>默认无，必填，jquery选择器格式，翻页生成容器</td>
+                                <th>el</th>
+                                <td>默认无，必填，翻页展示容器，jquery选择器格式，直接调用Page方法必填，jquery插件调用时可忽略</td>
                             </tr>
                             <tr>
-                                <th>number</th>
-                                <td>默认1，当前页码</td>
+                                <th>current</th>
+                                <td>默认<code>1</code>，当前页码</td>
                             </tr>
                             <tr>
                                 <th>showNum</th>
-                                <td>默认5，显示页数</td>
+                                <td>默认<code>5</code>，显示页数</td>
                             </tr>
                             <tr>
-                                <th>totalPages</th>
+                                <th>total</th>
                                 <td>默认无，必填，总页数</td>
                             </tr>
                             <tr>
                                 <th>holder</th>
-                                <td>默认'...'，翻篇占位符</td>
+                                <td>默认<code>'...'</code>，翻篇占位符</td>
                             </tr>
                             <tr>
                                 <th>hook</th>
-                                <td>自定义样式钩子</td>
+                                <td>默认无，自定义样式钩子</td>
                             </tr>
                             <tr>
                                 <th>onClick</th>
-                                <td>点击回调方法，参数接收点击页码</td>
+                                <td>默认无，页码改变回调，参数接收点击页码</td>
                             </tr>
                             <tr>
                                 <th>size</th>
-                                <td>默认'normal'，内置翻页尺寸，可选'sm / lg'</td>
+                                <td>默认<code>'normal'</code>，内置翻页尺寸，可选'sm / lg'</td>
+                            </tr>
+                            <tr>
+                                <th>auto</th>
+                                <td>默认<code>true</code>，是否自动渲染当前状态</td>
+                            </tr>
+                        </table>
+                        <h5>返回方法</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>set(obj)</th>
+                                <td>更改显示状态，obj只接受三个属性：current，total，pageSize</td>
                             </tr>
                         </table>
                         <h5>示例</h5>
@@ -5400,8 +5391,8 @@ $('.datepicker2').datepicker({
                             <code>
     require.async('page',function(page){
         page({
-            totalPages:10,
-            wrap: '.wrap',
+            el: '.wrap',
+            total:10,
             onClick:function(page){
                 console.log(page);
             }
@@ -6550,61 +6541,60 @@ $('.datepicker2').datepicker({
                         <td>tab</td>
                         <td>
                             <h5>描述</h5>
-                            <p>选项卡，默认识别".tab_t"为标签，".tab_c"为内容，标签和内容的结构没有限制，当前显示的标签和内容分别会添加".tab_t_cur"和".tab_c_cur"类名用于定义样式，第一个标签还会额外添加".first"类名，默认通过样式隐藏显示内容，如果指定非".tab_c"元素作为选项卡内容，显示隐藏的样式也需要自己定义</p>
-                            <p>忽略选项卡：当选项卡标签元素具有"ignore"属性时，该标签不参与选项卡的互动效果</p>
+                            <p>选项卡</p>
                             <h5>配置</h5>
                             <table class="table table-hover">
                                 <tr>
                                     <th>tabs</th>
-                                    <td>tab标签，默认内部查找.tab_t</td>
+                                    <td>tab标签，默认<code>".tab_t"</code></td>
                                 </tr>
                                 <tr>
                                     <th>conts</th>
-                                    <td>tab内容，默认内部查找.tab_c</td>
+                                    <td>tab内容，默认<code>".tab_c"</code>；当选项卡标签元素具有<code>"ignore"</code>属性时，该标签不参与选项卡的互动效果</td>
                                 </tr>
                                 <tr>
                                     <th>posi_auto</th>
-                                    <td>默认true，标签自动定位</td>
+                                    <td>默认<code>true</code>，标签自动定位</td>
                                 </tr>
                                 <tr>
                                     <th>width_auto</th>
-                                    <td>默认false，标签自适应宽度</td>
+                                    <td>默认<code>false</code>，标签自适应宽度</td>
                                 </tr>
                                 <tr>
                                     <th>left</th>
-                                    <td>默认0，单位px，第一个标签距左起始位置</td>
+                                    <td>默认<code>0</code>，单位px，第一个标签距左起始位置</td>
                                 </tr>
                                 <tr>
                                     <th>auto</th>
-                                    <td>默认false，是否自动播放</td>
+                                    <td>默认<code>false</code>，是否自动播放</td>
                                 </tr>
                                 <tr>
                                     <th>interval</th>
-                                    <td>默认5000，单位ms，自动播放间隔</td>
+                                    <td>默认<code>5000</code>，单位ms，自动播放间隔</td>
                                 </tr>
                                 <tr>
                                     <th>start</th>
-                                    <td>默认0，初始显示第几个</td>
+                                    <td>默认<code>0</code>，初始显示第几个</td>
                                 </tr>
                                 <tr>
                                     <th>margin</th>
-                                    <td>默认0，单位px，标签间距</td>
+                                    <td>默认<code>0</code>，单位px，标签间距</td>
                                 </tr>
                                 <tr>
                                     <th>act</th>
-                                    <td>默认‘click’，触发动作，'mouseenter','touchend'等</td>
+                                    <td>默认<code>"click"</code>，触发动作，'mouseenter','touchend'等</td>
                                 </tr>
                                 <tr>
                                     <th>beforeChange</th>
-                                    <td>切换前事件 @param ($this,$tab_t,index) : 当前对象，标签，前去帧序号</td>
+                                    <td>切换前事件，默认无。@param ($this,$tab_t,index) : 当前对象，标签，前去帧序号</td>
                                 </tr>
                                 <tr>
                                     <th>callback</th>
-                                    <td>回调方法 @param ($this,$tab_t,index) : 当前对象，标签，当前帧序号</td>
+                                    <td>回调方法，默认无。 @param ($this,$tab_t,index) : 当前对象，标签，当前帧序号</td>
                                 </tr>
                                 <tr>
                                     <th>ext</th>
-                                    <td>扩展方法 @param ($this,$tab_t,opts) : 当前对象，标签，配置</td>
+                                    <td>扩展方法，默认无。 @param ($this,$tab_t,opts) : 当前对象，标签，配置</td>
                                 </tr>
                             </table>
                             <h5>示例</h5>
@@ -6641,6 +6631,355 @@ $('.datepicker2').datepicker({
   require('tab');
   $('.demo').tab();
                                </code>
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr id="Table（数据表格）">
+                        <td>table</td>
+                        <td>
+                            <h5>描述</h5>
+                            <p>数据表格，返回<code>Table</code>方法，语法：<code>Table(config)</code>，或使用jquery插件语法：<code>$el.table(config)</code></p>
+                            <p>主要用于展示大量结构化数据。支持排序、筛选、编辑等功能。</p>
+                            <h5>配置</h5>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>el</th>
+                                    <td>
+                                        <p>默认<code>null</code>，表格生成元素，直接调用Table方法必填，jquery插件调用时可忽略</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>data</th>
+                                    <td>
+                                        <p>显示的结构化数据，数据格式，默认无</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>column</th>
+                                    <td>
+                                        <p>表格列的配置描述，详见下文</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>striped</th>
+                                    <td>
+                                        <p>默认<code>false</code>，是否显示间隔斑马纹</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>bordered</th>
+                                    <td>
+                                        <p>默认<code>false</code>，是否显示纵向边框</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>condensed</th>
+                                    <td>
+                                        <p>默认<code>false</code>，是否显示为紧凑表格</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>hover</th>
+                                    <td>
+                                        <p>默认<code>false</code>，是否显示悬浮背景</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>width</th>
+                                    <td>
+                                        表格宽度，单位 px，默认无，将自适应容器宽度
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>height</th>
+                                    <td>
+                                        表格高度，单位 px，设置后，如果表格内容大于此值，会固定表头
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>index</th>
+                                    <td>
+                                        <p>默认<code>false</code>，是否显示索引列</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>multi</th>
+                                    <td>
+                                        <p>
+                                            默认<code>false</code>，是否支持多选
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>noDataText</th>
+                                    <td>
+                                        <p>默认<code>"暂无数据"</code></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>noFilterText</th>
+                                    <td>
+                                        <p>默认<code>"暂无筛选结果"</code></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>highlight</th>
+                                    <td>
+                                        <p>默认<code>false</code>，是否支持高亮选中的行</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>page</th>
+                                    <td>
+                                        <p>默认<code>null</code>，如果需要分页，可传入分页参数：
+                                        <code>
+    {
+        pageSize: 5 //每页信息条数
+    }
+                                        </code></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>onSelect</th>
+                                    <td>
+                                        <p>默认无，单选/多选回掉方法。</p>
+                                        <p>@param(index, row, [rowArray]) : 当前选中行数，当前行数据，所有选中行数据数组(仅多选有此参数)</p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <h5>column配置</h5>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>title</th>
+                                    <td>
+                                        <p>列头显示文字,默认<code>"#"</code></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>key</th>
+                                    <td>
+                                        <p>对应列内容的字段名</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>render</th>
+                                    <td>
+                                        <p>自定义渲染列，@param(value, row, index)。</p>
+                                        <p>前单元格数据，当前行数据，当前是第几行，详见示例</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>width</th>
+                                    <td>
+                                        <p>列宽，默认单元格均分，指定数值不得小于50</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>align</th>
+                                    <td>
+                                        <p>对齐方式，默认<code>"left"</code>，可选 center | right</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>hook</th>
+                                    <td>
+                                        <p>列的样式名称，默认无</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>ellipsis</th>
+                                    <td>
+                                        <p>默认<code>false</code>，开启后，文本将不换行，超出部分显示为省略号</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>editable</th>
+                                    <td>
+                                        <p>默认<code>false</code>，该列是否可编辑。</p>
+                                        <p>也可以传入一个方法，接收编辑结果相关数据 @param(rowIndex, key, value) : 原始数据行序号，列属性，新值</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>sortable</th>
+                                    <td>
+                                        <p>默认<code>false</code>，该列是否可排序。</p>
+                                        <p>也可以传入自定义排序方法，接收三个参数 a 、 b 和 type，type 值为 <code>"asc" 和 "desc"</code></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>filterMethod</th>
+                                    <td>
+                                        <p>默认无，数据过滤使用的方法数组。</p>
+                                        <p>数据对象包含<code>"lable"</code>属性和<code>"filter"</code>属性，分别代表过滤项名称和对应过滤方法，方法接收当前值，返回<code>true</code>则通过过滤</p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <h5>返回</h5>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>data([newData])</th>
+                                    <td>
+                                        <p>获取/设置表格数据</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>column([newColumn])</th>
+                                    <td>
+                                        <p>获取/设置表格列数据</p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <h5>示例</h5>
+                            <pre>
+                                <code>
+    &lt;div class=&quot;mytable m&quot;&gt;&lt;/div&gt;
+    
+    &lt;div class=&quot;btn btn-default updateCol&quot;&gt;更新列&lt;/div&gt;
+    &lt;div class=&quot;btn btn-default updateData&quot;&gt;更新数据&lt;/div&gt;
+                                </code>
+                            </pre>
+                            <pre>
+                                <code>
+    var Table = require('table');
+    //测试数据
+    var tableData = [{&quot;product&quot;:&quot;I9000&quot;,&quot;manufacturer&quot;:&quot;Samsung&quot;,&quot;type&quot;:&quot;A&quot;,size:{&quot;width&quot;:61.4,&quot;height&quot;:12.6,&quot;length&quot;:120.2},&quot;os&quot;:&quot;Android 2.1&quot;,&quot;cpu&quot;:&quot;Samsung 1GHz&quot;,&quot;screen&quot;:&quot;4.0&quot;,&quot;touchScreen&quot;:true,&quot;price&quot;:3550,&quot;storage&quot;:800,&quot;comment&quot;:&quot;屏幕大。&quot;},{&quot;product&quot;:&quot;iPhone4&quot;,&quot;manufacturer&quot;:&quot;Apple&quot;,&quot;type&quot;:&quot;A&quot;,size:{&quot;width&quot;:58.6,&quot;height&quot;:9.3,&quot;length&quot;:115.2},&quot;os&quot;:&quot;iPhone iOS 4&quot;,&quot;cpu&quot;:&quot;A4 1GHz&quot;,&quot;screen&quot;:&quot;3.5&quot;,&quot;touchScreen&quot;:true,&quot;price&quot;:4999,&quot;storage&quot;:0,&quot;comment&quot;:&quot;分辨率变大，屏幕效果更出色，主频高。&quot;},{&quot;product&quot;:&quot;Milestone&quot;,&quot;manufacturer&quot;:&quot;Motorola&quot;,&quot;type&quot;:&quot;A&quot;,size:{&quot;width&quot;:60,&quot;height&quot;:13.7,&quot;length&quot;:115},&quot;os&quot;:&quot;Android 2.0&quot;,&quot;cpu&quot;:&quot;MSM 600Mhz&quot;,&quot;screen&quot;:&quot;3.7&quot;,&quot;touchScreen&quot;:true,&quot;price&quot;:2550,&quot;storage&quot;:50,&quot;comment&quot;:&quot;外形设计新颖，13.7mm超薄机身。&quot;},{&quot;product&quot;:&quot;N86&quot;,&quot;manufacturer&quot;:&quot;Nokia&quot;,&quot;type&quot;:&quot;C&quot;,size:{&quot;width&quot;:51.4,&quot;height&quot;:16.6,&quot;length&quot;:103.4},&quot;os&quot;:&quot;Symbian S60&quot;,&quot;cpu&quot;:&quot;A4 434MHz&quot;,&quot;screen&quot;:&quot;2.6&quot;,&quot;touchScreen&quot;:false,&quot;price&quot;:3360,&quot;storage&quot;:120,&quot;comment&quot;:&quot;具备800万像素摄像头，外观大气，手感好。&quot;},{&quot;product&quot;:&quot;N8&quot;,&quot;manufacturer&quot;:&quot;Nokia&quot;,&quot;type&quot;:&quot;C&quot;,size:{&quot;width&quot;:59.12,&quot;height&quot;:12.9,&quot;length&quot;:113.5},&quot;os&quot;:&quot;Symbian 3&quot;,&quot;cpu&quot;:&quot;A8 600MHz&quot;,&quot;screen&quot;:&quot;3.5&quot;,&quot;touchScreen&quot;:false,&quot;price&quot;:4868,&quot;storage&quot;:200,&quot;comment&quot;:&quot;1200万像素摄像头，内置HDMI。&quot;},{&quot;product&quot;:&quot;S8500&quot;,&quot;manufacturer&quot;:&quot;Samsung&quot;,&quot;type&quot;:&quot;B&quot;,size:{&quot;width&quot;:56,&quot;height&quot;:10.9,&quot;length&quot;:118},&quot;os&quot;:&quot;Android 2.0&quot;,&quot;cpu&quot;:&quot;Samsung 1GHz&quot;,&quot;screen&quot;:&quot;3.3&quot;,&quot;touchScreen&quot;:true,&quot;price&quot;:3380,&quot;storage&quot;:20,&quot;comment&quot;:&quot;Super AMOLED屏幕，内置Social Hub社交功能。&quot;},{&quot;product&quot;:&quot;iPhone3G&quot;,&quot;manufacturer&quot;:&quot;Apple&quot;,&quot;type&quot;:&quot;A&quot;,size:{&quot;width&quot;:62.1,&quot;height&quot;:12.3,&quot;length&quot;:115.5},&quot;os&quot;:&quot;iPhone iOS X&quot;,&quot;cpu&quot;:&quot;A4 667MHz&quot;,&quot;screen&quot;:&quot;3.5&quot;,&quot;touchScreen&quot;:true,&quot;price&quot;:3999,&quot;storage&quot;:80,&quot;comment&quot;:&quot;内置了GPS芯片，支持AGPS服务。&quot;},{&quot;product&quot;:&quot;ME600&quot;,&quot;manufacturer&quot;:&quot;Motorola&quot;,&quot;type&quot;:&quot;B&quot;,size:{&quot;width&quot;:53,&quot;height&quot;:15.3,&quot;length&quot;:108},&quot;os&quot;:&quot;Android 1.5&quot;,&quot;cpu&quot;:&quot;MSM 528MHz&quot;,&quot;screen&quot;:&quot;3.1&quot;,&quot;touchScreen&quot;:false,&quot;price&quot;:2420,&quot;storage&quot;:300,&quot;comment&quot;:&quot;后空翻设计，键盘宽大。&quot;},{&quot;product&quot;:&quot;X6&quot;,&quot;manufacturer&quot;:&quot;Nokia&quot;,&quot;type&quot;:&quot;C&quot;,size:{&quot;width&quot;:51,&quot;height&quot;:13.8,&quot;length&quot;:111},&quot;os&quot;:&quot;Symbian S60 v5&quot;,&quot;cpu&quot;:&quot;A4 667MHz&quot;,&quot;screen&quot;:&quot;3.2&quot;,&quot;touchScreen&quot;:false,&quot;price&quot;:2980,&quot;storage&quot;:500,&quot;comment&quot;:&quot;内置GPS及诺基亚MAP3.0地图。&quot;}];
+
+    var datagrid = Table({
+        el:'.mytable',
+        data: tableData,
+        column:[{
+            title:'operation',
+            render: function(value, rowData, index, entity){
+                if(rowData.storage &gt; 0){
+                    return $('&lt;div class=&quot;btn btn-primary btn-sm&quot;&gt;折扣&lt;/div&gt;').on('click', function(){
+                        entity.toggle('price', Math.round(rowData.price * 0.8));
+                    });
+                }else{
+                    return $('&lt;div class=&quot;btn btn-primary btn-sm disabled&quot;&gt;无货&lt;/div&gt;');
+                }
+            },
+            width: 100,
+            fixed: true
+        },{
+            title: '图片',
+            render: function(value, rowData, index){
+                return '&lt;img src=&quot;http://bsdn.org/projects/dorado7/deploy/sample-center/dorado/res/com/bstek/dorado/sample/data/images/'+rowData.product+'-24.png&quot; alt=&quot;data.product&quot; style=&quot;max-height:28px&quot; /&gt;';
+            }
+        },{
+            title:'产品',
+            key:'product',
+            width: 125,
+            sortable: true,
+            editable: function(rowIndex, key, value){
+                console.log(rowIndex, key, value);
+            }
+        },{
+            title:'制造商',
+            key:'manufacturer',
+            filterMethod: [
+                {
+                    label: '三星',
+                    filter: function(value){
+                        return value.indexOf('Samsung')===0;
+                    }
+                },
+                {
+                    label: '苹果',
+                    filter: function(value){
+                        return value.indexOf('Apple')===0;
+                    }
+                },
+                {
+                    label: '诺基亚',
+                    filter: function(value){
+                        return value.indexOf('Nokia')===0;
+                    }
+                }
+            ],
+            editable: true
+        },{
+            title:'价格',
+            key:'price',
+            width: 100,
+            styler: function(value){
+                if(value&gt;3000){
+                    return &quot;background: rgb(252, 197, 197)&quot;;
+                }
+            },
+            editable: true
+        },{
+            title:'库存',
+            key:'storage',
+            align: 'center',
+            styler: function(value){
+                if(value&lt;100){
+                    return &quot;background: rgb(211, 211, 211); color: red&quot;;
+                }
+            }
+        },{
+            title:'类型',
+            width: 200,
+            key: 'type',
+            render: function(value, rowData, index, entity){
+                var inputArray = [{
+                    type:&quot;A&quot;,
+                    name: '直板'
+                },{
+                    type:&quot;B&quot;,
+                    name: '翻盖'
+                },{
+                    type:&quot;C&quot;,
+                    name: '滑盖'
+                }];
+                var inputName = &quot;phonetype&quot;+index;
+                var typeControl = '&lt;div style=&quot;user-select: none;&quot;&gt;';
+                $.each(inputArray, function(i, e){
+                    typeControl += ('&lt;label class=&quot;radio radio-inline&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;'+inputName+'&quot; value=&quot;'+e.type+'&quot;'+(e.type===value ? ' checked' : '')+' /&gt;'+e.name+'&lt;/label&gt;');
+                });
+                typeControl += '&lt;/div&gt;';
+
+                return $(typeControl).on('change', function(){
+                    var newValue = $(this).find('input:checked').val();
+                    entity.set('type', newValue);
+                });
+            }
+        },{
+            title:'体积（mm）',
+            width: 200,
+            render: function(value, rowData, index){
+                var size = rowData.size;
+                if(size){
+                    return [size.length, size.width, size.height].join(' x ');
+                }
+            }
+        },{
+            title:'comment',
+            key: 'comment',
+            width: 200,
+            editable: true
+        }],
+        width: 900,
+        height:350,
+        multi: true,
+        page: {
+            pageSize: 5
+        },
+        onSelect: function(index, row, collection){
+            console.log(index, row, collection);
+        }
+    });
+                        
+    $('.updateCol').on('click',function(){
+        var col = datagrid.column();
+        col.splice(0,1);
+        datagrid.column(col);
+    });
+
+    $('.updateData').on('click',function(){
+        tableData.reverse();
+        datagrid.data(tableData);
+    });
+                                </code>
                             </pre>
                         </td>
                     </tr>
@@ -7226,6 +7565,9 @@ $.ajax({
     ga('create', 'UA-33205757-2', 'auto');
     ga('send', 'pageview');
     </script>
+    <div style="display: none;">
+    <script src="https://s11.cnzz.com/z_stat.php?id=1261533835&web_id=1261533835" type="text/javascript"></script>
+  </div>
 </body>
 
 </html>

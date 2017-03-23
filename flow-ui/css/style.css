@@ -140,7 +140,6 @@ legend {
 }
 table {
   border-spacing: 0;
-  border-collapse: collapse;
   background-color: transparent;
 }
 td,
@@ -874,6 +873,7 @@ textarea.input-sm {
 .checkbox-inline input[type='checkbox'] {
   float: left;
   margin-left: -20px;
+  cursor: pointer;
 }
 .radio + .radio,
 .checkbox + .checkbox {
@@ -1885,6 +1885,7 @@ big.form-mark {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  font-size: 14px;
 }
 .menu-item {
   position: relative;
@@ -2066,6 +2067,106 @@ big.form-mark {
 .menu-opened .menu-sub-ion {
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
+}
+.pagination {
+  display: inline-block;
+  padding-left: 0;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.pagination > li {
+  display: inline;
+}
+.pagination > li > a,
+.pagination > li > span {
+  line-height: 1.42857143;
+  position: relative;
+  float: left;
+  margin-left: -1px;
+  padding: 8px 15px;
+  text-decoration: none;
+  color: #1d6fb8;
+  border: 1px solid #e8e9eb;
+  background-color: #fff;
+}
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
+  margin-left: 0;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover {
+  color: #1d6fb8;
+  background-color: #eeeeee;
+}
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+  z-index: 2;
+  cursor: default;
+  color: #fff;
+  border-color: #1d6fb8;
+  background-color: #1d6fb8;
+}
+.pagination > .disabled > a,
+.pagination > .disabled > a:focus,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > span,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > span:hover {
+  cursor: not-allowed;
+  color: #777;
+  border-color: #ddd;
+  background-color: #fff;
+}
+.pagination-lg > li > a,
+.pagination-lg > li > span {
+  font-size: 16px;
+  line-height: 1.3333333;
+  padding: 10px 16px;
+}
+.pagination-lg > li:first-child > a,
+.pagination-lg > li:first-child > span {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+.pagination-lg > li:last-child > a,
+.pagination-lg > li:last-child > span {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+.pagination-sm > li > a,
+.pagination-sm > li > span {
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 5px 10px;
+}
+.pagination-sm > li:first-child > a,
+.pagination-sm > li:first-child > span {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.pagination-sm > li:last-child > a,
+.pagination-sm > li:last-child > span {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.pagination > .unable a,
+.pagination > .unable a:hover {
+  cursor: default;
+  color: #ccc;
+  background: #fff;
 }
 *[class*="rect-"] {
   position: relative;
@@ -2259,24 +2360,35 @@ big.form-mark {
 .table {
   width: 100%;
   max-width: 100%;
-  margin-bottom: 22.4px;
+  border: 1px solid #e8e9eb;
+  background: #fff;
 }
 .table > thead > tr > th,
+.table > thead > tr > td,
 .table > tbody > tr > th,
 .table > tfoot > tr > th,
-.table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
   line-height: 1.42857143;
-  padding: 1em;
+  padding: 0 18px;
+  height: 48px;
   vertical-align: inherit;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #e8e9eb;
   font-weight: normal;
 }
-.table > thead > tr > th {
+.table > thead > tr > th,
+.table > thead > tr > td {
+  height: 40px;
+  line-height: 40px;
   vertical-align: bottom;
   font-weight: normal;
   background: #eeeeee;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.table > tbody > tr:first-child > th,
+.table > tbody > tr:first-child > td {
+  border-top: 0;
 }
 .table > caption + thead > tr:first-child > th,
 .table > colgroup + thead > tr:first-child > th,
@@ -2287,21 +2399,18 @@ big.form-mark {
   border-top: 0;
 }
 .table > tbody + tbody {
-  border-top: 2px solid #ddd;
+  border-top: 2px solid #e8e9eb;
 }
 .table .table {
   background-color: #fff;
 }
-.table-condensed > thead > tr > th,
 .table-condensed > tbody > tr > th,
 .table-condensed > tfoot > tr > th,
-.table-condensed > thead > tr > td,
 .table-condensed > tbody > tr > td,
 .table-condensed > tfoot > tr > td {
-  padding: 5px;
-}
-.table-bordered {
-  border: 1px solid #ddd;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  height: auto;
 }
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th,
@@ -2309,12 +2418,13 @@ big.form-mark {
 .table-bordered > thead > tr > td,
 .table-bordered > tbody > tr > td,
 .table-bordered > tfoot > tr > td {
-  border: 1px solid #ddd;
+  border-right: 1px solid #e8e9eb;
 }
-.table-striped > tbody > tr:nth-of-type(odd) {
+.table-striped > tbody > tr:nth-of-type(even) {
   background-color: #eeeeee;
 }
-.table-hover > tbody > tr:hover {
+.table-hover > tbody > tr:hover,
+tr.table-tr-hover {
   background-color: #eeeeee;
 }
 table col[class*='col-'] {
@@ -2336,8 +2446,7 @@ table th[class*='col-'] {
   .table-responsive {
     overflow-y: hidden;
     width: 100%;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #e8e9eb;
     -ms-overflow-style: -ms-autohiding-scrollbar;
   }
   .table-responsive > .table {
@@ -2376,6 +2485,113 @@ table th[class*='col-'] {
   .table-responsive > .table-bordered > tfoot > tr:last-child > td {
     border-bottom: 0;
   }
+}
+.table-wrapper {
+  position: relative;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  cursor: default;
+  border: 1px solid #e8e9eb;
+}
+.table-wrapper .table > thead > tr > th,
+.table-wrapper .table > thead > tr > td,
+.table-wrapper .table > tbody > tr > th,
+.table-wrapper .table > tfoot > tr > th,
+.table-wrapper .table > tbody > tr > td,
+.table-wrapper .table > tfoot > tr > td {
+  padding: 0;
+}
+.table-wrapper .table-cell {
+  padding: 0 15px;
+  overflow: hidden;
+  white-space: normal;
+  word-break: break-all;
+}
+.table-scroll-x {
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.table-header .table,
+.table-body .table {
+  border: 0;
+}
+.table-body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.table-body .table .table-cell {
+  line-height: 1.7;
+}
+.table-body .table .table-cell-dirty,
+.table-body .table .table-cell-editable {
+  position: relative;
+}
+.table-body .table .table-cell-dirty:before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 0;
+  top: 0;
+  border: 4px solid;
+  border-color: #1d6fb8 transparent transparent #1d6fb8;
+}
+.table-highlight,
+.table-hover > tbody > .table-highlight:hover {
+  background: #1d6fb8;
+  color: #fff;
+}
+.table-sort,
+.table-filter {
+  display: inline-block;
+  width: 1.4em;
+  height: 1.4em;
+  line-height: 1.4em;
+  margin: -1px 0 0 4px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  vertical-align: middle;
+  color: #c3cbd6;
+}
+.table-sort .ion {
+  display: block;
+  font-size: 1.3em;
+  height: .7em;
+  line-height: .7em;
+  overflow: hidden;
+  position: absolute;
+  -webkit-transition: color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
+}
+.table-sort .table-sort-up {
+  top: 0;
+}
+.table-sort .table-sort-down {
+  bottom: 0;
+}
+.table-sort .ion.on {
+  color: #1d6fb8;
+}
+.table-fixed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow: 2px 0 6px -2px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+.table-fixed .table-header,
+.table-fixed .table-body {
+  overflow: hidden;
+}
+.table-wrapper .table-cell-editer {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  z-index: 9;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 1.7;
 }
 .wrap {
   width: 1200px;
