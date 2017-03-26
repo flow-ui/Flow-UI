@@ -1,9 +1,10 @@
 /*
  * name: table.js
- * version: v1.0.0
- * update: release
+ * version: v1.1.0
+ * update: add methods
  * date: 2017-03-23
  */
+ //TODO edit状态插值
 define('table', function(require, exports, module) {
 	"use strict";
 	seajs.importStyle('', module.uri);
@@ -124,6 +125,7 @@ define('table', function(require, exports, module) {
 										var targetTd = getTd(rowIndex, rowData, targetCol);
 										$this.find('.row' + rowIndex + '-' + key).replaceWith(inject(targetTd));
 									}
+									return rowData;
 								}
 							},
 							toggle: function(key, newValue) {
@@ -145,32 +147,49 @@ define('table', function(require, exports, module) {
 								}
 							},
 							edit: function($dom) {
+								var editCb;
 								if (isEditing) {
 									return null;
 								}
+								if (typeof $dom === 'function') {
+									editCb = $dom;
+									$dom = null;
+								}
 								if (!$dom || !$dom.length) {
-									$dom = $this.find('.row' + rowIndex + '-' + (col.key || '') + '.table-cell-editable');
+									$dom = $this.find('.row' + rowIndex + '-' + (col.key || ''));
 								}
 								if ($dom.length) {
 									isEditing = true;
+									//api操作不可编辑单元格
+									$dom.addClass('table-cell-editable');
 									var that = this;
-									var valueType = typeof opt.oData[rowData[indexKey]][col.key];
+									var oldValue = opt.oData[rowData[indexKey]][col.key];
 									var nowText = this.get();
 									var inputHTML;
-									if (valueType === 'number') {
+									if (typeof oldValue === 'number') {
 										inputHTML = '<input type="number" class="form-control table-cell-editer" value="' + nowText + '" >';
 									} else {
 										inputHTML = '<textarea class="form-control table-cell-editer">' + nowText + '</textarea>';
 									}
 									var $input = $(inputHTML).on('blur', function() {
 										var newValue = $(this).val();
-										if (valueType === 'number') {
+										if (typeof oldValue === 'number') {
 											newValue = isNaN(parseFloat(newValue)) ? 0 : parseFloat(newValue);
 										}
-										that.set(col.key, newValue);
+										var newRow = that.set(col.key, newValue);
 										isEditing = false;
-										if (typeof col.editable === 'function') {
-											col.editable(rowData[indexKey], col.key, newValue);
+										if (oldValue !== newValue) {
+											changes.update.push({
+												index: rowData[indexKey],
+												row: newRow,
+												origin: opt.data[rowData[indexKey]]
+											});
+											if (typeof col.editable === 'function') {
+												col.editable(rowData[indexKey], col.key, newValue);
+											}
+											if (typeof editCb === 'function') {
+												editCb(rowData[indexKey], col.key, newValue);
+											}
 										}
 									});
 									$dom.append($input);
@@ -223,6 +242,35 @@ define('table', function(require, exports, module) {
 					tbodyCont += thisdata;
 				});
 				return tbodyCont;
+			};
+			//排序方法
+			var sortBy = function(key, method, methodThirdArgument) {
+				var sortKey = [],
+					sortData = [];
+				$.each(opt.oData, function(i, e) {
+					sortKey.push(e[key]);
+				});
+				if (!sortKey.length) {
+					return console.warn('sortBy():can`t find property ' + key + ' from data');
+				}
+				if (typeof method === 'function') {
+					sortKey.sort(function(a, b) {
+						return method(a, b, methodThirdArgument);
+					});
+				} else {
+					sortKey.sort();
+					if (methodThirdArgument === 'desc') {
+						sortKey.reverse();
+					}
+				}
+				$.each(sortKey, function(i, k) {
+					$.each(opt.oData, function(i, obj) {
+						if (obj[key] === k) {
+							sortData.push(obj);
+						}
+					});
+				});
+				return sortData;
 			};
 			var render = function(tData, opt, part) {
 				if (!$.isArray(tData) || !tData.length || !$.isArray(opt.column) || !opt.column.length) {
@@ -286,49 +334,27 @@ define('table', function(require, exports, module) {
 								var $el = $('<div></div>');
 								//排序
 								if (col.sortable) {
-									$el.append($('<span class="table-sort"><i class="ion table-sort-up">&#xe618;</i><i class="ion table-sort-down">&#xe612;</i></span>').on('click', '.ion', function() {
-										var sortKey = [],
-											sortData = [];
-										if ($(this).hasClass('on')) {
-											$(this).removeClass('on');
-											sortData = opt.oData;
-										} else {
-											$(this).addClass('on').siblings('.on').removeClass('on');
-											$.each(opt.oData, function(i, e) {
-												sortKey.push(e[col.key]);
-											});
-											if ($(this).hasClass('table-sort-up')) {
-												if (typeof col.sortable === 'function') {
-													sortKey.sort(function(a, b) {
-														return col.sortable(a, b, 'asc');
-													});
-												} else {
-													sortKey.sort();
-												}
-											} else if ($(this).hasClass('table-sort-down')) {
-												if (typeof col.sortable === 'function') {
-													sortKey.sort(function(a, b) {
-														return col.sortable(a, b, 'desc');
-													});
-												} else {
-													sortKey.sort().reverse();
+									$el.append($('<span class="table-sort"><i class="ion table-sort-up">&#xe618;</i><i class="ion table-sort-down">&#xe612;</i></span>')
+										.on('click', '.ion', function() {
+											var sortData;
+											if ($(this).hasClass('on')) {
+												$(this).removeClass('on');
+												sortData = opt.oData;
+											} else {
+												$(this).addClass('on').siblings('.on').removeClass('on');
+												if ($(this).hasClass('table-sort-up')) {
+													sortData = sortBy(col.key, col.sortable, 'asc');
+												} else if ($(this).hasClass('table-sort-down')) {
+													sortData = sortBy(col.key, col.sortable, 'desc');
 												}
 											}
-											$.each(sortKey, function(i, k) {
-												$.each(opt.oData, function(i, obj) {
-													if (obj[col.key] === k) {
-														sortData.push(obj);
-													}
-												});
-											});
-										}
-										if(opt.page && opt.page.pageSize){
-											opt.holdStatus = true;
-											generate(sortData, opt, 'body');
-										}else{
-											render(sortData, opt, 'body');
-										}
-									}));
+											if (opt.page && opt.page.pageSize) {
+												opt.holdStatus = true;
+												generate(sortData, opt, 'body');
+											} else {
+												render(sortData, opt, 'body');
+											}
+										}));
 								}
 								//筛选
 								if ($.isArray(col.filterMethod)) {
@@ -388,14 +414,14 @@ define('table', function(require, exports, module) {
 						tbodyUpdateFixed.each(function(row, tr) {
 							$(tr).find('td').each(function(i, td) {
 								if (i > opt.fixedIndex) {
-									$(td).html('-').removeAttr('class');
+									$(td).html('-').attr('class', 'tofixed');
 								}
 							});
 						});
 						tbodyUpdate.each(function(row, tr) {
 							$(tr).find('td').each(function(i, td) {
 								if (i <= opt.fixedIndex) {
-									$(td).html('-').removeAttr('class');
+									$(td).html('-').attr('class', 'tofixed');
 								}
 							});
 						});
@@ -509,10 +535,75 @@ define('table', function(require, exports, module) {
 					});
 				});
 				if (opt.multi) {
-					$this.find('.table-header .table-choose-all').prop('checked', multiCollection.length === $this.data('data').length);
+					var isAllCheck = true;
+					$.each($this.data('data'), function(si, row) {
+						var isMatch;
+						$.each(multiCollection, function(ri, select) {
+							if (select[indexKey] === row[indexKey]) {
+								isMatch = true;
+								return false;
+							}
+						});
+						if (!isMatch) {
+							isAllCheck = false;
+							return false;
+						}
+					});
+					$this.find('.table-header .table-choose-all').prop('checked', isAllCheck);
 				}
 			};
-			var isEditing;
+			var selectRow = function(index, isSelect) {
+				if(index === void 0){
+					return null;
+				}
+				if (index >= opt.oData.length) {
+					return console.warn('selectRow(): index 超出当前数据范围！');
+				}
+				var row = opt.oData[index][indexKey];
+				if (opt.multi) {
+					var alreadyIn;
+					$.each(multiCollection, function(i, c) {
+						if (c[indexKey] === row) {
+							if (isSelect) {
+								alreadyIn = true;
+								return false;
+							} else {
+								multiCollection.splice(i, 1);
+								return false;
+							}
+						}
+					});
+					if (isSelect && !alreadyIn) {
+						multiCollection.push(opt.oData[row]);
+					}
+					if (typeof opt.onSelect === 'function') {
+						opt.onSelect(row, opt.oData[row], multiCollection);
+					}
+				} else {
+					if (multiCollection.length && (row === multiCollection[0][indexKey])) {
+						multiCollection = [];
+					} else {
+						multiCollection = [opt.oData[row]];
+						if (typeof opt.onSelect === 'function') {
+							opt.onSelect(row, opt.oData[row], multiCollection);
+						}
+					}
+				}
+				syncStatus();
+			};
+			var selectAll = function(flag) {
+				if (flag === false || (flag !== true && multiCollection.length === $this.data('data').length)) {
+					multiCollection = [];
+				} else {
+					multiCollection = deepcopy($this.data('data'));
+				}
+				if (typeof opt.onSelect === 'function') {
+					opt.onSelect('all', null, multiCollection);
+				}
+				syncStatus();
+			};
+			var isEditing; //编辑状态锁
+			var tPager; //page对象
 			var generate = function(data, opt, part) {
 				var tData = deepcopy(data);
 				isEditing = false;
@@ -523,9 +614,9 @@ define('table', function(require, exports, module) {
 					}
 				});
 				//备份原始数据
-				if(opt.holdStatus){
+				if (opt.holdStatus) {
 					delete opt.holdStatus;
-				}else{
+				} else {
 					opt.oData = tData;
 					multiCollection = [];
 				}
@@ -550,15 +641,24 @@ define('table', function(require, exports, module) {
 
 					tData = tDataGroup[0];
 					require.async('page', function(Page) {
-						if(!$('#' + indexKey).length){
-							$this.after('<div id="' + indexKey + '"></div>');
+						var pageEl;
+						if (opt.page.el && $(opt.page.el).length) {
+							pageEl = $(opt.page.el);
+						} else if (!$('#' + indexKey).length) {
+							pageEl = $('<div id="' + indexKey + '"></div>');
+							$this.after(pageEl);
+						} else {
+							pageEl = $('#' + indexKey);
 						}
-						Page({
-							el: '#' + indexKey,
+						tPager = Page({
+							el: pageEl,
 							total: tDataGroup.length,
-							onClick: function(pagenumber) {
+							onChange: function(pagenumber) {
 								tData = tDataGroup[pagenumber - 1];
 								render(tData, opt, 'body');
+								if (typeof opt.page.onChange === 'function') {
+									opt.page.onChange(pagenumber);
+								}
 							}
 						});
 					});
@@ -570,61 +670,28 @@ define('table', function(require, exports, module) {
 					$this.data('table-events', true);
 					//绑定事件
 					$this.on('click', 'td.table-cell-editable', function(e) {
+						e.stopPropagation();
 						var entity = $(this).data('entity');
 						entity.edit($(this));
+					}).on('click', '.table-choose-input', function(e) {
+						e.stopPropagation();
+						selectRow($(this).parents('tr').data('index'), $(this).prop('checked'));
 					});
 					if (opt.multi) {
-						$this.on('click', '.table-body tr', function(e) {
-							var index = $(this).index(),
-								row = parseInt($(this).data('index'));
-							if ($(e.target).parents('td').find('.table-choose-input').length) {
-								var isSelect = $(e.target).parents('td').find('.table-choose-input').prop('checked');
-								if (isSelect) {
-									multiCollection.push($this.data('data')[index]);
-								} else {
-									$.each(multiCollection, function(i, c) {
-										if (c[indexKey] === row) {
-											multiCollection.splice(i, 1);
-											return false;
-										}
-									});
-								}
-
-								if (typeof opt.onSelect === 'function') {
-									opt.onSelect($(this).data('index'), $this.data('data')[index], multiCollection);
-								}
-							}
-							syncStatus();
-						}).on('click', '.table-choose-all', function() {
-							if (multiCollection.length === $this.data('data').length) {
-								multiCollection = [];
-							} else {
-								multiCollection = deepcopy($this.data('data'));
-							}
-							if (typeof opt.onSelect === 'function') {
-								opt.onSelect('all', null, multiCollection);
-							}
-							syncStatus();
-						});
+						$this.on('click', '.table-choose-all', selectAll);
 					} else {
-						$this.on('click', '.table-body tr', function(e) {
-							var index = $(this).data('index'),
-								row = parseInt($(this).data('index'));
-							if (multiCollection.length && (row === multiCollection[0][indexKey])) {
-								multiCollection = [];
-							} else {
-								multiCollection = [$this.data('data')[row]];
-								if (typeof opt.onSelect === 'function') {
-									opt.onSelect($(this).data('index'), $this.data('data')[row], multiCollection);
-								}
-							}
-							syncStatus();
+						$this.on('click', '.table-body tr', function() {
+							selectRow($(this).data('index'));
 						});
 					}
 				}
 			};
 			generate(opt.data, opt);
-
+			var changes = {
+				add: [],
+				update: [],
+				delete: []
+			};
 			return {
 				data: function(data) {
 					if (data && $.isArray(data)) {
@@ -639,6 +706,146 @@ define('table', function(require, exports, module) {
 						render(opt.oData, opt);
 					} else {
 						return opt.column;
+					}
+				},
+				getPager: function() {
+					return tPager;
+				},
+				size: function(sizeConf) {
+					if ($.isPlainObject(sizeConf)) {
+						opt.width = sizeConf.width || opt.width;
+						opt.height = sizeConf.height || opt.height;
+						return render(opt.oData, opt);
+					} else {
+						return {
+							width: opt.width,
+							height: opt.height
+						};
+					}
+				},
+				reload: function() {
+					generate(opt.data, opt);
+				},
+				getRows: function() {
+					return $this.data('data');
+				},
+				getSelected: function() {
+					return multiCollection;
+				},
+				scrollTo: function(index) {
+					if (index === void 0 || index >= $this.data('data').length) {
+						index = $this.data('data').length - 1;
+					}
+					var sth = $this.find('.table-wrapper>.table-body').find('tr').eq(index - 1).offset().top - $this.find('.table-wrapper>.table-body').offset().top;
+					$this.find('.table-wrapper>.table-body').scrollTop(sth);
+				},
+				highlightRow: function(index) {
+					if(index === void 0){
+						return null;
+					}
+					if (index >= $this.data('data').length) {
+						index = $this.data('data').length - 1;
+					}
+					$this.find('.table-body').each(function(i, e) {
+						$(e).find('tr').eq(index - 1).addClass('table-highlight');
+					});
+				},
+				selectAll: function() {
+					return selectAll(true);
+				},
+				unselectAll: function() {
+					return selectAll(false);
+				},
+				selectRow: function(index) {
+					return selectRow(index, true);
+				},
+				unselectRow: function(index) {
+					return selectRow(index, false);
+				},
+				getEntity: function(index, key) {
+					if (index === void 0 || !key) {
+						return console.warn('getEntity(): 参数不完整！');
+					}
+					if (index >= $this.data('data').length) {
+						return console.warn('getEntity(): index 超出当前数据范围！');
+					}
+					var $td = $this.find('.row' + index + '-' + key);
+					if(!$td.length){
+						return console.warn('getEntity(): 无法获取指定单元格');
+					}
+					return $td.data('entity');
+				},
+				updateRow: function(index, row) {
+					var cData = deepcopy(opt.oData);
+					if (index >= cData.length) {
+						return console.warn('updateRow(): index 超出当前数据范围！');
+					}
+					var oRow = cData[index];
+					var newRow = $.extend({}, oRow, row || {});
+					cData[newRow[indexKey]] = newRow;
+					changes.update.push({
+						index: newRow[indexKey],
+						row: newRow,
+						origin: opt.data[newRow[indexKey]]
+					});
+					return generate(cData, opt);
+				},
+				appendRow: function(row) {
+					if ($.isPlainObject(row)) {
+						var cData = deepcopy(opt.oData);
+						row[indexKey] = cData.length;
+						cData.push(row);
+						changes.add.push({
+							index: cData.length,
+							row: row
+						});
+						return generate(cData, opt);
+					}
+				},
+				insertRow: function(start, row) {
+					if (typeof start === 'number' && $.isPlainObject(row)) {
+						var cData = deepcopy(opt.oData);
+						if (start >= cData.length) {
+							return this.appendRow(row);
+						}
+						cData.splice(start, 0, row);
+						for (var i = start; i < cData.length; i++) {
+							cData[i][indexKey] = i;
+						}
+						changes.add.push({
+							index: start,
+							row: row
+						});
+						return generate(cData, opt);
+					}
+				},
+				deleteRow: function(index) {
+					if (index >= $this.data('data').length) {
+						return console.warn('deleteRow(): index 超出当前数据范围！');
+					}
+					var cData = deepcopy(opt.oData);
+					var delRow = cData.splice(index, 1);
+					for (var i = index; i < cData.length; i++) {
+						cData[i][indexKey] = i;
+					}
+					changes.delete.push({
+						index: index,
+						row: delRow[0]
+					});
+					return generate(cData, opt);
+				},
+				getChanges: function(type) {
+					return changes[type] || changes;
+				},
+				sort: function(key, method) {
+					if (key && key.split) {
+						var sortedData = sortBy(key, method);
+						if (opt.page && opt.page.pageSize) {
+							opt.holdStatus = true;
+							generate(sortedData, opt, 'body');
+						} else {
+							render(sortedData, opt, 'body');
+						}
 					}
 				}
 			};

@@ -2424,7 +2424,7 @@ big.form-mark {
   background-color: #eeeeee;
 }
 .table-hover > tbody > tr:hover,
-tr.table-tr-hover {
+.table-tr-hover {
   background-color: #eeeeee;
 }
 table col[class*='col-'] {

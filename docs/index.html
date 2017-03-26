@@ -2159,8 +2159,6 @@ always: null            // complete function(done|fail)
                     <td>
                         <h5>描述</h5>
                         <p>validform表单验证，整合密码强度验证插件。</p>
-                        <h5>多终端</h5>
-                        <p>支持</p>
                         <h5>内置验证规则</h5>
                         <table class="table table-hover">
                             <tr>
@@ -2252,7 +2250,7 @@ always: null            // complete function(done|fail)
                                     allable:
                                 </td>
                                 <td>
-                                    默认false，设置为true将提交属性为disable的元素值
+                                    默认<code>false</code>，设置为true将提交属性为disable的元素值
                                 </td>
                             </tr>
                             <tr>
@@ -2260,7 +2258,7 @@ always: null            // complete function(done|fail)
                                     tiptype:
                                 </td>
                                 <td>
-                                    验证结果显示方式，默认1，1:弹出提示，2:输入框后插入
+                                    默认<code>1</code>，验证结果显示方式，1:弹出提示，2:输入框后插入
                                 </td>
                             </tr>
                             <tr>
@@ -2268,7 +2266,7 @@ always: null            // complete function(done|fail)
                                     tipSweep:
                                 </td>
                                 <td>
-                                    是否只在提交前集中验证，默认false，每个输入框blur都会出发验证
+                                    默认<code>false</code>，是否只在提交前集中验证，每个输入框blur都会出发验证
                                 </td>
                             </tr>
                             <tr>
@@ -2276,7 +2274,7 @@ always: null            // complete function(done|fail)
                                     dataType：
                                 </td>
                                 <td>
-                                    ajax提交方式的返回数据格式，默认"json"
+                                    默认<code>"json"</code>，ajax提交方式的返回数据格式
                                 </td>
                             </tr>
                             <tr>
@@ -2284,7 +2282,7 @@ always: null            // complete function(done|fail)
                                     ajaxData:
                                 </td>
                                 <td>
-                                    ajax提交方式的扩展数据，默认无
+                                    默认无，ajax提交方式的扩展数据，json || function(reutrn json)
                                 </td>
                             </tr>
                             <tr>
@@ -2298,7 +2296,6 @@ always: null            // complete function(done|fail)
   * status: 状态，"y"或"n"
   * info: 返回信息，当status不为"y"时此信息将以错误提示的形式显示
   */
-
   {
     "status": "n",
     "info": "用户名已被注册！"
@@ -2310,37 +2307,13 @@ always: null            // complete function(done|fail)
                             <tr>
                                 <td>beforeCheck</td>
                                 <td>
-                                    <p>验证前的操作，例如验证前要先检查登陆状态，这些代码应该在"beforeCheck"回调中写，如果明确"return false"的话将不会继续执行表单验证：</p>
-                                    <pre>
-                                        <code>
-  var loginForm = $('#reg_form').Validform({
-      beforeCheck:function(form){
-        //在这做验证前操作，可以通过"return false"语句中断验证
-      },
-      callback:function(res){
-        
-      }
-    });
-                                  </code>
-                                </pre>
+                                    <p>表单验证前的操作，如果明确<code>"return false"</code>将不会继续执行表单验证</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td>beforeSubmit</td>
                                 <td>
-                                    <p>验证后、提交前的操作，例如要在表单验证之后提交之前，先对某些表单数据做合并或格式转化操作，应该在"beforeSubmit"回调中做处理，如果该回调中明确 "return false" 的话,表单将不被提交：</p>
-                                    <pre>
-                                        <code>
-  var loginForm = $('#reg_form').Validform({
-      beforeSubmit:function(form){
-        //在这里对表单数组做处理，也可以通过"return false"语句中断提交
-      },
-      callback:function(res){
-        
-      }
-    });
-                                  </code>
-                                </pre>
+                                    <p>验证后、提交前的操作，如果明确<code>"return false"</code>表单将不被提交</p>
                                 </td>
                             </tr>
                         </table>
@@ -5360,7 +5333,7 @@ $('.datepicker2').datepicker({
                                 <td>默认无，自定义样式钩子</td>
                             </tr>
                             <tr>
-                                <th>onClick</th>
+                                <th>onChange</th>
                                 <td>默认无，页码改变回调，参数接收点击页码</td>
                             </tr>
                             <tr>
@@ -5392,7 +5365,7 @@ $('.datepicker2').datepicker({
         page({
             el: '.wrap',
             total:10,
-            onClick:function(page){
+            onChange: function(page){
                 console.log(page);
             }
         });
@@ -6732,8 +6705,10 @@ $('.datepicker2').datepicker({
                                     <td>
                                         <p>默认<code>null</code>，如果需要分页，可传入分页参数：
                                         <code>
-    {
-        pageSize: 5 //每页信息条数
+    {<br>
+        el: 'JQUERY SELECTER', //指定分页显示元素，若不指定将在table.options.el之后插入分页<br>
+        pageSize: 5, //每页信息条数<br>
+        onChange: function(pageNumber){} //页码变更回调<br>
     }
                                         </code></p>
                                     </td>
@@ -6827,14 +6802,172 @@ $('.datepicker2').datepicker({
                                         <p>获取/设置表格列数据</p>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>getPager</th>
+                                    <td>
+                                        <p>返回分页实例，可以获得<code>Page</code>组件的操作方法</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>size([config])</th>
+                                    <td>
+                                        <p>设置/获取当前表格实例的宽和高；</p>
+                                        <p>config对象接受"width"和"height"属性</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>reload</th>
+                                    <td>
+                                        <p>使用初始数据重载表格</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>getRows</th>
+                                    <td>
+                                        <p>返回当前(分页)的所有行数据</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>getSelected</th>
+                                    <td>
+                                        <p>返回当前所选行数据</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>scrollTo(index)</th>
+                                    <td>
+                                        <p>滚动到当前(分页)第index行，index从0开始计数</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>highlightRow(index)</th>
+                                    <td>
+                                        <p>高亮当前(分页)第index行，index从0开始计数</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>selectAll</th>
+                                    <td>
+                                        <p>全选当前(分页)所有行</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>unselectAll</th>
+                                    <td>
+                                        <p>全不选当前(分页)所有行</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>selectRow(index)</th>
+                                    <td>
+                                        <p>选择数据第index行，index从0开始计数</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>unselectRow(index)</th>
+                                    <td>
+                                        <p>取消选择数据第index行，index从0开始计数</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>getEntity(index, key)</th>
+                                    <td>
+                                        <p>获取当前(分页)第index行属性为key的单元格操作实例</p>
+                                        <p>实例具有以下方法：</p>
+                                        <table class="table">
+                                            <tr>
+                                                <td>set(key, value)</td>
+                                                <td>
+                                                    <p>设置该行数据属性为key的单元格值为value</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>toggle(key, value)</td>
+                                                <td>
+                                                    <p>切换该行数据属性为key的单元格值为value</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>get(full)</td>
+                                                <td>
+                                                    <p>返回当前单元格的值；若设置full为<code>true</code>，将返回该单元格所在行数据</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>edit([callback])</td>
+                                                <td>
+                                                    <p>使当前单元格进入编辑状态，可设置回掉函数 @param(row, key, value) : 当前行数据，当前编辑单元格key，编辑后的值</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <p> </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>updateRow(index, row)</th>
+                                    <td>
+                                        <p>更新数据队列第index行，index从0开始计数</p>
+                                        <p>row可以是当前行数据对象的子集，未包含的属性将沿用原数据</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>appendRow(row)</th>
+                                    <td>
+                                        <p>向表格末尾追加数据行</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>insertRow(start, row)</th>
+                                    <td>
+                                        <p>在数据队列第start处插入row，若start超出数据总长度，将追加到最后一行，相当于<code>appendRow(row)</code></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>deleteRow(index)</th>
+                                    <td>
+                                        <p>删除数据队列第index条</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>getChanges([type])</th>
+                                    <td>
+                                        <p>返回类型为type的数据更改，type值可选"add","update","delete"；若不传type，将返回包含所有更改类型的数据</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>sort(key, [method])</th>
+                                    <td>
+                                        <p>将属性为key的列按照method排序，method为标准排序方法，接受a,b两个参数，若不传method将使用js默认的数据sort()方法排序</p>
+                                    </td>
+                                </tr>
                             </table>
                             <h5>示例</h5>
                             <pre>
                                 <code>
     &lt;div class=&quot;mytable m&quot;&gt;&lt;/div&gt;
-    
-    &lt;div class=&quot;btn btn-default updateCol&quot;&gt;更新列&lt;/div&gt;
-    &lt;div class=&quot;btn btn-default updateData&quot;&gt;更新数据&lt;/div&gt;
+    &lt;div class=&quot;mypage m&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;m&quot;&gt;
+        &lt;div class=&quot;btn btn-default updateCol&quot;&gt;更新列&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default updateData&quot;&gt;更新数据&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default getpager&quot;&gt;操作page对象&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default resize&quot;&gt;更改尺寸&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default reload&quot;&gt;reload&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default getRows&quot;&gt;获取当前页rows&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default getSelected&quot;&gt;获取当前已选rows&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default scrollTo&quot;&gt;滚到第2行&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default highlightRow&quot;&gt;高亮第3行&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default selectAll&quot;&gt;全选&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default unselectAll&quot;&gt;全不选&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default selectRow&quot;&gt;选中第4行&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default unselectRow&quot;&gt;取消选中第4行&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default getEntity&quot;&gt;单元格实体方法&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default updateRow&quot;&gt;更新第一行数据&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default appendRow&quot;&gt;追加数据&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default insertRow&quot;&gt;再第一行后插入数据&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default deleteRow&quot;&gt;删除第二行数据&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default getChanges&quot;&gt;获取差异数据&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default sort&quot;&gt;按&quot;价格&quot;排序&lt;/div&gt;
+    &lt;/div&gt;
                                 </code>
                             </pre>
                             <pre>
@@ -6850,7 +6983,8 @@ $('.datepicker2').datepicker({
             title:'operation',
             render: function(value, rowData, index, entity){
                 if(rowData.storage &gt; 0){
-                    return $('&lt;div class=&quot;btn btn-primary btn-sm&quot;&gt;折扣&lt;/div&gt;').on('click', function(){
+                    return $('&lt;div class=&quot;btn btn-primary btn-sm&quot;&gt;折扣&lt;/div&gt;').on('click', function(e){
+                        e.stopPropagation();
                         entity.toggle('price', Math.round(rowData.price * 0.8));
                     });
                 }else{
@@ -6957,10 +7091,11 @@ $('.datepicker2').datepicker({
             width: 200,
             editable: true
         }],
-        width: 900,
-        height:350,
+        width: 800,
+        height:400,
         multi: true,
         page: {
+            el: '.mypage',
             pageSize: 5
         },
         onSelect: function(index, row, collection){
@@ -6977,6 +7112,112 @@ $('.datepicker2').datepicker({
     $('.updateData').on('click',function(){
         tableData.reverse();
         datagrid.data(tableData);
+    });
+
+    $('.getpager').on('click', function(){
+        var pager = datagrid.getPager();
+        pager.set({
+            current: 3
+        });
+    });
+    
+    $('.resize').on('click', function(){
+        var thesize = datagrid.size();
+        var sizeArray = [thesize.width, thesize.height].reverse();
+        datagrid.size({
+            width: sizeArray[0],
+            height: sizeArray[1]
+        });
+    });
+
+    $('.reload').on('click', function(){
+        datagrid.reload();
+    });
+    
+    $('.getRows').on('click', function(){
+        console.log('getRows()', datagrid.getRows());
+    });
+
+    $('.getSelected').on('click', function(){
+        console.log('getSelected()', datagrid.getSelected());
+    });
+
+    $('.scrollTo').on('click', function(){
+        datagrid.scrollTo(2);
+    });
+
+    $('.highlightRow').on('click', function(){
+        datagrid.highlightRow(3);
+    });
+
+    $('.selectAll').on('click', function(){
+        datagrid.selectAll();
+    });
+
+    $('.unselectAll').on('click', function(){
+        datagrid.unselectAll();
+    });
+
+    $('.selectRow').on('click', function(){
+        datagrid.selectRow(3);
+    });
+
+    $('.unselectRow').on('click', function(){
+        datagrid.unselectRow(3);
+    });
+
+    $('.getEntity').on('click', function(){
+        var entity = datagrid.getEntity(0, 'storage');
+        entity.edit(function(row, key, value){
+            console.log('entity.edit() ', row, key, value);
+        });
+    });
+
+    $('.updateRow').on('click', function(){
+        datagrid.updateRow(0, {
+            price: 999,
+            storage: 8888
+        });
+    });
+
+    var newRow = {
+        &quot;product&quot;: &quot;S7 Dege&quot;,
+        &quot;manufacturer&quot;: &quot;三星&quot;,
+        &quot;type&quot;: &quot;A&quot;,
+        size: {
+            &quot;width&quot;: 61.4,
+            &quot;height&quot;: 12.6,
+            &quot;length&quot;: 120.2
+        },
+        &quot;os&quot;: &quot;Android 6.1&quot;,
+        &quot;cpu&quot;: &quot;Samsung 2GHz&quot;,
+        &quot;screen&quot;: &quot;5.5&quot;,
+        &quot;touchScreen&quot;: true,
+        &quot;price&quot;: 6550,
+        &quot;storage&quot;: 8,
+        &quot;comment&quot;: &quot;弧面屏&quot;
+    };
+    
+    $('.appendRow').on('click', function(){
+        datagrid.appendRow(newRow);
+    });
+
+    $('.insertRow').on('click', function(){
+        datagrid.insertRow(1, newRow);
+    });
+
+    $('.deleteRow').on('click', function(){
+        datagrid.deleteRow(1);
+    });
+
+    $('.getChanges').on('click', function(){
+        console.log(datagrid.getChanges());
+    });
+
+    $('.sort').on('click', function(){
+        datagrid.sort('price', function(a,b){
+            return a-b;
+        });
     });
                                 </code>
                             </pre>

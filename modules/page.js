@@ -1,8 +1,8 @@
 /*
  * name: page.js
- * version: v1.0.0
- * update: extend jquery plugin & add "set" method
- * date: 2017-03-23
+ * version: v1.0.2
+ * update: onClick => onChange
+ * date: 2017-03-24
  */
 define('page', function(require, exports, module) {
 	"use strict";
@@ -22,7 +22,7 @@ define('page', function(require, exports, module) {
 			showNum: 5,
 			total: null,
 			holder: '...',
-			onClick: null,
+			onChange: null,
 			hook: '',
 			size: '', //sm | lg
 			auto: true
@@ -85,9 +85,16 @@ define('page', function(require, exports, module) {
 				pageData,
 				wrapClass = ['pagination'],
 				set = function(conf) {
-					if (pageData && conf && $.isPlainObject(conf)) {
-						pageData.current = conf.current || pageData.current;
-						pageData.total = conf.total || pageData.total;
+					var current = conf.current || pageData.current;
+					pageData.total = conf.total || pageData.total;
+					if (pageData.total < current) {
+						current = pageData.total;
+					}
+					if ($(opt.el).data('pagedata').current !== current && typeof(opt.onChange) === 'function') {
+						opt.onChange(current);
+					}
+					if (opt.auto && pageData && conf && $.isPlainObject(conf)) {
+						pageData.current = current;
 						pageData.showNum = conf.showNum || pageData.showNum;
 						render($(opt.el), pageData);
 					}
@@ -118,14 +125,9 @@ define('page', function(require, exports, module) {
 
 			$(opt.el).unbind('click').on('click', 'a[data-to]', function(e) {
 				e.preventDefault();
-				if (!$(this).parent('.active').length && typeof(opt.onClick) === 'function') {
-					opt.onClick($(this).data('to'));
-				}
-				if (opt.auto) {
-					set({
-						current: $(this).data('to')
-					});
-				}
+				set({
+					current: $(this).data('to')
+				});
 			});
 			return {
 				set: set
