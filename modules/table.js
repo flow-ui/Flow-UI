@@ -1,13 +1,11 @@
 /*
  * name: table.js
- * version: v1.1.0
- * update: add methods
- * date: 2017-03-23
+ * version: v1.1.1
+ * update: fix size() bug
+ * date: 2017-03-27
  */
- //TODO edit状态插值
 define('table', function(require, exports, module) {
 	"use strict";
-	seajs.importStyle('', module.uri);
 	require('dropdown');
 	var $ = require('jquery'),
 		base = require('base'),
@@ -715,7 +713,12 @@ define('table', function(require, exports, module) {
 					if ($.isPlainObject(sizeConf)) {
 						opt.width = sizeConf.width || opt.width;
 						opt.height = sizeConf.height || opt.height;
-						return render(opt.oData, opt);
+						if (opt.page && opt.page.pageSize) {
+							opt.holdStatus = true;
+							generate(opt.oData, opt);
+						} else {
+							render(opt.oData, opt);
+						}
 					} else {
 						return {
 							width: opt.width,
