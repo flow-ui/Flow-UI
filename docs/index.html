@@ -2792,15 +2792,27 @@ always: null            // complete function(done|fail)
                             <h5>功能列表</h5>
                             <table class="table table-bordered js-base-table">
                                 <tr>
-                                    <td>getUID</td>
+                                    <td>getUID()</td>
                                     <td>返回一个递增数字</td>
                                 </tr>
                                 <tr>
-                                    <td>getUUID</td>
+                                    <td>getUUID([length])</td>
                                     <td>返回一个随机数字字母组合，接收长度参数，不传默认6位</td>
                                 </tr>
                                 <tr>
-                                    <td>ajaxSetup</td>
+                                    <td>deepcopy(source)</td>
+                                    <td>多维数组/对象数组深拷贝</td>
+                                </tr>
+                                <tr>
+                                    <td>base.getStyle(ele,attr)</td>
+                                    <td>获取元素的属性值，ele：元素；attr：要获取的属性，返回属性值</td>
+                                </tr>
+                                <tr>
+                                    <td>$.cookie(name,value)</td>
+                                    <td>操作cookie，name：键名；value：设置为的值，一个参数取值，返回value，两个参数赋值，无返回值</td>
+                                </tr>
+                                <tr>
+                                    <td>ajaxSetup($)</td>
                                     <td>
                                         <p>$.ajax增强，对请求的json数据做如下格式要求：</p>
                                         <pre>
@@ -2855,36 +2867,36 @@ $.ajax({
                                       </pre>
                                             </li>
                                             <li><code>error</code>回调默认处理，根据ajax的四种错误原因使用box插件弹出提示</li>
-                                            <li>ajax请求合并，见 <a href="#ajaxcombo">【解决方案-AJAX合并】</a></li>
                                         </ol>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>browser</td>
                                     <td>
-                                        <p>浏览器信息：</p>
+                                        <p>获取浏览器信息：</p>
                                         <table class="table table-hover">
                                             <tr>
-                                                <th>base.browser.isMobile:</th>
+                                                <th>isMobile()</th>
                                                 <td>[boolean]是否移动设备 </td>
                                             </tr>
                                             <tr>
-                                                <th>base.browser.ie:</th>
+                                                <th>ie()</th>
                                                 <td>[number]返回ie版本，ie11及以上和非ie返回0</td>
                                             </tr>
                                             <tr>
-                                                <th>base.browser.platform:</th>
+                                                <th>platform()</th>
                                                 <td>[string]浏览器运行平台</td>
                                             </tr>
                                             <tr>
-                                                <th>base.browser.agent:</th>
+                                                <th>agent()</th>
                                                 <td>[string]浏览器用户代理头信息</td>
                                             </tr>
                                             <tr>
-                                                <th>base.browser.support3d:</th>
+                                                <th>support3d()</th>
                                                 <td>[boolean]是否支持3d转换</td>
                                             </tr>
                                         </table>
+                                        <p> </p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -2924,61 +2936,7 @@ $.ajax({
                                                 </td>
                                             </tr>
                                         </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>base.getStyle(ele,attr)</td>
-                                    <td>获取元素的属性值，ele：元素；attr：要获取的属性，返回属性值</td>
-                                </tr>
-                                <tr>
-                                    <td>$.cookie(name,value)</td>
-                                    <td>操作cookie，name：键名；value：设置为的值，一个参数取值，返回value，两个参数赋值，无返回值</td>
-                                </tr>
-                                <tr>
-                                    <td>base.toload(option)</td>
-                                    <td>
-                                        <p>通用分页加载，自动生成递增页码，支持多进程。</p>
-                                        <p></p>
-                                        <pre>
-                                <code>
-  /*
-  * @option.type(string):请求方式，默认'post'
-  * @option.url(string):请求地址，默认无
-  * @option.size(number):请求条数，默认6
-  * @option.data(object):请求参数，默认{}，不得有"page_index"和"page_size"键
-  * @option.dataType(string):返回格式，默认'json'
-  * @option.reload(boolean):初始化页码，默认false，用于实现"刷新"类功能
-  * @option.success(function):ajax成功回调，默认无
-  * @option.error(function):ajax错误回调，默认无
-  * @服务器返回值:默认需返回status键为'ok'的json，否则视为异常或没有下一页数据，若修改dataType为非json，只要有返回值就视为正常
-  */
-
-  base.toload({
-    type:'get',
-    url:seajs.root + '/test/data.json',
-    data:{
-      "method":"test"
-    },
-    success:function(data){ 
-      console.log(data);
-    }
-  });
-
-  // 服务器端将接收到的参数：
-  {
-    "method" : "test",
-    "page_index" : 0,           //从0开始，每次+1
-    "page_size" : 6
-  }
-
-  //服务器端需要返回的数据：
-  {
-    "status" : "ok",
-    "data" : ... 
-  }
-
-                                        </code>
-                                      </pre>
+                                        <p> </p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -3042,7 +3000,7 @@ $.ajax({
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>ajaxCombo</td>
+                                    <td>ajaxCombo(config)</td>
                                     <td>
                                         <p>扩展jQuery.ajax方法，使支持请求合并，设置<code>combo:true</code>ajax会被合并，集中以<code>post</code>方式发送到指定url，示例：</p>
                                         <pre>
@@ -3522,54 +3480,90 @@ $.ajax({
                     <td>city-select</td>
                     <td>
                         <h5>描述</h5>
-                        <p>封装地区选择器插件，自带模板和样式，通过触发元素弹出选择器浮层。</p>
-                        <h5>多终端</h5>
-                        <p>不支持</p>
+                        <p>地区选择器插件，返回<code>citySelect</code>方法，语法<code>citySelect(config)</code>，或使用jquery插件格式<code>$el.citySelect(config)</code>。</p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
+                                <th>el</th>
+                                <td>
+                                    <p>触发元素，默认无，直接调用citySelect方法必填，jquery插件调用时可忽略</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>textKey</th>
+                                <td>
+                                    <p>默认<code>"name"</code>，用于显示选项文字的数据属性</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>subKeys</th>
+                                <td>
+                                    <p>默认<code>['city', 'area']</code>，下级数据的key序列</p>
+                                </td>
+                            </tr>
+                            <tr>
                                 <th>data</th>
-                                <td>省市区数据，支持数组或能返回指定格式的地址字符串，格式如下：
-                                    <code>
-[{"name":"北京","id":"001","city":[{"name":"北京","id":"001","area":[{"name":"东城区","id":"001"},{"name":"西城区","id":"002"},{"name":"崇文区","id":"003"},{"name":"宣武区","id":"004"},{"name":"朝阳区","id":"005"}]}]},{"name":"河北","id":"002","city":[{"name":"石家庄","id":"002","area":[{"id":"002","name":"长安区"},{"id":"002","name":"桥东区"},{"id":"002","name":"桥西区"},{"id":"002","name":"新华区"},{"id":"002","name":"郊  区"}]}]},{"name":"台湾","id":"003","city":[{"name":"台湾","id":"003","area":[{"id":"003","name":"台北市"},{"id":"003","name":"高雄市"},{"id":"003","name":"台北县"},{"id":"003","name":"桃园县"}]},{"name":"其他","id":"004","area":[{"name":"其他","id":"004"}]}]}]
-                                    </code>
+                                <td>
+                                    <p>省市区数据，支持数组或能返回指定格式的地址字符串</p>
+                                    <p>格式不限(需正确匹配"textKey"和"subKeys"设置)</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td>readOnly</td>
-                                <td>默认<code>true</code>，若触发元素为<code>input/textarea</code>是否禁止用户输入
+                                <td>
+                                    <p>默认<code>true</code>，若触发元素为<code>input/textarea</code>是否禁止用户输入</p>
                                 </td>
                             </tr>
                             <tr>
-                                <td>callback</td>
-                                <td>选择结束回调函数，接收选择结果为参数，结果格式为所选省市区三级数据组成的数组：
-                                    <code>
-[{"name":"北京","id":"001","index":0},{"name":"北京","id":"001","index":0},{"name":"东城区","id":"001","index":0}]
-                                    </code>
+                                <td>onSelect</td>
+                                <td>
+                                    <p>选择结束回调函数，接收选择结果，格式为所选每一级数据组成的数组</p>
                                 </td>
                             </tr>
+                        </table>
+                        <h5>返回方法</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>val</th>
+                                <td>
+                                    <p>获取/设置选择器的当前值</p>
+                                    <p>设置值时需要传入textKey所配置属性值，多个值之间逗号隔开</p>
+                                </td>
+                            </tr>
+
                         </table>
                         <h5>示例</h5>
                         <pre>
                             <code>
-&lt;!-- html --&gt;
-&lt;div class=&quot;demo btn btn-default&quot;&gt;选择省市区&lt;/div&gt;
+    &lt;div class=&quot;m&quot; style=&quot;width:200px&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;demo form-control&quot; placeholder=&quot;选择地区&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;getval btn btn-default&quot;&gt;获取当前值&lt;/div&gt;
+    &lt;div class=&quot;setval btn btn-default&quot;&gt;赋值&lt;/div&gt;
                             </code>
                           </pre>
                         <pre>
                         <code>
-//js
-require('city-select');
-$('.demo').citySelect({
-  data:[{"name":"北京","id":"001","city":[{"name":"北京","id":"001","area":[{"name":"东城区","id":"001"},{"name":"西城区","id":"002"},{"name":"崇文区","id":"003"},{"name":"宣武区","id":"004"},{"name":"朝阳区","id":"005"}]}]},{"name":"河北","id":"002","city":[{"name":"石家庄","id":"002","area":[{"id":"002","name":"长安区"},{"id":"002","name":"桥东区"},{"id":"002","name":"桥西区"},{"id":"002","name":"新华区"},{"id":"002","name":"郊  区"}]}]},{"name":"台湾","id":"003","city":[{"name":"台湾","id":"003","area":[{"id":"003","name":"台北市"},{"id":"003","name":"高雄市"},{"id":"003","name":"台北县"},{"id":"003","name":"桃园县"}]},{"name":"其他","id":"004","area":[{"name":"其他","id":"004"}]}]}],
-  callback:function(result){
-    var address = '';
-    $.each(result,function(i,e){
-        address+=e.name
+    require('city-select');
+    var myselect = $('.demo').citySelect({
+        data:[{"name":"北京","id":"001","city":[{"name":"北京","id":"001","area":[{"name":"东城区","id":"001"},{"name":"西城区","id":"002"},{"name":"崇文区","id":"003"},{"name":"宣武区","id":"004"},{"name":"朝阳区","id":"005"}]}]},{"name":"河北","id":"002","city":[{"name":"石家庄","id":"002","area":[{"id":"002","name":"长安区"},{"id":"002","name":"桥东区"},{"id":"002","name":"桥西区"},{"id":"002","name":"新华区"},{"id":"002","name":"郊  区"}]}]},{"name":"台湾","id":"003","city":[{"name":"台湾","id":"003","area":[{"id":"003","name":"台北市"},{"id":"003","name":"高雄市"},{"id":"003","name":"台北县"},{"id":"003","name":"桃园县"}]},{"name":"其他","id":"004","area":[{"name":"其他","id":"004"}]}]}],
+        onSelect:function(result){
+            console.log(result);
+        var address = [];
+        $.each(result, function(i, e) {
+            address.push(e.name);
+        });
+        $(this).val(address.join(' / '));
+        }
     });
-    $('body').append('&lt;p&gt;'+address+'&lt;/p&gt;')
-  }
-});
+
+    $('.getval').on('click', function(){
+        console.log(myselect.val());
+    });
+
+    $('.setval').on('click', function(){
+        myselect.val('北京,北京,西城区');
+    });
                       </code>
                      </pre>
                     </td>
@@ -3579,8 +3573,6 @@ $('.demo').citySelect({
                     <td>
                         <h5>描述</h5>
                         <p>倒计时插件，通过重写render方法可自定义显示格式。</p>
-                        <h5>多终端</h5>
-                        <p>支持</p>
                         <h5>注意</h5>
                         <p>标准日期对象的月份设置范围是0~11，不是1~12</p>
                         <h5>配置</h5>
@@ -5374,6 +5366,92 @@ $('.datepicker2').datepicker({
                         </pre>
                     </td>
                 </tr>
+                <tr id="PagingLoad（分页加载）">
+                    <td>paging-load</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>自动生成分页参数的请求方法，调用后返回当前分页加载实例</p>
+                        <h5>配置</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>url</th>
+                                <td>默认无，必填，分页请求地址</td>
+                            </tr>
+                            <tr>
+                                <th>size</th>
+                                <td>默认<code>6</code>，每页条数，服务端将接收到此参数的实际key为<code>"page_size"</code></td>
+                            </tr>
+                            <tr>
+                                <th>data</th>
+                                <td>默认<code>{}</code>，请求参数，不得包含"page_index"和"page_size"键</td>
+                            </tr>
+                            <tr>
+                                <th>success</th>
+                                <td>ajax成功回掉</td>
+                            </tr>
+                            <tr>
+                                <th>nomore</th>
+                                <td>没有更多回掉(需符合<a href="#f_b">前后端分离</a>数据约定)</td>
+                            </tr>
+                            <tr>
+                                <th>error</th>
+                                <td>ajax错误回调</td>
+                            </tr>
+
+                        </table>
+                        <h5>实例方法</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>load</th>
+                                <td>加载新的一页，参数中将包含从<code>1</code>开始累加的<code>"page_index"</code>值</td>
+                            </tr>
+                            <tr>
+                                <th>reload</th>
+                                <td>将当前实例的页码重置为初始值</td>
+                            </tr>
+                            <tr>
+                                <th>destroy</th>
+                                <td>销毁当前实例</td>
+                            </tr>
+                        </table>
+                        <h5>示例</h5>
+                        <pre>
+                            <code>
+    &lt;div class=&quot;m&quot;&gt;打开控制台查看网络请求&lt;/div&gt;
+    &lt;div class=&quot;btn btn-default pagingLoad&quot;&gt;分页加载&lt;/div&gt;
+    &lt;div class=&quot;btn btn-default reload&quot;&gt;分页重新加载&lt;/div&gt;
+    &lt;div class=&quot;btn btn-default destroy&quot;&gt;销毁分页加载实例&lt;/div&gt;
+
+                            </code>
+                        </pre>
+                        <pre>
+                            <code>
+    var pagingLoad = require('paging-load');
+    var myload = pagingLoad({
+        url: 'http://rap.taobao.org/mockjsdata/1101/core/citylist/',
+        data: {
+            "method": "test"
+        },
+        success: function(data) {
+            console.log(data);
+        }
+    });
+
+    $('.pagingLoad').on('click', function() {
+        myload.load();
+    });
+    
+    $('.reload').on('click', function(){
+        myload.reload();
+    });
+
+    $('.destroy').on('click', function(){
+        myload.destroy();
+    });
+                            </code>
+                        </pre>
+                    </td>
+                </tr>
                 <tr id="Photowall（等高图片墙）">
                     <td>photowall</td>
                     <td>
@@ -6561,12 +6639,12 @@ $('.datepicker2').datepicker({
                                     <td>切换前事件，默认无。@param ($this,$tab_t,index) : 当前对象，标签，前去帧序号</td>
                                 </tr>
                                 <tr>
-                                    <th>callback</th>
-                                    <td>回调方法，默认无。 @param ($this,$tab_t,index) : 当前对象，标签，当前帧序号</td>
+                                    <th>onChange</th>
+                                    <td>切换回调方法，默认无。 @param ($this,$tab_t,index) : 当前对象，标签，当前帧序号</td>
                                 </tr>
                                 <tr>
-                                    <th>ext</th>
-                                    <td>扩展方法，默认无。 @param ($this,$tab_t,opts) : 当前对象，标签，配置</td>
+                                    <th>onCreate</th>
+                                    <td>创建Tab实例后扩展方法，默认无。 @param ($this,$tab_t,opts) : 当前对象，标签，配置</td>
                                 </tr>
                             </table>
                             <h5>示例</h5>

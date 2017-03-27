@@ -1,11 +1,11 @@
 /*
  * name: tab.js
- * version: v2.2.1
- * update: js-lint
- * date: 2017-02-24
+ * version: v3.0.0
+ * update: add onChange/onCreate
+ * date: 2017-03-27
  */
 define('tab', function(require, exports, module) {
-	'use strict';
+	"use strict";
 	seajs.importStyle('.tab .tab_t{cursor:pointer}.tab .tab_c{display:none}.tab .tab_c_cur{display:block}', module.uri);
 	var $ = require('jquery'),
 		def = {
@@ -20,9 +20,9 @@ define('tab', function(require, exports, module) {
 			start: 0, //初始显示，默认第一个
 			timeout: 0, //触发延迟
 			act: 'click', //触发动作
-			beforeChange:function(){},//切换前，return false将终止切换
-			callback: function() {}, //回调方法 @param ($this,$tab_t,index) : 当前对象，标签，当前帧序号
-			ext: function() {} //扩展方法 @param ($this,$tab_t,opts) : 当前对象，标签，配置
+			beforeChange: null, //切换前，return false将终止切换
+			onChange: null, //回调方法 @param ($this,$tab_t,index) : 当前对象，标签，当前帧序号
+			onCreate: null //扩展方法 @param ($this,$tab_t,opts) : 当前对象，标签，配置
 		};
 
 	$.fn.tab = function(config) {
@@ -30,29 +30,37 @@ define('tab', function(require, exports, module) {
 			var $this = $(e),
 				opt = $.extend({}, def, opt, config || {}),
 				thisPosition = $this.css('position'),
-				toggletab, tab_t_collect, tiemout, $tab_t, $tab_t_avail, $tab_c;
+				toggletab, 
+				tab_t_collect, 
+				tiemout, 
+				$tab_t, 
+				$tab_t_avail, 
+				$tab_c;
 			if ($this.data('tabruning')) return $this;
 			if (thisPosition !== 'absolute' && thisPosition !== 'fixed') {
 				thisPosition = 'relative';
 			}
-			$this.addClass('tab tabID' + parseInt(Math.random() * 1e5)).css('position', thisPosition).show();
-
+			
 			$tab_t = $this.find(opt.tabs);
 			if (!$tab_t.length) {
 				console.log('tabs not exists');
 				return $this;
 			}
-			$tab_t_avail = $tab_t.filter(function() {
-				if ($(this).attr('ignore') === void(0)) {
-					return $this;
-				}
-			}).addClass('tab_available');
 
 			$tab_c = $this.find(opt.conts).addClass('tab_c');
 			if (!$tab_c.length) {
 				console.log('tabContent not exists');
 				return $this;
 			}
+			//筛选可用tab
+			$tab_t_avail = $tab_t.filter(function() {
+				if ($(this).attr('ignore') === void(0)) {
+					return $(this);
+				}
+			}).addClass('tab_available');
+
+			$this.addClass('tab tabID' + Math.random().toString().slice(2)).css('position', thisPosition).fadeIn(160);
+
 			toggletab = function(i) {
 				$tab_t_avail.eq(i).addClass('tab_t_cur').siblings().removeClass('tab_t_cur');
 				$tab_c.eq(i).addClass('tab_c_cur').siblings().removeClass('tab_c_cur');
@@ -71,8 +79,7 @@ define('tab', function(require, exports, module) {
 			$tab_t.each(function(i, e) {
 				if (opt.posi_auto) {
 					var leftPx = 0;
-					var _i = 0;
-					for (; _i < i; _i++) {
+					for (var _i = 0; _i < i; _i++) {
 						leftPx += parseFloat($tab_t.eq(_i).outerWidth(true));
 					}
 					$(e).css({
@@ -81,10 +88,10 @@ define('tab', function(require, exports, module) {
 						'left': opt.width_auto ? 1 / $tab_t.length * 100 * i + '%' : leftPx + opt.left + opt.margin * i
 					});
 				}
-				if (i===0) {
+				if (!i) {
 					$(e).addClass('first');
 				}
-				if($tab_t.length-i===1){
+				if ($tab_t.length - i === 1) {
 					$(e).addClass('last');
 				}
 			}).on(opt.act, function(event) {
@@ -93,7 +100,7 @@ define('tab', function(require, exports, module) {
 					var index = $(this).index(tab_t_collect),
 						_timeout,
 						_last;
-					typeof(opt.beforeChange)==='function' && opt.beforeChange($this, $tab_t, index);
+					typeof(opt.beforeChange) === 'function' && opt.beforeChange($this, $tab_t, index);
 					if (event.timeStamp) {
 						_last = event.timeStamp;
 						_timeout = setTimeout(function() {
@@ -106,39 +113,38 @@ define('tab', function(require, exports, module) {
 					}
 				}
 				setTimeout(function() {
-					typeof(opt.callback)==='function' && opt.callback($this, $tab_t, index);
+					typeof(opt.onChange) === 'function' && opt.onChange($this, $tab_t, index);
 					index = _timeout = _last = null;
 				}, 0);
 			});
+
 			//启动
 			$tab_t_avail.eq(opt.start).trigger(opt.act);
 			$this.data('tabruning');
-			//扩展
-			opt.ext && opt.ext($this, $tab_t, opt);
+			
 			//自动播放
 			if ($tab_t_avail.length > 1 && opt.auto) {
-				var _start = opt.start,
+				var autoIndex = opt.start,
 					auto = function() {
-						_start = _start >= $tab_t_avail.length - 1 ? 0 : ++_start;
-						$tab_t_avail.eq(_start).trigger(opt.act);
+						autoIndex = autoIndex >= $tab_t_avail.length - 1 ? 0 : ++autoIndex;
+						$tab_t_avail.eq(autoIndex).trigger(opt.act);
 					},
-					t = setInterval(function() {
-						auto();
-					}, opt.interval);
+					t = setInterval(auto, opt.interval);
 				$tab_c.hover(function() {
 					clearInterval(t);
 				}, function() {
-					t = setInterval(function() {
-						auto();
-					}, opt.interval);
+					t = setInterval(auto, opt.interval);
 				});
-				$this.parent().on('DOMNodeRemoved',function(e){
-					if($(e.target).is($this) && t){
+				$this.parent().on('DOMNodeRemoved', function(e) {
+					if ($(e.target).is($this)) {
 						//DOM移除后释放全局变量
-						clearInterval(t);
+						t && clearInterval(t);
 					}
 				});
 			}
+			//扩展
+			typeof opt.onCreate === 'function' && opt.onCreate($this, $tab_t, opt);
+
 		});
 	};
 });

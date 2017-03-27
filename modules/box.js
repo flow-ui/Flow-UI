@@ -1,8 +1,8 @@
 /*
  * name: box.js
- * version: v3.11.0
- * update: 返回Box方法；原来box()由Box.open()代替
- * date: 2017-03-06
+ * version: v3.11.1
+ * update: 移除冗余代码
+ * date: 2017-03-27
  */
 define('box', function(require, exports, module) {
 	"use strict";
@@ -142,7 +142,6 @@ define('box', function(require, exports, module) {
 			})();
 
 			$o = {
-				id: parseInt(Math.random() * 1e6),
 				s: s,
 				ele: cont,
 				bg: $blank,

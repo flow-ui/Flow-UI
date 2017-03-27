@@ -1,8 +1,8 @@
 /*
  * name: select.js
- * version: v4.3.0
+ * version: v4.3.1
  * update: 支持级联
- * date: 2017-03-07
+ * date: 2017-03-27
  */
 define('select', function(require, exports, module) {
     "use strict";
@@ -30,7 +30,11 @@ define('select', function(require, exports, module) {
         .select-ui-options li:hover, .select-ui-options li.hover{color:#fff;background:#7b7bff}\
         .select-ui-options li._disabled:hover{color:#aaa;background:inherit}\
         .select-ui-options li._selected:hover{color:inherit;background:#eee}\
-        .select-ui-options li._hasChildren:after{content:">";position:absolute;right:.5em;}\
+        .select-ui-options li._hasChildren:before,.select-ui-options li._hasChildren:after{content:"";position:absolute;width:0;height:0;border:6px solid;top:50%;margin-top:-6px;}\
+        .select-ui-options li._hasChildren:before{right:6px;border-color:transparent transparent transparent #aaa;}\
+        .select-ui-options li._hasChildren:after{right:7px;border-color:transparent transparent transparent #fff;}\
+        .select-ui-options li:hover:after{border-left-color:#7b7bff;}\
+        .select-ui-options li._selected:after{border-left-color:#eee;}\
         .select-ui-options-top{border-bottom:0;border-radius:4px 4px 0 0}\
         .select-ui-options-bottom{border-top:0;border-radius:0 0 4px 4px}\
         .select-ui-options-top.select-ui-cascader{border-bottom:1px solid #e3e8ee;margin-bottom:-1px;}\

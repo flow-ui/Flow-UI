@@ -1,12 +1,13 @@
 /*
  * name: base
- * version: 3.2.0
- * update: 增加url对象，支持get和set方法
- * date: 2017-01-23
+ * version: 3.3.0
+ * update: 增加deepcopy方法/移除toload()
+ * date: 2017-03-27
  */
 define('base', function(require, exports, module) {
 	'use strict';
 	var $ = require('jquery');
+
 	var getUID = function() {
         var maxId = 65536;
         var uid = 0;
@@ -27,6 +28,13 @@ define('base', function(require, exports, module) {
         }
         return uuid;
     };
+    var deepcopy = function(source) {
+		var sourceCopy = source instanceof Array ? [] : {};
+		for (var item in source) {
+			sourceCopy[item] = typeof source[item] === 'object' ? deepcopy(source[item]) : source[item];
+		}
+		return sourceCopy;
+	};
 	/*
 	 * ajax优化
 	 */
@@ -238,88 +246,6 @@ define('base', function(require, exports, module) {
 			return cookieValue;
 		}
 	};
-
-	/*
-	 * 分页加载
-	 */
-	var _toload = function(option) {
-		var def = {
-				url: null,
-				size: 6,
-				data: {},
-				reload: false,
-				success: null,
-				nomore: null,
-				error: null
-			},
-			opt = $.extend({}, def, option),
-			sendParam = $.extend(true, {}, opt.data),
-			process = _toload.prototype.process,
-			trueUrl,
-			getPage,
-			i = 0,
-			n = process.length;
-		if (!opt.url) {
-			return console.warn('toload()参数缺少url');
-		}
-		trueUrl = opt.url + '?' + $.param(opt.data);
-		for (; i < n; ++i) {
-			if (process[i].url == trueUrl) {
-				if (opt.reload) {
-					getPage = null;
-					process.splice(i, 1);
-				} else {
-					getPage = process[i].getPage;
-				}
-				break;
-			}
-		}
-		if (!getPage) {
-			var newProcess = {};
-			getPage = _toload.prototype.newGetPage();
-			newProcess.url = trueUrl;
-			newProcess.getPage = getPage;
-			process.push(newProcess);
-			_toload.prototype.process = process;
-		}
-		trueUrl = null;
-		process = null;
-		sendParam.page_index = getPage();
-		sendParam.page_size = opt.size;
-		$.ajax({
-			type: 'get',
-			url: opt.url,
-			data: sendParam,
-			dataType: opt.dataType || 'json',
-			success: function(res) {
-				if ($.isPlainObject(res) && res.status === 'Y' || (res && opt.dataType != 'json')) {
-					typeof(opt.success) === 'function' && opt.success(res);
-					if ($.isPlainObject(res) && res.data && res.count) {
-						var listLength = res.data.split ? JSON.parse(res.data).length : res.data.length;
-						if (listLength + sendParam.page_size * (sendParam.page_index - 1) >= parseInt(res.count)) {
-							typeof(opt.nomore) === 'function' && opt.nomore();
-						}
-					}
-				} else {
-					console.log('数据异常页码回退');
-					getPage(true);
-					typeof(opt.success) === 'function' && opt.success(res);
-				}
-			}
-		});
-	};
-	_toload.prototype.newGetPage = function() {
-		var loadPage = 0,
-			func = function(pullback) {
-				if (pullback) {
-					return --loadPage;
-				}
-				return ++loadPage;
-			};
-		return func;
-	};
-	_toload.prototype.process = [];
-
 	/*
 	 * 函数节流
 	 * @method: 函数体; @delay: 过滤执行间隔; @duration: 至少执行一次的间隔
@@ -706,9 +632,9 @@ define('base', function(require, exports, module) {
 	module.exports = {
 		getUID: getUID,
 		getUUID: getUUID,
+		deepcopy: deepcopy,
 		browser: _browser,
 		getStyle: _getStyle,
-		toload: _toload,
 		throttle: _throttle,
 		url: {
 			get: _getUrlParam,

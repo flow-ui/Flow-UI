@@ -1,7 +1,7 @@
 /*
  * name: table.js
- * version: v1.1.1
- * update: fix size() bug
+ * version: v1.1.2
+ * update: 引入base.deepcopy()
  * date: 2017-03-27
  */
 define('table', function(require, exports, module) {
@@ -26,13 +26,6 @@ define('table', function(require, exports, module) {
 			highlight: false,
 			page: null,
 			onSelect: null // index, row, [all]
-		},
-		deepcopy = function(source) {
-			var sourceCopy = source instanceof Array ? [] : {};
-			for (var item in source) {
-				sourceCopy[item] = typeof source[item] === 'object' ? deepcopy(source[item]) : source[item];
-			}
-			return sourceCopy;
 		},
 		Table = function(config) {
 			var opt = $.extend({}, def, config || {}),
@@ -593,7 +586,7 @@ define('table', function(require, exports, module) {
 				if (flag === false || (flag !== true && multiCollection.length === $this.data('data').length)) {
 					multiCollection = [];
 				} else {
-					multiCollection = deepcopy($this.data('data'));
+					multiCollection = base.deepcopy($this.data('data'));
 				}
 				if (typeof opt.onSelect === 'function') {
 					opt.onSelect('all', null, multiCollection);
@@ -603,7 +596,7 @@ define('table', function(require, exports, module) {
 			var isEditing; //编辑状态锁
 			var tPager; //page对象
 			var generate = function(data, opt, part) {
-				var tData = deepcopy(data);
+				var tData = base.deepcopy(data);
 				isEditing = false;
 				//生成索引
 				$.each(tData, function(rowIndex, rowData) {
@@ -626,14 +619,14 @@ define('table', function(require, exports, module) {
 					$.each(tData, function(i, e) {
 						if (i % showNum === 0) {
 							if (pageTemp.length) {
-								tDataGroup.push(deepcopy(pageTemp));
+								tDataGroup.push(base.deepcopy(pageTemp));
 								pageTemp = [];
 							}
 						}
 						pageTemp.push(e);
 					});
 					if (pageTemp.length) {
-						tDataGroup.push(deepcopy(pageTemp));
+						tDataGroup.push(base.deepcopy(pageTemp));
 						pageTemp = null;
 					}
 
@@ -779,7 +772,7 @@ define('table', function(require, exports, module) {
 					return $td.data('entity');
 				},
 				updateRow: function(index, row) {
-					var cData = deepcopy(opt.oData);
+					var cData = base.deepcopy(opt.oData);
 					if (index >= cData.length) {
 						return console.warn('updateRow(): index 超出当前数据范围！');
 					}
@@ -795,7 +788,7 @@ define('table', function(require, exports, module) {
 				},
 				appendRow: function(row) {
 					if ($.isPlainObject(row)) {
-						var cData = deepcopy(opt.oData);
+						var cData = base.deepcopy(opt.oData);
 						row[indexKey] = cData.length;
 						cData.push(row);
 						changes.add.push({
@@ -807,7 +800,7 @@ define('table', function(require, exports, module) {
 				},
 				insertRow: function(start, row) {
 					if (typeof start === 'number' && $.isPlainObject(row)) {
-						var cData = deepcopy(opt.oData);
+						var cData = base.deepcopy(opt.oData);
 						if (start >= cData.length) {
 							return this.appendRow(row);
 						}
@@ -826,7 +819,7 @@ define('table', function(require, exports, module) {
 					if (index >= $this.data('data').length) {
 						return console.warn('deleteRow(): index 超出当前数据范围！');
 					}
-					var cData = deepcopy(opt.oData);
+					var cData = base.deepcopy(opt.oData);
 					var delRow = cData.splice(index, 1);
 					for (var i = index; i < cData.length; i++) {
 						cData[i][indexKey] = i;
