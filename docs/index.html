@@ -7427,7 +7427,7 @@ $().datepicker({
     TimePicker({
         el: '.demo1',
         show: true,
-        onchange: function(time) {
+        onSelect: function(time) {
             $('.demo1').text('onchange:' + time);
         }
     });
@@ -7436,7 +7436,7 @@ $().datepicker({
         format: 'hh点mm分',
         value: '11点30分',
         confirm: true,
-        onchange: function(time){
+        onSelect: function(time){
             alert('onchange:' + time);
         }
     });
