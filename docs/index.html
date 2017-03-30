@@ -3652,70 +3652,81 @@ $.ajax({
                     <td>DatePicker</td>
                     <td>
                         <h5>描述</h5>
-                        <p>jQuery日期选择器插件，支持中英文，来自<a href="https://github.com/fengyuanchen/datepicker" target="_blank">fengyuanchen/datepicker</a></p>
-                        <h5>多终端</h5>
-                        <p>支持</p>
+                        <p>日期选择器插件，基于<a href="https://github.com/fengyuanchen/datepicker" target="_blank">fengyuanchen/datepicker</a>二次开发</p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
-                                <th>autoshow</th>
-                                <td>布尔值，默认false，初始化后立即显示日历</td>
+                                <th>autoShow</th>
+                                <td>默认<code>false</code>，初始化后立即显示日历</td>
                             </tr>
                             <tr>
-                                <th>autohide</th>
-                                <td>布尔值，默认false，选择日期后自动关闭日历</td>
+                                <th>autoHide</th>
+                                <td>默认<code>false</code>，选择日期后自动关闭日历</td>
                             </tr>
                             <tr>
-                                <th>autopick</th>
-                                <td>布尔值，默认false，初始化后自动选中当前日期</td>
+                                <th>autoPick</th>
+                                <td>默认<code>false</code>，初始化后自动选中当前日期</td>
                             </tr>
                             <tr>
                                 <th>inline</th>
-                                <td>布尔值，默认false，是否以内嵌模式显示日历</td>
+                                <td>默认<code>false</code>，是否以内嵌模式显示日历</td>
                             </tr>
                             <tr>
                                 <th>container</th>
-                                <td>元素或字符串，默认null，指定放置内嵌日历的元素或元素选择器</td>
+                                <td>元素或字符串，默认<code>null</code>，指定放置内嵌日历的元素或元素选择器</td>
                             </tr>
                             <tr>
                                 <th>trigger</th>
-                                <td>元素或字符串，默认null，指定显示日历的触发器</td>
+                                <td>元素或字符串，默认<code>null</code>，指定显示日历的触发器</td>
                             </tr>
                             <tr>
                                 <th>language</th>
-                                <td>字符串，默认''，可选'zh-CN'</td>
+                                <td>界面语言，默认<code>''</code>，可选'zh-CN'</td>
                             </tr>
                             <tr>
                                 <th>format</th>
-                                <td>字符串，默认'mm/dd/yyyy'</td>
+                                <td>
+                                    <p>字符串，默认<code>'yyyy/mth/dd'</code></p>
+                                    <p>支持的格式元素: </p>
+                                    <p>
+                                                                            <code>
+    year: 'yyyy','yy'</br>
+    month: 'mth', 'm'</br>
+    day: 'dd', 'd'</br>
+    hour: 'hh'</br>
+    minute: 'mm'</br>
+    secend: 'ss'</br>
+                                        </code>
+                                    </p>
+                                </td>
                             </tr>
                             <tr>
                                 <th>date</th>
-                                <td>日期数据或字符串，默认null，初始日期，不设置选择当天</td>
+                                <td>日期数据或字符串，默认<code>null</code>，初始日期，不设置选择当天</td>
                             </tr>
                             <tr>
                                 <th>startDate</th>
-                                <td>日期数据或字符串，默认null，设置可选的起始日期</td>
+                                <td>日期数据或字符串，默认<code>null</code>，设置可选的起始日期</td>
                             </tr>
                             <tr>
                                 <th>endDate</th>
-                                <td>日期数据或字符串，默认null，设置可选的终止日期</td>
+                                <td>日期数据或字符串，默认<code>null</code>，设置可选的终止日期</td>
                             </tr>
                             <tr>
                                 <th>startView</th>
-                                <td>数值，默认0，设置初始化界面，可选0: days；1: months；2: years</td>
+                                <td>数值，默认<code>0</code>，设置初始化界面，可选0: days；1: months；2: years</td>
                             </tr>
                             <tr>
                                 <th>weekStart</th>
-                                <td>数值，默认0，设置每周的起始天，可选0: Sunday；1: Monday；2: Tuesday；3: Wednesday；4: Thursday；5: Friday；6: Saturday</td>
+                                <td>数值，默认<code>0</code>，设置每周的起始天，可选0: Sunday；1: Monday；2: Tuesday；3: Wednesday；4: Thursday；5: Friday；6: Saturday</td>
                             </tr>
                             <tr>
                                 <th>yearFirst</th>
-                                <td>布尔值，默认false，界面上将年显示到月之前</td>
+                                <td>布尔值，默认<code>false</code>，界面上将年显示到月之前</td>
                             </tr>
                             <tr>
                                 <th>yearSuffix</th>
-                                <td>字符型，默认''，年份后缀，例如可以设置为'年'</td>
+                                <td>字符型，默认<code>''</code>，年份后缀，例如可以设置为'年'</td>
                             </tr>
                             <tr>
                                 <th>days</th>
@@ -3739,31 +3750,35 @@ $.ajax({
                             </tr>
                             <tr>
                                 <th>itemTag</th>
-                                <td>字符串，默认'li'，标签名</td>
+                                <td>字符串，默认<code>'li'</code>，标签名</td>
                             </tr>
                             <tr>
                                 <th>mutedClass</th>
-                                <td>字符串，默认'muted'，设定class前缀</td>
+                                <td>字符串，默认<code>'muted'</code>，设定class前缀</td>
                             </tr>
                             <tr>
                                 <th>pickedClass</th>
-                                <td>字符串，默认'picked'，定义选中日期class</td>
+                                <td>字符串，默认<code>'picked'</code>，定义选中日期class</td>
                             </tr>
                             <tr>
                                 <th>disabledClass</th>
-                                <td>字符串，默认'disabled'，定义不可用日期class</td>
+                                <td>字符串，默认<code>'disabled'</code>，定义不可用日期class</td>
                             </tr>
                             <tr>
                                 <th>offset</th>
-                                <td>数值，默认10，日期弹出位置距离元素的距离，单位px</td>
+                                <td>数值，默认<code>10</code>，日期弹出位置距离元素的距离，单位px</td>
+                            </tr>
+                            <tr>
+                                <th>needTime</th>
+                                <td>默认<code>false</code>，是否需要时间选择器，<strong>注意：默认format不显示时间</strong></td>
                             </tr>
                             <tr>
                                 <th>zIndex</th>
-                                <td>数值，默认1，日期弹窗的z-index值</td>
+                                <td>数值，默认<code>1</code>，日期弹窗的z-index值</td>
                             </tr>
                             <tr>
                                 <th>filter</th>
-                                <td>函数，默认null，例如
+                                <td>函数，默认<code>null</code>，例如
                                     <pre>
                                         <code>
 $().datepicker({
@@ -3779,15 +3794,15 @@ $().datepicker({
                             </tr>
                             <tr>
                                 <th>show</th>
-                                <td>函数，默认null，日历显示的回调</td>
+                                <td>函数，默认<code>null</code>，日历显示的回调</td>
                             </tr>
                             <tr>
                                 <th>hide</th>
-                                <td>函数，默认null，日历隐藏的回调</td>
+                                <td>函数，默认<code>null</code>，日历隐藏的回调</td>
                             </tr>
                             <tr>
                                 <th>pick</th>
-                                <td>函数，默认null，选择日期的回调，函数event中date属性可以获得选中的日期</td>
+                                <td>函数，默认<code>null</code>，选择日期的回调，函数event中date属性可以获得选中的日期</td>
                             </tr>
                         </table>
                         <h5>方法</h5>
@@ -3795,25 +3810,31 @@ $().datepicker({
                         <h5>示例</h5>
                         <pre>
                             <code>
-&lt;p&gt; 普通 &lt;/p&gt;
-&lt;input class=&quot;datepicker&quot;&gt;
-&lt;p&gt; 内嵌 &lt;/p&gt;
-&lt;input class=&quot;datepicker2&quot;&gt;
-
+    &lt;p&gt; 普通 &lt;/p&gt;
+    &lt;input class=&quot;datepicker&quot;&gt;
+    &lt;p&gt; 自动关闭/值选择年月 &lt;/p&gt;
+    &lt;input class=&quot;datepicker2&quot;&gt;
+    &lt;p&gt; 选择时间 &lt;/p&gt;
+    &lt;input class=&quot;datepicker3&quot;&gt;
                           </code>
                         </pre>
                         <pre>
                             <code>
-require('datepicker');
+    require('datepicker');
 
-$('.datepicker').datepicker({
-  language: 'zh-CN'
-});
+    $('.datepicker').datepicker({
+      language: 'zh-CN'
+    });
 
-$('.datepicker2').datepicker({
-  autohide: true,
-  format:'yyyy/mm'
-});
+    $('.datepicker2').datepicker({
+      autoHide: true,
+      format:'yyyy/mth'
+    });
+
+    $('.datepicker3').datepicker({
+        needTime: true,
+        format:'yyyy/mth/dd hh:mm:ss'
+    }); 
 
                           </code>
                         </pre>
@@ -5387,11 +5408,11 @@ $('.datepicker2').datepicker({
                             </tr>
                             <tr>
                                 <th>success</th>
-                                <td>ajax成功回掉</td>
+                                <td>ajax成功回调</td>
                             </tr>
                             <tr>
                                 <th>nomore</th>
-                                <td>没有更多回掉(需符合<a href="#f_b">前后端分离</a>数据约定)</td>
+                                <td>没有更多回调(需符合<a href="#f_b">前后端分离</a>数据约定)</td>
                             </tr>
                             <tr>
                                 <th>error</th>
@@ -6794,7 +6815,7 @@ $('.datepicker2').datepicker({
                                 <tr>
                                     <th>onSelect</th>
                                     <td>
-                                        <p>默认无，单选/多选回掉方法。</p>
+                                        <p>默认无，单选/多选回调方法。</p>
                                         <p>@param(index, row, [rowArray]) : 当前选中行数，当前行数据，所有选中行数据数组(仅多选有此参数)</p>
                                     </td>
                                 </tr>
@@ -6974,7 +6995,7 @@ $('.datepicker2').datepicker({
                                             <tr>
                                                 <td>edit([callback])</td>
                                                 <td>
-                                                    <p>使当前单元格进入编辑状态，可设置回掉函数 @param(row, key, value) : 当前行数据，当前编辑单元格key，编辑后的值</p>
+                                                    <p>使当前单元格进入编辑状态，可设置回调函数 @param(row, key, value) : 当前行数据，当前编辑单元格key，编辑后的值</p>
                                                 </td>
                                             </tr>
                                         </table>
@@ -7361,9 +7382,21 @@ $('.datepicker2').datepicker({
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>onchange</th>
+                                    <th>onReady</th>
                                     <td>
-                                        默认无，时间发生变化时触发回调，参数接收格式化后的值
+                                        默认无，插件初始化完成回调 @param(parsedTime, timeData) : 格式化后的时间字符串，时间对象
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>onChange</th>
+                                    <td>
+                                        默认无，当confirm为true时的点选回调 @param(parsedTime, timeData) : 格式化后的时间字符串，时间对象
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>onSelect</th>
+                                    <td>
+                                        默认无，选择时间回调 @param(parsedTime, timeData) : 格式化后的时间字符串，时间对象
                                     </td>
                                 </tr>
                             </table>
@@ -7846,8 +7879,7 @@ $.ajax({
         'album/album'                   : 1,  //修改版本号更新对应的插件缓存
         'hook/hook'                     : 1,
         'jquery/1/jquery'               : 1,
-        'jquery/2/jquery'               : 1,
-        'My97DatePicker/WdatePicker'    : 1
+        'jquery/2/jquery'               : 1
         //...
         }
     //...

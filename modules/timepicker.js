@@ -1,14 +1,14 @@
 /*
  * name: timepicker.js
- * version: v0.0.1
- * update: build
- * date: 2017-03-08
+ * version: v0.1.0
+ * update: add onReady/onSelect method & add jsonValue output
+ * date: 2017-03-30
  */
 define('timepicker', function(require, exports, module) {
 	"use strict";
 	seajs.importStyle('.timepicker-ui{white-space:nowrap;overflow:hidden;border-radius: 4px; box-shadow: 0 1px 6px rgba(0,0,0,.2);}\
 		.timepicker-ui ul{display:inline-block;vertical-align:top;width: 60px;max-height: 144px;overflow: hidden;border-left:1px solid #e3e8ee;margin-left:-1px;}\
-		.timepicker-ui ul:hover{overflow:auto;}\
+		.timepicker-ui ul:hover{overflow-y:auto;}\
 		.timepicker-ui li{height: 24px;line-height: 24px;width:100%; padding: 0 0 0 16px;text-align: left;user-select: none;cursor: pointer;transition: background .2s ease-in-out;}\
 		.timepicker-ui li:hover,.timepicker-ui li._check{background:#f3f3f3}\
 		.timepicker-ui-confirm{border-top: 1px solid #e3e8ee;text-align: right;padding: 8px;clear: both;}', module.uri);
@@ -24,7 +24,9 @@ define('timepicker', function(require, exports, module) {
 			checkClass: 'text-primary',
 			confirm: false,
 			show: false,
-			onchange: null
+			onReady: null,
+			onChange: null,
+			onSelect: null
 		},
 		pad = function(num, n) {
 			if (typeof num === 'number') {
@@ -104,11 +106,14 @@ define('timepicker', function(require, exports, module) {
 					scrollTop: $liHeight * ($(ul).find('._check').data('index'))
 				}, 300);
 			});
+			opt.jsonValue = result;
 			opt.value = dateRender(result, opt.format);
 			return opt.value;
 		},
 		TimePicker = function(config) {
 			var opt = $.extend({}, def, config || {});
+			var jsonValue;
+			var parsedValue;
 			if (!$(opt.el).length) {
 				return console.warn('timepicker:el元素不存在!');
 			}
@@ -118,8 +123,10 @@ define('timepicker', function(require, exports, module) {
 			if (!$.trim(opt.value)) {
 				opt.value = dateRender(new Date(), opt.format);
 			}
+			jsonValue = timeParser(opt.value, opt.format);
+			parsedValue = dateRender(jsonValue, opt.format);
 			if ($(opt.el).prop('value') !== void(0)) {
-				$(opt.el).val(dateRender(timeParser(opt.value, opt.format), opt.format));
+				$(opt.el).val(parsedValue);
 			}
 			opt.checkClass = $.trim(opt.checkClass) + ' _check';
 			var pickerGenerate = function() {
@@ -142,25 +149,33 @@ define('timepicker', function(require, exports, module) {
 							$(opt.el).val(result);
 						}
 						if (publish) {
-							if (typeof opt.onchange === 'function') {
-								opt.onchange(result);
+							if (typeof opt.onSelect === 'function') {
+								opt.onSelect(result, opt.jsonValue);
 							}
+						} else if (typeof opt.onChange === 'function') {
+							opt.onChange(result, opt.jsonValue);
 						}
-					}).on('click', 'li', function() {
+					}).on('click', 'li', function(e) {
+						e.stopPropagation();
 						$(this).addClass(opt.checkClass).siblings().removeClass(opt.checkClass);
 						$timepicker.trigger('update', !opt.confirm);
 					});
 					if (opt.confirm) {
-						$timepicker.on('click', '._clear', function() {
+						$timepicker.on('click', '._clear', function(e) {
+							e.stopPropagation();
 							$timepicker.find('._check').removeClass(opt.checkClass).end().trigger('update', true);
 							timepickerObject.hide();
-						}).on('click', '._conf', function() {
+						}).on('click', '._conf', function(e) {
+							e.stopPropagation();
 							$timepicker.trigger('update', true);
 							timepickerObject.hide();
 						});
 					}
 				}
 			});
+			if(typeof opt.onReady === 'function'){
+				opt.onReady(parsedValue, jsonValue);
+			}
 			return timepickerObject;
 		};
 
