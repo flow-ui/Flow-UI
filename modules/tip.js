@@ -199,7 +199,7 @@ define('tip', function(require, exports, module) {
 						.css({
 							'left': _tipLeft,
 							'top': _tipTop,
-							'zIndex': base.getIndex()
+							'z-index': base.getIndex()
 						}).stop(true).fadeIn(160).unbind().data('from', $this);
 
 					if (opt.modal && opt.trigger === 'click') {
