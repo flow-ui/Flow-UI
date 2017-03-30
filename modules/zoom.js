@@ -1,8 +1,8 @@
 /*
  * name: zoom.js
- * version: v2.0.3
- * update: bug fix
- * date: 2017-01-09
+ * version: v2.0.4
+ * update: 引入全局状态管理
+ * date: 2017-03-30
  */
 define('zoom', function(require, exports, module) {
 	"use strict";
@@ -11,6 +11,7 @@ define('zoom', function(require, exports, module) {
 		.jqZoomPup{position:absolute;border:1px solid #aaa;background:#fff;background:rgba(255,255,255,.4);filter:alpha(Opacity=50);cursor:move;z-index:9;display:none}',
 		module.uri);
 	var $ = require('jquery'),
+		base = require('base'),
 		ready = require('img-ready'),
 		MouseEvent = function(e) {
 			this.x = e.pageX;
@@ -31,7 +32,7 @@ define('zoom', function(require, exports, module) {
 	$.fn.zoom = function(config) {
 		return $(this).each(function(i, e) {
 			var $this = $(e),
-				opt = $.extend(def, config || {}),
+				opt = $.extend({}, def, config || {}),
 				imageLeft, imageTop, imageWidth, imageHeight, imagePaddingTop,
 				imagePaddingLeft, bigimage, bigwidth, bigheight, dragzoom;
 			if ($this.find('img').length !== 1) {
@@ -79,7 +80,6 @@ define('zoom', function(require, exports, module) {
 			var offsetTarget = $(opt.offsetTarget).length ? $(opt.offsetTarget).eq(0) : $this,
 				offsetWidth = offsetTarget.outerWidth(),
 				offsetLeft = offsetTarget.offset().left,
-				offsetTop = offsetTarget.offset().top,
 				leftpos;
 
 			// 大图位置
@@ -133,10 +133,11 @@ define('zoom', function(require, exports, module) {
 				$this.find('.jqZoomPup').show();
 				$("#zoomdiv").css({
 					"display": "block",
-					"top": offsetTop,
+					"top": offsetTarget.offset().top,
 					"left": leftpos,
 					"width": opt.zoomWidth,
-					"height": opt.zoomHeight
+					"height": opt.zoomHeight,
+					"z-index": base.getIndex()
 				}).html('<img src="' + bigimage + '"/>');
 				setTimeout(function() {
 					$('#zoomdiv').addClass('active');

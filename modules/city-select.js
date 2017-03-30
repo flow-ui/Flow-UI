@@ -1,8 +1,8 @@
 /*
  * name: city-selector.js
- * version: v1.0.0
- * update: callback => onSelect; add val() method
- * date: 2017-03-27
+ * version: v1.0.1
+ * update: 引入全局层级管理
+ * date: 2017-03-30
  */
 define('city-select', function(require, exports, module) {
 	'use strict';
@@ -51,6 +51,7 @@ define('city-select', function(require, exports, module) {
 				_data,
 				_result = [],
 				opt;
+			citySelectorTarget.css('zIndex', base.getIndex());
 			if (citySelectorThis && citySelectorThis.length) {
 				citySelectorTarget.data('el', citySelectorThis);
 			} else {

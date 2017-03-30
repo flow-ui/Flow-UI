@@ -1,8 +1,8 @@
 /*
  * name: tip.js
- * version: v1.4.0
- * update: 增加disabled方法
- * date: 2017-03-09
+ * version: v1.4.1
+ * update: 引入全局层级管理
+ * date: 2017-03-30
  */
 define('tip', function(require, exports, module) {
 	'use strict';
@@ -24,6 +24,7 @@ define('tip', function(require, exports, module) {
 		.tip-bottom .tip-arr{border-bottom-color:#ccc;top:-12px;left:50%;margin-left:-6px}\
 		.tip-bottom .tip-arr-cell{border-bottom-color:#fff;top:-11px;left:50%;margin-left:-6px}', module.uri);
 	var $ = require('jquery'),
+		base = require('base'),
 		def = {
 			el: null,
 			trigger: 'hover', // hover | click | custom
@@ -96,7 +97,7 @@ define('tip', function(require, exports, module) {
 						} else {
 							_classCatch += 'tip-withObject ';
 						}
-						if ($(_mytip).get(0).tagName === 'IMG') {
+						if ($(_mytip).get(0).tagName.toLowerCase() === 'img') {
 							//ie8图片无法撑开宽度bug
 							_tipObj = $('<div />').width($(_mytip).width()).append($(_mytip).show());
 						} else {
@@ -197,7 +198,8 @@ define('tip', function(require, exports, module) {
 					$tipbox
 						.css({
 							'left': _tipLeft,
-							'top': _tipTop
+							'top': _tipTop,
+							'zIndex': base.getIndex()
 						}).stop(true).fadeIn(160).unbind().data('from', $this);
 
 					if (opt.modal && opt.trigger === 'click') {

@@ -1,8 +1,8 @@
 /*
 * name: validform.js
-* version: v2.4.4
-* update: 重复提交bug
-* data: 2017-03-13
+* version: v2.4.5
+* update: checkbox 多值提交bug
+* data: 2017-03-24
 */
 define('validform',function(require, exports, module) {
 	"use strict";
@@ -687,14 +687,28 @@ define('validform',function(require, exports, module) {
 					}else{
 						_formData = curform.serializeArray();
 					}
-					$.each(_formData,function(i,e){
-						_sendData[e.name] = e.value;
+					$.each(_formData, function(i,e){
+						if(_sendData[e.name] === void 0){
+							_sendData[e.name] = e.value;
+						}else {
+							if(!$.isArray(_sendData[e.name])){
+								_sendData[e.name] = [_sendData[e.name]];
+							}
+							_sendData[e.name].push(e.value);
+						}
 					});
+					var dynamicAjaxData;
+					if(typeof settings.ajaxData=='function'){
+						dynamicAjaxData=settings.ajaxData();
+					}else{
+						dynamicAjaxData=settings.ajaxData||{};
+					}
+					$.extend(_sendData,  dynamicAjaxData);
 
 					var localconfig = {
 						type: "POST",
 						async: true,
-						data: $.extend(_sendData, settings.ajaxData || {}),
+						data: _sendData, //$.extend(_sendData, settings.ajaxData || {}),
 						dataType: settings.dataType || 'json',
 						success: function(data) {
 							if (data) {

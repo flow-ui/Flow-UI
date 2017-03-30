@@ -1,8 +1,8 @@
 /*
  * name: box.js
- * version: v3.11.1
- * update: 移除冗余代码
- * date: 2017-03-27
+ * version: v3.11.2
+ * update: 引入全局层级管理
+ * date: 2017-03-30
  */
 define('box', function(require, exports, module) {
 	"use strict";
@@ -138,6 +138,7 @@ define('box', function(require, exports, module) {
 						bgclose: s.bgclose,
 						setposi: s.setposi
 					})
+					.css('zIndex', base.getIndex())
 					.appendTo('body');
 			})();
 

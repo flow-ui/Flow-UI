@@ -1,14 +1,24 @@
 /*
  * name: mouseMenu
- * version: v1.0.0
- * update: 内嵌style
- * data: 2015-05-09
+ * version: v1.0.1
+ * update: 引入全局层级管理
+ * data: 2017-03-30
  * base on: zhangxinxu
  */
 define('mousemenu',function(require, exports, module) {
-    seajs.importStyle('.smart_menu_box{display:none;width:140px;position:absolute;z-index:99}.smart_menu_body{padding:1px;border:1px solid #b8cbcb;background-color:#fff;box-shadow:2px 2px 5px #666}.smart_menu_ul{margin:0;padding:0;list-style-type:none}.smart_menu_li{position:relative}.smart_menu_a{display:block;height:25px;line-height:24px;padding:0 5px 0 25px;color:#000;font-size:12px;text-decoration:none;overflow:hidden}.smart_menu_a:hover,.smart_menu_a_hover{background-color:#348ccc;color:#fff;text-decoration:none}.smart_menu_li_separate{line-height:0;margin:3px;border-bottom:1px solid #b8cbcb;font-size:0}.smart_menu_triangle{width:0;height:0;border:5px dashed transparent;border-left:5px solid #666;overflow:hidden;position:absolute;top:7px;right:5px}.smart_menu_a:hover .smart_menu_triangle,.smart_menu_a_hover .smart_menu_triangle{border-left-color:#fff}.smart_menu_li_hover .smart_menu_box{top:-1px;left:130px}'
+    seajs.importStyle('.smart_menu_box{display:none;width:140px;position:absolute;z-index:99}\
+        .smart_menu_body{padding:1px;border:1px solid #b8cbcb;background-color:#fff;box-shadow:2px 2px 5px #666}\
+        .smart_menu_ul{margin:0;padding:0;list-style-type:none}\
+        .smart_menu_li{position:relative}\
+        .smart_menu_a{display:block;height:25px;line-height:24px;padding:0 5px 0 25px;color:#000;font-size:12px;text-decoration:none;overflow:hidden}\
+        .smart_menu_a:hover,.smart_menu_a_hover{background-color:#348ccc;color:#fff;text-decoration:none}\
+        .smart_menu_li_separate{line-height:0;margin:3px;border-bottom:1px solid #b8cbcb;font-size:0}\
+        .smart_menu_triangle{width:0;height:0;border:5px dashed transparent;border-left:5px solid #666;overflow:hidden;position:absolute;top:7px;right:5px}\
+        .smart_menu_a:hover .smart_menu_triangle,.smart_menu_a_hover .smart_menu_triangle{border-left-color:#fff}\
+        .smart_menu_li_hover .smart_menu_box{top:-1px;left:130px}'
         ,module.uri)
     var $ = require('jquery'),
+        base = require('base'),
         D = $(document).data("func", {});
     $.mousemenu = function(){};
     $.fn.mousemenu = function(data, options) {
@@ -78,7 +88,7 @@ define('mousemenu',function(require, exports, module) {
                         '</div>' +
                         '</div>';
                 }
-                return htmlMenu;
+                return $(htmlMenu).css('zIndex', base.getIndex());
             },
             funSmartMenu = function() {
                 var idKey = "#mousemenu_",
@@ -170,4 +180,4 @@ define('mousemenu',function(require, exports, module) {
             }
         }
     });
-})
+});

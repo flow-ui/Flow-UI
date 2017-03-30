@@ -1,8 +1,8 @@
 /*
  * name: select.js
- * version: v4.3.1
- * update: 支持级联
- * date: 2017-03-27
+ * version: v4.3.2
+ * update: 引入全局层级管理
+ * date: 2017-03-30
  */
 define('select', function(require, exports, module) {
     "use strict";
@@ -621,7 +621,10 @@ define('select', function(require, exports, module) {
                             .addClass(chooseHookTop);
                         selectOptionsCss.top = selectChooseOS.top - selectOptions.outerHeight();
                     }
-                    selectOptions.data('choosetarget', thischoose).css("top", selectOptionsCss.top);
+                    selectOptions.data('choosetarget', thischoose).css({
+                        "top": selectOptionsCss.top,
+                        "z-index": base.getIndex()
+                    });
                     setTimeout(function() {
                         selectOptions.addClass('on');
                     }, 0);

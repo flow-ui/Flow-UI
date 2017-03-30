@@ -1,8 +1,8 @@
 /*
  * name: notice.js
- * version: v0.0.1
- * update: build
- * date: 2017-03-06
+ * version: v0.0.2
+ * update: 引入全局层级管理
+ * date: 2017-03-30
  */
 define('notice', function(require, exports, module) {
 	"use strict";
@@ -16,6 +16,7 @@ define('notice', function(require, exports, module) {
 		.notice-just-title .notice-content{padding:20px;}\
 		.notice-just-title .notice-close{top:20px;}', module.uri);
 	var $ = require('jquery'),
+		base = require('base'),
 		def = {
 			title: '',
 			desc: '',
@@ -55,6 +56,7 @@ define('notice', function(require, exports, module) {
     '</div>\
     <a class="notice-close">×</a>\
 </div>');
+		$queue.css('zIndex', base.getIndex());
 		addToQueue($ele.data('opt', opt));
 		if(opt.delay){
 			setTimeout(function(){

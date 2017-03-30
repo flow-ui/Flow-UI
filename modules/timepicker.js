@@ -1,12 +1,12 @@
 /*
  * name: timepicker.js
- * version: v0.1.0
- * update: add onReady/onSelect method & add jsonValue output
+ * version: v0.1.1
+ * update: default background 
  * date: 2017-03-30
  */
 define('timepicker', function(require, exports, module) {
 	"use strict";
-	seajs.importStyle('.timepicker-ui{white-space:nowrap;overflow:hidden;border-radius: 4px; box-shadow: 0 1px 6px rgba(0,0,0,.2);}\
+	seajs.importStyle('.timepicker-ui{background:#fff;white-space:nowrap;overflow:hidden;border-radius: 4px; box-shadow: 0 1px 6px rgba(0,0,0,.2);}\
 		.timepicker-ui ul{display:inline-block;vertical-align:top;width: 60px;max-height: 144px;overflow: hidden;border-left:1px solid #e3e8ee;margin-left:-1px;}\
 		.timepicker-ui ul:hover{overflow-y:auto;}\
 		.timepicker-ui li{height: 24px;line-height: 24px;width:100%; padding: 0 0 0 16px;text-align: left;user-select: none;cursor: pointer;transition: background .2s ease-in-out;}\
@@ -133,6 +133,7 @@ define('timepicker', function(require, exports, module) {
 				var timedate = timeParser(opt.value, opt.format);
 				return domRender(timedate, opt);
 			};
+
 			var timepickerObject = Tip(pickerGenerate, {
 				el: opt.el,
 				trigger: opt.trigger,

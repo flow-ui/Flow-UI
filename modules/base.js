@@ -1,8 +1,8 @@
 /*
  * name: base
- * version: 3.3.0
- * update: 增加deepcopy方法/移除toload()
- * date: 2017-03-27
+ * version: 3.3.1
+ * update: 增加getIndex()
+ * date: 2017-03-30
  */
 define('base', function(require, exports, module) {
 	'use strict';
@@ -16,6 +16,7 @@ define('base', function(require, exports, module) {
             return uid;
         };
     } ();
+
     var getUUID = function(len) {
         len = len || 6;
         len = parseInt(len, 10);
@@ -28,6 +29,11 @@ define('base', function(require, exports, module) {
         }
         return uuid;
     };
+
+    var getIndex = function(){
+    	return 99 + getUID();
+    };
+
     var deepcopy = function(source) {
 		var sourceCopy = source instanceof Array ? [] : {};
 		for (var item in source) {
@@ -632,6 +638,7 @@ define('base', function(require, exports, module) {
 	module.exports = {
 		getUID: getUID,
 		getUUID: getUUID,
+		getIndex: getIndex,
 		deepcopy: deepcopy,
 		browser: _browser,
 		getStyle: _getStyle,

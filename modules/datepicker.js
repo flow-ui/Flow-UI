@@ -1,7 +1,7 @@
 /*
  * name: datepicker.js
- * version: v2.0.0
- * update: mm => mth / add needTime option
+ * version: v2.0.1
+ * update: 引入全局层级管理
  * date: 2017-03-30
  * base: https://github.com/fengyuanchen/datepicker
  */
@@ -32,6 +32,7 @@ define('datepicker', function(require, exports, module) {
     .datepicker-hide{display:none}", module.uri);
 
   var $ = require('jquery');
+  var base = require('base');
   var $window = $(window);
   var document = window.document;
   var $document = $(document);
@@ -198,7 +199,7 @@ define('datepicker', function(require, exports, module) {
       this.$trigger = $(options.trigger);
       this.isInput = $this.is('input') || $this.is('textarea');
       this.isInline = options.inline && (options.container || !this.isInput);
-      this.needTime = !!options.needTime;
+      this.needTime = options.needTime;
       this.format = parseFormat(options.format);
       this.oldValue = this.initialValue = this.getValue();
       date = this.parseDate(date || this.initialValue);
@@ -273,13 +274,14 @@ define('datepicker', function(require, exports, module) {
         this.$times = $('<div class="btn btn-default btn-block" data-view="times">选择时间</div>');
         this.$picker.append(this.$times);
         require.async('timepicker', function() {
-          that.$times.timepicker({
+          console.log(that.needTime)
+          that.$times.timepicker($.extend($.isPlainObject(that.needTime) ? that.needTime : {}, {
             confirm: true,
             onChange: syncTimeData,
             onSelect: function(time, data){
               syncTimeData(time, data, "close");
             }
-          });
+          }));
         });
       }
       this.$week = $picker.find('[data-view="week"]');
@@ -482,7 +484,7 @@ define('datepicker', function(require, exports, module) {
       $picker.removeClass(CLASS_PLACEMENTS).addClass(placement).css({
         top: top,
         left: left,
-        zIndex: parseInt(options.zIndex, 10)
+        zIndex: base.getIndex() || parseInt(options.zIndex, 10)
       });
     },
 
@@ -1528,7 +1530,7 @@ define('datepicker', function(require, exports, module) {
     offset: 10,
 
     // The `z-index` of the datepicker
-    zIndex: 1000,
+    zIndex: 99,
 
     // Filter each date item (return `false` to disable a date item)
     filter: null,
