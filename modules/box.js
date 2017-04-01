@@ -1,7 +1,7 @@
 /*
  * name: box.js
- * version: v3.11.2
- * update: 引入全局层级管理
+ * version: v3.11.3
+ * update: 背景层通用
  * date: 2017-03-30
  */
 define('box', function(require, exports, module) {
@@ -72,12 +72,16 @@ define('box', function(require, exports, module) {
 			color: "info", //msg方法情景色，info，primary，success，warning，danger
 			animate: true
 		},
+		$blank;
+	if ($("#boxBlank").length) {
 		$blank = $("#boxBlank");
-	if (!$blank.length) {
-		$blank = $('<div id="boxBlank" style="display:none; position:fixed;z-index:98;left:0;top:0;width:100%;height:100%;background:#000;" onselectstart="return false" />');
+	}else{
+		$blank = $('<div id="boxBlank" style="position:fixed;z-index:98;left:0;top:0;width:100%;height:100%;background: #000;" onselectstart="return false" />');
 		$('body').append($blank);
 	}
-	
+	if(!$blank.data('call')){
+		$blank.hide();
+	}
 	//全局配置
 	if (window.innerWidth < 640) {
 		def.animate = false;
@@ -132,11 +136,11 @@ define('box', function(require, exports, module) {
 				}
 
 				return result.addClass(s.hook + ' box-wrap-out ')
-					.attr('box-ui-bg', !!s.bg)
 					.data({
 						protect: s.protect,
 						bgclose: s.bgclose,
-						setposi: s.setposi
+						setposi: s.setposi,
+						bg: s.bg
 					})
 					.css('zIndex', base.getIndex())
 					.appendTo('body');
@@ -183,6 +187,11 @@ define('box', function(require, exports, module) {
 			if (!s.bg) {
 				Box.bgCheck();
 			} else {
+				if($blank.data('call')){
+					$blank.data('call', $blank.data('call') + 1);
+				}else{
+					$blank.data('call', 1);
+				}
 				$blank.show();
 			}
 			if (s.bar && s.shut) {
@@ -269,7 +278,7 @@ define('box', function(require, exports, module) {
 			return $o;
 		},
 		bgCheck: function() {
-			if (!$('.box-wrap-out[box-ui-bg=true]').length) {
+			if (!$blank.data('call')) {
 				setTimeout(function() {
 					$blank.hide();
 				}, 0);
@@ -297,16 +306,21 @@ define('box', function(require, exports, module) {
 						var $ele = that.find('.box-wrap-body').length ? that.find('.box-wrap-body').children() : that.children();
 						$ele.hide().appendTo($("body"));
 					}
+					if(that.data('bg') && $blank.data('call')){
+						$blank.data('call', $blank.data('call') - 1);
+					}
 					that.remove();
-					Box.bgCheck();
 				});
-				return null;
+				return Box.bgCheck();
 			} else if ($o.ele && $o.out.length && $o.out.css("display") !== "none") {
 				var to = $o.s.animate ? 200 : 0;
 				if ($o.s.setposi && $o.s.animate) {
 					$o.out.removeClass('show');
 				} else {
 					$o.out.removeClass('action-sheet-up');
+				}
+				if($o.s.bg && $blank.data('call')){
+					$blank.data('call', $blank.data('call') - 1);
 				}
 				setTimeout(function() {
 					if ($o.s.protect) {

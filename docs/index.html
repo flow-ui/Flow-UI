@@ -590,6 +590,13 @@
                 <li><a href="javascript:;">下一页</a></li>
             </ul>
         </div>
+        <h4>Spin</h4>
+        <div class="wrap">
+            <div class="p-lg pr">
+                <div class="spin-wrap text-primary"><div class="spin-main"><div class="spin-text"><i class="ion spin-icon-load">&#xe66e;</i><div>Loading</div></div></div></div>
+            </div>
+        </div>
+
         <h3 id="css-compile">定制与编译</h3>
         <p>Flow-UI基于<code>less</code>实现UI组件化，从全站样式中抽离出配置文件，可实现灵活的风格控制和组件选配，要充分发挥Flow-UI的定制性，需要搭配自动化编译工具<a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>使用。</p>
         <p>进一步了解<a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>的详细介绍。</p>
@@ -1495,6 +1502,27 @@
                             <td>.m-tb-lg</td>
                             <td>上下方向margin较大距离</td>
                         </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id="spin（等待动画）">
+                <td>spin.less</td>
+                <td>
+                    <p>当区块正在获取数据中时可使用，适当的等待动画可以提升用户体验。</p>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>.spin-icon-load</td>
+                            <td>图标匀速旋转动画</td>
+                        </tr>
+                        <tr>
+                            <td>.spin-size-sm</td>
+                            <td>小尺寸等待动画</td>
+                        </tr>
+                        <tr>
+                            <td>.spin-size-lg</td>
+                            <td>大尺寸等待动画</td>
+                        </tr>
+                        
                     </table>
                 </td>
             </tr>
@@ -6608,6 +6636,94 @@ $().datepicker({
                             </pre>
                         </td>
                     </tr>
+                    <tr id="Spin（等待动画）">
+                        <td>Spin</td>
+                        <td>
+                            <h5>描述</h5>
+                            <p>等待动画插件，返回<code>Spin</code>方法，语法<code>Spin(config)</code>，或使用jquery插件语法<code>$el.Spin(config)</code></p>
+                            <h5>配置</h5>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>el</th>
+                                    <td>
+                                        <p>默认null，等待动画的覆盖元素，不填默认为"body"</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>icon</th>
+                                    <td>
+                                        <p>默认<code>"&amp;#xe66e;"</code>，字体图标代码</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>text</th>
+                                    <td>
+                                        <p>默认<code>"Loading"</code>，提示文字</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>color</th>
+                                    <td>
+                                        <p>默认无，可选Color组件中的颜色</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>size</th>
+                                    <td>
+                                        <p>默认<code>"default"</code>，可选"sm" | "lg"</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>hook</th>
+                                    <td>
+                                        <p>默认无，可添加自定义样式名</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>iconRoate</th>
+                                    <td>
+                                        <p>默认<code>true</code>，图标是否旋转</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>timeout</th>
+                                    <td>
+                                        <p>默认<code>0</code>，自动关闭时间，单位ms</p>
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                            <h5>返回方法</h5>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>hide</th>
+                                    <td>
+                                        <p>关闭动画并销毁实例</p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <h5>示例</h5>
+                            <pre>
+                                <code>
+    &lt;div class=&quot;test m-lg p-lg pr&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;btn btn-default open&quot;&gt;打开Spin&lt;/div&gt;
+    &lt;div class=&quot;btn btn-default close&quot;&gt;关闭Spin&lt;/div&gt;
+                                </code>
+                            </pre>
+                            <pre>
+                                <code>
+    require('spin');
+    var loading;
+    $('.open').on('click', function(){
+        loading = $('.test').spin() || loading;
+    });
+    $('.close').on('click', function(){
+        loading &amp;&amp; loading.hide();
+    });
+                                </code>
+                            </pre>
+                        </td>
+                    </tr>
                     <tr id="Tab（选项卡）">
                         <td>tab</td>
                         <td>
@@ -6722,7 +6838,8 @@ $().datepicker({
                                 <tr>
                                     <th>data</th>
                                     <td>
-                                        <p>显示的结构化数据，数据格式，默认无</p>
+                                        <p>用于展示的结构化数据，数组格式，默认无</p>
+                                        <p>也可以传入url字符串，用于ajax请求数据</p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -6884,6 +7001,12 @@ $().datepicker({
                                     <td>
                                         <p>默认无，数据过滤使用的方法数组。</p>
                                         <p>数据对象包含<code>"lable"</code>属性和<code>"filter"</code>属性，分别代表过滤项名称和对应过滤方法，方法接收当前值，返回<code>true</code>则通过过滤</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>validateMethod</th>
+                                    <td>
+                                        <p>验证方法，接受单元格编辑后的值，验证通过需要明确<code>return true;</code></p>
                                     </td>
                                 </tr>
                             </table>
@@ -7095,13 +7218,29 @@ $().datepicker({
         },{
             title: '图片',
             render: function(value, rowData, index){
-                return '&lt;img src=&quot;http://bsdn.org/projects/dorado7/deploy/sample-center/dorado/res/com/bstek/dorado/sample/data/images/'+rowData.product+'-24.png&quot; alt=&quot;data.product&quot; style=&quot;max-height:28px&quot; /&gt;';
+                var smallImg = $('&lt;img src=&quot;http://bsdn.org/projects/dorado7/deploy/sample-center/dorado/res/com/bstek/dorado/sample/data/images/'+rowData.product+'-24.png&quot; alt=&quot;data.product&quot; style=&quot;max-height:28px&quot; /&gt;');
+                smallImg.tip('&lt;img src=&quot;http://bsdn.org/projects/dorado7/deploy/sample-center/dorado/res/com/bstek/dorado/sample/data/images/'+rowData.product+'-128.png&quot; style=&quot;width:128px;&quot; /&gt;',{
+                    type: 'content'
+                });
+                return smallImg;
             }
         },{
             title:'产品',
             key:'product',
             width: 125,
             sortable: true,
+            validateMethod: function(value){
+                if(value &amp;&amp; value.split &amp;&amp; value.length < 10){
+                    return true;
+                }
+                require.async('notice', function(Notice){
+                    Notice({
+                        title: '请输入长度小于10的字符串！',
+                        color:'warning',
+                        delay: 2000
+                    });
+                });
+            },
             editable: function(rowIndex, key, value){
                 console.log(rowIndex, key, value);
             }
@@ -7360,7 +7499,7 @@ $().datepicker({
                                 <tr>
                                     <th>place</th>
                                     <td>
-                                        默认<code>"bottom-left"</code>，选择器出现位置，选项同Tip插件
+                                        默认<code>"bottom-center"</code>，选择器出现位置，选项同Tip插件
                                     </td>
                                 </tr>
                                 <tr>

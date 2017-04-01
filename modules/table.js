@@ -1,8 +1,9 @@
 /*
  * name: table.js
- * version: v1.1.2
- * update: 引入base.deepcopy()
- * date: 2017-03-27
+ * version: v1.2.0
+ * update: 编辑验证/远程数据
+ * date: 2017-03-31
+ TODO: sort filter 传参
  */
 define('table', function(require, exports, module) {
 	"use strict";
@@ -12,14 +13,14 @@ define('table', function(require, exports, module) {
 		def = {
 			el: null,
 			data: null,
-			column: null, // title,key,render,width,align,hook,ellipsis,editable,sortable,filterMethod,
+			column: null, // title,key,render,width,align,hook,ellipsis,editable,sortable,filterMethod,validateMethod,
 			striped: false,
 			bordered: false,
 			condensed: false,
 			hover: true,
 			width: 0,
 			height: 0,
-			index: false,
+			index: true,
 			multi: false,
 			noDataText: "暂无数据",
 			noFilterText: '暂无筛选结果',
@@ -29,7 +30,13 @@ define('table', function(require, exports, module) {
 		},
 		Table = function(config) {
 			var opt = $.extend({}, def, config || {}),
-				$this = $(opt.el).eq(0);
+				$this = $(opt.el).eq(0),
+				changes = {
+					add: [],
+					update: [],
+					delete: []
+				},
+				ajaxParam;
 			if (!$this.length) {
 				return null;
 			}
@@ -114,7 +121,12 @@ define('table', function(require, exports, module) {
 									});
 									if (targetCol) {
 										var targetTd = getTd(rowIndex, rowData, targetCol);
+										var fixedTable = $this.find('.table-fixed tbody');
+										var fixTdIndex = $this.find('.row' + rowIndex + '-' + key).index();
 										$this.find('.row' + rowIndex + '-' + key).replaceWith(inject(targetTd));
+										if(fixedTable.length){
+											fixedTable.children('tr').eq(rowIndex).children('td').eq(fixTdIndex).html($this.find('.row' + rowIndex + '-' + key).html());
+										}
 									}
 									return rowData;
 								}
@@ -151,7 +163,7 @@ define('table', function(require, exports, module) {
 								}
 								if ($dom.length) {
 									isEditing = true;
-									//api操作不可编辑单元格
+									//使api操作不可编辑单元格
 									$dom.addClass('table-cell-editable');
 									var that = this;
 									var oldValue = opt.oData[rowData[indexKey]][col.key];
@@ -162,19 +174,37 @@ define('table', function(require, exports, module) {
 									} else {
 										inputHTML = '<textarea class="form-control table-cell-editer">' + nowText + '</textarea>';
 									}
-									var $input = $(inputHTML).on('blur', function() {
+									var $input = $(inputHTML).on('blur', function(e) {
 										var newValue = $(this).val();
-										if (typeof oldValue === 'number') {
-											newValue = isNaN(parseFloat(newValue)) ? 0 : parseFloat(newValue);
+										var isValid = true;
+										if(typeof col.validateMethod === 'function'){
+											isValid = col.validateMethod(newValue);
+										}
+										if(!isValid){
+											return e.preventDefault();
 										}
 										var newRow = that.set(col.key, newValue);
 										isEditing = false;
 										if (oldValue !== newValue) {
-											changes.update.push({
-												index: rowData[indexKey],
-												row: newRow,
-												origin: opt.data[rowData[indexKey]]
+											var updateObject;
+											$.each(changes.update, function(i, u){
+												if(u.index === rowData[indexKey]){
+													updateObject = {
+														arrayIndex: i
+													};
+													return false;
+												}
 											});
+											if(updateObject !== void 0){
+												changes.update[updateObject.arrayIndex].row = newRow;
+											}else{
+												changes.update.push({
+													index: rowData[indexKey],
+													row: newRow,
+													origin: opt.rowData[rowData[indexKey]]
+												});
+											}
+											
 											if (typeof col.editable === 'function') {
 												col.editable(rowData[indexKey], col.key, newValue);
 											}
@@ -405,14 +435,14 @@ define('table', function(require, exports, module) {
 						tbodyUpdateFixed.each(function(row, tr) {
 							$(tr).find('td').each(function(i, td) {
 								if (i > opt.fixedIndex) {
-									$(td).html('-').attr('class', 'tofixed');
+									$(td).attr('class', 'tofixed');
 								}
 							});
 						});
 						tbodyUpdate.each(function(row, tr) {
 							$(tr).find('td').each(function(i, td) {
 								if (i <= opt.fixedIndex) {
-									$(td).html('-').attr('class', 'tofixed');
+									$(td).attr('class', 'tofixed');
 								}
 							});
 						});
@@ -481,18 +511,19 @@ define('table', function(require, exports, module) {
 					$fixed.find('.table-body tr').each(function(row, tr) {
 						$(tr).find('td').each(function(i, td) {
 							if (i > opt.fixedIndex) {
-								$(td).html('-').removeAttr('class');
+								$(td).removeAttr('class');
 							}
 						});
 					});
 					tableObj.children('.table-body tr').each(function(row, tr) {
 						$(tr).find('td').each(function(i, td) {
 							if (i <= opt.fixedIndex) {
-								$(td).html('-').removeAttr('class');
+								$(td).removeAttr('class');
 							}
 						});
 					});
 				}
+				//注入二次渲染元素
 				$.each(opt.renderCollection, function(i, renderObj) {
 					if (renderObj.entity) {
 						tableObj.find('#' + renderObj.id).parents('td').data('entity', renderObj.entity);
@@ -677,12 +708,36 @@ define('table', function(require, exports, module) {
 					}
 				}
 			};
-			generate(opt.data, opt);
-			var changes = {
-				add: [],
-				update: [],
-				delete: []
-			};
+
+			if($.isArray(opt.data) && opt.length){
+				opt.rowData = opt.data;
+				generate(opt.rowData, opt);
+			}else if(opt.data && opt.data.split){
+				ajaxParam = opt.ajaxParam || {};
+				if(!$this.height()){
+					$this.height($this.height() || opt.height || 200);
+				}
+				require.async('spin', function(){
+					var loading = $this.spin({
+						icon: '&#xe66e;'
+					});
+					$.ajax({
+						url: opt.data,
+						dataType: 'json',
+						data: ajaxParam,
+						success: function(res){
+							loading.hide();
+							if($.isArray(res) && res.length){
+								opt.rowData = res;
+								generate(opt.rowData, opt);
+							}
+						}
+					});
+				});
+			}else{
+				return console.warn('Table(): data 配置异常！');
+			}
+
 			return {
 				data: function(data) {
 					if (data && $.isArray(data)) {
@@ -720,7 +775,7 @@ define('table', function(require, exports, module) {
 					}
 				},
 				reload: function() {
-					generate(opt.data, opt);
+					generate(opt.rowData, opt);
 				},
 				getRows: function() {
 					return $this.data('data');
@@ -782,7 +837,7 @@ define('table', function(require, exports, module) {
 					changes.update.push({
 						index: newRow[indexKey],
 						row: newRow,
-						origin: opt.data[newRow[indexKey]]
+						origin: opt.rowData[newRow[indexKey]]
 					});
 					return generate(cData, opt);
 				},

@@ -1,8 +1,8 @@
 /*
  * name: tip.js
- * version: v1.4.1
- * update: 引入全局层级管理
- * date: 2017-03-30
+ * version: v1.4.3
+ * update: 默认place => bottom-center
+ * date: 2017-04-01
  */
 define('tip', function(require, exports, module) {
 	'use strict';
@@ -28,7 +28,7 @@ define('tip', function(require, exports, module) {
 		def = {
 			el: null,
 			trigger: 'hover', // hover | click | custom
-			place: 'left-center', // [posi]-[posi]-[in or null]，前两项必须，表示位置，第三项表示从内部定位，可省
+			place: 'bottom-center', // [posi]-[posi]-[in or null]，前两项必须，表示位置，第三项表示从内部定位，可省
 			title: false, // title text | false
 			hasarr: true, // 有无箭头
 			offset: 0, // 提示框与元素间距，默认0
@@ -46,19 +46,31 @@ define('tip', function(require, exports, module) {
 	<div class="tip-object" id="tip-object"></div>\
 	<i class="tip-arr" id="tip-arr"></i><i class="tip-arr-cell" id="tip-arr-cell"></i>\
 </div>',
-		$blank = $("#boxBlank"),
+		$blank,
 		$tipbox = $('#tip-box'),
 		closeTip = function($this, opt) {
 			$tipbox.hide().find('#tip-object').empty();
 			$this.removeClass('showTip');
-			if (opt.modal) $blank.hide();
+			if (opt.modal){
+				if($blank.data('call')){
+					$blank.data('call', $blank.data('call') - 1);
+				}
+				
+				if(!$blank.data('call')){
+					$blank.hide();
+				}
+			} 
 			if (typeof(opt.onclose) === 'function') opt.onclose();
 		};
-	if ($blank.length) {
+	if ($("#boxBlank").length) {
+		$blank = $("#boxBlank");
+	}else{
 		$blank = $('<div id="boxBlank" style="position:fixed;z-index:98;left:0;top:0;width:100%;height:100%;background: #000;" onselectstart="return false" />');
 		$('body').append($blank);
 	}
-
+	if(!$blank.data('call')){
+		$blank.hide();
+	}
 	if (!$tipbox.length) {
 		$tipbox = $(tipBoxHtml);
 		$('body').append($tipbox);
@@ -99,7 +111,7 @@ define('tip', function(require, exports, module) {
 						}
 						if ($(_mytip).get(0).tagName.toLowerCase() === 'img') {
 							//ie8图片无法撑开宽度bug
-							_tipObj = $('<div />').width($(_mytip).width()).append($(_mytip).show());
+							_tipObj = $('<div />').append($(_mytip).show()).width($(_mytip).width() || 'auto');
 						} else {
 							_tipObj = $(_mytip).show();
 						}
@@ -203,6 +215,11 @@ define('tip', function(require, exports, module) {
 						}).stop(true).fadeIn(160).unbind().data('from', $this);
 
 					if (opt.modal && opt.trigger === 'click') {
+						if($blank.data('call')){
+							$blank.data('call', $blank.data('call') + 1);
+						}else{
+							$blank.data('call', 1);
+						}
 						$blank.show();
 					}
 					if (opt.trigger === 'hover') {
