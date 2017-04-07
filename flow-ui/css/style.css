@@ -163,6 +163,17 @@ th {
 .placeholder {
   color: #aaa;
 }
+.bread {
+  font-size: 14px;
+  color: #555555;
+}
+.bread > .bread-sep {
+  margin: 0 .5em;
+  color: #999999;
+}
+.bread > span.bread-link {
+  font-weight: 700;
+}
 .btn {
   font-size: 14px;
   font-weight: normal;
