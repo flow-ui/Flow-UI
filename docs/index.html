@@ -5491,68 +5491,6 @@ $().datepicker({
                         </pre>
                     </td>
                 </tr>
-                <tr id="Photowall（等高图片墙）">
-                    <td>photowall</td>
-                    <td>
-                        <h5>描述</h5>
-                        <p>类似百度图片搜索结果页的等高图片墙效果</p>
-                        <h5>配置</h5>
-                        <table class="table table-hover">
-                            <tr>
-                                <th>$this</th>
-                                <td>图片列表选择器</td>
-                            </tr>
-                            <tr>
-                                <th>items</th>
-                                <td>图片单元选择器</td>
-                            </tr>
-                            <tr>
-                                <th>border</th>
-                                <td>间距，默认10，单位px</td>
-                            </tr>
-                        </table>
-                        <h5>示例</h5>
-                        <pre>
-                            <code>
-  &lt;style&gt;
-  /* css */
-  .imgList .imgItem ,.imgList .imgItem a img { display: inline-block; *display: inline;
-  zoom: 1; vertical-align: top; overflow: hidden; }
-  &lt;/style&gt;
-                            </code>
-                            <code>
-  &lt;!-- html --&gt;
-  &lt;div class=&quot;imgList&quot;&gt;
-     &lt;div class=&quot;imgItem&quot;&gt; &lt;a href=&quot;&quot;&gt; &lt;img src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/view0.jpg&quot; &gt; &lt;/a&gt; &lt;/div&gt;
-     &lt;div class=&quot;imgItem&quot;&gt; &lt;a href=&quot;&quot;&gt; &lt;img src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/view1.jpg&quot; &gt; &lt;/a&gt; &lt;/div&gt;
-     &lt;div class=&quot;imgItem&quot;&gt; &lt;a href=&quot;&quot;&gt; &lt;img src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/view2.jpg&quot; &gt; &lt;/a&gt; &lt;/div&gt;
-     &lt;div class=&quot;imgItem&quot;&gt; &lt;a href=&quot;&quot;&gt; &lt;img src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/view3.jpg&quot; &gt; &lt;/a&gt; &lt;/div&gt;
-     &lt;div class=&quot;imgItem&quot;&gt; &lt;a href=&quot;&quot;&gt; &lt;img src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/view4.jpg&quot; &gt; &lt;/a&gt; &lt;/div&gt;
-     &lt;div class=&quot;imgItem&quot;&gt; &lt;a href=&quot;&quot;&gt; &lt;img src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/view5.jpg&quot; &gt; &lt;/a&gt; &lt;/div&gt;
-     &lt;div class=&quot;imgItem&quot;&gt; &lt;a href=&quot;&quot;&gt; &lt;img src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/view6.jpg&quot; &gt; &lt;/a&gt; &lt;/div&gt;
-     &lt;div class=&quot;imgItem&quot;&gt; &lt;a href=&quot;&quot;&gt; &lt;img src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/view7.jpg&quot; &gt; &lt;/a&gt; &lt;/div&gt;
-     &lt;div class=&quot;imgItem&quot;&gt; &lt;a href=&quot;&quot;&gt; &lt;img src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/view0.jpg&quot; &gt; &lt;/a&gt; &lt;/div&gt;
-     &lt;div class=&quot;imgItem&quot;&gt; &lt;a href=&quot;&quot;&gt; &lt;img src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/view1.jpg&quot; &gt; &lt;/a&gt; &lt;/div&gt;
-     &lt;div class=&quot;imgItem&quot;&gt; &lt;a href=&quot;&quot;&gt; &lt;img src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/view2.jpg&quot; &gt; &lt;/a&gt; &lt;/div&gt;
-     &lt;div class=&quot;imgItem&quot;&gt; &lt;a href=&quot;&quot;&gt; &lt;img src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/view3.jpg&quot; &gt; &lt;/a&gt; &lt;/div&gt;
-     &lt;div class=&quot;imgItem&quot;&gt; &lt;a href=&quot;&quot;&gt; &lt;img src=&quot;http://7xnt8z.com1.z0.glb.clouddn.com/view4.jpg&quot; &gt; &lt;/a&gt; &lt;/div&gt;
-  &lt;/div&gt;
-                            </code>
-                        </pre>
-                        <pre>
-                            <code>
-  //js
-  require.async('photowall',function(photowall){
-   photowall({
-      $this:$('.imgList'),   //图片列表容器
-      items:'.imgItem',      //图片单元
-      border:10              //间距，默认10px
-      })
-   })
-                            </code>
-                        </pre>
-                    </td>
-                </tr>
                 <tr id="Placeholder">
                     <td>placeholder</td>
                     <td>
