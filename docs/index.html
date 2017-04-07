@@ -27,7 +27,7 @@
     <section class="wrap" id="overall">
         <h2>概述</h2>
         <h3 id="overall-intro">关于</h3>
-        <p> Flow-UI是一套轻量级的前端UI框架，基于<a href="http://seajs.org/docs/" target="_blank">Seajs</a> 实现js模块化开发，内置多种业务场景解决方案。</p>
+        <p> <strong class="text-primary">Flow-UI</strong> 是一套组件化UI框架，支持定制主题，主要服务于前台及中后台产品。</p>
         <h4>兼容性</h4>
         <p>IE8+</p>
         <h4>目录结构</h4>
@@ -46,18 +46,19 @@
   |    |-- pjax-page-1/2.html       //PJAX场景示例
   |    |-- seajs.config.js          //站点配置文件
   |    `-- favicon.ico 
-  ·-- modules/                  //seajs模块库（可选）
-  
+  ·-- modules/                  //本地模块库（可选）
                 </code>
           </pre>
         <h3 id="getStart">使用</h3>
         <h4 id="download">下载</h4>
-        <p>Github下载：<a href="https://github.com/tower1229/Flow-UI" target="_blank">Flow-UI</a></p>
-        <p>自动化工具：<a href="https://github.com/tower1229/Flow-CLI" target="_blank">Flow-CLI</a></p>
+        <p>Github：<a href="https://github.com/tower1229/Flow-UI" target="_blank">Flow-UI</a></p>
+        <p>OsChina: <a href="http://git.oschina.net/tower1229/Flow-UI" target="_blank">Flow-UI</a></p>
         <h4>快速开始</h4>
         <p>1. 拷贝<code>flow-ui/</code>和<code>modules/</code>到项目中；</p>
         <p>2. 根据需要修改配置，<code>seajs.config.js</code>包含框架所需的所有配置；</p>
         <p>3. 启动本地服务，访问 <a href="http://localhost/flow-ui/index.html" target="_blank">http://localhost/flow-ui/index.html</a></p>
+        <h4>自动化工具</h4>
+        <p><a href="https://github.com/tower1229/Flow-CLI" target="_blank">Flow-CLI</a></p>
         <h4>配置</h4>
         <table class="table table-hover">
             <tr>
@@ -598,18 +599,88 @@
             </div>
         </div>
 
-        <h3 id="css-compile">定制与编译</h3>
-        <p>Flow-UI基于<code>less</code>实现UI组件化，从全站样式中抽离出配置文件，可实现灵活的风格控制和组件选配，要充分发挥Flow-UI的定制性，需要搭配自动化编译工具<a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>使用。</p>
-        <p>进一步了解<a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>的详细介绍。</p>
+        <h3 id="css-compile">定制主题</h3>
+        <p>Flow-UI基于<code>less</code>实现UI组件化，从全站样式中抽离出配置文件，可实现灵活的风格控制和组件选配，要充分发挥Flow-UI的定制性，需要搭配自动化编译工具 <a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>使用，示例主题配置如下：</p>
+        <pre>
+            <code>
+//文字
+@font-size:         14px;
+@font-size-lg:      16px;
+@font-size-sm:      12px;
+@line-height:       1.7;
+@font-family:       Arial, 'Hiragino Sans GB', 'WenQuanYi Micro Hei', '\5fae\8f6f\96c5\9ed1', 'SimSun', sans-serif;
+
+//基础色
+@black:             #000;
+@light:             #fff;
+
+@gray-darker:       lighten(@black, 13.5%); // #222
+@gray-dark:         lighten(@black, 20%);   // #333
+@gray:              lighten(@black, 33.5%); // #555
+@gray-light:        lighten(@black, 60%);   // #999
+@gray-lighter:      lighten(@black, 93.5%); // #eee
+
+@text-color:        @gray;
+@link-color:        inherit;
+@link-color-hover:  @primary;
+@selected:          #39f;
+@placeholder:       #aaa;
+@border:            #e8e9eb;
+
+//情景色
+@primary:           #1d6fb8;
+@primary-dark:      darken(@primary, 20%);
+@auxiliary:         #ff6e0a;
+@auxiliary-dark:    darken(@auxiliary, 20%);
+@info:              #4fcbf0;
+@info-dark:         darken(@info, 20%);
+@success:           #25ae88;
+@success-dark:      darken(@success, 20%);
+@warning:           #fec14c;
+@warning-dark:      darken(@warning, 20%);
+@danger:            #fd7b6d;
+@danger-dark:       darken(@danger, 20%);
+
+//间距
+@space:             1.6 * @font-size;
+@space-sm:          1 * @font-size;
+@space-lg:          2.4 * @font-size;
+
+//版式
+@view-width:        1200px;
+@radius:            4px;
+
+//响应节点
+@Pc:                1024px;
+@Pad:               640px;
+
+//grid.less
+@gridColumns:       12;
+@gridGutter:        2%;
+//form.less
+@form-base-height: round(@font-size * 2.3);
+@form-sm-height: round(@font-size-sm * 2.1);
+@form-lg-height: round(@font-size-lg * 2.5);
+@form-base-space: round(@line-height / 3 * @font-size);
+@form-lg-space: round(@line-height / 2.5 * @font-size);
+//iconsprite.less
+ @sprite-matrix:    5;
+ @sprite-width:     25px;
+//btn.less
+@btn-base-height: @form-base-height;
+@btn-sm-height: @form-sm-height;
+@btn-lg-height: @form-lg-height;
+//dl.less
+@dl-label-width:    10em;
+//table.less
+@table-head-height: 40px;
+            </code>
+        </pre>
+        <p>点此进一步了解<a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>。</p>
         <h3 id="css-component">组件列表</h3>
         <nav class="modules_index" id="component_index"></nav>
-        <table class="table table-bordered m-t" id="component_list">
-            <tr id="icon（图标）">
-                <td>Flow-ICON</td>
-                <td>
-                    <p>详情访问<a href="https://github.com/tower1229/Flow-ICON" target="_blank" class="btn btn-link">Flow-ICON</a>项目主页。</p>
-                </td>
-            </tr>
+        <p></p>
+        <table class="table table-bordered" id="component_list">
             <tr id="btn（按钮）">
                 <td>btn.less</td>
                 <td>
@@ -837,13 +908,13 @@
                         <tr>
                             <td>.dl</td>
                             <td>
-                                美化dl元素
+                                美化  <code>dl</code>元素
                             </td>
                         </tr>
                         <tr>
                             <td>.dl-table</td>
                             <td>
-                                叠加提供对齐定义列表样式
+                                与.dl叠加提供左侧对齐样式
                             </td>
                         </tr>
                     </table>
@@ -901,221 +972,187 @@
                 <p></p>
                     <table class="table table-hover">
                         <tr>
-                            <td>.form-inline</td>
+                            <td style="width:7em">.form-inline</td>
                             <td>
-                            <p>定义一个内联表单</p>
-                                <pre>
-                                    <code>
+                                <p>定义一个内联表单</p>
+                                    <p><code>
     &lt;form class=&quot;form-inline&quot;&gt;
         ...
     &lt;/form&gt;
-                                    </code>
-                                </pre>
+                                    </code></p>
                             </td>
                         </tr>
                         <tr>
                             <td>.form-horizontal</td>
                             <td>
-                            <p>定义一个整行排列表单</p>
-                                <pre>
-                                    <code>
+                                <p>定义一个整行排列表单</p>
+                                    <p><code>
     &lt;form class=&quot;form-horizontal&quot;&gt;
         ...
     &lt;/form&gt;
-                                    </code>
-                                </pre>
+                                    </code></p>
                             </td>
                         </tr>
                         <tr>
                             <td>.form-group</td>
                             <td>
-                            <p>在表单内定义一行，增加行下边距，整行表单中通常配合栅格系统使用</p>
-                                <pre>
-                                    <code>
+                                <p>在表单内定义一行，增加行下边距，整行表单中通常配合栅格系统使用</p>
+                                <p><code>
     &lt;div class=&quot;form-group row&quot;&gt;
         &lt;div class=&quot;span-2&quot;&gt;&lt;/div&gt;
         &lt;div class=&quot;span-10&quot;&gt;&lt;/div&gt;
     &lt;/div&gt;
-                                    </code>
-                                </pre>
+                                    </code></p>
                             </td>
                         </tr>
                         <tr>
                             <td>.form-group-sm</td>
                             <td>
-                            <p>叠加定义一个较小尺寸的行，内部元素自动缩小</p>
-                                <pre>
-                                    <code>
+                                <p>叠加定义一个较小尺寸的行，内部元素自动缩小</p>
+                                <p><code>
     &lt;div class=&quot;form-group form-group-sm row&quot;&gt;
         &lt;div class=&quot;span-2&quot;&gt;&lt;/div&gt;
         &lt;div class=&quot;span-10&quot;&gt;&lt;/div&gt;
     &lt;/div&gt;
-                                    </code>
-                                </pre>
+                                    </code></p>
                             </td>
                         </tr>
                         <tr>
                             <td>.form-group-lg</td>
                             <td>
-                            <p>叠加定义一个较小尺寸的行，内部元素自动放大</p>
-                                <pre>
-                                    <code>
+                                <p>叠加定义一个较小尺寸的行，内部元素自动放大</p>
+                                <p><code>
     &lt;div class=&quot;form-group form-group-lg row&quot;&gt;
         &lt;div class=&quot;span-2&quot;&gt;&lt;/div&gt;
         &lt;div class=&quot;span-10&quot;&gt;&lt;/div&gt;
     &lt;/div&gt;
-                                    </code>
-                                </pre>
+                                    </code></p>
                             </td>
                         </tr>
                         <tr>
                             <td>.form-control</td>
                             <td>
-                            <p>用于普通<code>input</code>元素</p>
-                                <pre>
-                                    <code>
+                                <p>用于普通<code>input</code>元素</p>
+                                <p><code>
     &lt;input type=&quot;text&quot; class=&quot;form-control&quot;&gt;
-                                    </code>
-                                </pre>
+                                    </code></p>
                             </td>
                         </tr>
                         <tr>
                             <td>.radio</td>
                             <td>
                                 <p>定义一个radio元素组合</p>
-                                <pre>
-                                    <code>
+                                <p><code>
     &lt;label class=&quot;radio&quot;&gt;
         &lt;input type=&quot;radio&quot; value=&quot;1&quot;&gt;radio
     &lt;/label&gt;
-                                    </code>
-                                </pre>
+                                    </code></p>
                             </td>
                         </tr>
                         <tr>
                             <td>.radio-inline</td>
                             <td>
                                 <p>叠加更改radio组合为内联样式</p>
-                                <pre>
-                                    <code>
+                                <p><code>
     &lt;label class=&quot;radio radio-inline&quot;&gt;
         &lt;input type=&quot;radio&quot; value=&quot;1&quot;&gt;radio
     &lt;/label&gt;
-                                    </code>
-                                </pre>
+                                    </code></p>
                             </td>
                         </tr>
                         <tr>
                             <td>.checkbox</td>
                             <td>
                                 <p>定义一个checkbox元素组合</p>
-                                <pre>
-                                    <code>
+                                <p><code>
     &lt;label class=&quot;checkbox&quot;&gt;
         &lt;input type=&quot;checkbox&quot; value=&quot;1&quot;&gt;checkbox
     &lt;/label&gt;
-                                    </code>
-                                </pre>
+                                    </code></p>
                             </td>
                         </tr>
                         <tr>
                             <td>.checkbox-inline</td>
                             <td>
                                 <p>叠加更改checkbox组合为内联样式</p>
-                                <pre>
-                                    <code>
+                                <p><code>
     &lt;label class=&quot;checkbox checkbox-inline&quot;&gt;
         &lt;input type=&quot;checkbox&quot; value=&quot;1&quot;&gt;checkbox
     &lt;/label&gt;
-                                    </code>
-                                </pre>
+                                    </code></p>
                             </td>
                         </tr>
                         <tr>
                             <td>.help-block</td>
                             <td>
                                 <p>定义一条帮助信息</p>
-                                <pre>
-                                    <code>
+                                <p><code>
     &lt;div class=&quot;help-block&quot;&gt;
         帮助信息
     &lt;/div&gt;
-                                    </code>
-                                </pre>
+                                    </code></p>
                             </td>
                         </tr>
                         <tr>
                             <td>.form-control-static</td>
                             <td>
                                 <p>定义一个与form-control元素登高的行</p>
-                                <pre>
-                                    <code>
+                                <p><code>
     &lt;div class=&quot;form-control-static&quot;&gt;
         ...
     &lt;/div&gt;
-                                    </code>
-                                </pre>
+                                    </code></p>
                             </td>
                         </tr>
                         <tr>
                             <td>.control-label</td>
                             <td>
                                 <p>定义一个与form-control元素对齐的提示元素</p>
-                                <pre>
-                                    <code>
+                                <p><code>
     &lt;div class=&quot;form-control-static&quot;&gt;
         请输入姓名
     &lt;/div&gt;
-                                    </code>
-                                </pre>
+                                    </code></p>
                             </td>
                         </tr>
                         <tr>
                             <td>.input-sm</td>
                             <td>
                                 <p>叠加更改为较小尺寸</p>
-                                <pre>
-                                    <code>
+                                <p><code>
     &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot;&gt;
-                                    </code>
-                                </pre>
+                                    </code></p>
                             </td>
                         </tr>
                         <tr>
                             <td>.input-lg</td>
                             <td>
                                 <p>叠加更改为较大尺寸</p>
-                                <pre>
-                                    <code>
+                                <p><code>
     &lt;input type=&quot;text&quot; class=&quot;form-control input-lg&quot;&gt;
-                                    </code>
-                                </pre>
+                                    </code></p>
                             </td>
                         </tr>
                         <tr>
                             <td>.form-mark</td>
                             <td>
                                 <p>定义一个醒目标记元素</p>
-                                <pre>
-                                    <code>
+                                <p><code>
     &lt;div class=&quot;control-label&quot;&gt;
     请输入：&lt;big class=&quot;form-mark&quot;&gt;*&lt;/big&gt;
     &lt;/div&gt;
-                                    </code>
-                                </pre>
+                                    </code></p>
                             </td>
                         </tr>
                         <tr>
                             <td>.disabled</td>
                             <td>
                                 <p>叠加更改为不可用状态</p>
-                                <pre>
-                                    <code>
+                                <p><code>
     &lt;label class=&quot;checkbox disabled&quot;&gt;
         &lt;input type=&quot;checkbox&quot; value=&quot;1&quot;&gt;checkbox
     &lt;/label&gt;
-                                    </code>
-                                </pre>
+                                    </code></p>
                             </td>
                         </tr>
                     </table>
@@ -1125,7 +1162,6 @@
             <tr id="grid（栅格系统）">
                 <td>grid.less</td>
                 <td>
-                    <p>兼容IE7+的12列响应式栅格系统。</p>
                     <h5>基础栅格</h5>
                     <pre>
     <code>
@@ -1154,29 +1190,9 @@
     </code>
 </pre>
                     <h5>栅格辅助工具</h5>
-                    <pre>
-    <code>
-    &lt;div class=&quot;row&quot;&gt;
-       &lt;div class=&quot;span-8 center&quot;&gt;&lt;p&gt;block1&lt;/p&gt;居中&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;row&quot;&gt;
-       &lt;div class=&quot;span-8 pull-right smal-12&quot;&gt;&lt;p&gt;block1&lt;/p&gt;置右&lt;/div&gt;
-       &lt;div class=&quot;span-4 smal-12&quot;&gt;&lt;p&gt;block2&lt;/p&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;row&quot;&gt;
-       &lt;div class=&quot;span-8 pull-right-4 smal-12&quot;&gt;&lt;p&gt;block1&lt;/p&gt;右位移&lt;/div&gt;
-       &lt;div class=&quot;span-4 pull-left-4 smal-12&quot;&gt;&lt;p&gt;block2&lt;/p&gt;左位移&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;row&quot;&gt;
-       &lt;div class=&quot;span-8 smal-12 midd-hide smal-show&quot;&gt;&lt;p&gt;block2&lt;/p&gt;中屏隐藏，小屏显示&lt;/div&gt;
-       &lt;div class=&quot;span-4 smal-hide&quot;&gt;&lt;p&gt;block3&lt;/p&gt;小屏隐藏&lt;/div&gt;
-    &lt;/div&gt;
-    </code>
-</pre>
-                    <p>栅格工具列表：</p>
                     <table class="table table-hover">
                         <tr>
-                            <td>.center</td>
+                            <td style="width:7em">.center</td>
                             <td>居中,居中的栅格将成为块级元素占据整行，不能多列栅格共存</td>
                         </tr>
                         <tr>
@@ -1266,8 +1282,8 @@
             <tr id="iconfont（字体图标）">
                 <td>iconfont.less</td>
                 <td>
-                    <p>内置字体图标库基于<a href="http://ionicons.com/" target="_blank">ionicons</a>创建，图标类名改为"<code>.ion</code>"，为兼容IE7去掉了FontClass支持，只能用Unicode定义图标，借助<a href="http://www.iconfont.cn/" target="_blank">阿里巴巴矢量图标库</a>管理图标。</p>
-                    <h4>示例</h4>
+                    <p>为Flow-UI创建的<a href="http://refined-x.com/Flow-ICON/dist/" target="_blank">图标库</a>项目，提供框架内置图标的检索、获取Unicode、PNG定制下载功能。</p>
+                    <p>详情访问<a href="https://github.com/tower1229/Flow-ICON" target="_blank" class="btn btn-link">Flow-ICON</a>项目主页。</p>
                     <pre>
   <code>
     <i class="ion">&#xe63b;</i>:&lt;i class=&quot;ion&quot;&gt;&amp;#xe63b;&lt;/i&gt;
@@ -1275,9 +1291,6 @@
     <i class="ion">&#xe660;</i>:&lt;i class=&quot;ion&quot;&gt;&amp;#xe660;&lt;/i&gt;
   </code>
 </pre>
-                    <h4>图标库</h4>
-                    <p>为方便图标使用而创建的<a href="http://refined-x.com/Flow-ICON/dist/" target="_blank">图标库</a>项目，提供图标检索、获取Unicode、PNG定制、PNG下载功能。</p>
-                    <p>大部分功能都集成在图标右键菜单中，单击图标也可以快速选中图标Unicode，直接按“<code>Ctrl + C</code>”即可复制，PNG定制功能，可以实现图标大小和颜色调节，并在线生成PNG图片下载（不支持IE）。</p>
                 </td>
             </tr>
             <tr id="iconsprite（精灵图标）">
@@ -1423,10 +1436,10 @@
             <tr id="reset（样式重置）">
                 <td>reset.less</td>
                 <td>
-                    <p>样式重置的目的在于清除浏览器的默认样式，带来一个干净的定制空间，因此没有使用Normalize.css这种理念太过“平和”的类库，结合Pc端、移动端、响应式网站的综合需求，在去默认样式的基础上，又额外做了一些事情：</p>
+                    <p>样式重置的目的在于清除浏览器的默认样式，带来一个干净的定制空间，在此基础上还额外做了一些事情：</p>
                     <ol>
-                        <li>去掉触屏点击链接的背景色；</li>
-                        <li>全局设置图片最大宽度100%，开发中会造成的常见问题是图片类效果插件显示异常，或百度地图这类自带图片资源的第三方插件显示异常，只要针对性的添加<code>max-width:none</code>即可；</li>
+                        <li>去掉触屏下链接点击背景色；</li>
+                        <li>设置图片最大宽度100%，开发中会造成的常见问题是图片类效果插件显示异常，或百度地图这类自带图片资源的第三方插件显示异常，只要针对性的添加<code>max-width:none</code>即可；</li>
                         <li>对a标签添加0.3s的过渡动画；</li>
                     </ol>
                 </td>
@@ -1702,15 +1715,16 @@
     </section>
     <section class="wrap" id="js">
         <h2>Javascript</h2>
-        <h3 id="js-module">模块化</h3>
-        <p>框架实现js模块化开发，模块化很重要价值是前后端分离，引用js不再是页面底部的一堆script标签，js的增删改都不需要编辑、发布前台模板，使js代码可以向css一样容易维护，更多资料可以参考：<a href="https://github.com/seajs/seajs/issues/547" target="_blank">前端模块化开发的价值</a>。</p>
-        <h3 id="js-seajs">代码组织</h3>
-        <p>基于模块化加载方式，网站脚本拆分为两层：<code>app</code>层和<code>module</code>层</p>
-        <p><code>app</code>层是具体业务脚本，每个页面模板都有一个对应的js文件放在项目内<code>js/</code>文件夹中，<code>js/</code>里还有一个<code>common.js</code>用于管理公用代码，这个文件夹组成了站点的业务层。</p>
-        <p><code>module</code>层是对特定功能的封装，如jquery、轮显效果、视频播放器，日期选择器，表单验证等，用于被业务层调用，实现特定功能。</p>
-        <h3 id="js-app">业务层</h3>
-        <p>seajs.use方法可以启动并执行一个模块化的js文件，如首页底部的：<code>seajs.use('js/index');</code>，将启动并执行js/index.js，首页里的js效果都要在这里实现。</p>
-        <p>要使用某功能模块，就要先引用模块，语法是<code>require("模块路径")</code>，或者用异步加载的方式<code>require.async("模块路径"，"回调")</code>。</p>
+        <h3 id="js-module">模块化开发</h3>
+        <p>框架基于<a href="http://seajs.org/docs/" target="_blank">Seajs</a> 实现js模块化开发，模块化很重要价值是前后端分离，引用js不再是页面底部的一堆script标签，js的增删改都不需要编辑、发布前台模板，使js代码可以向css一样容易维护，更多资料可以参考：<a href="https://github.com/seajs/seajs/issues/547" target="_blank">前端模块化开发的价值</a>。</p>
+        <p>基于模块化加载方式，网站脚本拆分为两部分：<code>业务代码</code>和<code>组件</code></p>
+        <p><code>业务代码</code>是具体业务脚本，每个页面模板都有一个对应的js文件放在项目内<code>js/</code>文件夹中，<code>js/</code>里还有一个<code>common.js</code>用于管理公用代码，这个文件夹组成了站点的业务层。</p>
+        <p><code>组件</code>是对特定功能的封装，如jquery、轮显效果、视频播放器，日期选择器，表单验证等，用于被业务层调用，实现特定功能。模块封装相关文档见 <a href="https://github.com/seajs/seajs/issues/242" target="_blank">CMD模块定义规范</a>。 </p>
+        
+        <h3 id="js-app">业务代码</h3>
+        <h4>加载并执行</h4>
+        <p><code>seajs.use()</code>方法可以启动并执行一个模块化的js文件，如首页底部的：<code>seajs.use('js/index');</code>，将启动并执行"js/index.js"，首页里的js效果都要在这里实现。</p>
+        <p>要使用某功能模块，就要先引用模块，语法是<code>require("模块路径")</code>，或者用异步加载的方式<code>require.async("模块路径"，"回调方法")</code>。</p>
         <p>以index.js为例：</p>
         <pre>
             <code>
@@ -1741,13 +1755,12 @@
    });
               </code>
         </pre>
-        <h4 id="js-base-common">公用代码common.js</h4>
-        <p>common.js默认被所有业务层js引用，用于管理整站公用代码。</p>
-        <h3 id="js-modules">模块层</h3>
-        <p>模块层封装了大量js模块，模块封装相关文档见 <a href="https://github.com/seajs/seajs/issues/242" target="_blank">CMD模块定义规范</a>。 </p>
-        <h4>模块目录</h4>
+        <h4 id="js-base-common">公共代码</h4>
+        <p><code>common.js</code>用于管理整站公用代码，默认被所有业务层js引用。</p>
+
+        <h3 id="js-modules">组件列表</h3>
         <nav class="modules_index" id="modules_index"></nav>
-        <h4>使用示例</h4>
+        <p></p>
         <table class="table table-bordered" id="modules_list">
             <tr id="Audio（跨平台音频播放）">
                 <td>audio</td>
@@ -5167,23 +5180,23 @@ $().datepicker({
                         <table class="table table-hover">
                             <tr>
                                 <th>position</th>
-                                <td>/菜单位置，默认左侧 left || top || right || bottom</td>
+                                <td>默认 <code>"left"</code>，菜单位置，可选 top || right || bottom</td>
                             </tr>
                             <tr>
                                 <th>zposition</th>
-                                <td>菜单层次，默认上层，front || next</td>
+                                <td>默认 <code>"front"</code>，菜单层次，可选 next</td>
                             </tr>
                             <tr>
                                 <th>slidingSubmenus</th>
-                                <td>菜单展开方向，默认横向，true || false</td>
+                                <td>默认横向（<code>true</code>），菜单展开方向，true || false</td>
                             </tr>
                             <tr>
                                 <th>isMenu</th>
-                                <td>是否按导航结构初始化，自定义结构和样式需要设为false</td>
+                                <td>默认 <code>true</code>，是否按导航结构初始化，自定义结构和样式需要设为false</td>
                             </tr>
                             <tr>
                                 <th>classes</th>
-                                <td>主题class, mm-light || mm-white || mm-black</td>
+                                <td>默认 <code>"mm-black"</code>，主题class, 可选 mm-light || mm-white</td>
                             </tr>
                         </table>
                         <h5>示例</h5>
@@ -5215,7 +5228,7 @@ $().datepicker({
          &lt;/li&gt;
      &lt;/ul&gt;
   &lt;/nav&gt;
-  &lt;a href=&quot;#menu&quot; class=&quot;mobile_key&quot;&gt;导航控制按钮&lt;/a&gt;  &lt;!--导航控制按钮--&gt;
+  &lt;a href=&quot;#menu&quot; class=&quot;btn btn-default mobile_key&quot;&gt;导航控制按钮&lt;/a&gt;  &lt;!--导航控制按钮--&gt;
                             </code>
                         </pre>
                         <pre>
