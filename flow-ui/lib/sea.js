@@ -57,7 +57,7 @@ seajs.config({
         'base'                              : 'v3.3.1',
         'bdshare'                           : 'v3.1.2',
         'box'                               : 'v3.11.3',
-        'city-select'                       : 'v1.0.1',
+        'city-select'                       : 'v1.0.2',
         'countdown'                         : 'v1.1.1',
         'datepicker'                        : 'v2.0.1',
         'drag'                              : 'v0.7.2',
@@ -96,10 +96,11 @@ seajs.config({
         'select'                            : 'v4.3.2',
         'sendcode'                          : 'v0.2.0',
         'slide'                             : 'v4.2.0',
+        'spin'                              : 'v0.0.1',
         'tab'                               : 'v3.0.0',
-        'table'                             : 'v1.1.2',
+        'table'                             : 'v1.2.0',
         'timepicker'                        : 'v0.1.1',
-        'tip'                               : 'v1.4.3',
+        'tip'                               : 'v1.5.0',
         'touch'                             : 'v0.1.1',
         'zoom'                              : 'v2.0.4'
     };

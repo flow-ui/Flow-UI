@@ -1,8 +1,8 @@
 /*
  * name: city-selector.js
- * version: v1.0.1
- * update: 引入全局层级管理
- * date: 2017-03-30
+ * version: v1.0.2
+ * update: loading始终提示bug
+ * date: 2017-04-06
  */
 define('city-select', function(require, exports, module) {
 	'use strict';
@@ -168,7 +168,7 @@ define('city-select', function(require, exports, module) {
 							url: opt.data,
 							localCache: 1e6,
 							success: function(res) {
-								loading.hide();
+								loading.destroy();
 								if (res.status === 'Y') {
 									cityData = res.data;
 									render($this, opt.onSelect);

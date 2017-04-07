@@ -1,9 +1,8 @@
 /*
  * name: table.js
- * version: v1.2.0
- * update: 编辑验证/远程数据
- * date: 2017-03-31
- TODO: sort filter 传参
+ * version: v1.3.1
+ * update: 编辑验证/ajax数据/排序删选handle
+ * date: 2017-04-07
  */
 define('table', function(require, exports, module) {
 	"use strict";
@@ -13,7 +12,7 @@ define('table', function(require, exports, module) {
 		def = {
 			el: null,
 			data: null,
-			column: null, // title,key,render,width,align,hook,ellipsis,editable,sortable,filterMethod,validateMethod,
+			column: null, // title,key,render,width,align,hook,ellipsis,editable,sort,filters,validateMethod,
 			striped: false,
 			bordered: false,
 			condensed: false,
@@ -44,6 +43,9 @@ define('table', function(require, exports, module) {
 			if (isNaN(parseFloat(opt.width)) || !parseFloat(opt.width)) {
 				opt.width = $this.width();
 			}
+			if (isNaN(parseFloat(opt.height)) || !parseFloat(opt.height)) {
+				opt.height = $this.height();
+			}
 			//索引列
 			if (opt.index) {
 				opt.column.unshift({
@@ -63,7 +65,15 @@ define('table', function(require, exports, module) {
 				});
 			}
 			var indexKey = 'index-' + base.getUUID();
-
+			//交互控件过滤
+			var controlParser = function($dom, clone){
+				var $target = $dom;
+				if(clone){
+					$target = $dom.clone(true);
+				}
+				$target.find('[name]').removeAttr('name');
+				return $target;
+			};
 			//生成单元格
 			var getTd = function(rowIndex, rowData, col) {
 				var tdStyler;
@@ -125,7 +135,8 @@ define('table', function(require, exports, module) {
 										var fixTdIndex = $this.find('.row' + rowIndex + '-' + key).index();
 										$this.find('.row' + rowIndex + '-' + key).replaceWith(inject(targetTd));
 										if(fixedTable.length){
-											fixedTable.children('tr').eq(rowIndex).children('td').eq(fixTdIndex).html($this.find('.row' + rowIndex + '-' + key).html());
+											var fixedTd = controlParser($this.find('.row' + rowIndex + '-' + key), true).html();
+											fixedTable.children('tr').eq(rowIndex).children('td').eq(fixTdIndex).html(fixedTd);
 										}
 									}
 									return rowData;
@@ -322,7 +333,7 @@ define('table', function(require, exports, module) {
 					var thisColWidth = col.width;
 					var thisColClass = [];
 					if (!thisColWidth) {
-						thisColWidth = Math.max(Math.floor(totalWidth / otherParts), 60 + (col.sortable || $.isArray(col.filterMethod) ? 40 : 0));
+						thisColWidth = Math.max(Math.floor(totalWidth / otherParts), 60 + (col.sort || $.isArray(col.filters) ? 40 : 0));
 					}
 					if (fixedIndex !== void(0) && fixedIndex >= i) {
 						fixedWidth += thisColWidth;
@@ -350,25 +361,34 @@ define('table', function(require, exports, module) {
 							break;
 						default:
 							var thisTagCont = '<div class="table-cell">';
-							if (col.sortable || $.isArray(col.filterMethod)) {
+							if (col.sort || $.isArray(col.filters)) {
 								var renderTagId = 'sortTagId-' + base.getUUID();
 								var $el = $('<div></div>');
 								//排序
-								if (col.sortable) {
+								if (col.sort) {
 									$el.append($('<span class="table-sort"><i class="ion table-sort-up">&#xe618;</i><i class="ion table-sort-down">&#xe612;</i></span>')
 										.on('click', '.ion', function() {
-											var sortData;
+											var sortData,
+												command = '';
 											if ($(this).hasClass('on')) {
 												$(this).removeClass('on');
-												sortData = opt.oData;
 											} else {
 												$(this).addClass('on').siblings('.on').removeClass('on');
 												if ($(this).hasClass('table-sort-up')) {
-													sortData = sortBy(col.key, col.sortable, 'asc');
+													command = 'asc';
 												} else if ($(this).hasClass('table-sort-down')) {
-													sortData = sortBy(col.key, col.sortable, 'desc');
+													command = 'desc';
 												}
 											}
+											if(typeof col.sort.handle === 'function'){
+												return col.sort.handle(col.key, command);
+											}
+											if(command){
+												sortData = sortBy(col.key, col.sort.mehtod, command);
+											}else{
+												sortData = opt.oData;
+											}
+											
 											if (opt.page && opt.page.pageSize) {
 												opt.holdStatus = true;
 												generate(sortData, opt, 'body');
@@ -378,14 +398,12 @@ define('table', function(require, exports, module) {
 										}));
 								}
 								//筛选
-								if ($.isArray(col.filterMethod)) {
-									var dropData = [{
-										item: '全部'
-									}];
-									$.each(col.filterMethod, function(i, filterMethod) {
-										if (filterMethod.label && filterMethod.label.split) {
+								if ($.isArray(col.filters)) {
+									var dropData = [];
+									$.each(col.filters, function(i, thisFilter) {
+										if (thisFilter.label && thisFilter.label.split) {
 											dropData.push({
-												item: filterMethod.label,
+												item: thisFilter.label,
 												methodIndex: i
 											});
 										}
@@ -398,11 +416,11 @@ define('table', function(require, exports, module) {
 												return null;
 											}
 											var filterData;
-											if (item.methodIndex === void(0)) {
-												filterData = opt.oData;
-											} else if (typeof col.filterMethod[item.methodIndex].filter === 'function') {
+											if (typeof col.filters[item.methodIndex].handle === 'function') {
+												return col.filters[item.methodIndex].handle();
+											} else if (typeof col.filters[item.methodIndex].mehtod === 'function') {
 												filterData = $.map(opt.oData, function(val, i) {
-													if (col.filterMethod[item.methodIndex].filter(val[col.key])) {
+													if (col.filters[item.methodIndex].mehtod(val[col.key])) {
 														return val;
 													}
 												});
@@ -431,18 +449,19 @@ define('table', function(require, exports, module) {
 					//body局部更新
 					var tbodyUpdate = inject(tbodyCont);
 					if (opt.fixedIndex !== void(0)) {
+						//移除交互控件name
 						var tbodyUpdateFixed = tbodyUpdate.clone(true);
 						tbodyUpdateFixed.each(function(row, tr) {
 							$(tr).find('td').each(function(i, td) {
 								if (i > opt.fixedIndex) {
-									$(td).attr('class', 'tofixed');
+									controlParser($(td)).attr('class', 'tofixed');
 								}
 							});
 						});
 						tbodyUpdate.each(function(row, tr) {
 							$(tr).find('td').each(function(i, td) {
 								if (i <= opt.fixedIndex) {
-									$(td).attr('class', 'tofixed');
+									controlParser($(td)).attr('class', 'tofixed');
 								}
 							});
 						});
@@ -473,7 +492,10 @@ define('table', function(require, exports, module) {
 					html += tfixed;
 				}
 				html += '</div>';
-				return $this.data('data', tData).html(inject(html, true));
+				return $this.data('data', tData).css({
+						width: opt.width,
+						height: opt.height
+					}).html(inject(html, true));
 			};
 			var inject = function(html, isInit) {
 				var tableObj = $(html);
@@ -507,22 +529,6 @@ define('table', function(require, exports, module) {
 						}
 					}
 				}
-				if (opt.fixedIndex !== void(0) && $fixed.length) {
-					$fixed.find('.table-body tr').each(function(row, tr) {
-						$(tr).find('td').each(function(i, td) {
-							if (i > opt.fixedIndex) {
-								$(td).removeAttr('class');
-							}
-						});
-					});
-					tableObj.children('.table-body tr').each(function(row, tr) {
-						$(tr).find('td').each(function(i, td) {
-							if (i <= opt.fixedIndex) {
-								$(td).removeAttr('class');
-							}
-						});
-					});
-				}
 				//注入二次渲染元素
 				$.each(opt.renderCollection, function(i, renderObj) {
 					if (renderObj.entity) {
@@ -531,6 +537,24 @@ define('table', function(require, exports, module) {
 					tableObj.find('#' + renderObj.id).replaceWith(renderObj.el);
 				});
 				delete opt.renderCollection;
+
+				if (opt.fixedIndex !== void(0) && $fixed.length) {
+					//移除交互控件name
+					$fixed.find('.table-body tr').each(function(row, tr) {
+						$(tr).find('td').each(function(i, td) {
+							if (i > opt.fixedIndex) {
+								controlParser($(td)).attr('class', 'tofixed');
+							}
+						});
+					});
+					tableObj.children('.table-body').find('tr').each(function(row, tr) {
+						$(tr).find('td').each(function(i, td) {
+							if (i <= opt.fixedIndex) {
+								controlParser($(td)).attr('class', 'tofixed');
+							}
+						});
+					});
+				}
 				return tableObj;
 			};
 			//收集选中项
@@ -631,7 +655,7 @@ define('table', function(require, exports, module) {
 				isEditing = false;
 				//生成索引
 				$.each(tData, function(rowIndex, rowData) {
-					if (rowData[indexKey] === void 0) {
+					if (!part || rowData[indexKey] === void 0) {
 						rowData[indexKey] = parseInt(rowIndex);
 					}
 				});
@@ -708,42 +732,52 @@ define('table', function(require, exports, module) {
 					}
 				}
 			};
-
-			if($.isArray(opt.data) && opt.length){
-				opt.rowData = opt.data;
-				generate(opt.rowData, opt);
-			}else if(opt.data && opt.data.split){
-				ajaxParam = opt.ajaxParam || {};
-				if(!$this.height()){
-					$this.height($this.height() || opt.height || 200);
-				}
+			var loadData = function(set, part){
 				require.async('spin', function(){
 					var loading = $this.spin({
 						icon: '&#xe66e;'
 					});
 					$.ajax({
-						url: opt.data,
+						type: set.method || 'get',
+						url: set.url,
 						dataType: 'json',
-						data: ajaxParam,
+						data: set.data || {},
 						success: function(res){
 							loading.hide();
 							if($.isArray(res) && res.length){
 								opt.rowData = res;
-								generate(opt.rowData, opt);
+								generate(opt.rowData, opt, part);
+							}else{
+								console.warn('Table(): ajax必须返回Array格式！');
 							}
 						}
 					});
 				});
+			};
+
+			if($.isArray(opt.data) && opt.data.length){
+				opt.rowData = opt.data;
+				generate(opt.rowData, opt);
+			}else if(opt.load && opt.load.url && opt.load.url.split){
+				if(!$this.height()){
+					$this.height($this.height() || opt.height || 200);
+				}
+				loadData(opt.load);
 			}else{
-				return console.warn('Table(): data 配置异常！');
+				return console.warn('Table(): 无可用数据源！');
 			}
 
 			return {
 				data: function(data) {
-					if (data && $.isArray(data)) {
-						generate(data, opt, 'body');
+					if ($.isArray(data) && data.length) {
+						generate(data, opt);
 					} else {
 						return opt.oData;
+					}
+				},
+				load: function(set){
+					if(set && set.url && set.url.split){
+						loadData(set, 'body');
 					}
 				},
 				column: function(column) {

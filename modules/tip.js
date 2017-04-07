@@ -1,8 +1,8 @@
 /*
  * name: tip.js
- * version: v1.4.3
- * update: 默认place => bottom-center
- * date: 2017-04-01
+ * version: v1.5.0
+ * update: add destroy method
+ * date: 2017-04-06
  */
 define('tip', function(require, exports, module) {
 	'use strict';
@@ -242,15 +242,17 @@ define('tip', function(require, exports, module) {
 			}
 			if (!$this.data('tipinit')) {
 				if (opt.trigger === 'hover') {
+					$this.tipMouseenterHandle = function() {
+						setTimeout(show, 32);
+					};
+					$this.tipMouseleaveHandle = function() {
+						$this.timer = setTimeout(function() {
+							closeTip($this, opt);
+						}, 32);
+					};
 					$this
-						.on('mouseenter', function() {
-							setTimeout(show, 32);
-						})
-						.on('mouseleave', function() {
-							$this.timer = setTimeout(function() {
-								closeTip($this, opt);
-							}, 32);
-						});
+						.on('mouseenter', $this.tipMouseenterHandle)
+						.on('mouseleave', $this.tipMouseleaveHandle);
 				} else if (opt.trigger === 'click') {
 					$this.documentHandler = function(e) {
 						if ($this.get(0).contains(e.target) || $tipbox.get(0).contains(e.target)) {
@@ -260,30 +262,54 @@ define('tip', function(require, exports, module) {
 							closeTip($this, opt);
 						}
 					};
-					document.addEventListener('click', $this.documentHandler);
-					$this.on('click', function(e) {
+					$this.tipClickHandle = function(e) {
 						if ($this.hasClass('showTip')) {
 							closeTip($this, opt);
 						} else {
 							setTimeout(show, 0);
 						}
-					});
+					};
+					document.addEventListener('click', $this.documentHandler);
+					$this.on('click', $this.tipClickHandle);
 				} else {
-					$this.on(opt.trigger, show);
+					$this.tipTriggerHandle = show;
+					$this.on(opt.trigger, $this.tipTriggerHandle);
 				}
 				$this.data('tipinit', true);
 			}
 		});
 		return {
 			hide: function() {
-				closeTip($el, opt);
+				return closeTip($el, opt);
 			},
 			disabled: function(flag) {
 				if ($el.prop('disabled') === void(0)) {
-					$el.data('disabled', !flag);
+					return $el.data('disabled', !flag);
 				} else {
-					$el.prop('disabled', !flag);
+					return $el.prop('disabled', !flag);
 				}
+			},
+			destroy: function(){
+				closeTip($el, opt);
+				if (opt.trigger === 'hover') {
+					$el
+						.unbind('mouseenter', $el.tipMouseenterHandle)
+						.unbind('mouseleave', $el.tipMouseleaveHandle);
+					$el.tipMouseenterHandle = null;
+					$el.tipMouseleaveHandle = null;
+				}else if(opt.trigger === 'click'){
+					document.removeEventListener('click', $el.documentHandler);
+					$el.unbind('click', $el.tipClickHandle);
+					$el.documentHandler = null;
+					$el.tipClickHandle = null;
+				}else{
+					$el.unbind(opt.trigger, $el.tipTriggerHandle);
+					$el.tipTriggerHandle = null;
+				}
+				$el.data('tipinit', null);
+				delete this.hide;
+				delete this.disabled;
+				delete this.destroy;
 			}
 		};
 	};
