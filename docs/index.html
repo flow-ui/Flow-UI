@@ -7,7 +7,6 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
     <title>Flow-UI 文档</title>
-    <meta name="google-site-verification" content="SjjczL6NgmwBRTTTv54cEKARc3XU6b3JzUvDhTuIcRY" />
     <meta content="Flow-CLI,front-flow" name="Keywords">
     <meta content="Flow-CLI是专为front-flow前端工作流开发的命令行工具，实现自动初始化、组件化开发、预处理、静态资源优化、图片压缩等前端自动化需求。" name="Description">
     <link href="/Flow-UI/docs/favicon.ico" rel="icon">
@@ -1755,8 +1754,6 @@
                 <td>
                     <h5>描述</h5>
                     <p>跨平台音频播放器，详见<a href="http://kolber.github.io/audiojs/" target="_blank">官网</a></p>
-                    <h5>多终端</h5>
-                    <p>支持</p>
                     <h5>配置</h5>
                     <p>无</p>
                     <h5>示例</h5>
@@ -1783,9 +1780,7 @@
                 <td>Copy</td>
                 <td>
                     <h5>描述</h5>
-                    <p>复制文字到剪贴板，详细参数见<a href="http://www.steamdev.com/zclip/" target="_blank">官网</a></p>
-                    <h5>多终端</h5>
-                    <p>不支持</p>
+                    <p>利用flash技术实现复制文字到剪贴板，详细参数见<a href="http://www.steamdev.com/zclip/" target="_blank">官网</a></p>
                     <h5>示例</h5>
                     <pre>
                         <code>
@@ -1811,8 +1806,6 @@
                 <td>
                     <h5>描述</h5>
                     <p>集成vcastr3.0视频播放器，传入视频地址，返回播放器html，支持格式：.swf/.flv</p>
-                    <h5>多终端</h5>
-                    <p>不支持</p>
                     <h5>配置</h5>
                     <table class="table table-hover">
                         <tr>
@@ -1896,8 +1889,6 @@
                     <td>
                         <h5>描述</h5>
                         <p>评分插件，来自https://github.com/wbotelhos/raty</p>
-                        <h5>多终端</h5>
-                        <p>支持</p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
@@ -2084,8 +2075,6 @@
                     <td>
                         <h5>描述</h5>
                         <p>上传插件，支持html5或ifram方式，改自<a href="https://github.com/aralejs/upload" target="_blank">aralejs/upload</a>，集成<a href="https://github.com/think2011/localResizeIMG" target="_blank">localResizeIMG</a>插件实现前端图片压缩，集成<a href="https://github.com/kairyou/html5-make-thumb" target="_blank">html5-make-thumb</a>实现选择图片返回缩略图。</p>
-                        <h5>多终端</h5>
-                        <p>支持</p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
@@ -2456,8 +2445,6 @@ always: null            // complete function(done|fail)
                     <td>
                         <h5>描述</h5>
                         <p>集成video-js实现的跨平台视频播放插件，支持HTML5视频的跨平台播放，详见<a href="https://github.com/videojs/video.js" target="_blank">项目主页</a></p>
-                        <h5>多终端</h5>
-                        <p>支持</p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
@@ -2524,8 +2511,6 @@ always: null            // complete function(done|fail)
                             <h5>描述</h5>
                             <p>改造自<a href="http://fex.baidu.com/webuploader/" target="_blank">webuploader</a>，兼容ie6 +，android4 +，支持上传前压缩，上传前剪裁，分段上传，MD5秒传，断点续传</p>
                             <p>插件封装的很底层，用起来较麻烦，但是功能很全面，demo演示了一个具有拖拽上传、截图粘贴上传、格式过滤、获取缩略图、上传前压缩、队列管理功能的上传示例。</p>
-                            <h5>多终端</h5>
-                            <p>支持</p>
                             <h5>配置</h5>
                             <p>见<a href="http://fex.baidu.com/webuploader/doc/index.html" target="_blank">官网文档</a></p>
                             <h5>示例</h5>
@@ -2666,8 +2651,6 @@ always: null            // complete function(done|fail)
                         <td>
                             <h5>描述</h5>
                             <p>相册插件，依赖幻灯片模块(slide.js)。</p>
-                            <h5>多终端</h5>
-                            <p>支持</p>
                             <h5>配置</h5>
                             <table class="table table-hover">
                                 <tr>
@@ -2777,9 +2760,6 @@ always: null            // complete function(done|fail)
                         <td>
                             <h5>描述</h5>
                             <p>自动补全插件，移植自<a href="https://github.com/devbridge/jQuery-Autocomplete" target="_blank">jquery.autocomplete</a></p>
-                            <p>UI部分跟select有很大重叠，后期可能会作为select插件的一个功能模块，不会独立存在。</p>
-                            <h5>多终端</h5>
-                            <p>支持</p>
                             <h5>配置</h5>
                             <table class="table table-hover">
                                 <tr>
@@ -2864,7 +2844,7 @@ always: null            // complete function(done|fail)
                                     <td>多维数组/对象数组深拷贝</td>
                                 </tr>
                                 <tr>
-                                    <td>base.getStyle(ele,attr)</td>
+                                    <td>getStyle(ele,attr)</td>
                                     <td>获取元素的属性值，ele：元素；attr：要获取的属性，返回属性值</td>
                                 </tr>
                                 <tr>
@@ -3000,7 +2980,7 @@ $.ajax({
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>base.throttle(fn, [delay], [duration])</td>
+                                    <td>throttle(fn, [delay], [duration])</td>
                                     <td>
                                         <p>函数节流，用于过滤resize，mousemove，scroll这类频连续繁触发事件</p>
                                         <pre>
@@ -3023,7 +3003,7 @@ $.ajax({
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>base.getScript(file, [callabck], [option])</td>
+                                    <td>getScript(file, [callabck], [option])</td>
                                     <td>
                                         <p>加载未模块化的普通js文件，可控制jquery依赖、指定css依赖、添加回调，支持批量加载及批量线性依赖加载。</p>
                                         <pre>
@@ -3121,8 +3101,6 @@ $.ajax({
                         <td>
                             <h5>描述</h5>
                             <p>封装百度分享，扩展分享按钮html自定义能力，接收通用设置和share设置，都是标准的百度分享参数格式，获取HTML代码请点<a href="http://share.baidu.com/code" target="_blank">这里</a>。</p>
-                            <h5>多终端</h5>
-                            <p>移动端不建议使用</p>
                             <h5>配置</h5>
                             <table class="table table-hover">
                                 <tr>
@@ -4131,8 +4109,6 @@ $().datepicker({
                         <h5>描述</h5>
                         <p>扩展jquery.animate动画效果，来自<a href="http://gsgd.co.uk/sandbox/jquery/easing/" target="_blank">jquery.easing.js</a>，被<code>scroll-col</code>和<code>scroll-row</code>插件依赖</p>
                         <p>效果包括：linear, swing, jswing, easeInQuad, easeOutQuad, easeInOutQuad, easeInCubic, easeOutCubic, easeInOutCubic, easeInQuart, easeOutQuart, easeInOutQuart, easeInQuint, easeOutQuint, easeInOutQuint, easeInSine, easeOutSine, easeInOutSine, easeInExpo, easeOutExpo, easeInOutExpo, easeInCirc, easeInOutCirc, easeInElastic, easeOutElastic, easeInOutElastic, easeInBack, easeInOutBack, easeInBounce, easeOutBounce, easeInOutBounce</p>
-                        <h5>多终端</h5>
-                        <p>不推荐</p>
                         <h5>示例</h5>
                         <pre>
                             <code>
@@ -4160,8 +4136,6 @@ $().datepicker({
                     <td>
                         <h5>描述</h5>
                         <p>封装百度Echarts 3.0，详细用法见<a href="http://echarts.baidu.com/tutorial.html" target="_blank">官方文档</a></p>
-                        <h5>多终端</h5>
-                        <p>支持</p>
                         <h5>示例</h5>
                         <pre>
                             <code>
@@ -4250,8 +4224,6 @@ $().datepicker({
                     <td>
                         <h5>描述</h5>
                         <p>移动端避免click事件300ms延迟，可以对指定元素使用，也可以整个页面使用</p>
-                        <h5>多终端</h5>
-                        <p>支持</p>
                         <h5>示例</h5>
                         <pre>
                             <code>
@@ -4280,8 +4252,6 @@ $().datepicker({
                     <td>
                         <h5>描述</h5>
                         <p>对目标区域内图片做加载完成检测</p>
-                        <h5>多终端</h5>
-                        <p>支持</p>
                         <h5>示例</h5>
                         <pre>
                             <code>
@@ -4311,8 +4281,6 @@ $().datepicker({
                     <td>
                         <h5>描述</h5>
                         <p>能在图片下载完成之前检测到图片真实尺寸，返回方法接受三个参数分别是图片地址、检测完成回调，下载完成回调</p>
-                        <h5>多终端</h5>
-                        <p>支持</p>
                         <h5>示例</h5>
                         <pre>
                             <code>
@@ -4600,8 +4568,6 @@ $().datepicker({
                     <td>
                         <h5>描述</h5>
                         <p>图片懒加载插件，用于滚动时加载视窗内的元素背景或图片，懒加载元素或图片需要用<code>data-lazy</code>属性存贮图片地址。</p>
-                        <h5>多终端</h5>
-                        <p>支持</p>
                         <h5>示例</h5>
                         <pre>
                             <code>
@@ -4664,8 +4630,6 @@ $().datepicker({
                     <td>
                         <h5>描述</h5>
                         <p>跑马灯插件（横竖方向的匀速循环滚动）
-                            <h5>多终端</h5>
-                            <p>支持</p>
                             <h5>配置</h5>
                             <table class="table">
                                 <tr>
@@ -4723,8 +4687,6 @@ $().datepicker({
                     <td>
                         <h5>描述</h5>
                         <p>瀑布流插件，封装自<a href="http://masonry.desandro.com/" target="_blank">masonry</a></p>
-                        <h5>多终端</h5>
-                        <p>移动端不建议使用</p>
                         <h5>示例</h5>
                         <pre>
                             <code>
@@ -5016,8 +4978,6 @@ $().datepicker({
                     <td>
                         <h5>描述</h5>
                         <p>按键监听</p>
-                        <h5>多终端</h5>
-                        <p>不支持</p>
                         <h5>示例</h5>
                         <pre>
                             <code>
@@ -5274,8 +5234,6 @@ $().datepicker({
                         <p>监听页面滚动并操作出现在视野中的元素，可用于长页面滚动时做滚动加载；</p>
                         <p>当指定target时，target的li子元素数量需与效果元素数量对应，当前元素对应的<code>target>li</code>将添加"active"类；</p>
                         <p>当target向上滚出视野时将被添加<code>fixed</code>类，当指定targetFix时，<code>fixed</code>类将添加在targetFix元素上。</p>
-                        <h5>多终端</h5>
-                        <p>不支持</p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
@@ -5619,8 +5577,6 @@ $().datepicker({
                     <td>
                         <h5>描述</h5>
                         <p>生成二维码，封装自<a href="https://github.com/jeromeetienne/jquery-qrcode" target="_blank">jquery-qrcode</a>。</p>
-                        <h5>多终端</h5>
-                        <p>支持</p>
                         <h5>示例</h5>
                         <pre>
                             <code>
@@ -5818,8 +5774,6 @@ $().datepicker({
                     <td>
                         <h5>描述</h5>
                         <p>滚动条美化插件，支持横向和纵向、滚动条自动隐藏、样式自定义。</p>
-                        <h5>多终端</h5>
-                        <p>移动端自动使用原生</p>
                         <h5>注意</h5>
                         <p>内容元素不能有可向上传导的margin-top属性，否则会干扰滚动定位。</p>
                         <h5>配置</h5>
@@ -5913,8 +5867,6 @@ $().datepicker({
                             <li>效果自动计算间距("margin-right")，样式设置的右间距将被覆盖，或者作为效果无法运行时的后备样式。</li>
                             <li>当显示数+滚动步幅&gt;=元素总数时效果不可用</li>
                         </ol>
-                        <h5>多终端</h5>
-                        <p>建议的多终端响应方案：各终端分别设置scroll-cell宽度，用rect-(number)方式固定scroll-cell宽高比，元素间距和整体高度都可以适应</p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
@@ -6115,8 +6067,6 @@ $().datepicker({
                         <h5>描述</h5>
                         <p>垂直方向整行滚动。可以处理多列情况，默认添加内部按钮， 如果需要外部按钮可以指定自行添加的按钮。
                         </p>
-                        <h5>多终端</h5>
-                        <p>支持</p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
@@ -6543,8 +6493,6 @@ $().datepicker({
                         <td>
                             <h5>描述</h5>
                             <p> 幻灯片效果，支持触屏操作，支持PC端图片按需加载（不可与响应式图片同时使用）。</p>
-                            <h5>多终端</h5>
-                            <p>支持</p>
                             <h5>注意</h5>
                             <ol>
                                 <li>自动生成的导航（小圆点）和左右箭头默认<code>display:none</code>且不绑定事件，使用时需先在样式中显示；</li>
@@ -7828,8 +7776,6 @@ $().datepicker({
                         <td>
                             <h5>描述</h5>
                             <p>图片放大镜，大图尺寸自动获取。</p>
-                            <h5>多终端</h5>
-                            <p>不支持</p>
                             <h5>配置</h5>
                             <table class="table table-hover">
                                 <tr>
@@ -7949,14 +7895,14 @@ $.ajax({
 })
             </code>
         </pre>
-        <h3 id="CrossTerminal">多终端</h3>
-        <p><code>css/style.css</code>已经包含对应的媒体查询，默认断点是：<code> {Pc} > 1024 > {Pad} > 640 > {Mobile} </code>，多终端网站开发除了css媒体查询以外，至少还要具备三项功能：响应式栅格系统、终端识别，响应图片。</p>
+        <h3 id="CrossTerminal">响应式开发</h3>
+        <p><code>css/style.css</code>已经包含对应的媒体查询，默认断点是：<code> {Pc} > 1024 > {Pad} > 640 > {Mobile} </code>，响应式网站开发除了css媒体查询以外，至少还要具备三项功能：响应式栅格系统、终端识别，响应图片。</p>
         <ol>
             <li>响应式栅格系统使页面布局可以随终端自动调整；</li>
             <li>终端识别使js可以为每个终端做单独处理，框架通过媒体查询在页面中埋下特殊标记，js通过查找标记分辨当前设备类型；</li>
             <li>响应图片使移动设备可以使用单独定制的小尺寸图片，为加载提速；</li>
         </ol>
-        <p>对应方法已封装在<a href="#Responsive（响应式工具）">【responsive.js】</a>中。</p>
+        <p>对应方法已封装在<a href="#Responsive（响应式工具）">【responsive】</a>中。</p>
         <h3 id="mobileFixed">移动端屏幕适配</h3>
         <p>约定设计稿宽度：手机界面640px，pad界面1024px。</p>
         <p>基于以上约定，通过vw单位<strong>将html字号（rem）设置为100px</strong>（假设约定设计稿宽度640px，即<code>html{font-size:15.625vw;}</code>），因为vw以屏幕宽度为基准，使rem也对屏幕宽度具有适应性，因此使用rem为单位的尺寸都将随屏幕宽度自动缩放，从而实现适配，例如：</p>
@@ -7972,9 +7918,7 @@ $.ajax({
      </code>
    </pre>
         <h3 id="fullpage">全屏翻页</h3>
-        <p>全屏翻页(fullpage)模式的简单实现。</p>
-        <h3 id="DemandRendering">按需渲染</h3>
-        <p>包含<code>topush</code>和<code>scanpush</code>两个方法，封装在responsive.js中，通常用于响应式网站中为移动端渲染提速，以移动优先为原则将冗余页面模板化处理，需要显示时再插入页面文档中，详见<a href="#Responsive（响应式工具）">【responsive.js】</a>中的相关介绍。</p>
+        <p>全屏翻页(fullpage)模式的简单实现，见 <a href="https://github.com/tower1229/Flow-UI/blob/master/flow-ui/fullpage.html" target="_blank">demo页面</a>。</p>
         <h3 id="instantclick">链接预加载</h3>
         <p>结合<a href="https://github.com/tower1229/seajs-modules" target="_blank">seajs-modules</a>提供的<a href="http://instantclick.io" target="_blank">instantclick</a>插件，实现链接预加载、无刷新切换（PJAX）、加载进度条等特性，并扩展了页面切换后记住滚动位置的功能。</p>
         <h4>使用</h4>
