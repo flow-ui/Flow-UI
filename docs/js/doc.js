@@ -23,30 +23,30 @@ define(function(require) {
 	$nav.html(_nav);
 
 	/*生成模块目录*/
-	var createNavfromTable = function(nav,table){
+	var createNavfromTable = function(nav, table) {
 		var $modMenu = nav,
 			$modItems = table,
 			_mod;
 		_mod = '<ul class="full-row">';
 		$modItems.find('tr[id]').each(function(i, e) {
-			var _modName = $(e).attr('id');
-			_mod += '<li class="span-4 smal-8"><a href="#' + _modName + '">' + _modName + '</a></li>';
-			//代码预览
-			if ($(e).children('td:last').find('pre').length > 1) {
-				$(e).children('td:last').append('<p><a href="javascript:;" target="_blank" class="viewDemo">viewDemo</a></p>');
-			}
-		}).end()
-		.on('click', '.viewDemo', function(e) {
-			e.preventDefault();
-			window.DemoTitle = $(this).parents('tr').find('td').eq(0).text();
-			window.DemoHtml = $(this).parents('td').find('pre').eq(-2).text();
-			window.DemoJs = $(this).parents('td').find('pre').eq(-1).text();
-			window.open('run.html');
-		});
+				var _modName = $(e).attr('id');
+				_mod += '<li class="span-4 smal-8"><a href="#' + _modName + '">' + _modName + '</a></li>';
+				//代码预览
+				if ($(e).children('td:last').find('pre').length > 1) {
+					$(e).children('td:last').append('<p><a href="javascript:;" target="_blank" class="viewDemo">viewDemo</a></p>');
+				}
+			}).end()
+			.on('click', '.viewDemo', function(e) {
+				e.preventDefault();
+				window.DemoTitle = $(this).parents('tr').find('td').eq(0).text();
+				window.DemoHtml = $(this).parents('td').find('pre').eq(-2).text();
+				window.DemoJs = $(this).parents('td').find('pre').eq(-1).text();
+				window.open('run.html?page=' + window.DemoTitle);
+			});
 		_mod += '</ul>';
 		$modMenu.html(_mod);
 	};
-	
+
 	createNavfromTable($('#component_index'), $('#component_list'));
 	createNavfromTable($('#common_index'), $('#common_list'));
 	createNavfromTable($('#modules_index'), $('#modules_list'));
@@ -67,7 +67,7 @@ define(function(require) {
 	});
 	var showCopyBtn = function(e) {
 		var pre = $(e.target).is('pre') ? $(e.target) : $(e.target).parents('pre');
-		if(!pre.data('oncopy')){
+		if (!pre.data('oncopy')) {
 			copyCode = pre.data('code');
 			copybtn.css({
 				left: pre.offset().left + (pre.outerWidth(true) - copybtn.outerWidth(true)),
@@ -75,13 +75,13 @@ define(function(require) {
 			}).show().zclip('remove').zclip({
 				copy: copyCode,
 				afterCopy: function() {
-					$.box.msg('复制成功',{
-						delay:1000
+					$.box.msg('复制成功', {
+						delay: 1000
 					});
 				}
 			});
-			$('pre').data('oncopy',false);
-			pre.data('oncopy',true);
+			$('pre').data('oncopy', false);
+			pre.data('oncopy', true);
 		}
 	};
 
@@ -89,7 +89,7 @@ define(function(require) {
 		if (base.browser.ie && base.browser.ie < 9) {
 			$.box.msg('您的浏览器版本太低，无法启用代码高亮和demo演示，建议使用chrome或360浏览器。', {
 				color: "danger",
-				delay:3000
+				delay: 3000
 			});
 		} else {
 			require.async('lib/highlight/highlight.pack', function(hl) {
@@ -110,7 +110,7 @@ define(function(require) {
 		var cons = console;
 		if (cons) {
 			cons.log("%c\n	", "font-size:130px;background:url('http://g.hiphotos.bdimg.com/album/s%3D1100%3Bq%3D90/sign=51698e337d3e6709ba0041fe0bf7a44c/08f790529822720efa1c90ee79cb0a46f31fabd0.jpg') no-repeat");
-			cons.log("hello, u" );
+			cons.log("hello, u");
 		}
 	}
 
