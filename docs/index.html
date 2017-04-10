@@ -217,6 +217,79 @@
         <div class="m-b">
             <a href="#" class="btn btn-link">链接按钮</a>
         </div>
+        <h4>开关</h4>
+        <h5>普通</h5>
+        <div>
+            <label class="switch switch-primary m">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+            <label class="switch switch-primary switch-on m">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+            <label class="switch switch-primary switch-disabled m">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+        </div>
+        <h5>圆角</h5>
+        <div>
+            <label class="switch switch-round switch-success m">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+            <label class="switch switch-round switch-success switch-on m">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+            <label class="switch switch-round switch-success switch-disabled m">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+        </div>
+        <h5>大尺寸</h5>
+        <div>
+            <label class="switch switch-lg switch-warning m">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+            <label class="switch switch-lg switch-warning switch-on m">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+            <label class="switch switch-lg switch-warning switch-disabled m">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+        </div>
+        <h5>小尺寸</h5>
+        <div>
+            <label class="switch switch-sm switch-danger m">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+            <label class="switch switch-sm switch-danger switch-on m">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+            <label class="switch switch-sm switch-danger switch-disabled m">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+        </div>
         <h4>卡片</h4>
         <div class="wrap">
             <div class="row">
@@ -1609,6 +1682,51 @@
                             <td>大尺寸等待动画</td>
                         </tr>
                         
+                    </table>
+                    <p></p>
+                </td>
+            </tr>
+            <tr id="switch（开关）">
+                <td>switch.less</td>
+                <td>
+                    <p>在两种状态间切换时用到的开关选择器。</p>
+                    <table class="table table-hover">
+                        <tr>
+                            <td style="width: 9em">.switch</td>
+                            <td>定义一个开关容器</td>
+                        </tr>
+                        <tr>
+                            <td>.track</td>
+                            <td>定义开关滑轨</td>
+                        </tr>
+                        <tr>
+                            <td>.handle</td>
+                            <td>定义开关波动手柄</td>
+                        </tr>
+                        <tr>
+                            <td>.switch-on</td>
+                            <td>叠加在容器上使开关显示开启状态</td>
+                        </tr>
+                        <tr>
+                            <td>.switch-disabled</td>
+                            <td>叠加在容器上使开关显示不可用状态</td>
+                        </tr>
+                        <tr>
+                            <td>.switch-round</td>
+                            <td>叠加在容器上使开关显示为圆角</td>
+                        </tr>
+                        <tr>
+                            <td>.switch-sm</td>
+                            <td>叠加在容器上使开关显示为较小尺寸</td>
+                        </tr>
+                        <tr>
+                            <td>.switch-lg</td>
+                            <td>叠加在容器上使开关显示为较大尺寸</td>
+                        </tr>
+                        <tr>
+                            <td>.switch-primary</td>
+                            <td>叠加在容器上使开关显示为主色调（另："auxiliary", success", "info", "warning", "danger"）</td>
+                        </tr>
                     </table>
                     <p></p>
                 </td>
@@ -6701,6 +6819,94 @@ $().datepicker({
     $('.close').on('click', function(){
         loading &amp;&amp; loading.hide();
     });
+                                </code>
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr id="Switch（开关）">
+                        <td>Switch</td>
+                        <td>
+                            <h5>描述</h5>
+                            <p>开关插件，返回<code>Switch</code>方法，语法<code>Switch(config)</code>，或使用jquery插件语法<code>$el.switch(config)</code></p>
+                            <h5>配置</h5>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>el</th>
+                                    <td>
+                                        <p>默认 <code>null</code>，插入开关的容器元素，必须</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>name</th>
+                                    <td>
+                                        <p>默认 <code>null</code>，switch实例将与页面中指定name的input值同步，若不存在该input元素将自动创建隐藏元素插入页面</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>round</th>
+                                    <td>
+                                        <p>默认 <code>false</code>，是否开启圆角风格</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>color</th>
+                                    <td>
+                                        <p>默认 <code>"default"</code>，指定实例色调，支持【color】组件中所有颜色名称</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>size</th>
+                                    <td>
+                                        <p>默认 <code>null</code>，指定实例尺寸，支持"sm" | "lg"</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>onChange</th>
+                                    <td>
+                                        <p>开关变化时触发回调方法，@param(value) : 当前的实例状态</p>
+                                    </td>
+                                </tr>
+
+                            </table>
+                            <h5>返回方法</h5>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>on</th>
+                                    <td>
+                                        <p>更改开关状态为开启</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>off</th>
+                                    <td>
+                                        <p>更改开关状态为关闭</p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <h5>示例</h5>
+                            <pre>
+                                <code>
+    &lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;btn btn-default seton&quot;&gt;开启&lt;/div&gt;
+    &lt;div class=&quot;btn btn-default setoff&quot;&gt;关闭&lt;/div&gt;
+                                </code>
+                            </pre>
+                            <pre>
+                                <code>
+    require('switch');
+    var myswitch = $('.demo').switch({
+        color:'primary',
+        onChange: function(value){
+            console.log('switch is ',value);
+        }
+    });
+    
+    $('.seton').on('click', function(){
+        myswitch.on();
+    });   
+    $('.setoff').on('click', function(){
+        myswitch.off();
+    });   
                                 </code>
                             </pre>
                         </td>

@@ -56,7 +56,7 @@ seajs.config({
         'autocomplete'                      : 'v0.1.0',
         'base'                              : 'v3.3.1',
         'bdshare'                           : 'v3.1.2',
-        'box'                               : 'v3.11.3',
+        'box'                               : 'v3.11.4',
         'city-select'                       : 'v1.0.2',
         'countdown'                         : 'v1.1.1',
         'datepicker'                        : 'v2.0.1',

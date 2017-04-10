@@ -1,8 +1,8 @@
 /*
  * name: box.js
- * version: v3.11.3
- * update: 背景层通用
- * date: 2017-03-30
+ * version: v3.11.4
+ * update: 内容不滚动bug
+ * date: 2017-04-10
  */
 define('box', function(require, exports, module) {
 	"use strict";
@@ -216,6 +216,7 @@ define('box', function(require, exports, module) {
 				h = $(window).height(),
 				st = $(window).scrollTop(),
 				outHeight,
+				barHeight = 0, 
 				xh,
 				xw;
 			if ($.isPlainObject(config)) {
@@ -234,10 +235,11 @@ define('box', function(require, exports, module) {
 				}
 			}
 			if (!xh) {
+				barHeight = $o.s.bar ? $o.out.find('.box-wrap-bar').outerHeight(true) : 0;
 				if ($o.s.height === 'auto') {
 					if ($o.s.layout) {
 						//jquery可以通过hide获取真实高度
-						outHeight = $o.out.find('.box-wrap-body').hide().outerHeight(true) + ($o.s.bar ? $o.out.find('.box-wrap-bar').outerHeight(true) : 0);
+						outHeight = $o.out.find('.box-wrap-body').hide().outerHeight(true) + barHeight;
 					} else {
 						outHeight = $o.out.height();
 					}
@@ -252,7 +254,7 @@ define('box', function(require, exports, module) {
 				"height": xh
 			});
 			if ($o.s.layout) {
-				$o.out.find('.box-wrap-body').show();
+				$o.out.find('.box-wrap-body').show().height(xh - barHeight);
 			}
 			if ($o.s.setposi) {
 				var l = (w - xw) / 2,
