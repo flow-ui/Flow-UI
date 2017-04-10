@@ -682,6 +682,42 @@
                 <li><a href="javascript:;">下一页</a></li>
             </ul>
         </div>
+        <h4>进度条</h4>
+        <div class="wrap">
+            <div class="row">
+                <div class="span-6 m-tb">
+                    <div class="progress progress-info progress-active">
+                        <div class="progress-inner">
+                            <div class="progress-bg" style="width: 65%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="span-6 m-tb">
+                    <div class="progress progress-danger progress-show-info" >
+                        <div class="progress-inner">
+                            <div class="progress-bg" style="width: 65%;"></div>
+                        </div>
+                        <span class="progress-text"><span class="progress-text-inner"> <i class="ion">&#xe623;</i>失败</span></span>
+                    </div>
+                </div>
+                <div class="span-6 m-tb">
+                    <div class="progress progress-primary progress-active progress-show-info" >
+                        <div class="progress-inner">
+                            <div class="progress-bg" style="width: 65%;"></div>
+                        </div>
+                        <span class="progress-text"><span class="progress-text-inner">65%</span></span>
+                    </div>
+                </div>
+                <div class="span-6 m-tb">
+                    <div class="progress progress-success progress-show-info" >
+                        <div class="progress-inner">
+                            <div class="progress-bg" style="width: 100%;"></div>
+                        </div>
+                        <span class="progress-text"><span class="progress-text-inner"><i class="ion">&#xe924;</i>成功</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
         <h4>Spin</h4>
         <div class="wrap">
             <div class="p-lg pr">
@@ -1874,6 +1910,43 @@
                         <tr>
                             <td>.pagination > li.active</td>
                             <td>当前页</td>
+                        </tr>
+                    </table>
+                    <p></p>
+                </td>
+            </tr>
+            <tr id="progress（进度条）">
+                <td>progress.less</td>
+                <td>
+                <p></p>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>.progress</td>
+                            <td>定义进度条元素</td>
+                        </tr>
+                        <tr>
+                            <td>.progress-inner</td>
+                            <td>进度条轨道</td>
+                        </tr>
+                        <tr>
+                            <td>.progress-bg</td>
+                            <td>已完成进度条</td>
+                        </tr>
+                        <tr>
+                            <td>.progress-text</td>
+                            <td>进度条信息容器</td>
+                        </tr>
+                        <tr>
+                            <td>.progress-active</td>
+                            <td>叠加在.progress上呈现活动状态</td>
+                        </tr>
+                        <tr>
+                            <td>.progress-show-info</td>
+                            <td>叠加在.progress上以显示进度条信息</td>
+                        </tr>
+                        <tr>
+                            <td>progress-primary</td>
+                            <td>叠加在.progress上以显示为主色调（另："auxiliary", success", "info", "warning", "danger"）</td>
                         </tr>
                     </table>
                     <p></p>
@@ -5687,6 +5760,112 @@ $().datepicker({
                             <code>
     require('placeholder');
     $('input, textarea').placeholder();
+                            </code>
+                        </pre>
+                    </td>
+                </tr>
+                <tr id="Progress（进度条）">
+                    <td>progress</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>展示操作或任务的当前进度，比如上传文件。</p>
+                        <h5>配置</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>el</th>
+                                <td>
+                                    <p>默认 <code>null</code>，进度条容器元素，直接调用 <code>Progress</code>方法必填，jquery插件调用时可忽略</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>persent</th>
+                                <td>
+                                    <p>默认 <code>0</code>，初始化实例进度，取值0-100</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>color</th>
+                                <td>
+                                    <p>默认 <code>"info"</code>，进度条色调，支持【color】组件的所有颜色</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>height</th>
+                                <td>
+                                    <p>默认 <code>0</code>，进度条宽度，默认将采用组件默认</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>showInfo</th>
+                                <td>
+                                    <p>默认 <code>true</code>，是否显示进度信息</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>infoRender</th>
+                                <td>
+                                    <p>进度信息渲染方法，@(persent, entity) : 当前进度值，当前实例方法。默认：
+                                    <code>
+        function(persent) {
+            return persent + '%';
+        }
+                                    </code>
+                                    </p>
+                                    <p><code>entity</code>只有一个color方法，用法同下文【返回方法】</p>
+                                </td>
+                            </tr>
+
+                        </table>
+                        <h5>返回方法</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>persent([value])</th>
+                                <td>设置/获取当前进度</td>
+                            </tr>
+                            <tr>
+                                <th>color([value])</th>
+                                <td>设置/获取当前实例色调</td>
+                            </tr>
+                            <tr>
+                                <th>destroy()</th>
+                                <td>销毁实例</td>
+                            </tr>
+                        </table>
+                        <h5>示例</h5>
+                        <pre>
+                            <code>
+    &lt;div class=&quot;wrap&quot;&gt;
+        &lt;div class=&quot;row&quot;&gt;
+            &lt;div class=&quot;span-6 m-tb demo&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;btn btn-default add&quot;&gt;+&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default min&quot;&gt;-&lt;/div&gt;
+    &lt;/div&gt;
+                            </code>
+                        </pre>
+                        <pre>
+                            <code>
+    require('progress');                 
+    var myprog = $('.demo').progress({
+        persent: 50,
+        infoRender: function(persent, entity){
+            if(persent===100){
+                entity.color('success');
+                return '&lt;i class=&quot;ion&quot;&gt;&amp;#xe924;&lt;/i&gt;成功';
+            }else{
+                entity.color('info');
+                return persent + '%';
+            }
+        }
+    });
+
+
+    $('.add').on('click', function(){
+        myprog.persent(myprog.persent() + 10);
+    });  
+    $('.min').on('click', function(){
+        myprog.persent(myprog.persent() - 10);
+    });    
                             </code>
                         </pre>
                     </td>

@@ -2177,6 +2177,106 @@ big.form-mark {
   color: #ccc;
   background: #fff;
 }
+.progress {
+  display: block;
+  position: relative;
+  font-size: 12px;
+}
+.progress-show-info {
+  padding-right: 3.5em;
+}
+.progress-inner {
+  display: block;
+  border-radius: 100px;
+  background-color: #eeeeee;
+}
+.progress-bg {
+  overflow: hidden;
+  position: relative;
+  height: 1em;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+  border-radius: 100px;
+  background-color: #999999;
+}
+.progress-text {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  line-height: 1;
+  width: 3em;
+  height: 1em;
+  margin-top: -0.5em;
+  text-align: left;
+}
+.progress-active .progress-bg:before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  content: '';
+  -webkit-animation: progress-active 2s ease-in-out infinite;
+          animation: progress-active 2s ease-in-out infinite;
+  opacity: 0;
+  background: #fff;
+}
+.progress-primary .progress-bg {
+  background-color: #1d6fb8;
+}
+.progress-primary .progress-text {
+  color: #1d6fb8;
+}
+.progress-auxiliary .progress-bg {
+  background-color: #ff6e0a;
+}
+.progress-auxiliary .progress-text {
+  color: #ff6e0a;
+}
+.progress-info .progress-bg {
+  background-color: #4fcbf0;
+}
+.progress-info .progress-text {
+  color: #4fcbf0;
+}
+.progress-success .progress-bg {
+  background-color: #25ae88;
+}
+.progress-success .progress-text {
+  color: #25ae88;
+}
+.progress-warning .progress-bg {
+  background-color: #fec14c;
+}
+.progress-warning .progress-text {
+  color: #fec14c;
+}
+.progress-danger .progress-bg {
+  background-color: #fd7b6d;
+}
+.progress-danger .progress-text {
+  color: #fd7b6d;
+}
+@-webkit-keyframes progress-active {
+  0% {
+    width: 0;
+    opacity: 0.3;
+  }
+  to {
+    width: 100%;
+    opacity: 0;
+  }
+}
+@keyframes progress-active {
+  0% {
+    width: 0;
+    opacity: 0.3;
+  }
+  to {
+    width: 100%;
+    opacity: 0;
+  }
+}
 *[class*="rect-"] {
   position: relative;
   display: block;

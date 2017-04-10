@@ -1,7 +1,7 @@
 /*
  * name: switch.js
- * version: v0.0.1
- * update: build
+ * version: v0.0.2
+ * update: 初始化锁
  * date: 2017-04-10
  */
 define('switch', function(require, exports, module) {
@@ -36,9 +36,10 @@ define('switch', function(require, exports, module) {
 						}
 					}
 				};
-			if (!$this.length) {
+			if (!$this.length || $this.data('switch-init')) {
 				return null;
 			}
+
 			$switch = $(template);
 			if (opt.round) {
 				classTemp.push('switch-round');
@@ -73,8 +74,8 @@ define('switch', function(require, exports, module) {
 					e.preventDefault();
 					var status = $syncInput.prop('checked');
 					set(!status);
-				})
-				.appendTo($this);
+				});
+			$this.data('switch-init', 1).append($switch);
 
 			return {
 				on: function() {
