@@ -5790,6 +5790,12 @@ $().datepicker({
                                 </td>
                             </tr>
                             <tr>
+                                <th>active</th>
+                                <td>
+                                    <p>默认 <code>true</code>，实例是否为激活状态，当persent值达到100后自动设为 <code>false</code></p>
+                                </td>
+                            </tr>
+                            <tr>
                                 <th>height</th>
                                 <td>
                                     <p>默认 <code>0</code>，进度条宽度，默认将采用组件默认</p>
@@ -5827,6 +5833,10 @@ $().datepicker({
                                 <td>设置/获取当前实例色调</td>
                             </tr>
                             <tr>
+                                <th>active([value])</th>
+                                <td>设置/获取当前实例激活状态</td>
+                            </tr>
+                            <tr>
                                 <th>destroy()</th>
                                 <td>销毁实例</td>
                             </tr>
@@ -5840,6 +5850,7 @@ $().datepicker({
         &lt;/div&gt;
         &lt;div class=&quot;btn btn-default add&quot;&gt;+&lt;/div&gt;
         &lt;div class=&quot;btn btn-default min&quot;&gt;-&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default toggle&quot;&gt;切换激活状态&lt;/div&gt;
     &lt;/div&gt;
                             </code>
                         </pre>
@@ -5866,6 +5877,9 @@ $().datepicker({
     $('.min').on('click', function(){
         myprog.persent(myprog.persent() - 10);
     });    
+    $('.toggle').on('click', function(){
+        myprog.active(!myprog.active());
+    });     
                             </code>
                         </pre>
                     </td>
@@ -7050,13 +7064,13 @@ $().datepicker({
                             <h5>返回方法</h5>
                             <table class="table table-hover">
                                 <tr>
-                                    <th>on</th>
+                                    <th>on()</th>
                                     <td>
                                         <p>更改开关状态为开启</p>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>off</th>
+                                    <th>off()</th>
                                     <td>
                                         <p>更改开关状态为关闭</p>
                                     </td>

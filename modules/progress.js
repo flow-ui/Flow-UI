@@ -13,6 +13,7 @@ define('progress', function(require, exports, module) {
 			color: 'info',
 			height: 0,
 			showInfo: true,
+			active: true,
 			infoRender: function(persent) {
 				return persent + '%';
 			}
@@ -36,16 +37,21 @@ define('progress', function(require, exports, module) {
 					}
 				},
 				setPersent = function(persent) {
-					var initPersent;
-					if (isNaN(parseFloat(persent)) || parseFloat(persent) < 0) {
+					var initPersent = parseFloat(persent);
+					if (isNaN(initPersent) || parseFloat(persent) < 0) {
 						initPersent = 0;
 					} else {
 						initPersent = Math.min(100, parseFloat(persent));
 					}
-					opt.persent = initPersent;
-					$progress.find('.progress-bg').width(initPersent + '%').end().find('.progress-text').html(opt.infoRender(initPersent, {
-						color: setColor
-					}));
+					if(initPersent !== opt.persent){
+						opt.persent = initPersent;
+						$progress.find('.progress-bg').width(initPersent + '%').end().find('.progress-text').html(opt.infoRender(initPersent, {
+							color: setColor
+						}));
+						if (initPersent === 100) {
+							$progress.removeClass('progress-active');
+						}
+					}
 				};
 			if (!$this.length || $this.data('progress-init')) {
 				return null;
@@ -56,15 +62,19 @@ define('progress', function(require, exports, module) {
 				classTemp.push('progress-' + opt.color);
 			}
 
+			if (opt.active) {
+				classTemp.push('progress-active');
+			}
+
 			if (opt.height) {
 				$progress.find('.progress-bg').height(opt.height);
 			}
-			
+
 			if (opt.showInfo) {
 				$progress.append('<span class="progress-text"></span>');
 				classTemp.push('progress-show-info');
 			}
-			
+
 			setPersent(opt.persent);
 
 			$progress.addClass(classTemp.join(' '));
@@ -80,6 +90,16 @@ define('progress', function(require, exports, module) {
 					}
 				},
 				color: setColor,
+				active: function(flag) {
+					if (flag === void 0) {
+						return $progress.hasClass('progress-active');
+					}
+					if (!!flag) {
+						$progress.addClass('progress-active');
+					} else {
+						$progress.removeClass('progress-active');
+					}
+				},
 				destroy: function() {
 					$this.data('progress-init', null);
 					$progress.remove();
