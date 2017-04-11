@@ -162,6 +162,17 @@
                 <div class="p bg-success">.full-row .span-6</div>
             </div>
         </div>
+        <h4>徽标</h4>
+        <div class="m-b p">
+            <span class="m"><span class="badge"><a href="#" class="btn btn-default">button</a> <sup class="badge-count">99+</sup></span></span>
+            <span class="m"><span class="badge"><a href="#" class="btn btn-default">button</a> <sup class="badge-dot"></sup></span></span>
+            <span class="m"><span class="badge"><sup class="badge-count badge-count-alone">99</sup></span></span>
+            <span class="m"><span class="badge badge-primary"><sup class="badge-count badge-count-alone">99</sup></span></span>
+            <span class="m"><span class="badge badge-auxiliary"><sup class="badge-count badge-count-alone">99</sup></span></span>
+            <span class="m"><span class="badge badge-info"><sup class="badge-count badge-count-alone">99</sup></span></span>
+            <span class="m"><span class="badge badge-success"><sup class="badge-count badge-count-alone">99</sup></span></span>
+            <span class="m"><span class="badge badge-warning"><sup class="badge-count badge-count-alone">99</sup></span></span>
+        </div>
         <h4>按钮</h4>
         <h5>普通按钮</h5>
         <div class="m-b">
@@ -807,7 +818,46 @@
         <nav class="modules_index" id="component_index"></nav>
         <p></p>
         <table class="table table-bordered" id="component_list">
-        <tr id="bread（面包屑）">
+            <tr id="badge（徽标）">
+                <td>badge.less</td>
+                <td>
+                <p></p>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>.badge</td>
+                            <td>
+                                定义一个徽标容器
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.badge-count</td>
+                            <td>
+                                定义徽标数字元素
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.badge-dot</td>
+                            <td>
+                                定义徽标圆点
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.badge-count-alone</td>
+                            <td>
+                                叠加在.badge-count上将徽标显示为独立徽标
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.badge-primary</td>
+                            <td>
+                                叠加在.badge上以显示为主色调（另："auxiliary", success", "info", "warning", "danger"）
+                            </td>
+                        </tr>
+                    </table>
+                    <p></p>
+                </td>
+            </tr>
+            <tr id="bread（面包屑）">
                 <td>bread.less</td>
                 <td>
                 <p></p>
@@ -3078,13 +3128,127 @@ always: null            // complete function(done|fail)
                           </pre>
                         </td>
                     </tr>
+                    <tr id="Badge（徽标）">
+                        <td>badge</td>
+                        <td>
+                            <h5>描述</h5>
+                            <p>主要用于通知未读数的角标，提醒用户点击。返回 <code>Badge</code>方法，语法： <code>Badge(config)</code>，或使用jquery插件语法： <code>$el.badge(config)</code></p>
+                            <h5>配置</h5>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>el</th>
+                                    <td>
+                                        <p>默认 <code>null</code>，要显示徽标的元素，直接调用Badge方法必填，jquery插件调用时可忽略</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>count</th>
+                                    <td>
+                                        <p>默认 <code>0</code>，初始徽标数量</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>slot</th>
+                                    <td>
+                                        <p>默认 <code>true</code>，是否将当前元素作为徽标显示元素，若为false将在el元素中插入独立徽标</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>color</th>
+                                    <td>
+                                        <p>默认 <code>'danger'</code>，徽标色调，支持【色彩】组件中的所有颜色</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>max</th>
+                                    <td>
+                                        <p>默认 <code>99</code>，徽标显示的最大值</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>dot</th>
+                                    <td>
+                                        <p>默认 <code>false</code>，是否以圆点形式显示</p>
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                            <h5>返回方法</h5>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>count([value])</th>
+                                    <td>
+                                        <p>设置/获取当前实例的徽标数</p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <h5>示例</h5>
+                            <pre>
+                                <code>
+    &lt;div class=&quot;wrap&quot;&gt;
+        &lt;div class=&quot;m&quot;&gt;
+            &lt;a href=&quot;###&quot; class=&quot;btn btn-default demo&quot;&gt;Button&lt;/a&gt;
+            &lt;div class=&quot;btn btn-primary setmax m-l&quot;&gt;设置为100&lt;/div&gt;
+            &lt;div class=&quot;btn btn-primary add m-l&quot;&gt;+&lt;/div&gt;
+            &lt;div class=&quot;btn btn-primary min m-l&quot;&gt;-&lt;/div&gt;
+            &lt;div class=&quot;btn btn-primary setmin m-l&quot;&gt;设置为0&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;p&quot;&gt;独立显示：&lt;span class=&quot;demo2 m-l&quot;&gt;&lt;/span&gt;
+            &lt;div class=&quot;btn btn-primary setmax2 m-l&quot;&gt;设置为100&lt;/div&gt;
+            &lt;div class=&quot;btn btn-primary add2 m-l&quot;&gt;+&lt;/div&gt;
+            &lt;div class=&quot;btn btn-primary min2 m-l&quot;&gt;-&lt;/div&gt;
+            &lt;div class=&quot;btn btn-primary setmin2 m-l&quot;&gt;设置为0&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+                                </code>
+                            </pre>
+                            <pre>
+                                <code>
+    require('badge');
+    var badge1 = $('.demo').badge({
+        count: 1
+    });
+    $('.setmax').on('click', function() {
+        badge1.count(100);
+    });
+    $('.setmin').on('click', function() {
+        badge1.count(0);
+    });
+    $('.add').on('click', function() {
+        badge1.count(badge1.count() + 1);
+    });
+    $('.min').on('click', function() {
+        badge1.count(badge1.count() - 1);
+    });
+
+    var badge2 = $('.demo2').badge({
+        slot: false,
+        count: 9,
+        color: 'success'
+    });
+    $('.setmax2').on('click', function() {
+        badge2.count(100);
+    });
+    $('.setmin2').on('click', function() {
+        badge2.count(0);
+    });
+    $('.add2').on('click', function() {
+        badge2.count(badge2.count() + 1);
+    });
+    $('.min2').on('click', function() {
+        badge2.count(badge2.count() - 1);
+    });
+                                </code>
+                            </pre>
+                        </td>
+                    </tr>
                     <tr id="Base（工具包）">
                         <td>base</td>
                         <td>
                             <h5>描述</h5>
                             <p>封装常用工具</p>
-                            <h5>功能列表</h5>
-                            <table class="table table-bordered js-base-table">
+                            <h5>返回方法</h5>
+                            <table class="table table-bordered">
                                 <tr>
                                     <td>getUID()</td>
                                     <td>返回一个递增数字</td>
@@ -5810,14 +5974,15 @@ $().datepicker({
                             <tr>
                                 <th>infoRender</th>
                                 <td>
-                                    <p>进度信息渲染方法，@(persent, entity) : 当前进度值，当前实例方法。默认：
+                                    <p>进度信息渲染方法，@(persent, entity) : 当前进度值，当前实例方法。</p>
+                                    <p>默认：
                                     <code>
-        function(persent) {
+        function(persent, entity) {
             return persent + '%';
         }
                                     </code>
                                     </p>
-                                    <p><code>entity</code>只有一个color方法，用法同下文【返回方法】</p>
+                                    <p><code>entity</code>只有一个 <code>color()</code>方法，用法同下文【返回方法】</p>
                                 </td>
                             </tr>
 

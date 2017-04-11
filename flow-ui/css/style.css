@@ -163,6 +163,68 @@ th {
 .placeholder {
   color: #aaa;
 }
+.badge {
+  display: inline-block;
+  position: relative;
+  line-height: 1;
+  vertical-align: middle;
+}
+.badge-count {
+  position: absolute;
+  z-index: 90;
+  top: -10px;
+  right: -18px;
+  font-size: 12px;
+  line-height: 18px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  text-align: center;
+  white-space: nowrap;
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+  background: #fd7b6d;
+  box-shadow: 0 0 0 1px #fff;
+}
+.badge-dot {
+  position: absolute;
+  z-index: 90;
+  top: -4px;
+  right: -4px;
+  width: 8px;
+  height: 8px;
+  -webkit-transform-origin: 0 center;
+          transform-origin: 0 center;
+  border-radius: 100%;
+  background: #fd7b6d;
+  box-shadow: 0 0 0 1px #fff;
+}
+.badge-count-alone {
+  display: block;
+  position: relative;
+  top: auto;
+}
+.badge-primary .badge-count,
+.badge-primary .badge-dot {
+  background: #1d6fb8;
+}
+.badge-auxiliary .badge-count,
+.badge-auxiliary .badge-dot {
+  background: #ff6e0a;
+}
+.badge-info .badge-count,
+.badge-info .badge-dot {
+  background: #4fcbf0;
+}
+.badge-success .badge-count,
+.badge-success .badge-dot {
+  background: #25ae88;
+}
+.badge-warning .badge-count,
+.badge-warning .badge-dot {
+  background: #fec14c;
+}
 .bread {
   font-size: 14px;
   color: #555555;
