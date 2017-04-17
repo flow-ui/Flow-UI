@@ -1,8 +1,8 @@
 /*
  * name: switch.js
- * version: v0.0.2
- * update: 初始化锁
- * date: 2017-04-10
+ * version: v0.2.0
+ * update: add value
+ * date: 2017-04-14
  */
 define('switch', function(require, exports, module) {
 	"use strict";
@@ -10,8 +10,10 @@ define('switch', function(require, exports, module) {
 		def = {
 			el: null,
 			name: null,
+			value: false,
 			round: false,
 			color: "default",
+			disabled: false,
 			size: null,
 			onChange: null
 		},
@@ -22,8 +24,11 @@ define('switch', function(require, exports, module) {
 				$switch,
 				$syncInput,
 				classTemp = [],
-				set = function(value) {
+				set = function(value, init) {
 					var status = $syncInput.prop('checked');
+					if(opt.disabled){
+						return null;
+					}
 					if (!!value !== status) {
 						if (value) {
 							$switch.addClass('switch-on');
@@ -31,10 +36,21 @@ define('switch', function(require, exports, module) {
 							$switch.removeClass('switch-on');
 						}
 						$syncInput.prop('checked', !!value);
-						if (typeof opt.onChange === 'function') {
+						if (!init && typeof opt.onChange === 'function') {
 							opt.onChange(!!value);
 						}
 					}
+				},
+				disabled = function(flag, init){
+					if(!init && (opt.disabled === !flag)){
+						return null;
+					}
+					if(flag){
+						$switch.removeClass('switch-disabled');
+					}else{
+						$switch.addClass('switch-disabled');
+					}
+					return opt.disabled = !flag;
 				};
 			if (!$this.length || $this.data('switch-init')) {
 				return null;
@@ -68,6 +84,10 @@ define('switch', function(require, exports, module) {
 			if ($syncInput.prop('checked')) {
 				classTemp.push('switch-on');
 			}
+			
+			disabled(!opt.disabled, true);
+			set(opt.value, true);
+
 			$switch
 				.addClass(classTemp.join(' '))
 				.on('mouseup', '.handle', function(e) {
@@ -78,12 +98,14 @@ define('switch', function(require, exports, module) {
 			$this.data('switch-init', 1).append($switch);
 
 			return {
-				on: function() {
-					set(true);
+				value: function(flag){
+					if(flag === void 0){
+						return $syncInput.prop('checked');
+					}else{
+						return set(!!flag);
+					}
 				},
-				off: function() {
-					set(false);
-				}
+				disabled: disabled
 			};
 		};
 

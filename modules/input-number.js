@@ -1,8 +1,8 @@
 /*
  * name: input-number.js
- * version: v0.1.0
- * update: 继承input
- * date: 2017-01-03
+ * version: v0.1.2
+ * update: 去掉hover颜色变化
+ * date: 2017-04-17
  */
 define("input-number", function(require, exports, module) {
 	"use strict";
@@ -16,8 +16,7 @@ define("input-number", function(require, exports, module) {
 		background: #f8f8f8; border:1px solid #e8e9eb;border-left:0;text-align:center; outline: none}\
 		.counter_default .pro_counter_btn:hover{background:#eee;}\
 		.counter_default .pro_counter_reduce{bottom:0;border-top:0;border-bottom-right-radius:4px;}\
-		.counter_default .pro_counter_add{top:0;border-bottom:0;border-top-right-radius:4px;}\
-		.counter_wrap:hover .pro_counter_btn, .counter_wrap:hover .pro_counter_val{border-color:#ccc;}', module.uri);
+		.counter_default .pro_counter_add{top:0;border-bottom:0;border-top-right-radius:4px;}', module.uri);
 	require('input');
 	var $ = require('jquery'),
 		def = {
@@ -142,17 +141,15 @@ define("input-number", function(require, exports, module) {
 		switch ($.trim(opt.style)) {
 			case "inline":
 				template = '<${wrapTag} data-input-init="true" class="counter_wrap counter_inline input-group${color}<!-- if: ${className} --> ${className}<!-- /if -->"<!-- if: ${width} --> style="width:${width}px"<!-- /if -->>\
-                    <div class="pro_counter_btn pro_counter_reduce input-group-addon">-</div>\
-                    <input type="${type}" id="${id}" placeholder="${holder}" value="${val}" class="form-control pro_counter_val"<!-- if: ${disable} --> disabled<!-- /if --><!-- if: ${readonly} --> readonly<!-- /if -->>\
-                    <div class="pro_counter_btn pro_counter_add input-group-addon">+</div>\
-                </${wrapTag}>';
+    <div class="pro_counter_btn pro_counter_reduce input-group-addon">-</div>\
+    <input type="${type}" id="${id}" placeholder="${holder}" value="${val}" class="form-control pro_counter_val"<!-- if: ${disable} --> disabled<!-- /if --><!-- if: ${readonly} --> readonly<!-- /if -->><div class="pro_counter_btn pro_counter_add input-group-addon">+</div>\
+</${wrapTag}>';
 				break;
 			default:
 				template = '<${wrapTag} data-input-init="true" class="counter_wrap counter_default${color}<!-- if: ${className} --> ${className}<!-- /if -->"<!-- if: ${width} --> style="width:${width}px"<!-- /if -->>\
-                    <div class="pro_counter_btn pro_counter_reduce">-</div>\
-                    <input type="${type}" id="${id}" placeholder="${holder}" value="${val}" class="form-control pro_counter_val"<!-- if: ${disable} --> disabled<!-- /if --><!-- if: ${readonly} --> readonly<!-- /if -->>\
-                    <div class="pro_counter_btn pro_counter_add">+</div>\
-                </${wrapTag}>';
+    <div class="pro_counter_btn pro_counter_reduce">-</div>\
+    <input type="${type}" id="${id}" placeholder="${holder}" value="${val}" class="form-control pro_counter_val"<!-- if: ${disable} --> disabled<!-- /if --><!-- if: ${readonly} --> readonly<!-- /if -->><div class="pro_counter_btn pro_counter_add">+</div>\
+</${wrapTag}>';
 		}
 		opt.template = template;
 

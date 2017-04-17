@@ -1,14 +1,14 @@
 /*
  * name: input.js
- * version: v0.1.0
- * update: 支持data-options属性传参；支持flowui-input类自动初始化；支持按钮组；修复bug
- * date: 2017-01-03
+ * version: v0.1.1
+ * update: 删除多余空格
+ * date: 2017-04-14
  */
 define('input', function(require, exports, module) {
     "use strict";
     seajs.importStyle('.input-widget{display:inline-block;vertical-align:bottom;margin:0;}\
     	.icon-left .form-control-feedback{right:auto;left:0;}\
-        .input-widget .btn{min-width:0;border-left:1px solid #e8e9eb}\
+        .input-widget .btn{min-width:0}\
         .input-widget .btn:first{border-left:0}', module.uri);
     var $ = require('jquery'),
         base = require('base'),
@@ -203,22 +203,18 @@ define('input', function(require, exports, module) {
             if (!template) {
                 if (tagname === 'textarea') {
                     template = '<${wrapTag} data-input-init="true" class="input-widget form-group${color}${wrapSizeClass}<!-- if: ${className} --> ${className}<!-- /if -->"<!-- if: ${width} --> style="width:${width}px"<!-- /if -->>\
-                                    <textarea class="form-control" id="${id}" placeholder="${holder}" value="${val}"<!-- if: ${disable} --> disabled<!-- /if --><!-- if: ${readonly} --> readonly<!-- /if --><!-- if: ${datatype} --> datatype="${datatype}"<!-- if: ${errormsg} --> errormsg="${errormsg}"<!-- /if --><!-- if: ${nullmsg} --> nullmsg="${nullmsg}"<!-- /if --><!-- /if -->></textarea>\
-                                </${wrapTag}>';
+        <textarea class="form-control" id="${id}" placeholder="${holder}" value="${val}"<!-- if: ${disable} --> disabled<!-- /if --><!-- if: ${readonly} --> readonly<!-- /if --><!-- if: ${datatype} --> datatype="${datatype}"<!-- if: ${errormsg} --> errormsg="${errormsg}"<!-- /if --><!-- if: ${nullmsg} --> nullmsg="${nullmsg}"<!-- /if --><!-- /if -->></textarea>\
+    </${wrapTag}>';
                 } else {
                     template = '<${wrapTag} data-input-init="true" class="input-widget form-group${color}${wrapSizeClass}<!-- if: ${iconPosition} === "left" --> icon-left<!-- /if --><!-- if: ${icon} --> has-feedback<!-- /if --><!-- if: ${className} --> ${className}<!-- /if -->"<!-- if: ${width} --> style="width:${width}px"<!-- /if -->>\
-                                    <!-- if: ${buttons} --><div class="input-group${groupSizeClass}"><!-- /if -->\
-                                    <input type="${type}" class="form-control" id="${id}" placeholder="${holder}" value="${text}"<!-- if: ${disable} --> disabled<!-- /if --><!-- if: ${readonly} --> readonly<!-- /if -->>\
-                                    <!-- if: ${buttons} -->\
-                                    <!-- for: ${buttons} as ${btn}, ${index} -->\
-                                    <span class="input-group-addon btn" data-index="${index}">${btn.text}</span>\
-                                    <!-- /for -->\
-                                    </div>\
-                                    <!-- /if -->\
-                                    <!-- if: ${icon} -->\
-                                    <i class="ion form-control-feedback">${icon | raw}</i>\
-                                    <!-- /if -->\
-                                </${wrapTag}>';
+        <!-- if: ${buttons} --><div class="input-group${groupSizeClass}"><!-- /if -->\
+        <input type="${type}" class="form-control" id="${id}" placeholder="${holder}" value="${text}"<!-- if: ${disable} --> disabled<!-- /if --><!-- if: ${readonly} --> readonly<!-- /if -->><!-- if: ${buttons} --><!-- for: ${buttons} as ${btn}, ${index} --><span class="input-group-addon btn" data-index="${index}">${btn.text}</span><!-- /for -->\
+        </div>\
+        <!-- /if -->\
+        <!-- if: ${icon} -->\
+        <i class="ion form-control-feedback">${icon | raw}</i>\
+        <!-- /if -->\
+    </${wrapTag}>';
                 }
             }
             render = etpl.compile(template);

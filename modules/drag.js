@@ -1,8 +1,8 @@
 /*
  * name: drag
- * vertion: v0.7.2
- * update: bug fix
- * date: 2017-01-09
+ * vertion: v0.8.0
+ * update: add onMove()
+ * date: 2017-04-12
  */
 define('drag', function(require, exports, module) {
     'use strict';
@@ -11,60 +11,66 @@ define('drag', function(require, exports, module) {
         ready = require('img-ready'),
         def = {
             wrap: null,
+            el: null,
             overflow: false,
             dragStart: null,
-            drag: null,
-            dragEnd: null
+            onDrag: null,
+            dragEnd: null,
+            onMove: null
         },
         moveTimer,
         moveIt = function(ele, offset) {
-        if (!moveTimer) {
-            if (base.browser.support3d) {
-                var translateX = $(ele).data('translateX') || '0px';
-                var translateY = $(ele).data('translateY') || '0px';
-                var startX = $(ele).data('start').x;
-                var startY = $(ele).data('start').y;
-                var movecb = $(ele).data('movecb');
-                translateX = (offset[0] - parseInt(startX)) + 'px';
-                translateY = (offset[1] - parseInt(startY)) + 'px';
-                moveTimer = setTimeout(function() {
-                    $(ele)
-                        .data('translateX', translateX)
-                        .data('translateY', translateY)
-                        .get(0).style.transform = 'translate(' + translateX + ',' + translateY + ')';
-                    moveTimer = clearTimeout(moveTimer);
-                    typeof(movecb) === 'function' && movecb(ele);
-                }, 1000 / 60);
-            } else {
-                moveTimer = setTimeout(function() {
-                    $(ele).css({
-                        left: offset[0],
-                        top: offset[1]
-                    });
-                    moveTimer = clearTimeout(moveTimer);
-                    typeof(movecb) === 'function' && movecb(ele);
-                }, 1000 / 60);
+            if (!moveTimer) {
+                if (base.browser.support3d) {
+                    var translateX = $(ele).data('translateX') || '0px';
+                    var translateY = $(ele).data('translateY') || '0px';
+                    var startX = $(ele).data('start').x;
+                    var startY = $(ele).data('start').y;
+                    var movecb = $(ele).data('movecb');
+                    translateX = (offset[0] - parseInt(startX)) + 'px';
+                    translateY = (offset[1] - parseInt(startY)) + 'px';
+                    moveTimer = setTimeout(function() {
+                        $(ele)
+                            .data('translateX', translateX)
+                            .data('translateY', translateY)
+                            .get(0).style.transform = 'translate(' + translateX + ',' + translateY + ')';
+                        moveTimer = clearTimeout(moveTimer);
+                        typeof(movecb) === 'function' && movecb(ele);
+                    }, 1000 / 60);
+                } else {
+                    moveTimer = setTimeout(function() {
+                        $(ele).css({
+                            left: offset[0],
+                            top: offset[1]
+                        });
+                        moveTimer = clearTimeout(moveTimer);
+                        typeof(movecb) === 'function' && movecb(ele);
+                    }, 1000 / 60);
+                }
             }
-        }
-    };
-    $.fn.drag = function(config) {
-        return $(this).each(function(i, e) {
-            var $this = $(e),
+        },
+        Drag = function(config) {
+            var opt = $.extend({}, def, config || {}),
+                $this = $(opt.el).eq(0),
                 ox, oy, mx, my, fw, fh, bindEvents,
-                ow = $this.outerWidth(),
-                oh = $this.outerHeight(),
-                opt = $.extend({}, def, config || {}),
-                thisPosition = $this.css('position'),
-                cssobj = {
-                    "cursor": "move"
-                };
-            if ($this.data('draginit')) {
+                ow,
+                oh,
+                thisPosition,
+                cssobj = {};
+            if (!$this.length || $this.data('drag-init')) {
                 return null;
             }
+            if(typeof opt.onMove !== 'function'){
+                cssobj.cursor = "move";
+            }
+            ow = $this.outerWidth();
+            oh = $this.outerHeight();
+            thisPosition = $this.css('position');
+
             if (thisPosition !== 'absolute' && thisPosition !== 'fixed') {
                 cssobj.position = 'relative';
             }
-            $this.css(cssobj).data('movecb', opt.drag).data('draginit', 1);
+            $this.css(cssobj).data('movecb', opt.onDrag).data('drag-init', 1);
             thisPosition = cssobj = null;
             if (opt.wrap === null) {
                 if ($this.parent().is('body')) {
@@ -86,6 +92,9 @@ define('drag', function(require, exports, module) {
                         var rx = parseInt(ox - mx + e.clientX),
                             ry = parseInt(oy - my + e.clientY),
                             movex, movey;
+                        if (typeof opt.onMove === 'function') {
+                            return opt.onMove(e.clientX - mx, my - e.clientY);
+                        }
                         // drective X
                         if ((rx < 0 && fw > ow) || (rx > 0 && fw < ow)) {
                             if (!opt.overflow) {
@@ -139,7 +148,7 @@ define('drag', function(require, exports, module) {
                         'mousemove': mousemove,
                         'mouseup': mouseup
                     });
-                    typeof(opt.dragStart) === 'function' && opt.dragStart($(this));
+                    typeof(opt.dragStart) === 'function' && opt.dragStart($this);
                 });
             };
             if ($this.get(0).nodeName.toLowerCase() == "img") {
@@ -152,6 +161,12 @@ define('drag', function(require, exports, module) {
             } else {
                 bindEvents();
             }
-        });
+        };
+
+    $.fn.drag = function(config) {
+        return Drag($.extend({
+            el: this
+        }, config || {}));
     };
+    module.exports = Drag;
 });

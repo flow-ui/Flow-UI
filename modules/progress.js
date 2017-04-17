@@ -1,8 +1,8 @@
 /*
  * name: progress.js
- * version: v0.0.1
- * update: build
- * date: 2017-12-28
+ * version: v0.0.3
+ * update: default color = primary
+ * date: 2017-04-14
  */
 define('progress', function(require, exports, module) {
 	"use strict";
@@ -10,7 +10,7 @@ define('progress', function(require, exports, module) {
 		def = {
 			el: null,
 			persent: 0,
-			color: 'info',
+			color: 'primary',
 			height: 0,
 			showInfo: true,
 			active: true,
@@ -18,11 +18,7 @@ define('progress', function(require, exports, module) {
 				return persent + '%';
 			}
 		},
-		template = '<div class="progress">\
-    <div class="progress-inner">\
-        <div class="progress-bg"></div>\
-    </div>\
-</div>',
+		template = '<div class="progress"><div class="progress-inner"><div class="progress-bg"></div></div></div>',
 		Progress = function(config) {
 			var opt = $.extend({}, def, config || {}),
 				$this = $(config.el).eq(0),
@@ -36,14 +32,14 @@ define('progress', function(require, exports, module) {
 						return opt.color;
 					}
 				},
-				setPersent = function(persent) {
+				setPersent = function(persent, init) {
 					var initPersent = parseFloat(persent);
 					if (isNaN(initPersent) || parseFloat(persent) < 0) {
 						initPersent = 0;
 					} else {
 						initPersent = Math.min(100, parseFloat(persent));
 					}
-					if(initPersent !== opt.persent){
+					if(init || initPersent !== opt.persent){
 						opt.persent = initPersent;
 						$progress.find('.progress-bg').width(initPersent + '%').end().find('.progress-text').html(opt.infoRender(initPersent, {
 							color: setColor
@@ -75,7 +71,7 @@ define('progress', function(require, exports, module) {
 				classTemp.push('progress-show-info');
 			}
 
-			setPersent(opt.persent);
+			setPersent(opt.persent, true);
 
 			$progress.addClass(classTemp.join(' '));
 

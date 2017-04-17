@@ -7,8 +7,8 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
     <title>Flow-UI 文档</title>
-    <meta content="Flow-CLI,front-flow" name="Keywords">
-    <meta content="Flow-CLI是专为front-flow前端工作流开发的命令行工具，实现自动初始化、组件化开发、预处理、静态资源优化、图片压缩等前端自动化需求。" name="Description">
+    <meta content="Flow-UI文档,Flow-CLI,front-flow" name="Keywords">
+    <meta content="Flow-UI 是一套组件化UI框架，支持定制主题，主要服务于前台及中后台产品。" name="Description">
     <link href="/Flow-UI/docs/favicon.ico" rel="icon">
 <link href="/Flow-UI/docs/css/style.css" rel="stylesheet">
 <link href="/Flow-UI/docs/css/doc.css" rel="stylesheet">
@@ -114,598 +114,7 @@
     <section class="wrap" id="css">
         <h2>CSS</h2>
         <h3 id="css-demo">UI展示</h3>
-        <h4>栅格系统</h4>
-        <div class="row m-b">
-            <div class="span-2">
-                <div class="p bg-info">.span-2</div>
-            </div>
-            <div class="span-2">
-                <div class="p bg-info">.span-2</div>
-            </div>
-            <div class="span-2">
-                <div class="p bg-info">.span-2</div>
-            </div>
-            <div class="span-2">
-                <div class="p bg-info">.span-2</div>
-            </div>
-            <div class="span-2">
-                <div class="p bg-info">.span-2</div>
-            </div>
-            <div class="span-2">
-                <div class="p bg-info">.span-2</div>
-            </div>
-        </div>
-        <div class="row m-b">
-            <div class="span-4">
-                <div class="p bg-info">.span-4</div>
-            </div>
-            <div class="span-4">
-                <div class="p bg-info">.span-4</div>
-            </div>
-            <div class="span-4">
-                <div class="p bg-info">.span-4</div>
-            </div>
-        </div>
-        <div class="full-row m-b">
-            <div class="span-8">
-                <div class="p bg-primary">.full-row .span-8</div>
-            </div>
-            <div class="span-4">
-                <div class="p bg-success">.full-row .span-4</div>
-            </div>
-        </div>
-        <div class="full-row m-b">
-            <div class="span-6">
-                <div class="p bg-primary">.full-row .span-6</div>
-            </div>
-            <div class="span-6">
-                <div class="p bg-success">.full-row .span-6</div>
-            </div>
-        </div>
-        <h4>色彩</h4>
-        <div class="m-b">
-            <div class="row">
-                <div class="span-2 tc text-primary">主色</div>
-                <div class="span-2 tc text-auxiliary">辅色</div>
-                <div class="span-2 tc text-success">成功</div>
-                <div class="span-2 tc text-info">信息</div>
-                <div class="span-2 tc text-warning">警告</div>
-                <div class="span-2 tc text-danger">危险</div>
-            </div>
-        </div>
-        <div class="m-b">
-            <div class="row">
-                <div class="span-2 tc bg-primary">以你的风采</div>
-                <div class="span-2 tc bg-auxiliary">以你的风采</div>
-                <div class="span-2 tc bg-success">以你的风采</div>
-                <div class="span-2 tc bg-info">以你的风采</div>
-                <div class="span-2 tc bg-warning">以你的风采</div>
-                <div class="span-2 tc bg-danger">以你的风采</div>
-            </div>
-        </div>
-
-        <h4>徽标</h4>
-        <div class="m-b p">
-            <span class="m"><span class="badge"><a href="#" class="btn btn-default">button</a> <sup class="badge-count">99+</sup></span></span>
-            <span class="m"><span class="badge"><a href="#" class="btn btn-default">button</a> <sup class="badge-dot"></sup></span></span>
-            <span class="m"><span class="badge"><sup class="badge-count badge-count-alone">99</sup></span></span>
-            <span class="m"><span class="badge badge-primary"><sup class="badge-count badge-count-alone">99</sup></span></span>
-            <span class="m"><span class="badge badge-auxiliary"><sup class="badge-count badge-count-alone">99</sup></span></span>
-            <span class="m"><span class="badge badge-info"><sup class="badge-count badge-count-alone">99</sup></span></span>
-            <span class="m"><span class="badge badge-success"><sup class="badge-count badge-count-alone">99</sup></span></span>
-            <span class="m"><span class="badge badge-warning"><sup class="badge-count badge-count-alone">99</sup></span></span>
-        </div>
-
-        <h4>按钮</h4>
-        <div class="m-b">
-            <button type="button" class="btn btn-default">default</button>
-            <button type="button" class="btn btn-primary">primary</button>
-            <button type="button" class="btn btn-info">info</button>
-            <button type="button" class="btn btn-success">success</button>
-            <button type="button" class="btn btn-warning">warning</button>
-            <button type="button" class="btn btn-danger">danger</button>
-        </div>
-        <div class="m-b">
-            <a href="#" class="btn btn-ghost btn-default">default</a>
-            <a href="#" class="btn btn-ghost btn-primary">primary</a>
-            <a href="#" class="btn btn-ghost btn-info">info</a>
-            <a href="#" class="btn btn-ghost btn-success">success</a>
-            <a href="#" class="btn btn-ghost btn-warning">warning</a>
-            <a href="#" class="btn btn-ghost btn-danger">danger</a>
-        </div>
-        <div class="m-b">
-            <button type="button" class="btn btn-lg btn-default">default</button>
-            <a href="#" class="btn btn-ghost btn-sm btn-default">default</a>
-            <a href="###" class="btn btn-link">链接按钮</a>
-        </div>
-        
-        <h4>开关</h4>
-        <div class="m-b">
-            <label class="switch switch-primary m-r">
-                <div class="track">
-                    <div class="handle"></div>
-                </div>
-            </label>
-            <label class="switch switch-primary switch-on m-r">
-                <div class="track">
-                    <div class="handle"></div>
-                </div>
-            </label>
-            <label class="switch switch-primary switch-disabled m-r">
-                <div class="track">
-                    <div class="handle"></div>
-                </div>
-            </label>
-            <label class="switch switch-round switch-success m-r">
-                <div class="track">
-                    <div class="handle"></div>
-                </div>
-            </label>
-            <label class="switch switch-round switch-success switch-on m-r">
-                <div class="track">
-                    <div class="handle"></div>
-                </div>
-            </label>
-            <label class="switch switch-round switch-success switch-disabled m-r">
-                <div class="track">
-                    <div class="handle"></div>
-                </div>
-            </label>
-        </div>
-        <div class="m-b">
-            <label class="switch switch-lg switch-warning m-r">
-                <div class="track">
-                    <div class="handle"></div>
-                </div>
-            </label>
-            <label class="switch switch-lg switch-warning switch-on m-r">
-                <div class="track">
-                    <div class="handle"></div>
-                </div>
-            </label>
-            <label class="switch switch-lg switch-warning switch-disabled m-r">
-                <div class="track">
-                    <div class="handle"></div>
-                </div>
-            </label>
-        </div>
-        <div class="m-b">
-            <label class="switch switch-sm switch-danger m-r">
-                <div class="track">
-                    <div class="handle"></div>
-                </div>
-            </label>
-            <label class="switch switch-sm switch-danger switch-on m-r">
-                <div class="track">
-                    <div class="handle"></div>
-                </div>
-            </label>
-            <label class="switch switch-sm switch-danger switch-disabled m-r">
-                <div class="track">
-                    <div class="handle"></div>
-                </div>
-            </label>
-        </div>
-        
-        <h4>标签</h4>
-        <div class="m">
-            <span class="label">主色</span>
-            <span class="label label-auxiliary">辅助色</span>
-            <span class="label label-success">成功</span>
-            <span class="label label-info">信息</span>
-            <span class="label label-warning label-closable">警告<i class="ion">&#xe7de;</i></span>
-            <span class="label label-danger label-closable">危险<i class="ion">&#xe7de;</i></span>
-            <span class="label label-bordered">主色</span>
-            <span class="label label-bordered label-auxiliary">辅助色</span>
-            <span class="label label-bordered label-success">成功</span>
-            <span class="label label-bordered label-info">信息</span>
-            <span class="label label-bordered label-closable label-warning">警告<i class="ion">&#xe7de;</i></span>
-            <span class="label label-bordered label-closable label-danger">危险<i class="ion">&#xe7de;</i></span>
-        </div>
-        <div class="m">
-            <span class="label label-sm label-bordered">较小</span>
-            <span class="label label-sm label-bordered label-closable">较小 <i class="ion">&#xe7de;</i></span>
-            <span class="label label-sm">较小</span>
-            <span class="label label-sm label-closable">较小 <i class="ion">&#xe7de;</i></span>
-        </div>
-        <div class="m">
-            <span class="label label-lg label-bordered">较大</span>
-            <span class="label label-lg label-bordered label-closable">较大 <i class="ion">&#xe7de;</i></span>
-            <span class="label label-lg">较大</span>
-            <span class="label label-lg label-closable">较大 <i class="ion">&#xe7de;</i></span>
-        </div>
-        <h4>卡片</h4>
-        <div class="wrap">
-            <div class="row">
-                <div class="span-6 m-b">
-                    <div class="card">
-                        <div class="card-head">
-                            <div class="card-title">普通卡片</div>
-                        </div>
-                        <div class="card-body">
-                            mycard
-                        </div>
-                    </div>
-                </div>
-                <div class="span-6 m-b">
-                    <div class="card card-shadow">
-                        <div class="card-head">
-                            <div class="card-title">带阴影卡片</div>
-                        </div>
-                        <div class="card-body">
-                            hahaha
-                        </div>
-                    </div>
-                </div>
-                <div class="span-6 m-b">
-                    <div class="card card-bordered">
-                        <div class="card-head">
-                            <div class="card-title">带边框线卡片</div>
-                        </div>
-                        <div class="card-body">
-                            mycard3
-                        </div>
-                    </div>
-                </div>
-                <div class="span-6 m-b">
-                    <div class="card card-bordered">
-                        <div class="card-head">
-                            <div class="card-title">带附加物</div>
-                            <div class="card-extra"><a href="###" class="btn btn-link">More</a></div>
-                        </div>
-                        <div class="card-body">
-                            mycard3
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <h4>定义列表</h4>
-        <dl class="dl dl-table">
-            <dt>Description lists</dt>
-            <dd>A description list is perfect for defining terms.</dd>
-            <dt>Euismod</dt>
-            <dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</dd>
-            <dd>Donec id elit non mi porta gravida at eget metus.</dd>
-            <dt>Malesuada porta</dt>
-            <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
-            <dt>Felis euismod semper eget lacinia</dt>
-            <dd>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
-        </dl>
-        <h4>表格</h4>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>序号</th>
-                    <th>标题</th>
-                    <th>备注</th>
-                </tr>
-            </thead>
-            <tr>
-                <td>1</td>
-                <td>内容</td>
-                <td>内容</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>内容</td>
-                <td>内容</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>内容</td>
-                <td>内容</td>
-            </tr>
-        </table>
-        
-        <h4>表单</h4>
-        <div class="wrap">
-            <div class="row">
-                <div class="span-6">
-                    <h5>基本实例</h5>
-                    <form role="form m-b">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                        </div>
-                        <label class="checkbox">
-                            <input type="checkbox">Check me out
-                        </label>
-                        <div class="form-group">
-                            <div class="help-block">Example block-level help text here.</div>
-                        </div>
-                        <button type="button" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-                <div class="span-6">
-                    <h5>水平排列</h5>
-                    <form class="form-horizontal m-b" role="form">
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="span-2 control-label">Email</label>
-                            <div class="span-10">
-                                <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputPassword3" class="span-2 control-label">Password</label>
-                            <div class="span-10">
-                                <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="pull-right-2 span-10">
-                                <label class="checkbox">
-                                    <input type="checkbox"> Remember me
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="pull-right-2 span-10">
-                                <div class="help-block">Example block-level help text here.</div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="pull-right-2 span-10">
-                                <button type="button" class="btn btn-primary">Sign in</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="row m-tb">
-                <div class="span-6">
-                    <h5>单选和多选</h5>
-                    <label class="checkbox">
-                        <input type="checkbox" value=""> Option one is this and that&mdash;be sure to include why it's great
-                    </label>
-                    <label class="checkbox disabled">
-                        <input type="checkbox" value="" disabled> Option two is disabled
-                    </label>
-                    <label class="radio">
-                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked> Option one is this and that&mdash;be sure to include why it's great
-                    </label>
-                    <label class="radio">
-                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"> Option two can be something else and selecting it will deselect option one
-                    </label>
-                    <label class="radio disabled">
-                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled> Option three is disabled
-                    </label>
-                </div>
-                <div class="span-6">
-                    <h5>内联单选和多选</h5>
-                    <div class="m-b">
-                        <label class="checkbox checkbox-inline">
-                            <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
-                        </label>
-                        <label class="checkbox checkbox-inline">
-                            <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
-                        </label>
-                        <label class="checkbox checkbox-inline">
-                            <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
-                        </label>
-                    </div>
-                    <div class="m-b">
-                        <label class="radio radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1
-                        </label>
-                        <label class="radio radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 2
-                        </label>
-                        <label class="radio radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 3
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <h5>内联表单</h5>
-        <form class="form-inline m-b">
-            <label class="sr-only" for="exampleInputEmail2">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
-            <div class="input-group">
-                <div class="input-group-addon">@</div>
-                <input class="form-control" type="email" placeholder="Enter email">
-            </div>
-            <label class="sr-only" for="exampleInputPassword2">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword2
-" placeholder="Password">
-            <button type="button" class="btn btn-primary">Sign in</button>
-        </form>
-        <h5>特殊样式</h5>
-        <div class="wrap m-b">
-            <div class="row">
-                <div class="span-6">
-                    <form class="form-horizontal">
-                        <div class="form-group form-group-sm row has-success has-feedback">
-                            <label class="control-label span-3">Input with success</label>
-                            <div class="span-9">
-                                <input type="text" class="form-control" placeholder="小尺寸"> <i class="ion form-control-feedback">&#xe60c;</i>
-                            </div>
-                        </div>
-                        <div class="form-group row has-warning has-feedback">
-                            <label class="control-label span-3">Input with warning</label>
-                            <div class="span-9">
-                                <input type="text" class="form-control" placeholder="普通尺寸"> <i class="ion form-control-feedback">&#xe60d;</i>
-                            </div>
-                        </div>
-                        <div class="form-group form-group-lg row has-error has-feedback">
-                            <label class="control-label span-3">Input with error</label>
-                            <div class="span-9">
-                                <input type="text" class="form-control" placeholder="大尺寸"> <i class="ion form-control-feedback">&#xe623;</i>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="control-label span-3" for="inputGroupSuccess2">带徽标控件<big class="form-mark">*</big></label>
-                            <div class="span-9">
-                                <div class="input-group">
-                                    <span class="input-group-addon">@</span>
-                                    <input type="text" class="form-control" id="inputGroupSuccess2" aria-describedby="inputGroupSuccess2Status">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <h4>菜单</h4>
-        <div class="wrap">
-            <h5>横向</h5>
-            <nav class="m-b">
-                <ul class="menu-ui menu-horizontal menu-light">
-                    <li class="menu-item menu-item-active"><i class="ion">&#xe64a;</i>首页</li>
-                    <li class="menu-item">订单</li>
-                    <li class="menu-item">会员 <i class="menu-sub-ion ion">&#xe609;</i></li>
-                    <li class="menu-item">店铺</li>
-                    <li class="menu-item">系统</li>
-                </ul>
-            </nav>
-            <nav class="m-b">
-                <ul class="menu-ui menu-horizontal menu-dark">
-                    <li class="menu-item menu-item-active"><i class="ion">&#xe64a;</i>首页</li>
-                    <li class="menu-item">订单</li>
-                    <li class="menu-item">会员 <i class="menu-sub-ion ion">&#xe609;</i></li>
-                    <li class="menu-item">店铺</li>
-                    <li class="menu-item">系统</li>
-                </ul>
-            </nav>
-            <nav class="m-b">
-                <ul class="menu-ui menu-horizontal menu-primary">
-                    <li class="menu-item menu-item-active"><i class="ion">&#xe64a;</i>首页</li>
-                    <li class="menu-item">订单</li>
-                    <li class="menu-item">会员 <i class="menu-sub-ion ion">&#xe609;</i></li>
-                    <li class="menu-item">店铺</li>
-                    <li class="menu-item">系统</li>
-                </ul>
-            </nav>
-            <h5>纵向</h5>
-            <div class="row m-t">
-                <nav class="span-3">
-                    <ul class="menu-ui menu-vertical menu-light">
-                        <li class="menu-item">首页<i class="menu-sub-ion ion">&#xe609;</i></li>
-                        <li class="menu-item">订单</li>
-                        <li class="menu-submenu menu-opened">
-                            <div class="menu-item-title">会员<i class="menu-sub-ion ion">&#xe609;</i></div>
-                            <ul class="menu-sub-group">
-                                <li class="menu-item  menu-item-active">文章管理</li>
-                                <li class="menu-item">评论管理</li>
-                                <li class="menu-item">举报管理</li>
-                            </ul>
-                        </li>
-                        <li class="menu-item">店铺</li>
-                        <li class="menu-item">系统</li>
-                    </ul>
-                </nav>
-                <nav class="span-3">
-                    <ul class="menu-ui menu-vertical menu-dark">
-                        <li class="menu-item">首页<i class="menu-sub-ion ion">&#xe609;</i></li>
-                        <li class="menu-item">订单</li>
-                        <li class="menu-submenu menu-opened">
-                            <div class="menu-item-title">会员<i class="menu-sub-ion ion">&#xe609;</i></div>
-                            <ul class="menu-sub-group">
-                                <li class="menu-item  menu-item-active">文章管理</li>
-                                <li class="menu-item">评论管理</li>
-                                <li class="menu-item">举报管理</li>
-                            </ul>
-                        </li>
-                        <li class="menu-item">店铺</li>
-                        <li class="menu-item">系统</li>
-                    </ul>
-                </nav>
-                <nav class="span-3">
-                    <ul class="menu-ui menu-vertical menu-primary">
-                        <li class="menu-item">首页<i class="menu-sub-ion ion">&#xe609;</i></li>
-                        <li class="menu-item">订单</li>
-                        <li class="menu-submenu menu-opened">
-                            <div class="menu-item-title">会员<i class="menu-sub-ion ion">&#xe609;</i></div>
-                            <ul class="menu-sub-group">
-                                <li class="menu-item  menu-item-active">文章管理</li>
-                                <li class="menu-item">评论管理</li>
-                                <li class="menu-item">举报管理</li>
-                            </ul>
-                        </li>
-                        <li class="menu-item">店铺</li>
-                        <li class="menu-item">系统</li>
-                    </ul>
-                </nav>
-            </div>    
-        </div>
-        <h4>面包屑</h4>
-        <div class="wrap">
-            <div class="bread m-tb">
-                <a href="###" class="bread-link">Home</a>
-                <span class="bread-sep">/</span>
-                <a href="###" class="bread-link">Components</a>
-                <span class="bread-sep">/</span>
-                <span class="bread-link">Breadcrumb</span>
-            </div>
-            <div class="bread m-tb">
-                <a href="###" class="bread-link"> <i class="ion">&#xe64a;</i> Home</a>
-                <span class="bread-sep">/</span>
-                <a href="###" class="bread-link"> <i class="ion">&#xe6bb;</i> Components</a>
-                <span class="bread-sep">/</span>
-                <span class="bread-link"> <i class="ion">&#xe64e;</i>Breadcrumb</span>
-            </div>
-        </div>
-        <h4>分页</h4>
-        <div class="wrap">
-            <ul class="pagination">
-                <li><a href="javascript:;" class="unable">上一页</a></li>
-                <li class="active"><a href="javascript:;">1</a></li>
-                <li><a href="javascript:;">2</a></li>
-                <li><a href="javascript:;">3</a></li>
-                <li><a href="javascript:;">4</a></li>
-                <li><a href="javascript:;">5</a></li>
-                <li><a href="javascript:;">...</a></li>
-                <li><a href="javascript:;">下一页</a></li>
-            </ul>
-        </div>
-        <h4>进度条</h4>
-        <div class="wrap">
-            <div class="row">
-                <div class="span-6 m-tb">
-                    <div class="progress progress-info progress-active">
-                        <div class="progress-inner">
-                            <div class="progress-bg" style="width: 65%;"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="span-6 m-tb">
-                    <div class="progress progress-danger progress-show-info" >
-                        <div class="progress-inner">
-                            <div class="progress-bg" style="width: 65%;"></div>
-                        </div>
-                        <span class="progress-text"><span class="progress-text-inner"> <i class="ion">&#xe623;</i>失败</span></span>
-                    </div>
-                </div>
-                <div class="span-6 m-tb">
-                    <div class="progress progress-primary progress-active progress-show-info" >
-                        <div class="progress-inner">
-                            <div class="progress-bg" style="width: 65%;"></div>
-                        </div>
-                        <span class="progress-text"><span class="progress-text-inner">65%</span></span>
-                    </div>
-                </div>
-                <div class="span-6 m-tb">
-                    <div class="progress progress-success progress-show-info" >
-                        <div class="progress-inner">
-                            <div class="progress-bg" style="width: 100%;"></div>
-                        </div>
-                        <span class="progress-text"><span class="progress-text-inner"><i class="ion">&#xe924;</i>成功</span></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <h4>Spin</h4>
-        <div class="wrap">
-            <div class="p-lg pr">
-                <div class="spin-wrap text-primary"><div class="spin-main"><div class="spin-text"><i class="ion spin-icon-load">&#xe66e;</i><div>Loading</div></div></div></div>
-            </div>
-        </div>
+        <p><strong><a href="demo.html" target="_blank">Flow-UI demo</a></strong></p>
 
         <h3 id="css-compile">定制主题</h3>
         <p>Flow-UI基于<code>less</code>实现UI组件化，从全站样式中抽离出配置文件，可实现灵活的风格控制和组件选配，要充分发挥Flow-UI的定制性，需要搭配自动化编译工具 <a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>使用，示例主题配置如下：</p>
@@ -792,7 +201,16 @@
             <tr id="badge（徽标）">
                 <td>badge.less</td>
                 <td>
-                <p></p>
+                    <div class="m-tb">
+                        <span class="m"><span class="badge"><a href="#" class="btn btn-default">button</a> <sup class="badge-count">99+</sup></span></span>
+                        <span class="m"><span class="badge"><a href="#" class="btn btn-default">button</a> <sup class="badge-dot"></sup></span></span>
+                        <span class="m"><span class="badge"><sup class="badge-count badge-count-alone">99</sup></span></span>
+                        <span class="m"><span class="badge badge-primary"><sup class="badge-count badge-count-alone">99</sup></span></span>
+                        <span class="m"><span class="badge badge-auxiliary"><sup class="badge-count badge-count-alone">99</sup></span></span>
+                        <span class="m"><span class="badge badge-info"><sup class="badge-count badge-count-alone">99</sup></span></span>
+                        <span class="m"><span class="badge badge-success"><sup class="badge-count badge-count-alone">99</sup></span></span>
+                        <span class="m"><span class="badge badge-warning"><sup class="badge-count badge-count-alone">99</sup></span></span>
+                    </div>
                     <table class="table table-hover">
                         <tr>
                             <td>.badge</td>
@@ -831,7 +249,20 @@
             <tr id="bread（面包屑）">
                 <td>bread.less</td>
                 <td>
-                <p></p>
+                    <div class="bread m-tb">
+                        <a href="###" class="bread-link">Home</a>
+                        <span class="bread-sep">/</span>
+                        <a href="###" class="bread-link">Components</a>
+                        <span class="bread-sep">/</span>
+                        <span class="bread-link">Breadcrumb</span>
+                    </div>
+                    <div class="bread m-tb">
+                        <a href="###" class="bread-link"> <i class="ion">&#xe64a;</i> Home</a>
+                        <span class="bread-sep">/</span>
+                        <a href="###" class="bread-link"> <i class="ion">&#xe6bb;</i> Components</a>
+                        <span class="bread-sep">/</span>
+                        <span class="bread-link"> <i class="ion">&#xe64e;</i>Breadcrumb</span>
+                    </div>
                     <table class="table table-hover">
                         <tr>
                             <td>.bread</td>
@@ -864,7 +295,27 @@
             <tr id="btn（按钮）">
                 <td>btn.less</td>
                 <td>
-                <p></p>
+                    <div class="m-tb">
+                        <button type="button" class="btn btn-default">default</button>
+                        <button type="button" class="btn btn-primary">primary</button>
+                        <button type="button" class="btn btn-info">info</button>
+                        <button type="button" class="btn btn-success">success</button>
+                        <button type="button" class="btn btn-warning">warning</button>
+                        <button type="button" class="btn btn-danger">danger</button>
+                    </div>
+                    <div class="m-b">
+                        <a href="#" class="btn btn-ghost btn-default">default</a>
+                        <a href="#" class="btn btn-ghost btn-primary">primary</a>
+                        <a href="#" class="btn btn-ghost btn-info">info</a>
+                        <a href="#" class="btn btn-ghost btn-success">success</a>
+                        <a href="#" class="btn btn-ghost btn-warning">warning</a>
+                        <a href="#" class="btn btn-ghost btn-danger">danger</a>
+                    </div>
+                    <div class="m-b">
+                        <button type="button" class="btn btn-lg btn-default">default</button>
+                        <a href="#" class="btn btn-ghost btn-sm btn-default">default</a>
+                        <a href="###" class="btn btn-link">链接按钮</a>
+                    </div>
                     <table class="table table-hover">
                         <tr>
                             <td>.btn</td>
@@ -945,7 +396,49 @@
             <tr id="card（卡片）">
                 <td>card.less</td>
                 <td>
-                <p></p>
+                    <div class="row m-tb">
+                        <div class="span-6 m-b">
+                            <div class="card">
+                                <div class="card-head">
+                                    <div class="card-title">普通卡片</div>
+                                </div>
+                                <div class="card-body">
+                                    mycard
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span-6 m-b">
+                            <div class="card card-shadow">
+                                <div class="card-head">
+                                    <div class="card-title">带阴影卡片</div>
+                                </div>
+                                <div class="card-body">
+                                    hahaha
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span-6 m-b">
+                            <div class="card card-bordered">
+                                <div class="card-head">
+                                    <div class="card-title">带边框线卡片</div>
+                                </div>
+                                <div class="card-body">
+                                    mycard3
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span-6 m-b">
+                            <div class="card card-bordered">
+                                <div class="card-head">
+                                    <div class="card-title">带附加物</div>
+                                    <div class="card-extra"><a href="###" class="btn btn-link">More</a></div>
+                                </div>
+                                <div class="card-body">
+                                    mycard3
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <table class="table table-hover">
                         <tr>
                             <td>.card</td>
@@ -1083,7 +576,18 @@
             <tr id="dl（定义列表）">
                 <td>dl.less</td>
                 <td>
-                <p></p>
+                    <dl class="dl dl-table m-tb">
+                        <dt>民国七年</dt>
+                        <dd>以鲁迅为笔名发表中国现代文学史上第一篇用现代体式创作的白话短篇小说《狂人日记》，载在《新青年》第四卷第五号。</dd>
+                        <dt>民国九年</dt>
+                        <dd>在北京大学，北京高等师范学校讲授中国小说史，6月，读《共产党宣言》中文译本盛赞译者。9月，发表小说《风波》。</dd>
+                        <dt>民国十二年</dt>
+                        <dd>8月，小说集《呐喊》出版；与弟弟周作人分居，迁至西四塔胡同61号居住，分居原因不明。12月，作《娜拉走后怎样》演讲，兼任女师大，世界语学校教师；《中国小说史略》上册出版。</dd>
+                        <dt>民国十三年</dt>
+                        <dd>7月，赴西安讲《中国小说的历史变迁》。8月返京。11月，《语丝》周刊出版，鲁迅在首期发表《论雷峰塔的倒掉》，自此鲁迅成为《语丝》作家群的主将之一。</dd>
+                        <dt>光绪二十三年</dt>
+                        <dd>家族开会分房，分给鲁迅他们的既差且小，鲁迅拒绝签字遭到叔辈们斥责，倍感世态炎凉。</dd>
+                    </dl>
                     <table class="table table-hover">
                         <tr>
                             <td>.dl</td>
@@ -1149,7 +653,158 @@
             <tr id="form（表单）">
                 <td>form.less</td>
                 <td>
-                <p></p>
+                    <div class="wrap m-tb">
+                        <div class="row">
+                            <div class="span-6">
+                                <h5>基本实例</h5>
+                                <form role="form m-b">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Email address</label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Password</label>
+                                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                    </div>
+                                    <label class="checkbox">
+                                        <input type="checkbox">Check me out
+                                    </label>
+                                    <div class="form-group">
+                                        <div class="help-block">Example block-level help text here.</div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                            <div class="span-6">
+                                <h5>水平排列</h5>
+                                <form class="form-horizontal m-b" role="form">
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="span-2 control-label">Email</label>
+                                        <div class="span-10">
+                                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputPassword3" class="span-2 control-label">Password</label>
+                                        <div class="span-10">
+                                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="pull-right-2 span-10">
+                                            <label class="checkbox">
+                                                <input type="checkbox"> Remember me
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="pull-right-2 span-10">
+                                            <div class="help-block">Example block-level help text here.</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="pull-right-2 span-10">
+                                            <button type="button" class="btn btn-primary">Sign in</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row m-tb">
+                            <div class="span-6">
+                                <h5>单选和多选</h5>
+                                <label class="checkbox">
+                                    <input type="checkbox" value=""> Option one is this and that&mdash;be sure to include why it's great
+                                </label>
+                                <label class="checkbox disabled">
+                                    <input type="checkbox" value="" disabled> Option two is disabled
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked> Option one is this and that&mdash;be sure to include why it's great
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"> Option two can be something else and selecting it will deselect option one
+                                </label>
+                                <label class="radio disabled">
+                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled> Option three is disabled
+                                </label>
+                            </div>
+                            <div class="span-6">
+                                <h5>内联单选和多选</h5>
+                                <div class="m-b">
+                                    <label class="checkbox checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+                                    </label>
+                                    <label class="checkbox checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
+                                    </label>
+                                    <label class="checkbox checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
+                                    </label>
+                                </div>
+                                <div class="m-b">
+                                    <label class="radio radio-inline">
+                                        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1
+                                    </label>
+                                    <label class="radio radio-inline">
+                                        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 2
+                                    </label>
+                                    <label class="radio radio-inline">
+                                        <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 3
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h5>内联表单</h5>
+                    <form class="form-inline m-b">
+                        <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+                        <div class="input-group">
+                            <div class="input-group-addon">@</div>
+                            <input class="form-control" type="email" placeholder="Enter email">
+                        </div>
+                        <label class="sr-only" for="exampleInputPassword2">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword2
+            " placeholder="Password">
+                        <button type="button" class="btn btn-primary">Sign in</button>
+                    </form>
+                    <h5>特殊样式</h5>
+                    <div class="wrap m-b">
+                        <div class="row">
+                            <div class="span-6">
+                                <form class="form-horizontal">
+                                    <div class="form-group form-group-sm row has-success has-feedback">
+                                        <label class="control-label span-3">Input with success</label>
+                                        <div class="span-9">
+                                            <input type="text" class="form-control" placeholder="小尺寸"> <i class="ion form-control-feedback">&#xe60c;</i>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row has-warning has-feedback">
+                                        <label class="control-label span-3">Input with warning</label>
+                                        <div class="span-9">
+                                            <input type="text" class="form-control" placeholder="普通尺寸"> <i class="ion form-control-feedback">&#xe60d;</i>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-lg row has-danger has-feedback">
+                                        <label class="control-label span-3">Input with error</label>
+                                        <div class="span-9">
+                                            <input type="text" class="form-control" placeholder="大尺寸"> <i class="ion form-control-feedback">&#xe623;</i>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label span-3" for="inputGroupSuccess2">带徽标控件<big class="form-mark">*</big></label>
+                                        <div class="span-9">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">@</span>
+                                                <input type="text" class="form-control" id="inputGroupSuccess2" aria-describedby="inputGroupSuccess2Status">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     <table class="table table-hover">
                         <tr>
                             <td style="width:7em">.form-inline</td>
@@ -1342,6 +997,53 @@
             <tr id="grid（栅格系统）">
                 <td>grid.less</td>
                 <td>
+                <div class="row m-tb">
+                    <div class="span-2">
+                        <div class="p bg-info">.span-2</div>
+                    </div>
+                    <div class="span-2">
+                        <div class="p bg-info">.span-2</div>
+                    </div>
+                    <div class="span-2">
+                        <div class="p bg-info">.span-2</div>
+                    </div>
+                    <div class="span-2">
+                        <div class="p bg-info">.span-2</div>
+                    </div>
+                    <div class="span-2">
+                        <div class="p bg-info">.span-2</div>
+                    </div>
+                    <div class="span-2">
+                        <div class="p bg-info">.span-2</div>
+                    </div>
+                </div>
+                <div class="row m-b">
+                    <div class="span-4">
+                        <div class="p bg-info">.span-4</div>
+                    </div>
+                    <div class="span-4">
+                        <div class="p bg-info">.span-4</div>
+                    </div>
+                    <div class="span-4">
+                        <div class="p bg-info">.span-4</div>
+                    </div>
+                </div>
+                <div class="full-row m-b">
+                    <div class="span-8">
+                        <div class="p bg-primary">.full-row .span-8</div>
+                    </div>
+                    <div class="span-4">
+                        <div class="p bg-success">.full-row .span-4</div>
+                    </div>
+                </div>
+                <div class="full-row m-b">
+                    <div class="span-6">
+                        <div class="p bg-primary">.full-row .span-6</div>
+                    </div>
+                    <div class="span-6">
+                        <div class="p bg-success">.full-row .span-6</div>
+                    </div>
+                </div>
                     <h5>基础栅格</h5>
                     <pre>
     <code>
@@ -1488,7 +1190,32 @@
             <tr id="label（标签）">
                 <td>label.less</td>
                 <td>
-                <p></p>
+                    <div class="m">
+                        <span class="label">主色</span>
+                        <span class="label label-auxiliary">辅助色</span>
+                        <span class="label label-success">成功</span>
+                        <span class="label label-info">信息</span>
+                        <span class="label label-warning label-closable">警告<i class="ion">&#xe7de;</i></span>
+                        <span class="label label-danger label-closable">危险<i class="ion">&#xe7de;</i></span>
+                        <span class="label label-bordered">主色</span>
+                        <span class="label label-bordered label-auxiliary">辅助色</span>
+                        <span class="label label-bordered label-success">成功</span>
+                        <span class="label label-bordered label-info">信息</span>
+                        <span class="label label-bordered label-closable label-warning">警告<i class="ion">&#xe7de;</i></span>
+                        <span class="label label-bordered label-closable label-danger">危险<i class="ion">&#xe7de;</i></span>
+                    </div>
+                    <div class="m">
+                        <span class="label label-sm label-bordered">较小</span>
+                        <span class="label label-sm label-bordered label-closable">较小 <i class="ion">&#xe7de;</i></span>
+                        <span class="label label-sm">较小</span>
+                        <span class="label label-sm label-closable">较小 <i class="ion">&#xe7de;</i></span>
+                    </div>
+                    <div class="m">
+                        <span class="label label-lg label-bordered">较大</span>
+                        <span class="label label-lg label-bordered label-closable">较大 <i class="ion">&#xe7de;</i></span>
+                        <span class="label label-lg">较大</span>
+                        <span class="label label-lg label-closable">较大 <i class="ion">&#xe7de;</i></span>
+                    </div>
                     <table class="table table-hover">
                         <tr>
                             <td style="width: 7em">.label</td>
@@ -1700,7 +1427,9 @@
             <tr id="spin（等待动画）">
                 <td>spin.less</td>
                 <td>
-                    <p>当区块正在获取数据中时可使用，适当的等待动画可以提升用户体验。</p>
+                    <div class="p-lg m-tb pr">
+                        <div class="spin-wrap text-primary"><div class="spin-main"><div class="spin-text"><i class="ion spin-icon-load">&#xe66e;</i><div>Loading</div></div></div></div>
+                    </div>
                     <table class="table table-hover">
                         <tr>
                             <td>.spin-icon-load</td>
@@ -1722,7 +1451,72 @@
             <tr id="switch（开关）">
                 <td>switch.less</td>
                 <td>
-                    <p>在两种状态间切换时用到的开关选择器。</p>
+                    <div class="m-tb">
+                        <label class="switch switch-primary m-r">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                        <label class="switch switch-primary switch-on m-r">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                        <label class="switch switch-primary switch-disabled m-r">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                        <label class="switch switch-round switch-success m-r">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                        <label class="switch switch-round switch-success switch-on m-r">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                        <label class="switch switch-round switch-success switch-disabled m-r">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="m-b">
+                        <label class="switch switch-lg switch-warning m-r">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                        <label class="switch switch-lg switch-warning switch-on m-r">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                        <label class="switch switch-lg switch-warning switch-disabled m-r">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="m-b">
+                        <label class="switch switch-sm switch-danger m-r">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                        <label class="switch switch-sm switch-danger switch-on m-r">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                        <label class="switch switch-sm switch-danger switch-disabled m-r">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                    </div>
                     <table class="table table-hover">
                         <tr>
                             <td style="width: 9em">.switch</td>
@@ -1767,7 +1561,7 @@
             <tr id="table（表格）">
                 <td>table.less</td>
                 <td>
-                    <p><code>table</code>类用于美化表格，示例参见该文档中的表格，具有三种叠加状态：</p>
+                    <p>美化表格，示例参见该文档中的表格，具有三种叠加状态：</p>
                     <table class="table table-hover">
                         <tr>
                             <td>table-bordered</td>
@@ -1853,7 +1647,85 @@
             <tr id="menu（菜单）">
                 <td>menu.less</td>
                 <td>
-                <p></p>
+                    <h5>横向</h5>
+                    <nav class="m-b">
+                        <ul class="menu-ui menu-horizontal menu-light">
+                            <li class="menu-item menu-item-active"><i class="ion">&#xe64a;</i>首页</li>
+                            <li class="menu-item">订单</li>
+                            <li class="menu-item">会员 <i class="menu-sub-ion ion">&#xe609;</i></li>
+                            <li class="menu-item">店铺</li>
+                            <li class="menu-item">系统</li>
+                        </ul>
+                    </nav>
+                    <nav class="m-b">
+                        <ul class="menu-ui menu-horizontal menu-dark">
+                            <li class="menu-item menu-item-active"><i class="ion">&#xe64a;</i>首页</li>
+                            <li class="menu-item">订单</li>
+                            <li class="menu-item">会员 <i class="menu-sub-ion ion">&#xe609;</i></li>
+                            <li class="menu-item">店铺</li>
+                            <li class="menu-item">系统</li>
+                        </ul>
+                    </nav>
+                    <nav class="m-b">
+                        <ul class="menu-ui menu-horizontal menu-primary">
+                            <li class="menu-item menu-item-active"><i class="ion">&#xe64a;</i>首页</li>
+                            <li class="menu-item">订单</li>
+                            <li class="menu-item">会员 <i class="menu-sub-ion ion">&#xe609;</i></li>
+                            <li class="menu-item">店铺</li>
+                            <li class="menu-item">系统</li>
+                        </ul>
+                    </nav>
+                    <h5>纵向</h5>
+                    <div class="row m-t">
+                        <nav class="span-3">
+                            <ul class="menu-ui menu-vertical menu-light">
+                                <li class="menu-item">首页<i class="menu-sub-ion ion">&#xe609;</i></li>
+                                <li class="menu-item">订单</li>
+                                <li class="menu-submenu menu-opened">
+                                    <div class="menu-item-title">会员<i class="menu-sub-ion ion">&#xe609;</i></div>
+                                    <ul class="menu-sub-group">
+                                        <li class="menu-item  menu-item-active">文章管理</li>
+                                        <li class="menu-item">评论管理</li>
+                                        <li class="menu-item">举报管理</li>
+                                    </ul>
+                                </li>
+                                <li class="menu-item">店铺</li>
+                                <li class="menu-item">系统</li>
+                            </ul>
+                        </nav>
+                        <nav class="span-3">
+                            <ul class="menu-ui menu-vertical menu-dark">
+                                <li class="menu-item">首页<i class="menu-sub-ion ion">&#xe609;</i></li>
+                                <li class="menu-item">订单</li>
+                                <li class="menu-submenu menu-opened">
+                                    <div class="menu-item-title">会员<i class="menu-sub-ion ion">&#xe609;</i></div>
+                                    <ul class="menu-sub-group">
+                                        <li class="menu-item  menu-item-active">文章管理</li>
+                                        <li class="menu-item">评论管理</li>
+                                        <li class="menu-item">举报管理</li>
+                                    </ul>
+                                </li>
+                                <li class="menu-item">店铺</li>
+                                <li class="menu-item">系统</li>
+                            </ul>
+                        </nav>
+                        <nav class="span-3">
+                            <ul class="menu-ui menu-vertical menu-primary">
+                                <li class="menu-item">首页<i class="menu-sub-ion ion">&#xe609;</i></li>
+                                <li class="menu-item">订单</li>
+                                <li class="menu-submenu menu-opened">
+                                    <div class="menu-item-title">会员<i class="menu-sub-ion ion">&#xe609;</i></div>
+                                    <ul class="menu-sub-group">
+                                        <li class="menu-item  menu-item-active">文章管理</li>
+                                        <li class="menu-item">评论管理</li>
+                                        <li class="menu-item">举报管理</li>
+                                    </ul>
+                                </li>
+                                <li class="menu-item">店铺</li>
+                                <li class="menu-item">系统</li>
+                            </ul>
+                        </nav>
+                    </div>  
                     <table class="table table-hover">
                         <tr>
                             <td>.menu-ui</td>
@@ -1894,7 +1766,16 @@
             <tr id="page（分页）">
                 <td>page.less</td>
                 <td>
-                <p></p>
+                    <ul class="pagination m-tb">
+                        <li><a href="javascript:;" class="unable">上一页</a></li>
+                        <li class="active"><a href="javascript:;">1</a></li>
+                        <li><a href="javascript:;">2</a></li>
+                        <li><a href="javascript:;">3</a></li>
+                        <li><a href="javascript:;">4</a></li>
+                        <li><a href="javascript:;">5</a></li>
+                        <li><a href="javascript:;">...</a></li>
+                        <li><a href="javascript:;">下一页</a></li>
+                    </ul>
                     <table class="table table-hover">
                         <tr>
                             <td>.pagination</td>
@@ -1915,7 +1796,39 @@
             <tr id="progress（进度条）">
                 <td>progress.less</td>
                 <td>
-                <p></p>
+                    <div class="row m-tb">
+                        <div class="span-6 m-tb">
+                            <div class="progress progress-info progress-active">
+                                <div class="progress-inner">
+                                    <div class="progress-bg" style="width: 65%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span-6 m-tb">
+                            <div class="progress progress-danger progress-show-info" >
+                                <div class="progress-inner">
+                                    <div class="progress-bg" style="width: 65%;"></div>
+                                </div>
+                                <span class="progress-text"><span class="progress-text-inner"> <i class="ion">&#xe623;</i>失败</span></span>
+                            </div>
+                        </div>
+                        <div class="span-6 m-tb">
+                            <div class="progress progress-primary progress-active progress-show-info" >
+                                <div class="progress-inner">
+                                    <div class="progress-bg" style="width: 65%;"></div>
+                                </div>
+                                <span class="progress-text"><span class="progress-text-inner">65%</span></span>
+                            </div>
+                        </div>
+                        <div class="span-6 m-tb">
+                            <div class="progress progress-success progress-show-info" >
+                                <div class="progress-inner">
+                                    <div class="progress-bg" style="width: 100%;"></div>
+                                </div>
+                                <span class="progress-text"><span class="progress-text-inner"><i class="ion">&#xe924;</i>成功</span></span>
+                            </div>
+                        </div>
+                    </div>
                     <table class="table table-hover">
                         <tr>
                             <td>.progress</td>
@@ -4173,7 +4086,10 @@ $.ajax({
                             </tr>
                             <tr>
                                 <th>needTime</th>
-                                <td>默认<code>false</code>，是否需要时间选择器，如果传入Object将作为该time picker实例的设置参数。<strong>注意：默认format不显示时间</strong></td>
+                                <td>
+                                    <p>默认<code>false</code>，是否需要时间选择器，如果传入Object将作为该time picker实例的设置参数。</p>
+                                    <p><strong>注意：默认format不显示时间，需要同时修改format</strong></p>
+                                </td>
                             </tr>
                             <tr>
                                 <th>zIndex</th>
@@ -4338,28 +4254,50 @@ $().datepicker({
                     <td>drag</td>
                     <td>
                         <h5>描述</h5>
-                        <p>拖拽插件，拖拽元素大于拖拽范围或者小于拖拽范围都可以，两种情况都支持边缘检测</p>
+                        <p>拖拽插件，拖拽元素大于拖拽范围或者小于拖拽范围都可以，两种情况都支持边缘检测，返回<code>Drag</code>方法，语法：<code>Drag(config)</code>，或者使用jquery插件语法：<code>$el.drag(config);</code></p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
                                 <th>wrap</th>
-                                <td>指定拖拽范围，默认选择父元素</td>
+                                <td>
+                                    <p>默认<code>null</code>，指定拖拽范围，默认选择父元素</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>el</th>
+                                <td>
+                                    <p>默认<code>null</code>，拖拽元素</p>
+                                </td>
                             </tr>
                             <tr>
                                 <th>overflow</th>
-                                <td>是否允许超出边缘，默认不允许</td>
+                                <td>
+                                    <p>默认<code>false</code>，是否允许超出边缘，默认不允许</p>
+                                </td>
                             </tr>
                             <tr>
                                 <th>dragStart</th>
-                                <td>拖拽开始回调，接受拖拽元素为参数</td>
+                                <td>
+                                    <p>默认<code>null</code>，拖拽开始回调 @param($el) : 拖拽元素</p>
+                                </td>
                             </tr>
                             <tr>
-                                <th>drag</th>
-                                <td>拖拽过程回调，接受拖拽元素为参数</td>
+                                <th>onDrag</th>
+                                <td>
+                                    <p>默认<code>null</code>，拖拽过程回调 @param($el) : 拖拽元素</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>onMove</th>
+                                <td>
+                                    <p>默认<code>null</code>，拖拽过程函数 @param(moveX, moveY) : 横向移动距离，纵向移动距离，<strong>将接管拖拽过程，元素位移不会发生变化</strong></p>
+                                </td>
                             </tr>
                             <tr>
                                 <th>dragEnd</th>
-                                <td>拖拽结束回调，接受拖拽元素为参数</td>
+                                <td>
+                                    <p>默认<code>null</code>，拖拽结束回调 @param($el) : 拖拽元素</p>
+                                </td>
                             </tr>
                         </table>
                         <h5>示例</h5>
@@ -4389,7 +4327,7 @@ $().datepicker({
                     <td>Dropdown</td>
                     <td>
                         <h5>描述</h5>
-                        <p>下拉菜单插件，继承<a href="#Tip（提示框）" title="#Tip（提示框）">【tip】</a>插件配置和方法，返回Dropdown方法，语法：<code>Dropdown(config)</code>，或者使用jquery插件语法：<code>$el.dropdown(config);</code></p>
+                        <p>下拉菜单插件，继承<a href="#Tip（提示框）" title="#Tip（提示框）">【tip】</a>插件配置和方法，返回<code>Dropdown</code>方法，语法：<code>Dropdown(config)</code>，或者使用jquery插件语法：<code>$el.dropdown(config);</code></p>
                         <h5>配置</h5>
                         <table class="table">
                             <tr>
@@ -4584,34 +4522,6 @@ $().datepicker({
                         </pre>
                     </td>
                 </tr>
-                <tr id="Fastclick（移动端快速点击）">
-                    <td>fastclick</td>
-                    <td>
-                        <h5>描述</h5>
-                        <p>移动端避免click事件300ms延迟，可以对指定元素使用，也可以整个页面使用</p>
-                        <h5>示例</h5>
-                        <pre>
-                            <code>
-  &lt;div class=&quot;test btn btn-success&quot;&gt;click&lt;/div&gt;
-  &lt;div class=&quot;test2 btn btn-warning&quot;&gt;click&lt;/div&gt;
-                          </code>
-                        </pre>
-                        <pre>
-                            <code>
-  var FastClick = require('fastclick');
-  //FastClick.attach(document.body);
-  FastClick.attach($('.test').get(0));
-  $('.test').click(function(){
-    alert('fast')
-  })
-
-  $('.test2').click(function(){
-    alert('300ms')
-  })
-                          </code>
-                        </pre>
-                    </td>
-                </tr>
                 <tr id="Img-loaded（图片加载检测）">
                     <td>img-loaded</td>
                     <td>
@@ -4700,6 +4610,8 @@ $().datepicker({
                                 <td>默认无，数值变更回调</td>
                             </tr>
                         </table>
+                        <h5>返回方法</h5>
+                        <p>同<a href="#Input（输入框）">【输入框】</a>组件。</p>
                         <h5>示例</h5>
                         <pre>
                             <code>
@@ -5990,7 +5902,7 @@ $().datepicker({
                             <tr>
                                 <th>color</th>
                                 <td>
-                                    <p>默认 <code>"info"</code>，进度条色调，支持【color】组件的所有颜色</p>
+                                    <p>默认 <code>"primary"</code>，进度条色调，支持【color】组件的所有颜色</p>
                                 </td>
                             </tr>
                             <tr>
@@ -7095,8 +7007,8 @@ $().datepicker({
                                     <td>幻灯片切换回调，@param (效果元素，切换元素，当前帧序号) </td>
                                 </tr>
                                 <tr>
-                                    <th>callback</th>
-                                    <td>幻灯片执行成功回调，@param (效果元素，切换元素，总帧数)</td>
+                                    <th>onReady</th>
+                                    <td>初始化完成回调，@param (效果元素，切换元素，总帧数)</td>
                                 </tr>
                             </table>
                             <h5>示例</h5>
@@ -7133,6 +7045,126 @@ $().datepicker({
                             </pre>
                         </td>
                     </tr>
+                    <tr id="Slider（滑块）">
+                        <td>slider</td>
+                        <td>
+                            <h5>描述</h5>
+                            <p> 滑动输入器，用于在数值区间/自定义区间内进行选择，支持连续或离散值。返回<code>Slider</code>方法，语法<code>Slider(config)</code>，或使用jquery插件语法<code>$el.slider(config)</code></p>
+                            <h5>配置</h5>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>el</th>
+                                    <td>
+                                        <p><p>默认<code>null</code>，显示滑块控件的容器元素</p></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>value</th>
+                                    <td>
+                                        <p>默认<code>0</code>，传入2位数组将显示为区间选择</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>min</th>
+                                    <td>
+                                        <p>默认<code>0</code>，范围最小值</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>max</th>
+                                    <td>
+                                        <p><p>默认<code>100</code>，范围最大值</p></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>step</th>
+                                    <td>
+                                        <p>默认<code>1</code>，步长，取值建议能被（max - min）整除</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>color</th>
+                                    <td>
+                                        <p>默认<code>"primary"</code>，可选【Color】组件中的颜色</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>disabled</th>
+                                    <td>
+                                        <p>默认<code>false</code>，是否禁用滑块</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>tip</th>
+                                    <td>
+                                        <p>默认<code>true</code>，是否显示滑块当前值提示</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>tipRender</th>
+                                    <td>
+                                        <p>默认<code>null</code>，提示格式化方法 @param(value) : 当前值</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>onChange</th>
+                                    <td>
+                                        <p>默认<code>null</code>，在松开滑动时触发，返回当前的选值，在滑动过程中不会触发， @param(value) : 变更后的值</p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <h5>返回方法</h5>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>value([value])</th>
+                                    <td>
+                                        <p>设置/获取示例当前值</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>disabled([flag])</th>
+                                    <td>
+                                        <p>禁用实例，若flag为真值将解禁</p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <h5>示例</h5>
+                            <pre>
+                                <code>
+    &lt;div class=&quot;wrap&quot;&gt;
+        &lt;div class=&quot;row&quot;&gt;
+            &lt;div class=&quot;span-6 m-tb p demo&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;btn btn-default set&quot;&gt;赋值&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default get&quot;&gt;取值&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default toggle&quot;&gt;禁用/解禁&lt;/div&gt;
+    &lt;/div&gt;
+                                </code>
+                            </pre>
+                            <pre>
+                                <code>
+    require('slider');
+    var myslider = $('.demo').slider({
+        value: 50,
+        onChange: function(value){
+            console.log('change to:' + value);
+        }
+    });
+    $('.set').on('click', function(){
+        myslider.value(parseInt(Math.random() * 100));
+    });
+    $('.get').on('click', function(){
+        console.log('get:' + myslider.value());
+    });
+    var cur = true;
+    $('.toggle').on('click', function(){
+        cur = !cur;
+        myslider.disabled(cur);
+    });
+                                </code>
+                            </pre>
+                        </td>
+                    </tr>
                     <tr id="Spin（等待动画）">
                         <td>Spin</td>
                         <td>
@@ -7143,7 +7175,7 @@ $().datepicker({
                                 <tr>
                                     <th>el</th>
                                     <td>
-                                        <p>默认null，等待动画的覆盖元素，不填默认为"body"</p>
+                                        <p>默认<code>null</code>，等待动画的覆盖元素，不填默认为"body"</p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -7161,7 +7193,7 @@ $().datepicker({
                                 <tr>
                                     <th>color</th>
                                     <td>
-                                        <p>默认无，可选Color组件中的颜色</p>
+                                        <p>默认无，可选【Color】组件中的颜色</p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -7241,6 +7273,12 @@ $().datepicker({
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th>value</th>
+                                    <td>
+                                        <p>默认 <code>false</code>，初始值</p>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th>round</th>
                                     <td>
                                         <p>默认 <code>false</code>，是否开启圆角风格</p>
@@ -7250,6 +7288,12 @@ $().datepicker({
                                     <th>color</th>
                                     <td>
                                         <p>默认 <code>"default"</code>，指定实例色调，支持【color】组件中所有颜色名称</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>disabled</th>
+                                    <td>
+                                        <p>默认 <code>false</code>，是否禁用示例</p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -7269,24 +7313,28 @@ $().datepicker({
                             <h5>返回方法</h5>
                             <table class="table table-hover">
                                 <tr>
-                                    <th>on()</th>
+                                    <th>value([value])</th>
                                     <td>
-                                        <p>更改开关状态为开启</p>
+                                        <p>设置/获取实例当前值</p>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>off()</th>
+                                    <th>disabled([flag])</th>
                                     <td>
-                                        <p>更改开关状态为关闭</p>
+                                        <p>禁用实例，若flag为真值将解禁</p>
                                     </td>
                                 </tr>
                             </table>
                             <h5>示例</h5>
                             <pre>
                                 <code>
-    &lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
-    &lt;div class=&quot;btn btn-default seton&quot;&gt;开启&lt;/div&gt;
-    &lt;div class=&quot;btn btn-default setoff&quot;&gt;关闭&lt;/div&gt;
+    &lt;div class=&quot;wrap&quot;&gt;
+        &lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default seton&quot;&gt;开启&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default setoff&quot;&gt;关闭&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default get&quot;&gt;获取当前值&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default toggle&quot;&gt;禁用/解禁&lt;/div&gt;
+    &lt;/div&gt;
                                 </code>
                             </pre>
                             <pre>
@@ -7300,11 +7348,19 @@ $().datepicker({
     });
     
     $('.seton').on('click', function(){
-        myswitch.on();
+        myswitch.value(true);
     });   
     $('.setoff').on('click', function(){
-        myswitch.off();
-    });   
+        myswitch.value(false);
+    });
+    $('.get').on('click', function(){
+        console.log(myswitch.value());
+    });
+    var cur = true;
+    $('.toggle').on('click', function(){
+        cur = !cur;
+        myswitch.disabled(cur);
+    });  
                                 </code>
                             </pre>
                         </td>
@@ -7551,8 +7607,7 @@ $().datepicker({
                                 <tr>
                                     <th>render</th>
                                     <td>
-                                        <p>自定义渲染列，@param(value, row, index)。</p>
-                                        <p>前单元格数据，当前行数据，当前是第几行，详见示例</p>
+                                        <p>自定义列元素渲染方法，@param(value, row, index, entity) : 单元格数据，行数据，行数，行操作句柄。</p>
                                     </td>
                                 </tr>
                                 <tr>

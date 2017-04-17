@@ -1,13 +1,13 @@
 /*
  * name: datepicker.js
- * version: v2.0.1
- * update: 引入全局层级管理
- * date: 2017-03-30
+ * version: v2.0.2
+ * update: 增加圆角
+ * date: 2017-04-14
  * base: https://github.com/fengyuanchen/datepicker
  */
 define('datepicker', function(require, exports, module) {
   "use strict";
-  seajs.importStyle(".datepicker-container{font-size:12px;line-height:30px;position:fixed;z-index:-1;top:0;left:0;width:210px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-color:#fff;direction:ltr!important;-ms-touch-action:none;touch-action:none;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}\
+  seajs.importStyle(".datepicker-container{font-size:12px;line-height:30px;position:fixed;z-index:-1;top:0;left:0;width:210px;border-radius:4px;-webkit-user-select:none;user-select:none;background-color:#fff;direction:ltr!important;-ms-touch-action:none;touch-action:none;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}\
     .datepicker-container:after,.datepicker-container:before{position:absolute;display:block;width:0;height:0;content:' ';border:5px solid transparent}\
     .datepicker-dropdown{position:absolute;z-index:1;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;border:1px solid #ccc;-webkit-box-shadow:0 3px 6px #ccc;box-shadow:0 3px 6px #ccc}\
     .datepicker-inline{position:static}.datepicker-top-left,.datepicker-top-right{border-top-color:#39f}\
@@ -274,7 +274,6 @@ define('datepicker', function(require, exports, module) {
         this.$times = $('<div class="btn btn-default btn-block" data-view="times">选择时间</div>');
         this.$picker.append(this.$times);
         require.async('timepicker', function() {
-          console.log(that.needTime)
           that.$times.timepicker($.extend($.isPlainObject(that.needTime) ? that.needTime : {}, {
             confirm: true,
             onChange: syncTimeData,
