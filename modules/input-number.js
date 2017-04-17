@@ -1,7 +1,7 @@
 /*
  * name: input-number.js
- * version: v0.1.2
- * update: 去掉hover颜色变化
+ * version: v0.1.3
+ * update: disabled按钮背景色调整
  * date: 2017-04-17
  */
 define("input-number", function(require, exports, module) {
@@ -9,7 +9,7 @@ define("input-number", function(require, exports, module) {
 	seajs.importStyle('.pro_counter_val{ min-width:2em;text-align: center;}\
 		.pro_counter_btn{cursor:pointer;user-select:none;}\
 		.pro_counter_btn:hover{color:#000;}\
-		.pro_counter_btn.disabled{background:#fff;cursor: not-allowed;}\
+		.pro_counter_btn.disabled{background:#ddd;cursor: not-allowed;}\
 		.counter_default{position: relative;display: inline-block;vertical-align: middle; padding:0 30px 0 0; white-space: nowrap;}\
 		.counter_default .pro_counter_val{height:38px;line-height:38px;border-radius:4px 0 0 4px;}\
 		.counter_default .pro_counter_btn{position: absolute; right:0; width:29px;height:18px; line-height: 18px; margin:0;padding:0;\
