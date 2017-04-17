@@ -1,8 +1,8 @@
 /*
  * name: table.js
- * version: v1.3.1
- * update: 编辑验证/ajax数据/排序删选handle
- * date: 2017-04-07
+ * version: v1.3.2
+ * update: 本地数据脏检查bug
+ * date: 2017-04-17
  */
 define('table', function(require, exports, module) {
 	"use strict";
@@ -121,7 +121,8 @@ define('table', function(require, exports, module) {
 						var tdEntity = {
 							set: function(key, newValue) {
 								if (key && key.split) {
-									rowData[key] = newValue;
+									var newRowData = base.deepcopy(rowData);
+									newRowData[key] = newValue;
 									var targetCol;
 									$.each(opt.column, function(i, e) {
 										if (e.key === key) {
@@ -130,7 +131,7 @@ define('table', function(require, exports, module) {
 										}
 									});
 									if (targetCol) {
-										var targetTd = getTd(rowIndex, rowData, targetCol);
+										var targetTd = getTd(rowIndex, newRowData, targetCol);
 										var fixedTable = $this.find('.table-fixed tbody');
 										var fixTdIndex = $this.find('.row' + rowIndex + '-' + key).index();
 										$this.find('.row' + rowIndex + '-' + key).replaceWith(inject(targetTd));
@@ -139,7 +140,7 @@ define('table', function(require, exports, module) {
 											fixedTable.children('tr').eq(rowIndex).children('td').eq(fixTdIndex).html(fixedTd);
 										}
 									}
-									return rowData;
+									return newRowData;
 								}
 							},
 							toggle: function(key, newValue) {
