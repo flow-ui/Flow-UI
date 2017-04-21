@@ -1,8 +1,8 @@
 /*
  * name: switch.js
- * version: v0.2.0
- * update: add value
- * date: 2017-04-14
+ * version: v0.3.0
+ * update: 支持基于checkbox初始化
+ * date: 2017-04-20
  */
 define('switch', function(require, exports, module) {
 	"use strict";
@@ -71,16 +71,23 @@ define('switch', function(require, exports, module) {
 					classTemp.push('switch-sm');
 					break;
 			}
-
-			if (opt.name && opt.name.split) {
-				if ($('input[name="' + opt.name + '"]').length) {
-					$syncInput = $('input[name="' + opt.name + '"]');
-				} else {
-					$syncInput = $('<input type="checkbox" name="' + opt.name + '" style="display:none">').appendTo($this);
+			if($this.is('input[type="checkbox"]')){
+				$syncInput = $this;
+				if (opt.name && opt.name.split) {
+					$syncInput.attr('name', opt.name);
 				}
-			} else {
-				$syncInput = $('<input type="checkbox" >');
+			}else{
+				if (opt.name && opt.name.split) {
+					if ($('input[name="' + opt.name + '"]').length) {
+						$syncInput = $('input[name="' + opt.name + '"]');
+					} else {
+						$syncInput = $('<input type="checkbox" name="' + opt.name + '" style="display:none">').appendTo($this);
+					}
+				} else {
+					$syncInput = $('<input type="checkbox" >');
+				}
 			}
+			$syncInput.prop('checked', opt.value);
 			if ($syncInput.prop('checked')) {
 				classTemp.push('switch-on');
 			}
@@ -95,7 +102,13 @@ define('switch', function(require, exports, module) {
 					var status = $syncInput.prop('checked');
 					set(!status);
 				});
-			$this.data('switch-init', 1).append($switch);
+
+			$this.data('switch-init', 1);
+			if($this.is('input[type="checkbox"]')){
+				$this.hide().after($switch);
+			}else{
+				$this.append($switch);
+			}
 
 			return {
 				value: function(flag){

@@ -114,8 +114,8 @@
     <section class="wrap" id="css">
         <h2>CSS</h2>
         <h3 id="css-demo">UI展示</h3>
-        <p><strong><a href="demo.html" target="_blank">Flow-UI demo</a></strong></p>
-
+        <p><i class="ion">&#xe60e;</i> <strong><a href="demo.html" target="_blank">Flow-UI 概览</a></strong></p>
+        <p><i class="ion">&#xe620;</i> <strong><a href="Flow-UI/dashboard/index.html" target="_blank">Flow-UI 控制台</a></strong></p>
         <h3 id="css-compile">定制主题</h3>
         <p>Flow-UI基于<code>less</code>实现UI组件化，从全站样式中抽离出配置文件，可实现灵活的风格控制和组件选配，要充分发挥Flow-UI的定制性，需要搭配自动化编译工具 <a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>使用，示例主题配置如下：</p>
         <pre>
@@ -400,7 +400,10 @@
                         <div class="span-6 m-b">
                             <div class="card">
                                 <div class="card-head">
-                                    <div class="card-title">普通卡片</div>
+                                    <div class="card-title">无边框卡片</div>
+                                </div>
+                                <div class="card-extra">
+                                    <a href="###" class="btn btn-link">More+</a>
                                 </div>
                                 <div class="card-body">
                                     mycard
@@ -412,6 +415,9 @@
                                 <div class="card-head">
                                     <div class="card-title">带阴影卡片</div>
                                 </div>
+                                <div class="card-extra">
+                                    <a href="###" class="btn btn-link">More+</a>
+                                </div>
                                 <div class="card-body">
                                     hahaha
                                 </div>
@@ -420,7 +426,10 @@
                         <div class="span-6 m-b">
                             <div class="card card-bordered">
                                 <div class="card-head">
-                                    <div class="card-title">带边框线卡片</div>
+                                    <div class="card-title">带边框卡片</div>
+                                </div>
+                                <div class="card-extra">
+                                    <a href="###" class="btn btn-link">More+</a>
                                 </div>
                                 <div class="card-body">
                                     mycard3
@@ -428,13 +437,19 @@
                             </div>
                         </div>
                         <div class="span-6 m-b">
-                            <div class="card card-bordered">
+                            <div class="card">
                                 <div class="card-head">
-                                    <div class="card-title">带附加物</div>
-                                    <div class="card-extra"><a href="###" class="btn btn-link">More</a></div>
+                                    <div class="card-title">带底部卡片</div>
                                 </div>
                                 <div class="card-body">
-                                    mycard3
+                                    mycard4
+                                </div>
+                                <div class="card-foot">
+                                    $11.234,00
+                                    <div class="r">
+                                        <span class="text-danger"><i class="ion">&#xe618;</i></span>
+                                        15%
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -480,6 +495,24 @@
                             <td>.card-body</td>
                             <td>
                                 内定卡片内容
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.card-foot</td>
+                            <td>
+                                定义卡片底部
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.card-primary</td>
+                            <td>
+                                叠加在容器上使开关显示为主色调（另："auxiliary", success", "info", "warning", "danger"）
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.card-inverse</td>
+                            <td>
+                                反转颜色卡片（card-body将带有背景色）
                             </td>
                         </tr>
                     </table>
@@ -657,7 +690,7 @@
                         <div class="row">
                             <div class="span-6">
                                 <h5>基本实例</h5>
-                                <form role="form m-b">
+                                <form class="form m-b">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Email address</label>
                                         <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
@@ -677,7 +710,7 @@
                             </div>
                             <div class="span-6">
                                 <h5>水平排列</h5>
-                                <form class="form-horizontal m-b" role="form">
+                                <form class="form-horizontal m-b">
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="span-2 control-label">Email</label>
                                         <div class="span-10">
@@ -3884,6 +3917,113 @@ $.ajax({
                      </pre>
                     </td>
                 </tr>
+                <tr id="Collapse（折叠面板）">
+                    <td>collapse</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>将内容区域折叠/展开，支持基于标签生成和基于数据生成两种模式。返回<code>Collapse</code>方法，语法<code>Collapse(config)</code>，或使用jquery插件格式<code>$el.collapse(config)</code>。</p>
+                        <h5>配置</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>el</th>
+                                <td>
+                                    <p>插入/生成折叠面板的元素，默认无，直接调用Collapse方法必填，jquery插件调用时可忽略</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>conts</th>
+                                <td>
+                                    <p>默认<code>'.panel'</code>，基于标签生成时，指定面板的元素选择器</p>
+                                    <p>该元素的data-card-title属性值将作为选项卡标签标题，另外还支持<code>opened</code>属性，用于指定初始展开的面板</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>data</th>
+                                <td>
+                                    <p>默认<code>null</code>，用于生成实例的数据，格式：</p>
+                                    <code>
+                                        [{<br>
+                                            title: "tab1", //面板标题<br>
+                                            cont: 'tab1cont', //面板内容<br>
+                                            opened: [boolean], //是否展开<br>
+                                            color: '', //面板颜色，支持【颜色】组件中的所有颜色<br>
+                                        }]
+                                    </code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>opened</th>
+                                <td>
+                                    <p>默认<code>[]</code>，默认打开元素，优先级高于数据和标签中的初始值</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>color</th>
+                                <td>
+                                    <p>默认<code>''</code>，面板颜色，支持【Color】组件中的所有颜色</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>single</th>
+                                <td>
+                                    <p>默认<code>true</code>，手风琴模式，同时只允许展开一个面板</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>onChange</th>
+                                <td>
+                                    <p>状态变化回调方法，@param(opened) : 当前展开的序号数组</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <h5>返回方法</h5>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>open([indexArray])</th>
+                                <td>
+                                    <p>设置/获取展开的折叠面板</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <h5>示例</h5>
+                        <pre>
+                            <code>
+    &lt;div class=&quot;wrap&quot;&gt;
+        &lt;div class=&quot;row&quot;&gt;
+            &lt;div class=&quot;span-6&quot;&gt;
+                &lt;div class=&quot;demo m-tb&quot;&gt;
+                    &lt;div class=&quot;panel&quot; data-card-title=&quot;史蒂夫·乔布斯&quot;&gt;
+                        史蒂夫·乔布斯（Steve Jobs），1955年2月24日生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。
+                    &lt;/div&gt;
+                    &lt;div class=&quot;panel&quot; data-card-title=&quot;斯蒂夫·盖瑞·沃兹尼亚克&quot;&gt;
+                        斯蒂夫·盖瑞·沃兹尼亚克（Stephen Gary Wozniak），美国电脑工程师，曾与史蒂夫·乔布斯合伙创立苹果电脑（今之苹果公司）。斯蒂夫·盖瑞·沃兹尼亚克曾就读于美国科罗拉多大学，后转学入美国著名高等学府加州大学伯克利分校（UC Berkeley）并获得电机工程及计算机（EECS）本科学位（1987年）。
+                    &lt;/div&gt;
+                    &lt;div class=&quot;panel&quot; data-card-title=&quot;乔纳森·伊夫&quot;&gt;
+                        乔纳森·伊夫是一位工业设计师，现任Apple公司设计师兼资深副总裁，英国爵士。他曾参与设计了iPod，iMac，iPhone，iPad等众多苹果产品。除了乔布斯，他是对苹果那些著名的产品最有影响力的人。
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;btn btn-default open3&quot;&gt;打开第3个&lt;/div&gt;
+                &lt;div class=&quot;btn btn-default opennone&quot;&gt;全部关闭&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+                            </code>
+                        </pre>
+                        <pre>
+                            <code>
+    require('collapse');
+    var mycol = $('.demo').collapse();
+
+    $('.open3').on('click', function(){
+        mycol.open([2]);
+    });
+    $('.opennone').on('click', function(){
+        mycol.open([]);
+    });
+                            </code>
+                        </pre>
+                    </td>
+                </tr>
                 <tr id="Countdown（倒计时）">
                     <td>countdown</td>
                     <td>
@@ -4440,7 +4580,10 @@ $().datepicker({
                     <td>Echarts</td>
                     <td>
                         <h5>描述</h5>
-                        <p>封装百度Echarts 3.0，详细用法见<a href="http://echarts.baidu.com/tutorial.html" target="_blank">官方文档</a></p>
+                        <p>封装百度Echarts 3.0，包含类型：柱状图、饼状图、折线图、散点图、雷达图、热力图、地图、仪表盘、象形柱图；包含组件：标题、图例、提示框</p>
+                        <p>详细用法见<a href="http://echarts.baidu.com/tutorial.html" target="_blank">官方文档</a></p>
+                        <h5>兼容性</h5>
+                        <p>IE9+</p>
                         <h5>示例</h5>
                         <pre>
                             <code>
@@ -7371,95 +7514,133 @@ $().datepicker({
                         <td>tab</td>
                         <td>
                             <h5>描述</h5>
-                            <p>选项卡</p>
+                            <p>选项卡切换组件，常用于平级区域大块内容的的收纳和展现。返回<code>Tab</code>方法，语法<code>Tab(config)</code>，或使用jquery插件语法：<code>$el.tab(config)</code></p>
+                            <p>支持基于标签创建和基于数据创建两种模式。</p>
                             <h5>配置</h5>
                             <table class="table table-hover">
                                 <tr>
-                                    <th>tabs</th>
-                                    <td>tab标签，默认<code>".tab_t"</code></td>
+                                    <th>el</th>
+                                    <td>
+                                        <p>默认<code>null</code>，生成/插入选项卡元素，直接调用Tab方法必填，jquery插件调用时可忽略</p>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>conts</th>
-                                    <td>tab内容，默认<code>".tab_c"</code>；当选项卡标签元素具有<code>"ignore"</code>属性时，该标签不参与选项卡的互动效果</td>
+                                    <td>
+                                        <p>默认<code>".tab-cont"</code>；基于标签创建时要在$el中查找的选项卡元素，该元素的内容将作为选项卡内容；</p>
+                                        <p>该元素的<code>data-tab-title</code>属性值将作为选项卡标签标题，另外还支持<code>actived / disabled</code>属性，分别用于指定初始显示和禁用该选项卡</p>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <th>posi_auto</th>
-                                    <td>默认<code>true</code>，标签自动定位</td>
+                                    <th>data</th>
+                                    <td>
+                                        <p>默认<code>null</code>，用于基于数据创建选项卡，优先级高于基于标签创建，格式:</p>
+                                        <code>
+                                            { <br>
+                                            title: "", //标签标题<br>
+                                            cont: "", //选选卡内容<br>
+                                            actived: [boolean], //激活当前选项卡<br>
+                                            disabled: [boolean], //禁用当前选项卡<br>
+                                            color: [""] //当前选项卡颜色，支持【Color】组件中的所有颜色<br>
+                                            }
+                                        </code>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <th>width_auto</th>
-                                    <td>默认<code>false</code>，标签自适应宽度</td>
-                                </tr>
-                                <tr>
-                                    <th>left</th>
-                                    <td>默认<code>0</code>，单位px，第一个标签距左起始位置</td>
-                                </tr>
-                                <tr>
-                                    <th>auto</th>
-                                    <td>默认<code>false</code>，是否自动播放</td>
-                                </tr>
-                                <tr>
-                                    <th>interval</th>
-                                    <td>默认<code>5000</code>，单位ms，自动播放间隔</td>
-                                </tr>
-                                <tr>
-                                    <th>start</th>
-                                    <td>默认<code>0</code>，初始显示第几个</td>
-                                </tr>
-                                <tr>
-                                    <th>margin</th>
-                                    <td>默认<code>0</code>，单位px，标签间距</td>
+                                    <th>active</th>
+                                    <td>
+                                        <p>默认<code>0</code>，默认显示的标签序号，优先级高于数据和标签中的初始值</p>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>act</th>
-                                    <td>默认<code>"click"</code>，触发动作，'mouseenter','touchend'等</td>
+                                    <td>
+                                        <p>默认<code>"click"</code>，触发事件</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>extra</th>
+                                    <td>
+                                        <p>默认无，选项卡标题栏右侧内容，支持DOM字符串或返回DOM的函数</p>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>beforeChange</th>
-                                    <td>切换前事件，默认无。@param ($this,$tab_t,index) : 当前对象，标签，前去帧序号</td>
+                                    <td>
+                                        <p>切换前事件，默认无。@param (index) : 当前帧序号</p>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>onChange</th>
-                                    <td>切换回调方法，默认无。 @param ($this,$tab_t,index) : 当前对象，标签，当前帧序号</td>
+                                    <td>
+                                        <p>切换回调方法，默认无。 @param (index) : 当前帧序号</p>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <th>onCreate</th>
-                                    <td>创建Tab实例后扩展方法，默认无。 @param ($this,$tab_t,opts) : 当前对象，标签，配置</td>
+                                    <th>onReady</th>
+                                    <td>
+                                        <p>创建Tab实例后扩展方法，默认无。 @param ($this, opts) : 当前对象，配置</p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <h5>返回方法</h5>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>active([index])</th>
+                                    <td>
+                                        <p>设置/获取当前显示标签序号</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>disabled(index, [boolean])</th>
+                                    <td>
+                                        <p>禁用序号为index的标签，当Boolean值为<code>true</code>时将解禁</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>setCont(index, cont)</th>
+                                    <td>
+                                        <p>设置序号为index的标签内容</p>
+                                    </td>
                                 </tr>
                             </table>
                             <h5>示例</h5>
                             <pre>
                                 <code>
-  &lt;style&gt;
-  /*css*/
-  .demo{width:480px;}
-  .demo .tab_b{text-align:right;background:#ccc;}
-  .demo .tab_t{width: 100px; text-align: center;color:#fff;}
-  .demo .tab_t_cur{background:#39f;}
-  .demo .tab_c{height:200px;border:1px solid #ccc;}
-  &lt;/style&gt;
-                                </code>
-                                <code>
-  &lt;!--html--&gt;
-  &lt;div class=&quot;demo&quot;&gt;
-     &lt;div class=&quot;tab_b&quot;&gt; 头部自定义内容 &lt;/div&gt;
-     &lt;div class=&quot;tab_t&quot;&gt;选项卡一&lt;/div&gt;
-     &lt;div class=&quot;tab_c&quot;&gt;
-        选项卡一
-     &lt;/div&gt;
-     &lt;div class=&quot;tab_t&quot;&gt;选项卡二&lt;/div&gt;
-     &lt;div class=&quot;tab_c&quot;&gt;
-        选项卡二
-     &lt;/div&gt;
-     &lt;div class=&quot;tab_t&quot; ignore&gt;&lt;a href="http://baidu.com" target="_blank"&gt;忽略选显卡&lt;/a&gt;&lt;/div&gt;
-  &lt;/div&gt;
+    &lt;div class=&quot;wrap&quot;&gt;
+        &lt;div class=&quot;tabs-1&quot;&gt;
+            &lt;div class=&quot;tab-cont&quot; data-tab-title=&quot;选项卡一&quot;&gt;
+                许多年过去了，人们说陈年旧事可以被埋葬，然而我终于明白这是错的，因为往事会自行爬上来。回首前尘，我意识到在过去二十六年里，自己始终在窥视着那荒芜的小径。
+            &lt;/div&gt;
+            &lt;div class=&quot;tab-cont&quot; actived data-tab-title=&quot;选项卡二&quot;&gt;
+                在你心里，最能代表“春天”的是什么呢？ 是此刻窗外的猫叫。 是衬衫和短裤。 是“沾衣欲湿杏花雨，吹面不寒杨柳风”。 是家里每年春天，母亲亲手沏的那一壶新茶，温暖又缠绵。 也许是压抑不住的出行拍摄的冲动吧。
+            &lt;/div&gt;
+            &lt;div class=&quot;tab-cont&quot; disabled data-tab-title=&quot;选项卡三&quot;&gt;
+                一位真正的作家永远只为内心写作，只有内心才会真实地告诉他，他的自私、他的高尚是多么突出。内心让他真实地了解自己，一旦了解了自己也就了解了世界。
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;m&quot;&gt;
+            &lt;div class=&quot;btn btn-default setactive&quot;&gt;激活第2个&lt;/div&gt;
+            &lt;div class=&quot;btn btn-default setdisabled&quot;&gt;禁用/解禁&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
                                 </code>
                             </pre>
                             <pre>
                                 <code>
-  //js
-  require('tab');
-  $('.demo').tab();
+    require('tab');
+    var mytabs = $('.tabs-1').tab();
+
+    $('.setactive').on('click', function(){
+        mytabs.active(1);
+    });
+
+    var disabled = true;
+    $('.setdisabled').on('click', function(){
+        mytabs.disabled(2, disabled);
+        disabled = !disabled;
+    });
                                </code>
                             </pre>
                         </td>
@@ -7493,6 +7674,7 @@ $().datepicker({
                                             method: "get", //请求方式<br>
                                             url: "", //请求url<br>
                                             data: {} //请求参数<br>
+                                            dataParser: fn(res) //ajax返回数据处理<br>
                                         }
                                         </code>
                                     </td>
@@ -7589,6 +7771,12 @@ $().datepicker({
                                     <td>
                                         <p>默认无，单选/多选回调方法。</p>
                                         <p>@param(index, row, [rowArray]) : 当前选中行数，当前行数据，所有选中行数据数组(仅多选有此参数)</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>onReady</th>
+                                    <td>
+                                        <p>默认无，初始化完成回调方法。当使用ajax方式加载数据时将接收ajax返回数据：@param(res)</p>
                                     </td>
                                 </tr>
                             </table>

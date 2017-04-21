@@ -1,8 +1,8 @@
 /*
  * name: table.js
- * version: v1.3.2
- * update: 本地数据脏检查bug
- * date: 2017-04-17
+ * version: v1.5.2
+ * update: bug fix
+ * date: 2017-04-21
  */
 define('table', function(require, exports, module) {
 	"use strict";
@@ -16,16 +16,17 @@ define('table', function(require, exports, module) {
 			striped: false,
 			bordered: false,
 			condensed: false,
-			hover: true,
+			hover: false,
 			width: 0,
 			height: 0,
-			index: true,
+			index: false,
 			multi: false,
 			noDataText: "暂无数据",
 			noFilterText: '暂无筛选结果',
 			highlight: false,
 			page: null,
-			onSelect: null // index, row, [all]
+			onSelect: null, // index, row, [all]
+			onReady: null
 		},
 		Table = function(config) {
 			var opt = $.extend({}, def, config || {}),
@@ -66,9 +67,9 @@ define('table', function(require, exports, module) {
 			}
 			var indexKey = 'index-' + base.getUUID();
 			//交互控件过滤
-			var controlParser = function($dom, clone){
+			var controlParser = function($dom, clone) {
 				var $target = $dom;
-				if(clone){
+				if (clone) {
 					$target = $dom.clone(true);
 				}
 				$target.find('[name]').removeAttr('name');
@@ -135,7 +136,7 @@ define('table', function(require, exports, module) {
 										var fixedTable = $this.find('.table-fixed tbody');
 										var fixTdIndex = $this.find('.row' + rowIndex + '-' + key).index();
 										$this.find('.row' + rowIndex + '-' + key).replaceWith(inject(targetTd));
-										if(fixedTable.length){
+										if (fixedTable.length) {
 											var fixedTd = controlParser($this.find('.row' + rowIndex + '-' + key), true).html();
 											fixedTable.children('tr').eq(rowIndex).children('td').eq(fixTdIndex).html(fixedTd);
 										}
@@ -189,34 +190,34 @@ define('table', function(require, exports, module) {
 									var $input = $(inputHTML).on('blur', function(e) {
 										var newValue = $(this).val();
 										var isValid = true;
-										if(typeof col.validateMethod === 'function'){
+										if (typeof col.validateMethod === 'function') {
 											isValid = col.validateMethod(newValue);
 										}
-										if(!isValid){
+										if (!isValid) {
 											return e.preventDefault();
 										}
 										var newRow = that.set(col.key, newValue);
 										isEditing = false;
 										if (oldValue !== newValue) {
 											var updateObject;
-											$.each(changes.update, function(i, u){
-												if(u.index === rowData[indexKey]){
+											$.each(changes.update, function(i, u) {
+												if (u.index === rowData[indexKey]) {
 													updateObject = {
 														arrayIndex: i
 													};
 													return false;
 												}
 											});
-											if(updateObject !== void 0){
+											if (updateObject !== void 0) {
 												changes.update[updateObject.arrayIndex].row = newRow;
-											}else{
+											} else {
 												changes.update.push({
 													index: rowData[indexKey],
 													row: newRow,
 													origin: opt.rowData[rowData[indexKey]]
 												});
 											}
-											
+
 											if (typeof col.editable === 'function') {
 												col.editable(rowData[indexKey], col.key, newValue);
 											}
@@ -306,12 +307,13 @@ define('table', function(require, exports, module) {
 				return sortData;
 			};
 			var render = function(tData, opt, part) {
-				if (!$.isArray(tData) || !tData.length || !$.isArray(opt.column) || !opt.column.length) {
+				if (!$.isArray(tData) || !$.isArray(opt.column) || !opt.column.length) {
 					return console.warn('table: data or column配置有误！');
 				}
 				var colgroup = '<colgroup>';
 				var theadCont = '<thead><tr>';
 				var totalWidth = opt.width;
+				var totalWidthCopy = totalWidth;
 				var tableWidth = 0;
 				var otherParts = opt.column.length;
 				//收集注入元素
@@ -321,7 +323,7 @@ define('table', function(require, exports, module) {
 					//预计算列宽
 					col.width = isNaN(parseFloat(col.width)) ? 0 : parseFloat(col.width);
 					if (col.width) {
-						totalWidth -= col.width;
+						totalWidthCopy -= col.width;
 						otherParts -= 1;
 					}
 					//fixed列位置
@@ -329,16 +331,27 @@ define('table', function(require, exports, module) {
 						fixedIndex = i;
 					}
 				});
+				var otherPartsCopy = otherParts;
+				var totalWidthCopy2 = Math.max(totalWidthCopy, 0);
 				opt.fixedIndex = fixedIndex;
 				$.each(opt.column, function(i, col) {
 					var thisColWidth = col.width;
 					var thisColClass = [];
 					if (!thisColWidth) {
-						thisColWidth = Math.max(Math.floor(totalWidth / otherParts), 60 + (col.sort || $.isArray(col.filters) ? 40 : 0));
+						if(totalWidthCopy2 && otherPartsCopy===1){
+							thisColWidth = totalWidthCopy2;
+						}else{
+							thisColWidth = Math.max(Math.floor(totalWidthCopy / otherParts), 60 + (col.sort || $.isArray(col.filters) ? 40 : 0));
+							if(totalWidthCopy2 > thisColWidth){
+								totalWidthCopy2 -= thisColWidth;
+							}
+						}
+						otherPartsCopy--;
 					}
 					if (fixedIndex !== void(0) && fixedIndex >= i) {
 						fixedWidth += thisColWidth;
 					}
+					
 					tableWidth += thisColWidth;
 					switch (col.align) {
 						case 'center':
@@ -381,15 +394,15 @@ define('table', function(require, exports, module) {
 													command = 'desc';
 												}
 											}
-											if(typeof col.sort.handle === 'function'){
+											if (typeof col.sort.handle === 'function') {
 												return col.sort.handle(col.key, command);
 											}
-											if(command){
+											if (command) {
 												sortData = sortBy(col.key, col.sort.mehtod, command);
-											}else{
+											} else {
 												sortData = opt.oData;
 											}
-											
+
 											if (opt.page && opt.page.pageSize) {
 												opt.holdStatus = true;
 												generate(sortData, opt, 'body');
@@ -409,7 +422,7 @@ define('table', function(require, exports, module) {
 											});
 										}
 									});
-									$el.append($('<span class="table-filter"><i class="ion">&#xe64d;</i></span>').dropdown({
+									$el.append($('<span class="table-filter"><i class="ion">&#xeabf;</i></span>').dropdown({
 										items: dropData,
 										trigger: 'click',
 										onclick: function(item, isCurrent) {
@@ -445,32 +458,7 @@ define('table', function(require, exports, module) {
 							theadCont += (thisColTag + thisTagCont + '</div></th>');
 					}
 				});
-				var tbodyCont = getBody(tData, opt);
-				if (part === 'body') {
-					//body局部更新
-					var tbodyUpdate = inject(tbodyCont);
-					if (opt.fixedIndex !== void(0)) {
-						//移除交互控件name
-						var tbodyUpdateFixed = tbodyUpdate.clone(true);
-						tbodyUpdateFixed.each(function(row, tr) {
-							$(tr).find('td').each(function(i, td) {
-								if (i > opt.fixedIndex) {
-									controlParser($(td)).attr('class', 'tofixed');
-								}
-							});
-						});
-						tbodyUpdate.each(function(row, tr) {
-							$(tr).find('td').each(function(i, td) {
-								if (i <= opt.fixedIndex) {
-									controlParser($(td)).attr('class', 'tofixed');
-								}
-							});
-						});
-						$this.find('.table-fixed .table-body tbody').html(tbodyUpdateFixed);
-					}
-					$this.data('data', tData).find('.table-wrapper>.table-body tbody').html(tbodyUpdate);
-					return syncStatus();
-				}
+				var tbody = '<div class="table-body" style="width:' + tableWidth + 'px">';
 				var html = '<div class="table-wrapper' + (tableWidth > totalWidth ? ' table-scroll-x' : '') + '" style="width:' + opt.width + 'px">';
 				var thead = '<div class="table-header" style="width:' + tableWidth + 'px"><table class="table">';
 				theadCont += '</tr></thead>';
@@ -478,13 +466,45 @@ define('table', function(require, exports, module) {
 				thead += colgroup;
 				thead += theadCont;
 				thead += '</table></div>';
-				var tbody = '<div class="table-body" style="width:' + tableWidth + 'px"><table class="table' + (opt.hover ? ' table-hover' : '') + (opt.condensed ? ' table-condensed' : '') + (opt.bordered ? ' table-bordered' : '') + (opt.striped ? ' table-striped' : '') + '" style="width:' + tableWidth + 'px">';
-				tbody += colgroup;
-				tbody += ('<tbody>' + tbodyCont + '</tbody>');
-				tbody += '</table></div>';
+				if(!tData.length){
+					tbody += ('<div class="p">' + opt.noDataText + '</div>');
+				}else{
+					var tbodyCont = getBody(tData, opt);
+					if (part === 'body') {
+						//body局部更新
+						var tbodyUpdate = inject(tbodyCont);
+						if (opt.fixedIndex !== void(0)) {
+							//移除交互控件name
+							var tbodyUpdateFixed = tbodyUpdate.clone(true);
+							tbodyUpdateFixed.each(function(row, tr) {
+								$(tr).find('td').each(function(i, td) {
+									if (i > opt.fixedIndex) {
+										controlParser($(td)).attr('class', 'tofixed');
+									}
+								});
+							});
+							tbodyUpdate.each(function(row, tr) {
+								$(tr).find('td').each(function(i, td) {
+									if (i <= opt.fixedIndex) {
+										controlParser($(td)).attr('class', 'tofixed');
+									}
+								});
+							});
+							$this.find('.table-fixed .table-body tbody').html(tbodyUpdateFixed);
+						}
+						$this.data('data', tData).find('.table-wrapper>.table-body tbody').html(tbodyUpdate);
+						return syncStatus();
+					}
+					tbody += '<table class="table' + (opt.hover ? ' table-hover' : '') + (opt.condensed ? ' table-condensed' : '') + (opt.bordered ? ' table-bordered' : '') + (opt.striped ? ' table-striped' : '') + '" style="width:' + tableWidth + 'px">';
+					tbody += colgroup;
+					tbody += ('<tbody>' + tbodyCont + '</tbody>');
+					tbody += '</table>';
+				}
+				tbody += '</div>';
 				html += thead;
 				html += tbody;
-				if (fixedWidth) {
+
+				if (tData.length && fixedWidth) {
 					var tfixed = '';
 					tfixed = '<div class="table-fixed" style="width:' + fixedWidth + 'px">';
 					tfixed += thead;
@@ -494,9 +514,9 @@ define('table', function(require, exports, module) {
 				}
 				html += '</div>';
 				return $this.data('data', tData).css({
-						width: opt.width,
-						height: opt.height
-					}).html(inject(html, true));
+					width: opt.width,
+					height: opt.height
+				}).html(inject(html, true));
 			};
 			var inject = function(html, isInit) {
 				var tableObj = $(html);
@@ -600,7 +620,7 @@ define('table', function(require, exports, module) {
 				}
 			};
 			var selectRow = function(index, isSelect) {
-				if(index === void 0){
+				if (index === void 0) {
 					return null;
 				}
 				if (index >= opt.oData.length) {
@@ -731,10 +751,14 @@ define('table', function(require, exports, module) {
 							selectRow($(this).data('index'));
 						});
 					}
+					if(typeof opt.onReady === 'function'){
+						opt.onReady(opt.ajaxRes);
+						delete opt.ajaxRes;
+					}
 				}
 			};
-			var loadData = function(set, part){
-				require.async('spin', function(){
+			var loadData = function(set, part) {
+				require.async('spin', function() {
 					var loading = $this.spin({
 						icon: '&#xe66e;'
 					});
@@ -743,28 +767,35 @@ define('table', function(require, exports, module) {
 						url: set.url,
 						dataType: 'json',
 						data: set.data || {},
-						success: function(res){
+						success: function(res) {
+							var ajaxData;
 							loading.hide();
-							if($.isArray(res) && res.length){
-								opt.rowData = res;
-								generate(opt.rowData, opt, part);
-							}else{
-								console.warn('Table(): ajax必须返回Array格式！');
+							if (typeof set.dataParser === 'function') {
+								ajaxData = set.dataParser(res);
+							} else {
+								ajaxData = res;
 							}
+							if ($.isArray(ajaxData)) {
+								opt.rowData = ajaxData;
+							} else {
+								return console.warn('Table(): ajax/dataParser必须返回Array格式！');
+							}
+							opt.ajaxRes = res;
+							generate(opt.rowData, opt, part);
 						}
 					});
 				});
 			};
 
-			if($.isArray(opt.data) && opt.data.length){
+			if ($.isArray(opt.data)) {
 				opt.rowData = opt.data;
 				generate(opt.rowData, opt);
-			}else if(opt.load && opt.load.url && opt.load.url.split){
-				if(!$this.height()){
+			} else if (opt.load && opt.load.url && opt.load.url.split) {
+				if (!$this.height()) {
 					$this.height($this.height() || opt.height || 200);
 				}
 				loadData(opt.load);
-			}else{
+			} else {
 				return console.warn('Table(): 无可用数据源！');
 			}
 
@@ -776,8 +807,8 @@ define('table', function(require, exports, module) {
 						return opt.oData;
 					}
 				},
-				load: function(set){
-					if(set && set.url && set.url.split){
+				load: function(set) {
+					if (set && set.url && set.url.split) {
 						loadData(set, 'body');
 					}
 				},
@@ -826,7 +857,7 @@ define('table', function(require, exports, module) {
 					$this.find('.table-wrapper>.table-body').scrollTop(sth);
 				},
 				highlightRow: function(index) {
-					if(index === void 0){
+					if (index === void 0) {
 						return null;
 					}
 					if (index >= $this.data('data').length) {
@@ -856,7 +887,7 @@ define('table', function(require, exports, module) {
 						return console.warn('getEntity(): index 超出当前数据范围！');
 					}
 					var $td = $this.find('.row' + index + '-' + key);
-					if(!$td.length){
+					if (!$td.length) {
 						return console.warn('getEntity(): 无法获取指定单元格');
 					}
 					return $td.data('entity');

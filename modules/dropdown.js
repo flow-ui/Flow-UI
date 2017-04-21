@@ -1,8 +1,8 @@
 /*
  * name: dropdown.js
- * version: v0.2.2
- * update: onclick增加第二个参数isCurrent
- * date: 2017-03-22
+ * version: v0.2.3
+ * update: jquery plugin 参数覆盖错误
+ * date: 2017-04-18
  */
 define('dropdown', function(require, exports, module) {
 	"use strict";
@@ -43,7 +43,7 @@ define('dropdown', function(require, exports, module) {
 		var opt = $.extend({}, def, config),
 			menuHtml;
 		if (!$(opt.el).length) {
-			return console.warn('dorpdown: el 参数有误:', opt.el);
+			return console.warn('dorpdown: el不存在:', opt.el);
 		}
 		if (!opt.items.length) {
 			return console.warn('dorpdown: items 参数有误:', opt.items);
@@ -73,9 +73,9 @@ define('dropdown', function(require, exports, module) {
 	};
 
 	$.fn.dropdown = function(config) {
-		return Dropdown($.extend(config, {
+		return Dropdown($.extend({
 			el: this
-		}));
+		}, config));
 	};
 
 	module.exports = Dropdown;

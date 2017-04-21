@@ -1,12 +1,11 @@
 /*
  * name: spin.js
- * version: v0.0.1
- * update: build
- * date: 2017-04-01
+ * version: v0.0.2
+ * update: 图标定位bug
+ * date: 2017-04-18
  */
 define('spin', function(require, exports, module) {
 	"use strict";
-
 	var $ = require('jquery'),
 		base = require('base'),
 		template = '<div class="spin-wrap" id="flowui-spin"><div class="spin-main"><div class="spin-text"></div></div></div>',
@@ -51,7 +50,9 @@ define('spin', function(require, exports, module) {
 			if(opt.hook && opt.hook.split){
 				classes.push(opt.hook);
 			}
-
+			if ($this.css('position') !== 'absolute' && $this.css('position') !== 'fixed') {
+				$this.css('position', 'relative');
+			}
 			$this.append($spin.addClass(classes.join(' ')).css('zIndex', base.getIndex()));
 			
 			return {

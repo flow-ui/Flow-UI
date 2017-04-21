@@ -1,150 +1,166 @@
 /*
  * name: tab.js
- * version: v3.0.0
- * update: add onChange/onCreate
- * date: 2017-03-27
+ * version: v4.1.1
+ * update: remove autoplay
+ * date: 2017-04-21
  */
 define('tab', function(require, exports, module) {
 	"use strict";
-	seajs.importStyle('.tab .tab_t{cursor:pointer}.tab .tab_c{display:none}.tab .tab_c_cur{display:block}', module.uri);
 	var $ = require('jquery'),
+		etpl = require('etpl'),
 		def = {
-			tabs: ".tab_t", //标签
-			conts: ".tab_c", //内容
-			width_auto: false, //标签自适应宽度
-			posi_auto: true, //标签自动定位，关闭后可以样式控制
-			left: 0, //第一个标签距左起始位置
-			margin: 0, //标签间距
-			auto: false, //是否自动播放，默认否
-			interval: 5e3, //自动播放间隔，默认5s
-			start: 0, //初始显示，默认第一个
-			timeout: 0, //触发延迟
+			el: null,
+			conts: ".tab-cont", //内容元素
+			data: null,
+			active: undefined, //初始显示，默认第一个
 			act: 'click', //触发动作
-			beforeChange: null, //切换前，return false将终止切换
-			onChange: null, //回调方法 @param ($this,$tab_t,index) : 当前对象，标签，当前帧序号
-			onCreate: null //扩展方法 @param ($this,$tab_t,opts) : 当前对象，标签，配置
-		};
+			extra: null,
+			beforeChange: null, 
+			onChange: null, 
+			onReady: null 
+		},
+		template = '<div class="tab-nav">\
+    <!-- for: ${data} as ${tab} -->\
+    <div class="tab-title<!-- if: ${tab.color} --> tab-${tab.color}<!-- /if --><!-- if: ${tab.disabled} --> tab-disabled<!-- /if --><!-- if: ${tab.actived} --> tab-actived<!-- /if -->">${tab.title | raw}</div>\
+    <!-- /for -->\
+</div>\
+<div class="tab-extra"></div>\
+<div class="tab-cont-wrap">\
+	<!-- for: ${data} as ${tab} -->\
+    <div class="tab-cont<!-- if: ${tab.actived} --> tab-actived<!-- /if -->">${tab.cont | raw}</div>\
+   	<!-- /for -->\
+</div>',
+		render,
+		Tab = function(config) {
+			var opt = $.extend({}, def, config || {}),
+				$this = $(opt.el).eq(0),
+				thisPosition,
+				toggletab,
+				tiemout,
+				$tab_t,
+				$tab_c,
+				tabsData,
+				html;
+			if (!$this.length || $this.data('tab-init')) {
+				return null;
+			}
+			if ($.isArray(opt.data) && opt.data.length) {
+				tabsData = opt.data;
+			} else if ($this.find(opt.conts).length) {
+				tabsData = [];
+				$this.find(opt.conts).each(function(i, e) {
+					tabsData.push({
+						title: $(e).data('tab-title') || '未命名',
+						cont: $(e).html(),
+						disabled: $(e).attr('disabled') !== void 0,
+						actived: $(e).attr('actived') !== void 0
+					});
+				});
+			} else {
+				return console.warn('tab:tabs not exists!');
+			}
+			if (opt.active === void 0) {
+				$.each(tabsData, function(i, d) {
+					if (d.actived) {
+						if (opt.active === void 0) {
+							opt.active = i;
+						} else {
+							d.actived = false;
+						}
+					}
+				});
+			}
+			if (opt.active === void 0) {
+				opt.active = 0;
+				tabsData[opt.active].actived = true;
+			}
 
-	$.fn.tab = function(config) {
-		return $(this).each(function(i, e) {
-			var $this = $(e),
-				opt = $.extend({}, def, opt, config || {}),
-				thisPosition = $this.css('position'),
-				toggletab, 
-				tab_t_collect, 
-				tiemout, 
-				$tab_t, 
-				$tab_t_avail, 
-				$tab_c;
-			if ($this.data('tabruning')) return $this;
+			html = render({
+				data: tabsData
+			});
+			thisPosition = $this.css('position');
 			if (thisPosition !== 'absolute' && thisPosition !== 'fixed') {
 				thisPosition = 'relative';
 			}
-			
-			$tab_t = $this.find(opt.tabs);
-			if (!$tab_t.length) {
-				console.log('tabs not exists');
-				return $this;
-			}
 
-			$tab_c = $this.find(opt.conts).addClass('tab_c');
-			if (!$tab_c.length) {
-				console.log('tabContent not exists');
-				return $this;
-			}
-			//筛选可用tab
-			$tab_t_avail = $tab_t.filter(function() {
-				if ($(this).attr('ignore') === void(0)) {
-					return $(this);
+			$this.data('tab-init', true).addClass('tab').css('position', thisPosition).html(html).fadeIn(160);
+			if (opt.extra) {
+				if (typeof opt.extra === 'function') {
+					opt.extra = opt.extra();
 				}
-			}).addClass('tab_available');
-
-			$this.addClass('tab tabID' + Math.random().toString().slice(2)).css('position', thisPosition).fadeIn(160);
+				$this.find('.tab-extra').append(opt.extra);
+			}
+			$tab_t = $this.find('.tab-title');
+			$tab_c = $this.find('.tab-cont');
 
 			toggletab = function(i) {
-				$tab_t_avail.eq(i).addClass('tab_t_cur').siblings().removeClass('tab_t_cur');
-				$tab_c.eq(i).addClass('tab_c_cur').siblings().removeClass('tab_c_cur');
+				$tab_t.eq(i).addClass('tab-actived').siblings().removeClass('tab-actived');
+				$tab_c.eq(i).addClass('tab-actived').siblings().removeClass('tab-actived');
 			};
-			tab_t_collect = (' ' + $this.attr('class')).split(' ').join('.') + " .tab_available";
 
-			//选显卡和标签数量不相等
-			if ($tab_t_avail.length !== $tab_c.length) {
-				console.log("tabs'length !== contents'length");
-				return $this;
-			}
-			if (opt.width_auto) {
-				$tab_t.width(1 / $tab_t.length * 100 + '%');
-			}
+			$tab_t.on(opt.act, function(event) {
+				event.preventDefault();
+				if ($(this).hasClass('tab-disabled') || $(this).hasClass('tab-actived')) {
+					return null;
+				}
 
-			$tab_t.each(function(i, e) {
-				if (opt.posi_auto) {
-					var leftPx = 0;
-					for (var _i = 0; _i < i; _i++) {
-						leftPx += parseFloat($tab_t.eq(_i).outerWidth(true));
-					}
-					$(e).css({
-						position: 'absolute',
-						top: 0,
-						'left': opt.width_auto ? 1 / $tab_t.length * 100 * i + '%' : leftPx + opt.left + opt.margin * i
-					});
-				}
-				if (!i) {
-					$(e).addClass('first');
-				}
-				if ($tab_t.length - i === 1) {
-					$(e).addClass('last');
-				}
-			}).on(opt.act, function(event) {
-				if ($(this).attr('ignore') == void(0)) {
-					event.preventDefault();
-					var index = $(this).index(tab_t_collect),
-						_timeout,
-						_last;
-					typeof(opt.beforeChange) === 'function' && opt.beforeChange($this, $tab_t, index);
-					if (event.timeStamp) {
-						_last = event.timeStamp;
-						_timeout = setTimeout(function() {
-							if (_last - event.timeStamp === 0) {
-								toggletab(index);
-							}
-						}, opt.tiemout);
-					} else {
-						toggletab(index);
-					}
+				var index = $(this).index(),
+					_timeout,
+					_last;
+				typeof(opt.beforeChange) === 'function' && opt.beforeChange(index);
+				if (event.timeStamp) {
+					_last = event.timeStamp;
+					_timeout = setTimeout(function() {
+						if (_last - event.timeStamp === 0) {
+							toggletab(index);
+						}
+					}, opt.tiemout);
+				} else {
+					toggletab(index);
 				}
 				setTimeout(function() {
-					typeof(opt.onChange) === 'function' && opt.onChange($this, $tab_t, index);
+					typeof(opt.onChange) === 'function' && opt.onChange(index);
 					index = _timeout = _last = null;
 				}, 0);
-			});
+			}).eq(opt.active).trigger(opt.act);
 
-			//启动
-			$tab_t_avail.eq(opt.start).trigger(opt.act);
-			$this.data('tabruning');
-			
-			//自动播放
-			if ($tab_t_avail.length > 1 && opt.auto) {
-				var autoIndex = opt.start,
-					auto = function() {
-						autoIndex = autoIndex >= $tab_t_avail.length - 1 ? 0 : ++autoIndex;
-						$tab_t_avail.eq(autoIndex).trigger(opt.act);
-					},
-					t = setInterval(auto, opt.interval);
-				$tab_c.hover(function() {
-					clearInterval(t);
-				}, function() {
-					t = setInterval(auto, opt.interval);
-				});
-				$this.parent().on('DOMNodeRemoved', function(e) {
-					if ($(e.target).is($this)) {
-						//DOM移除后释放全局变量
-						t && clearInterval(t);
+			typeof opt.onReady === 'function' && opt.onReady($this, opt);
+
+			return {
+				active: function(index) {
+					if (index === void 0) {
+						return opt.active;
+					} else {
+						return $tab_t.eq(index).trigger(opt.act);
 					}
-				});
-			}
-			//扩展
-			typeof opt.onCreate === 'function' && opt.onCreate($this, $tab_t, opt);
+				},
+				disabled: function(index, value) {
+					if ($tab_t.eq(index).length) {
+						if (!!value) {
+							$tab_t.eq(index).removeClass('tab-disabled');
+						} else {
+							$tab_t.eq(index).addClass('tab-disabled');
+						}
+					}
+				},
+				setCont: function(index, cont) {
+					if ($tab_c.eq(index).length && (cont !== void 0)) {
+						$tab_c.eq(index).html(cont);
+					}
+				}
+			};
+		};
 
-		});
+	etpl.config({
+		variableOpen: '${',
+		variableClose: '}'
+	});
+	render = etpl.compile(template);
+
+	$.fn.tab = function(config) {
+		return Tab($.extend({
+			el: this
+		}, config || {}));
 	};
+	module.exports = Tab;
 });

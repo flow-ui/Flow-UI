@@ -1,8 +1,8 @@
 /*
  * name: slide.js
- * version: v4.2.1
- * update: 初始化逻辑微调
- * date: 2017-04-14
+ * version: v4.2.2
+ * update: arr_prev bug
+ * date: 2017-04-19
  */
 define('slide', function(require, exports, module) {
     "use strict";
@@ -51,6 +51,7 @@ define('slide', function(require, exports, module) {
         getNext = function(number, _step, count) {
             _step = _step || 1;
             number = number >= count - _step ? 0 : number + _step;
+            console.log(number)
             return number;
         },
         setNavs = function($navs, count, current, step) {
@@ -123,7 +124,7 @@ define('slide', function(require, exports, module) {
                                     if (_distance < 0 || _touchAction == 'next') {
                                         efftct(getNext(origin, 1, count), 1);
                                     } else if (_distance > 0 || _touchAction == 'prev') {
-                                        efftct(getPrev(origin), 0, count);
+                                        efftct(getPrev(origin, 0, count), 0);
                                     }
                                     _touchAction = null;
                                 } else {
@@ -347,7 +348,7 @@ define('slide', function(require, exports, module) {
                         return null;
                     }
                     if ($(this).hasClass('arr_prev')) {
-                        efftct(getPrev(origin), 0, count);
+                        efftct(getPrev(origin, 0, count), 0);
                     }
                     if ($(this).hasClass('arr_next')) {
                         efftct(getNext(origin, 1, count), 1);

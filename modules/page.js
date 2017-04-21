@@ -1,8 +1,8 @@
 /*
  * name: page.js
- * version: v1.0.2
- * update: onClick => onChange
- * date: 2017-03-24
+ * version: v1.0.3
+ * update: 防止模板起止符号自定义
+ * date: 2017-04-19
  */
 define('page', function(require, exports, module) {
 	"use strict";
@@ -15,7 +15,7 @@ define('page', function(require, exports, module) {
             <!-- /for -->\
             <li><a href="javascript:;"<!-- if: ${isLast} --> class="unable"<!-- else --> data-to="${nextPage}"<!-- /if -->>下一页</a></li>\
         </ul>',
-		pagerender = etpl.compile(template),
+		pagerender,
 		def = {
 			el: null,
 			current: 1,
@@ -133,6 +133,12 @@ define('page', function(require, exports, module) {
 				set: set
 			};
 		};
+
+	etpl.config({
+		variableOpen: '${',
+		variableClose: '}'
+	});
+	pagerender = etpl.compile(template);
 
 	$.fn.page = function(config) {
 		return Page($.extend(config || {}, {

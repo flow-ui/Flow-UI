@@ -1,8 +1,8 @@
 /*
  * name: base
- * version: 3.3.1
- * update: 增加getIndex()
- * date: 2017-03-30
+ * version: 3.3.2
+ * update: url.set() bug
+ * date: 2017-04-20
  */
 define('base', function(require, exports, module) {
 	'use strict';
@@ -295,13 +295,18 @@ define('base', function(require, exports, module) {
 	var _setUrlParam = function(name, val, url){
 		var urlParamReg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
 		var s = url ? (url.split('?')[1] ? url.split('?')[1] : '') : window.location.search.substr(1);
-		var r = s.match(urlParamReg);
-		if(r !== null){
-			var ori = r[0].replace(/&/g,'');
+		if(s){
 			var result = url || window.location.href;
-			return result.replace(ori, name + '=' + val);
+			var r = s.match(urlParamReg);
+			if(r !== null){
+				var ori = r[0].replace(/&/g,'');
+				return result.replace(ori, name + '=' + val);
+			}else{
+				return result + '&' + name + '=' + val;
+			}
+		}else{
+			return url + '?' + name + '=' + val;
 		}
-		return null;
 	};
 
 	/*

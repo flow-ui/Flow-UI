@@ -1,8 +1,8 @@
 /*
  * name: menu.js
- * version: v0.0.1
- * update: build
- * date: 2017-03-10
+ * version: v0.1.1
+ * update: active() 未展开父级bug
+ * date: 2017-04-20
  */
 define('menu', function(require, exports, module) {
 	"use strict";
@@ -22,6 +22,10 @@ define('menu', function(require, exports, module) {
 			onselect: null
 		},
 		render = function(opt) {
+			if (!$.isArray(opt.data) || !opt.data.length) {
+				return null;
+			}
+
 			var menu = '<ul class="menu-ui">';
 			$.each(opt.data, function(i, m) {
 				var isActive = opt.actived !== null && opt.actived === m[opt.key],
@@ -77,59 +81,72 @@ define('menu', function(require, exports, module) {
 		},
 		activeItem = function($el, $item) {
 			$el.find('.menu-item-active').removeClass('menu-item-active');
-			return $item.addClass('menu-item-active');
+			return $item.addClass('menu-item-active').parents('.menu-submenu').addClass('menu-opened');
 		},
 		Menu = function(config) {
-			var opt = $.extend({}, def, config || {});
-			if (!$(opt.el).length) {
+			var opt = $.extend({}, def, config || {}),
+				$this = $(opt.el).eq(0),
+				html;
+			$.extend(opt, $this.data('menu') || {});
+			if (!$this.length || $this.data('menu-init')) {
 				return null;
 			}
-			if (!$.isArray(opt.data) || !opt.data.length) {
-				return console.warn('menu: data配置异常 ', opt.data);
-			}
-			if (!opt.key) {
-				console.warn('menu: key未配置，部分功能无法使用');
-			}
-			$(opt.el).each(function(i, e) {
-				var $this = $(e);
-				$this.html(render(opt)).on('click', '.menu-item', function(e) {
-					if (opt.mode === 'vertical') {
-						e.stopPropagation();
-					}
-					if ($(this).hasClass('menu-item-active')) {
-						return e.preventDefault();
-					}
-					activeItem($this, $(this));
-
-					if (!$(this).hasClass('menu-submenu') && typeof opt.onselect === 'function') {
-						opt.onselect($(this).data('menu-key'));
-					}
-				});
-				if (opt.mode === 'vertical' && opt.toggle) {
-					$this.on('click', '.menu-submenu', function() {
-						$(this).toggleClass('menu-opened');
-					});
-				} else {
-					$this.find('.menu-item').each(function(i, horizontalSub) {
-						if ($(horizontalSub).hasClass('menu-submenu')) {
-							DropDown({
-								el: horizontalSub,
-								trigger: 'click',
-								items: opt.data[i].sub,
-								width: $(horizontalSub).outerWidth(),
-								onclick: function(item) {
-									if (typeof opt.onselect === 'function') {
-										opt.onselect(item[opt.key]);
-									}
-								}
-							});
-							if ($.isArray(opt.opened) && opt.opened[0] === opt.data[i][opt.key]) {
-								$(horizontalSub).trigger('click');
-							}
-						}
+			
+			html = render(opt);
+			if(html){
+				$this.html(html);
+				if (!opt.key) {
+					console.warn('menu: key未配置，部分功能无法使用');
+				}
+			}else{
+				if(opt.actived){
+					$this.find('[data-menu-key="'+ opt.actived +'"]').addClass('menu-item-active').parents('.menu-submenu').addClass('menu-opened');
+				}
+				if($.isArray(opt.opened) && opt.opened.length){
+					$.each(opt.opened, function(i, opened){
+						$this.find('[data-menu-key="'+ opened +'"]').addClass('menu-opened');
 					});
 				}
-			});
+			}
+			$this.on('click', '.menu-item', function(e) {
+				if (opt.mode === 'vertical') {
+					e.stopPropagation();
+				}
+				if ($(this).hasClass('menu-item-active')) {
+					return e.preventDefault();
+				}
+				activeItem($this, $(this));
+
+				if (!$(this).hasClass('menu-submenu') && typeof opt.onselect === 'function') {
+					opt.onselect($(this).data('menu-key'));
+				}
+			}).data('menu-init', true);
+
+			if (opt.mode === 'vertical' && opt.toggle) {
+				$this.on('click', '.menu-submenu', function() {
+					$(this).toggleClass('menu-opened');
+				});
+			} else {
+				$this.find('.menu-item').each(function(i, horizontalSub) {
+					if ($(horizontalSub).hasClass('menu-submenu')) {
+						DropDown({
+							el: horizontalSub,
+							trigger: 'click',
+							items: opt.data[i].sub,
+							width: $(horizontalSub).outerWidth(),
+							onclick: function(item) {
+								if (typeof opt.onselect === 'function') {
+									opt.onselect(item[opt.key]);
+								}
+							}
+						});
+						if ($.isArray(opt.opened) && opt.opened[0] === opt.data[i][opt.key]) {
+							$(horizontalSub).trigger('click');
+						}
+					}
+				});
+			}
+
 			return {
 				open: function(key) {
 					$(opt.el).find('.menu-item').each(function(i, item) {
@@ -149,10 +166,9 @@ define('menu', function(require, exports, module) {
 		};
 
 	$.fn.menu = function(config) {
-		Menu($.extend(config || {}, {
+		Menu($.extend({
 			el: this
-		}));
+		}, config));
 	};
 	module.exports = Menu;
-
 });

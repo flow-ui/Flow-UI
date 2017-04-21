@@ -79,7 +79,6 @@ define('tip', function(require, exports, module) {
 	var Tip = function(tip, config) {
 		var opt = $.extend({}, def, config || {});
 		var $el = $(opt.el);
-		$blank.css('opacity', opt.opacity);
 		$el.each(function(i, e) {
 			var $this = $(e),
 				place = opt.place.split('-'),
@@ -220,7 +219,7 @@ define('tip', function(require, exports, module) {
 						}else{
 							$blank.data('call', 1);
 						}
-						$blank.show();
+						$blank.show().css('opacity', opt.opacity);
 					}
 					if (opt.trigger === 'hover') {
 						$tipbox
