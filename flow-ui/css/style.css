@@ -51,7 +51,6 @@ small {
   font-size: 12px;
 }
 a {
-  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   text-decoration: none;
   color: inherit;
@@ -687,7 +686,6 @@ input[type='button'].btn-block {
   -ms-flex-direction: column;
       flex-direction: column;
   height: 100%;
-  -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   border-radius: 4px;
   background: #fff;
@@ -964,7 +962,6 @@ a.bg-danger:hover {
   display: flex;
   flex-direction: column;
   -webkit-box-orient: vertical;
-  -webkit-flex-direction: column;
   -ms-flex-direction: column;
 }
 .flex-row {
@@ -1615,7 +1612,6 @@ big.form-mark {
 .row {
   display: block;
   width: 102%;
-  -webkit-transition: 0.2s width ease;
   transition: 0.2s width ease;
   *zoom: 1;
 }
@@ -1671,7 +1667,6 @@ big.form-mark {
 */
 .full-row {
   width: 100%;
-  -webkit-transition: 0.2s width ease;
   transition: 0.2s width ease;
   *zoom: 1;
 }
@@ -2348,7 +2343,6 @@ big.form-mark {
   margin-left: 0.4em;
   vertical-align: middle;
   opacity: 0.7;
-  -webkit-transition: opacity ease .3s;
   transition: opacity ease .3s;
 }
 .label-closable.label-bordered {
@@ -2386,7 +2380,6 @@ big.form-mark {
   position: relative;
   z-index: 1;
   cursor: pointer;
-  -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
 .menu-item > .ion,
@@ -2405,7 +2398,6 @@ big.form-mark {
   z-index: 3;
   padding: 0 22.4px;
   cursor: pointer;
-  -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
 .menu-light {
@@ -2502,7 +2494,6 @@ big.form-mark {
   z-index: 1;
   padding: 14px 23.8px;
   cursor: pointer;
-  -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
 .menu-sub-group .menu-item {
@@ -2585,7 +2576,6 @@ big.form-mark {
 .menu-sub-ion {
   font-size: 0.9em;
   margin: 0 0.5em;
-  -webkit-transition: -webkit-transform 0.2s ease-in-out;
   transition: -webkit-transform 0.2s ease-in-out;
   transition: transform 0.2s ease-in-out;
   transition: transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
@@ -2717,7 +2707,6 @@ big.form-mark {
   overflow: hidden;
   position: relative;
   height: 10px;
-  -webkit-transition: all 0.2s linear;
   transition: all 0.2s linear;
   border-radius: 100px;
   background-color: #fff;
@@ -3070,11 +3059,8 @@ big.form-mark {
   width: 64px;
   height: 28px;
   content: ' ';
-  -webkit-transition-timing-function: ease-in-out;
-          transition-timing-function: ease-in-out;
-  -webkit-transition-duration: 0.3s;
-          transition-duration: 0.3s;
-  -webkit-transition-property: background-color border;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.3s;
   transition-property: background-color border;
   border: solid 2px #d5d5d5;
   border-radius: 4px;
@@ -3087,9 +3073,7 @@ big.form-mark {
   left: 0;
   width: 28px;
   height: 28px;
-  -webkit-transition: 0.3s cubic-bezier(0, 1.1, 1, 1.1);
   transition: 0.3s cubic-bezier(0, 1.1, 1, 1.1);
-  -webkit-transition-property: background-color, left;
   transition-property: background-color, left;
   background-color: #fff;
 }
@@ -3529,7 +3513,6 @@ table th[class*='col-'] {
   line-height: .7em;
   overflow: hidden;
   position: absolute;
-  -webkit-transition: color 0.2s ease-in-out;
   transition: color 0.2s ease-in-out;
 }
 .table-sort .table-sort-up {
