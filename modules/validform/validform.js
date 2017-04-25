@@ -1,8 +1,8 @@
 /*
 * name: validform.js
-* version: v2.4.5
-* update: checkbox 多值提交bug
-* data: 2017-03-24
+* version: v2.4.6
+* update: tipSweep 失效bug
+* data: 2017-04-24
 */
 define('validform',function(require, exports, module) {
 	"use strict";
@@ -70,6 +70,9 @@ define('validform',function(require, exports, module) {
 			curform.validform_status = "normal";
 			$this.data("tipmsg", brothers.tipmsg)
 				.on( "blur", "[datatype]", function() {
+					if(curform.settings.tipSweep){
+						return null;
+					}
 					var subpost = arguments[1];
 					var that = this;
 					setTimeout(function(){

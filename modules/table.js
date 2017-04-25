@@ -1,7 +1,7 @@
 /*
  * name: table.js
- * version: v1.5.2
- * update: bug fix
+ * version: v1.5.3
+ * update: 高度默认为0 bug
  * date: 2017-04-21
  */
 define('table', function(require, exports, module) {
@@ -47,8 +47,17 @@ define('table', function(require, exports, module) {
 			if (isNaN(parseFloat(opt.height)) || !parseFloat(opt.height)) {
 				opt.height = $this.height();
 			}
+			if(!parseFloat(opt.height)){
+				opt.height = 'auto';
+			}
 			//索引列
 			if (opt.index) {
+				$.each(opt.column, function(i, e){
+					if(e.type && e.type === 'index'){
+						opt.column.splice(i, 1);
+						return false;
+					}
+				});
 				opt.column.unshift({
 					type: 'index',
 					width: 60,
@@ -58,6 +67,12 @@ define('table', function(require, exports, module) {
 			}
 			//勾选列
 			if (opt.multi) {
+				$.each(opt.column, function(i, e){
+					if(e.type && e.type === 'selection'){
+						opt.column.splice(i, 1);
+						return false;
+					}
+				});
 				opt.column.unshift({
 					type: 'selection',
 					width: 60,

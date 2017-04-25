@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <title>注册-Flow-UI</title>
+    <meta content="" name="Keywords">
+    <meta content="" name="Description">
+    <meta name="format-detection" content="telephone=no">
+    <link href="/Flow-UI/dashboard/favicon.ico" rel="icon">
+<link href="/Flow-UI/dashboard/css/style.css" rel="stylesheet">
+<script type="text/javascript">
+	if(window.location.href.indexOf('https')===0){
+		document.write('<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />');
+	}
+</script>
+<!--[if lt IE 9]><script src="/Flow-UI/dashboard/lib/H5shiv.js"></script><![endif]-->
+</head>
+
+<body style="display: table;width:100%;">
+    <div class="g-center" style="background-color: #f5f5f5">
+        <div class="wrap">
+            <div class="row">
+                <div class="span-6 center" style="background:#fff">
+                    <div class="card card-bordered">
+                        <div class="card-body">
+                            <div class="h1" style="color:#434343">注册</div>
+                            <p class="text-muted">创建您的账号</p>
+                            <form class="form" id="validForm">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="ion">&#xe736;</i></span>
+                                        <input type="text" class="form-control" placeholder="用户名" name="username" datatype="s4-16" nullmsg="请填写用户名！">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="ion">&#xe7bd;</i></span>
+                                        <input type="text" class="form-control" name="email" placeholder="邮箱" datatype="e" errormsg="请输入正确的邮箱!" ignore="ignore">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="ion">&#xe6c0;</i></span>
+                                        <input type="password" class="form-control" placeholder="密码" name="userpassword" datatype="s4-16" nullmsg="请输入密码">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="ion">&#xe6c0;</i></span>
+                                        <input type="password" class="form-control" placeholder="密码" recheck="userpassword" datatype="*">
+                                    </div>
+                                </div>
+                                <div class="form-group m-t-lg">
+                                    <button type="submit" class="btn btn-primary btn-block btn-lg">注册</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-foot">
+                            <div class="p">
+                                <div class="row">
+                                    <div class="span-4">
+                                        <div class="btn btn-success btn-block">
+                                            <i class="ion">&#xe608;</i> 微信
+                                        </div>
+                                    </div>
+                                    <div class="span-4">
+                                        <div class="btn btn-danger btn-block">
+                                            <i class="ion">&#xe607;</i> 微博
+                                        </div>
+                                    </div>
+                                    <div class="span-4">
+                                        <div class="btn btn-info btn-block">
+                                            <i class="ion">&#xe603;</i> QQ
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/Flow-UI/dashboard/lib/sea.js" id="seajsnode"></script>
+    <script>
+    seajs.use('js/regist');
+    </script>
+</body>
+
+</html>

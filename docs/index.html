@@ -531,6 +531,18 @@
                             </td>
                         </tr>
                         <tr>
+                            <td>.text-black</td>
+                            <td>
+                                <p class="text-black">黑色文本</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.text-light</td>
+                            <td>
+                                <p class="bg-black text-light">白色文本</p>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>.text-primary</td>
                             <td>
                                 <p class="text-primary">主色调文字</p>
@@ -570,6 +582,30 @@
                             <td>.bg-muted</td>
                             <td>
                                 <p class="bg-muted">次要背景色</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.bg-black</td>
+                            <td>
+                                <p class="bg-black">黑色背景</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.bg-light</td>
+                            <td>
+                                <p class="bg-light">白色背景</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.bg-gray-light</td>
+                            <td>
+                                <p class="bg-gray-light">浅灰色背景</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.bg-gray-lighter</td>
+                            <td>
+                                <p class="bg-gray-lighter">更浅灰色背景</p>
                             </td>
                         </tr>
                         <tr>
@@ -692,25 +728,22 @@
                                 <h5>基本实例</h5>
                                 <form class="form m-b">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Email address</label>
+                                        <label class="control-label" for="exampleInputEmail1">邮箱：</label>
                                         <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Password</label>
+                                        <label class="control-label" for="exampleInputPassword1">密码：</label>
                                         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                                     </div>
                                     <label class="checkbox">
                                         <input type="checkbox">Check me out
                                     </label>
-                                    <div class="form-group">
-                                        <div class="help-block">Example block-level help text here.</div>
-                                    </div>
                                     <button type="button" class="btn btn-primary">Submit</button>
                                 </form>
                             </div>
                             <div class="span-6">
-                                <h5>水平排列</h5>
-                                <form class="form-horizontal m-b">
+                                <h5>配合栅格</h5>
+                                <form class="form m-b">
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="span-2 control-label">Email</label>
                                         <div class="span-10">
@@ -806,7 +839,7 @@
                     <div class="wrap m-b">
                         <div class="row">
                             <div class="span-6">
-                                <form class="form-horizontal">
+                                <form class="form">
                                     <div class="form-group form-group-sm row has-success has-feedback">
                                         <label class="control-label span-3">Input with success</label>
                                         <div class="span-9">
@@ -834,13 +867,32 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="input-group">
+                                        <div class="input-group-addon "><i class="ion">&#xe7da;</i></div>
+                                        <input class="form-control" type="email" placeholder="What are you looking for?">
+                                        <div class="input-group-addon noborder">
+                                            <button class="btn btn-primary">搜素</button>
+                                        </div>
+                                    </div>
+
                                 </form>
                             </div>
                         </div>
                     </div>
                     <table class="table table-hover">
                         <tr>
-                            <td style="width:7em">.form-inline</td>
+                            <td style="width:7em">.form</td>
+                            <td>
+                                <p>定义表单元素</p>
+                                    <p><code>
+    &lt;form class=&quot;form&quot;&gt;
+        ...
+    &lt;/form&gt;
+                                    </code></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.form-inline</td>
                             <td>
                                 <p>定义一个内联表单</p>
                                     <p><code>
@@ -850,21 +902,11 @@
                                     </code></p>
                             </td>
                         </tr>
-                        <tr>
-                            <td>.form-horizontal</td>
-                            <td>
-                                <p>定义一个整行排列表单</p>
-                                    <p><code>
-    &lt;form class=&quot;form-horizontal&quot;&gt;
-        ...
-    &lt;/form&gt;
-                                    </code></p>
-                            </td>
-                        </tr>
+                        
                         <tr>
                             <td>.form-group</td>
                             <td>
-                                <p>在表单内定义一行，增加行下边距，整行表单中通常配合栅格系统使用</p>
+                                <p>在表单内定义一行，可以配合栅格系统使用</p>
                                 <p><code>
     &lt;div class=&quot;form-group row&quot;&gt;
         &lt;div class=&quot;span-2&quot;&gt;&lt;/div&gt;
@@ -877,24 +919,49 @@
                             <td>.form-group-sm</td>
                             <td>
                                 <p>叠加定义一个较小尺寸的行，内部元素自动缩小</p>
-                                <p><code>
-    &lt;div class=&quot;form-group form-group-sm row&quot;&gt;
-        &lt;div class=&quot;span-2&quot;&gt;&lt;/div&gt;
-        &lt;div class=&quot;span-10&quot;&gt;&lt;/div&gt;
-    &lt;/div&gt;
-                                    </code></p>
                             </td>
                         </tr>
                         <tr>
                             <td>.form-group-lg</td>
                             <td>
-                                <p>叠加定义一个较小尺寸的行，内部元素自动放大</p>
+                                <p>叠加定义一个较大尺寸的行，内部元素自动放大</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.input-group</td>
+                            <td>
+                                <p>定义一个带徽标的输入框组合</p>
                                 <p><code>
-    &lt;div class=&quot;form-group form-group-lg row&quot;&gt;
-        &lt;div class=&quot;span-2&quot;&gt;&lt;/div&gt;
-        &lt;div class=&quot;span-10&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;input-group&quot;&gt;
+        &lt;div class=&quot;input-group-addon &quot;&gt;&lt;i class=&quot;ion&quot;&gt;&amp;#xe7da;&lt;/i&gt;&lt;/div&gt;
+        &lt;input class=&quot;form-control&quot; type=&quot;email&quot; placeholder=&quot;What are you looking for?&quot;&gt;
+        &lt;div class=&quot;input-group-addon noborder&quot;&gt;&lt;button class=&quot;btn btn-primary&quot;&gt;搜素&lt;/button&gt;&lt;/div&gt;
     &lt;/div&gt;
                                     </code></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.input-group-sm</td>
+                            <td>
+                                <p>叠加input-group定义一个较小尺寸的输入框组合</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.input-group-lg</td>
+                            <td>
+                                <p>叠加input-group定义一个较大尺寸的输入框组合</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.input-group-addon</td>
+                            <td>
+                                <p>在输入框组合内定义一个徽标</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.noborder</td>
+                            <td>
+                                叠加input-group-addon使徽标无边框
                             </td>
                         </tr>
                         <tr>
@@ -1218,6 +1285,93 @@
     &lt;i class=&quot;ico ico1_2&quot;&gt;&lt;/i&gt;
                         </code>
                     </pre>
+                </td>
+            </tr>
+            <tr id="item（列表）">
+                <td>item.less</td>
+                <td>
+                    <div class="wrap p-tb">
+                        <div class="row">
+                            <div class="span-4">
+                                <ul class="items items-primary">
+                                    <li class="item active">
+                                        <a href="###"><i class="ion">&#xe640;</i> Analytics Redesign </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="###"><i class="ion">&#xe695;</i> Analytics Redesign </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="###"><i class="ion">&#xe6a8;</i> Analytics Redesign </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="span-4">
+                                <ul class="items items-success">
+                                    <li class="item active">
+                                        <a href="###"><i class="ion">&#xe640;</i> Analytics Redesign </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="###"><i class="ion">&#xe695;</i> Analytics Redesign </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="###"><i class="ion">&#xe6a8;</i> Analytics Redesign </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="span-4">
+                                <ul class="items">
+                                    <li class="item active">
+                                        <a href="###"><i class="ion">&#xe66c;</i> Analytics Redesign <span class="item-extra"><span class="badge"><sup class="badge-count badge-count-alone">13</sup></span></span> </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="###"><i class="ion">&#xe66c;</i> Analytics Redesign <span class="item-extra"><span class="badge"><sup class="badge-count badge-count-alone">13</sup></span></span> </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="###"><i class="ion">&#xe66c;</i> Analytics Redesign <span class="item-extra"><span class="badge"><sup class="badge-count badge-count-alone">13</sup></span></span> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>.items</td>
+                            <td>
+                                定义列表容器
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.item</td>
+                            <td>
+                                定义列表项
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.item-extra</td>
+                            <td>
+                                定义列表右侧漂浮元素
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.active</td>
+                            <td>
+                                叠加在.item上使当前项为激活状态
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.item-info</td>
+                            <td>
+                                叠加.items使列表显示为指定色调，默认主色调（另："auxiliary", success", "info", "warning", "danger"）
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.items-inverse</td>
+                            <td>
+                                叠加.items使用列表呈现颜色反转效果
+                            </td>
+                        </tr>
+                    </table>
+                    <p> </p>
                 </td>
             </tr>
             <tr id="label（标签）">
