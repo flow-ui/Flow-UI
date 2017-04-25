@@ -1,8 +1,8 @@
 /*
  * name: select.js
- * version: v4.3.3
- * update: 异常提示
- * date: 2017-04-21
+ * version: v4.3.4
+ * update: 使用scrollbar美化滚动条
+ * date: 2017-04-25
  */
 define('select', function(require, exports, module) {
     "use strict";
@@ -132,7 +132,7 @@ define('select', function(require, exports, module) {
                     if(!_lis){
                         _lis = '<li class="_disabled">暂无数据</li>';
                     }
-                    _doms += ('<ul>' + _lis + '</ul>');
+                    _doms += ('<ul class="scrollbar">' + _lis + '</ul>');
                     if(selectedChildren){
                         each(selectedChildren);
                     }

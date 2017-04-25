@@ -1,8 +1,8 @@
 /*
  * name: table.js
- * version: v1.5.3
- * update: 高度默认为0 bug
- * date: 2017-04-21
+ * version: v1.5.4
+ * update: 某些情况列宽计算错误
+ * date: 2017-04-25
  */
 define('table', function(require, exports, module) {
 	"use strict";
@@ -354,7 +354,7 @@ define('table', function(require, exports, module) {
 					var thisColClass = [];
 					if (!thisColWidth) {
 						if(totalWidthCopy2 && otherPartsCopy===1){
-							thisColWidth = totalWidthCopy2;
+							thisColWidth = Math.max(totalWidthCopy2, 60 + (col.sort || $.isArray(col.filters) ? 40 : 0));
 						}else{
 							thisColWidth = Math.max(Math.floor(totalWidthCopy / otherParts), 60 + (col.sort || $.isArray(col.filters) ? 40 : 0));
 							if(totalWidthCopy2 > thisColWidth){

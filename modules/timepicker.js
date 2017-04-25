@@ -1,8 +1,8 @@
 /*
  * name: timepicker.js
- * version: v0.1.1
- * update: default background 
- * date: 2017-03-30
+ * version: v0.1.2
+ * update: 使用scrollbar美化滚动条
+ * date: 2017-04-25
  */
 define('timepicker', function(require, exports, module) {
 	"use strict";
@@ -71,7 +71,7 @@ define('timepicker', function(require, exports, module) {
 		domRender = function(timeObj, opt) {
 			var result = '<div class="timepicker-ui">';
 			var repeat = function(num, mark, val) {
-				var Dom = '<ul data-mark="' + mark + '">',
+				var Dom = '<ul class="scrollbar" data-mark="' + mark + '">',
 					i = 0;
 				for (; i < num; i++) {
 					Dom += ('<li data-index="' + i + '"' + (val === i ? (' class="' + opt.checkClass + '"') : '') + '>' + pad(i, 2) + '</li>');
