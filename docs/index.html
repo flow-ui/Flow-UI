@@ -2864,12 +2864,14 @@ always: null            // complete function(done|fail)
                         </pre>
                     </td>
                     </tr>
-                    <tr id="Webuploader（上传）">
+                    <tr id="Webuploader">
                         <td>webuploader</td>
                         <td>
                             <h5>描述</h5>
                             <p>改造自<a href="http://fex.baidu.com/webuploader/" target="_blank">webuploader</a>，兼容ie6 +，android4 +，支持上传前压缩，上传前剪裁，分段上传，MD5秒传，断点续传</p>
                             <p>插件封装的很底层，用起来较麻烦，但是功能很全面，demo演示了一个具有拖拽上传、截图粘贴上传、格式过滤、获取缩略图、上传前压缩、队列管理功能的上传示例。</p>
+                            <h5>注意</h5>
+                            <p>将废弃，建议使用<a href="#Upload（上传）">【Upload】</a></p>
                             <h5>配置</h5>
                             <p>见<a href="http://fex.baidu.com/webuploader/doc/index.html" target="_blank">官网文档</a></p>
                             <h5>示例</h5>
@@ -3003,6 +3005,46 @@ always: null            // complete function(done|fail)
 
                             </code>
                           </pre>
+                        </td>
+                    </tr>
+                    <tr id="zTree（树）">
+                        <td>zTree</td>
+                        <td>
+                            <h5>描述</h5>
+                            <p>树形插件，文件夹、组织架构、生物分类、国家地区等等，世间万物的大多数结构都是树形结构。使用树控件可以完整展现其中的层级关系，并具有展开收起选择等交互功能。</p>
+                            <h5>注意</h5>
+                            <p>改造自<a href="https://github.com/zTree/zTree_v3" target="_blank">zTree</a>，只封装了核心包和excheck 扩展包，其他官方扩展功能需自行添加。</p>
+                            <h5>配置</h5>
+                            <p>见<a href="http://www.treejs.cn/v3/api.php" target="_blank">官网文档</a></p>
+                            <h5>示例</h5>
+                            <pre>
+                                <code>
+    &lt;div class=&quot;wrap&quot;&gt;&lt;div class=&quot;ztree tree1&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+                                </code>
+                            </pre>
+                            <pre>
+                                <code>
+    require('zTree');
+    var zNodes = [{
+        name: "test1",
+        open: true,
+        children: [{
+            name: "test1_1"
+        }, {
+            name: "test1_2"
+        }]
+    }, {
+        name: "test2",
+        open: true,
+        children: [{
+            name: "test2_1"
+        }, {
+            name: "test2_2"
+        }]
+    }];
+    $.fn.zTree.init($(".tree1"), {}, zNodes);
+                                </code>
+                            </pre>
                         </td>
                     </tr>
                     <tr id="Album（相册）">

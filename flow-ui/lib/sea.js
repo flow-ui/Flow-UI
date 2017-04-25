@@ -32,7 +32,8 @@ seajs.config({
 		"makethumb"      : "upload/makethumb",
 		"localResizeIMG" : "upload/localResizeIMG",
 		"video"		     : "video/video",
-		"webuploader"    : "webuploader/webuploader"
+		"webuploader"    : "webuploader/webuploader",
+		"zTree"    		 : "zTree/zTree"
 	}
 });
 
@@ -51,6 +52,7 @@ seajs.config({
         'validform/validform'               : 'v2.4.6',
         'video/video'                       : 'v0.0.1',
         'webuploader/webuploader'           : 'v1.0.0',
+        'zTree/zTree'                       : 'v0.0.1',
         'album'                             : 'v2.2.13',
         'appcan'                            : 'v0.1.0',
         'autocomplete'                      : 'v0.1.0',
@@ -77,7 +79,7 @@ seajs.config({
         'lazyload'                          : 'v2.1.0',
         'marquee'                           : 'v0.10.1',
         'masonry'                           : 'v0.0.1',
-        'menu'                              : 'v0.1.1',
+        'menu'                              : 'v0.1.2',
         'mousemenu'                         : 'v1.0.1',
         'mousetrap'                         : 'v1.5.3',
         'mousewheel'                        : 'v0.0.1',

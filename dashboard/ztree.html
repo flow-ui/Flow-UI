@@ -85,7 +85,7 @@
                 <span class="bread-sep">/</span>
                 <span class="bread-link">组件</span>
                 <span class="bread-sep">/</span>
-                <span class="bread-link">开关</span>
+                <span class="bread-link">树</span>
             </div>
         </div>
         <div class="p">
@@ -93,54 +93,43 @@
                 <div class="span-6 m-b">
                     <div class="card card-bordered">
                         <div class="card-head">
-                            <div class="card-title">开关</div>
+                            <div class="card-title">基本</div>
                         </div>
                         <div class="card-body">
-                            <input type="checkbox" class="switch-default">
-                            <input type="checkbox" class="switch-default">
-                            <input type="checkbox" class="switch-default">
-                            <input type="checkbox" class="switch-default">
-                            <input type="checkbox" class="switch-default">
-                            <input type="checkbox" class="switch-default">
+                            <div class="ztree" id="tree1"></div>
                         </div>
                     </div>
                 </div>
                 <div class="span-6 m-b">
                     <div class="card card-bordered">
                         <div class="card-head">
-                            <div class="card-title">开关</div>
+                            <div class="card-title">勾选</div>
                         </div>
                         <div class="card-body">
-                            <input type="checkbox" class="switch-radius">
-                            <input type="checkbox" class="switch-radius">
-                            <input type="checkbox" class="switch-radius">
-                            <input type="checkbox" class="switch-radius">
-                            <input type="checkbox" class="switch-radius">
-                            <input type="checkbox" class="switch-radius">
+                            <div class="ztree" id="tree2"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="span-6 m-b">
+                    <div class="card card-bordered">
+                        <div class="card-head">
+                            <div class="card-title">隐藏连线/图标</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="ztree" id="tree3"></div>
                         </div>
                     </div>
                 </div>
                 <div class="span-6 m-b">
                     <div class="card card-bordered">
                         <div class="card-head">
-                            <div class="card-title">开关</div>
+                            <div class="card-title">单选</div>
                         </div>
                         <div class="card-body">
-                            <input type="checkbox" class="switch-lg">
-                            <input type="checkbox" class="switch-normal">
-                            <input type="checkbox" class="switch-sm">
-                        </div>
-                    </div>
-                </div>
-                <div class="span-6 m-b">
-                    <div class="card card-bordered">
-                        <div class="card-head">
-                            <div class="card-title">开关</div>
-                        </div>
-                        <div class="card-body">
-                            <input type="checkbox" class="switch-round-lg">
-                            <input type="checkbox" class="switch-round-normal">
-                            <input type="checkbox" class="switch-round-sm">
+                            <div class="ztree" id="tree4"></div>
                         </div>
                     </div>
                 </div>
@@ -151,7 +140,7 @@
     
     <script src="/Flow-UI/dashboard/lib/sea.js" id="seajsnode"></script>
     <script>
-    seajs.use('js/switch');
+    seajs.use('js/ztree');
     </script>
 </body>
 

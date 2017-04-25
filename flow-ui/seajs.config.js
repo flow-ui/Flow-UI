@@ -27,6 +27,7 @@ seajs.config({
 		"makethumb"      : "upload/makethumb",
 		"localResizeIMG" : "upload/localResizeIMG",
 		"video"		     : "video/video",
-		"webuploader"    : "webuploader/webuploader"
+		"webuploader"    : "webuploader/webuploader",
+		"zTree"    		 : "zTree/zTree"
 	}
 });

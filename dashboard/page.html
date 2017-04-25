@@ -85,7 +85,7 @@
                 <span class="bread-sep">/</span>
                 <span class="bread-link">组件</span>
                 <span class="bread-sep">/</span>
-                <span class="bread-link">开关</span>
+                <span class="bread-link">分页</span>
             </div>
         </div>
         <div class="p">
@@ -93,65 +93,62 @@
                 <div class="span-6 m-b">
                     <div class="card card-bordered">
                         <div class="card-head">
-                            <div class="card-title">开关</div>
+                            <div class="card-title">静态</div>
                         </div>
                         <div class="card-body">
-                            <input type="checkbox" class="switch-default">
-                            <input type="checkbox" class="switch-default">
-                            <input type="checkbox" class="switch-default">
-                            <input type="checkbox" class="switch-default">
-                            <input type="checkbox" class="switch-default">
-                            <input type="checkbox" class="switch-default">
+                            <ul class="pagination m-tb">
+                                <li><a href="javascript:;" class="unable">上一页</a></li>
+                                <li class="active"><a href="javascript:;">1</a></li>
+                                <li><a href="javascript:;">2</a></li>
+                                <li><a href="javascript:;">3</a></li>
+                                <li><a href="javascript:;">4</a></li>
+                                <li><a href="javascript:;">5</a></li>
+                                <li><a href="javascript:;">...</a></li>
+                                <li><a href="javascript:;">下一页</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
                 <div class="span-6 m-b">
                     <div class="card card-bordered">
                         <div class="card-head">
-                            <div class="card-title">开关</div>
+                            <div class="card-title">Js生成</div>
                         </div>
                         <div class="card-body">
-                            <input type="checkbox" class="switch-radius">
-                            <input type="checkbox" class="switch-radius">
-                            <input type="checkbox" class="switch-radius">
-                            <input type="checkbox" class="switch-radius">
-                            <input type="checkbox" class="switch-radius">
-                            <input type="checkbox" class="switch-radius">
+                            <div class="page2"></div>
                         </div>
                     </div>
                 </div>
-                <div class="span-6 m-b">
-                    <div class="card card-bordered">
-                        <div class="card-head">
-                            <div class="card-title">开关</div>
-                        </div>
-                        <div class="card-body">
-                            <input type="checkbox" class="switch-lg">
-                            <input type="checkbox" class="switch-normal">
-                            <input type="checkbox" class="switch-sm">
-                        </div>
-                    </div>
-                </div>
-                <div class="span-6 m-b">
-                    <div class="card card-bordered">
-                        <div class="card-head">
-                            <div class="card-title">开关</div>
-                        </div>
-                        <div class="card-body">
-                            <input type="checkbox" class="switch-round-lg">
-                            <input type="checkbox" class="switch-round-normal">
-                            <input type="checkbox" class="switch-round-sm">
-                        </div>
-                    </div>
-                </div>
-
             </div>
+            <div class="row">
+                <div class="span-6 m-b">
+                    <div class="card card-bordered">
+                        <div class="card-head">
+                            <div class="card-title">小尺寸</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="page3"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="span-6 m-b">
+                    <div class="card card-bordered">
+                        <div class="card-head">
+                            <div class="card-title">大尺寸</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="page4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
     
     <script src="/Flow-UI/dashboard/lib/sea.js" id="seajsnode"></script>
     <script>
-    seajs.use('js/switch');
+    seajs.use('js/page');
     </script>
 </body>
 

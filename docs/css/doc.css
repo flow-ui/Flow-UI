@@ -111,6 +111,7 @@ pre{
 	border-radius: 5px;
 	width:90%;
 	max-width: 800px;
+	max-height: 500px;
 	overflow: auto;
 }
 .table .table pre{max-width: 600px;}
