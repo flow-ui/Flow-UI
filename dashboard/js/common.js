@@ -72,6 +72,17 @@ define(function(require, exports, module) {
 			$(e).find('a').attr('href', url);
 		}
 	});
+	var Menu = require('menu');
+	var mymenu = Menu({
+		el: '#g-menu',
+		mode: 'vertical',
+		onSelect: function(key, $item) {
+			if($item.find('a').length){
+				window.location.href = $item.find('a').attr('href');
+			}
+		}
+	});
+
 	/*
 	 * 输出
 	 */
@@ -83,7 +94,8 @@ define(function(require, exports, module) {
 				"2": "历史记录"
 			};
 			console.log('页面来自' + directHash[window.performance.navigation.type]);
-		}
+		},
+		mymenu: mymenu
 	};
 
 	/*

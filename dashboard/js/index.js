@@ -4,15 +4,7 @@
 define(function(require) {
 	var $ = require('jquery');
 	var com = require('./common');
-	var Menu = require('menu');
-	var mymenu = Menu({
-		el: '#g-menu',
-		mode: 'vertical',
-		onselect: function(key) {
-			console.log(key);
-		}
-	});
-
+	var mymenu = com.mymenu;
 	mymenu.active(1);
 
 	var echarts = require('echarts');

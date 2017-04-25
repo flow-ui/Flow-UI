@@ -1,8 +1,8 @@
 /*
  * name: menu.js
- * version: v0.1.1
- * update: active() 未展开父级bug
- * date: 2017-04-20
+ * version: v0.1.2
+ * update: onselect => onSelect
+ * date: 2017-04-25
  */
 define('menu', function(require, exports, module) {
 	"use strict";
@@ -19,7 +19,7 @@ define('menu', function(require, exports, module) {
 			actived: null,
 			opened: [],
 			toggle: true,
-			onselect: null
+			onSelect: null
 		},
 		render = function(opt) {
 			if (!$.isArray(opt.data) || !opt.data.length) {
@@ -109,16 +109,17 @@ define('menu', function(require, exports, module) {
 				}
 			}
 			$this.on('click', '.menu-item', function(e) {
+				e.preventDefault();
 				if (opt.mode === 'vertical') {
 					e.stopPropagation();
 				}
 				if ($(this).hasClass('menu-item-active')) {
-					return e.preventDefault();
+					return null;
 				}
 				activeItem($this, $(this));
 
-				if (!$(this).hasClass('menu-submenu') && typeof opt.onselect === 'function') {
-					opt.onselect($(this).data('menu-key'));
+				if (!$(this).hasClass('menu-submenu') && typeof opt.onSelect === 'function') {
+					opt.onSelect($(this).data('menu-key'), $(this));
 				}
 			}).data('menu-init', true);
 
@@ -135,8 +136,8 @@ define('menu', function(require, exports, module) {
 							items: opt.data[i].sub,
 							width: $(horizontalSub).outerWidth(),
 							onclick: function(item) {
-								if (typeof opt.onselect === 'function') {
-									opt.onselect(item[opt.key]);
+								if (typeof opt.onSelect === 'function') {
+									opt.onSelect(item[opt.key]);
 								}
 							}
 						});
