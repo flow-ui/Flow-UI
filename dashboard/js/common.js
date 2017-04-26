@@ -45,44 +45,7 @@ define(function(require, exports, module) {
 	// placeholder
 	require('placeholder');
 	$('input, textarea').placeholder();
-	//header
-	var Dropdown = require('dropdown');
-	Dropdown({
-		el: '#accountDropdown',
-		items: [{
-			item: '个人设置',
-			data: 'demo1'
-		}, {
-			item: '数据统计',
-			data: 'demo1'
-		}, {
-			item: '立即更新',
-			data: 'demo1'
-		}],
-		onclick: function(item) {
-			console.log(item);
-		}
-	});
-
-	$('#g-menu').find('.menu-item').each(function(i, e) {
-		if ($(e).data('menu-key') && $(e).find('a').length) {
-			var url = $(e).find('a').attr('href'),
-				key = $(e).data('menu-key');
-			url = base.url.set('active', key, url);
-			$(e).find('a').attr('href', url);
-		}
-	});
-	var Menu = require('menu');
-	var mymenu = Menu({
-		el: '#g-menu',
-		mode: 'vertical',
-		onSelect: function(key, $item) {
-			if($item.find('a').length){
-				window.location.href = $item.find('a').attr('href');
-			}
-		}
-	});
-
+	
 	/*
 	 * 输出
 	 */
@@ -94,8 +57,7 @@ define(function(require, exports, module) {
 				"2": "历史记录"
 			};
 			console.log('页面来自' + directHash[window.performance.navigation.type]);
-		},
-		mymenu: mymenu
+		}
 	};
 
 	/*

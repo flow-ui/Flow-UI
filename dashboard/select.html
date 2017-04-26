@@ -1,149 +1,49 @@
-<!doctype html>
-<html lang="zh-cn">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-    <title>widgets-Flow-UI</title>
-    <meta content="" name="Keywords">
-    <meta content="" name="Description">
-    <meta name="format-detection" content="telephone=no">
-    <link href="/Flow-UI/dashboard/favicon.ico" rel="icon">
-<link href="/Flow-UI/dashboard/css/style.css" rel="stylesheet">
-<script type="text/javascript">
-	if(window.location.href.indexOf('https')===0){
-		document.write('<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />');
-	}
-</script>
-<!--[if lt IE 9]><script src="/Flow-UI/dashboard/lib/H5shiv.js"></script><![endif]-->
-</head>
-
-<body>
-    <header class="g-head">
-    <h1 class="logo m-r"><img src="/Flow-UI/dashboard/img/ico.png" >后台管理界面</h1>
-    <div class="nav-bar m-r">
-        <a href="####" class="btn btn-default"><i class="ion">&#xe62f;</i> 项目管理</a>
-        <a href="####" class="btn btn-default"><i class="ion">&#xe6b7;</i> 论坛</a>
-        <span class="btn btn-link" id="accountDropdown"><i class="ion">&#xe736;</i>管理员</span>
+<div class="p">
+    <div class="row">
+        <div class="span-4 m-b">
+            <div class="card card-bordered">
+                <div class="card-head">
+                    <div class="card-title">基于select初始化</div>
+                </div>
+                <div class="card-body">
+                    <select class="demo demo-fromdom" name="select1">
+                        <option disabled>--请选择--</option>
+                        <option value="1">山东</option>
+                        <option value="2">山西</option>
+                        <option value="3">河南</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="span-4 m-b">
+            <div class="card card-bordered">
+                <div class="card-head">
+                    <div class="card-title">基于数据初始化</div>
+                </div>
+                <div class="card-body">
+                    <div class="demo demo-insert"> </div>
+                </div>
+            </div>
+        </div>
+        <div class="span-4 m-b">
+            <div class="card card-bordered">
+                <div class="card-head">
+                    <div class="card-title">多选</div>
+                </div>
+                <div class="card-body">
+                    <div class="demo demo-multi"> </div>
+                </div>
+            </div>
+        </div>
+        <div class="span-4 m-b">
+            <div class="card card-bordered">
+                <div class="card-head">
+                    <div class="card-title">层级选择</div>
+                </div>
+                <div class="card-body">
+                    <div class="demo demo-cascader"> </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <form class="form-inline">
-        <input type="text" class="form-control" placeholder="Search">
-        <button type="button" class="btn btn-primary">Search</button>
-    </form>
-</header>
-<div class="g-side">
-    <nav id="g-menu" class="g-menu">
-        <ul class="menu-ui menu-vertical menu-dark">
-            <li class="menu-item" data-menu-key="1"><i class="ion"></i> <a href="index.html">控制台</a></li>
-            <li class="menu-submenu" data-menu-key="2">
-                <div class="menu-item-title"><i class="ion"></i> 组件 <i class="menu-sub-ion ion"></i></div>
-                <ul class="menu-sub-group">
-                    <li class="menu-item" data-menu-key="20"><a href="button.html">按钮</a></li>
-                    <li class="menu-item" data-menu-key="21"><a href="card.html">卡片</a></li>
-                    <li class="menu-item" data-menu-key="22"><a href="modal.html">弹窗</a></li>
-                    <li class="menu-item" data-menu-key="23"><a href="switch.html">开关</a></li>
-                    <li class="menu-item" data-menu-key="24"><a href="table.html">表格</a></li>
-                    <li class="menu-item" data-menu-key="25"><a href="tabs.html">选项卡</a></li>
-                    <li class="menu-item" data-menu-key="26"><a href="todo.html">待办事项</a></li>
-                    <li class="menu-item" data-menu-key="27"><a href="collapse.html">折叠面板</a></li>
-                    <li class="menu-item" data-menu-key="28"><a href="page.html">分页</a></li>
-                </ul>
-            </li>
-            <li class="menu-item" data-menu-key="3"><i class="ion"></i> <a href="form.html">表单</a></li>
-            <li class="menu-submenu" data-menu-key="4">
-                <div class="menu-item-title"><i class="ion">&#xe629;</i> 插件 <i class="menu-sub-ion ion"></i></div>
-                <ul class="menu-sub-group">
-                    <li class="menu-item" data-menu-key="40"><a href="calendar.html">日历</a></li>
-                    <li class="menu-item" data-menu-key="41"><a href="dragpanel.html">拖拽布局</a></li>
-                    <li class="menu-item" data-menu-key="42"><a href="input.html">输入框</a></li>
-                    <li class="menu-item" data-menu-key="43"><a href="notice.html">提醒</a></li>
-                    <li class="menu-item" data-menu-key="44"><a href="slider.html">滑块</a></li>
-                    <li class="menu-item" data-menu-key="45"><a href="select.html">下拉选择</a></li>
-                    <li class="menu-item" data-menu-key="46"><a href="datagrid.html">数据表格</a></li>
-                    <li class="menu-item" data-menu-key="47"><a href="echart.html">图表</a></li>
-                    <li class="menu-item" data-menu-key="48"><a href="ztree.html">树</a></li>
-                </ul>
-            </li>
-            <li class="menu-item" data-menu-key="5"><i class="ion"></i> <a href="widgets.html">挂件</a></li>
-            <li class="menu-submenu" data-menu-key="6">
-                <div class="menu-item-title"><i class="ion">&#xe632;</i> 页面 <i class="menu-sub-ion ion"></i></div>
-                <ul class="menu-sub-group">
-                    <li class="menu-item" data-menu-key="60"><a href="login.html">登录</a></li>
-                    <li class="menu-item" data-menu-key="61"><a href="regist.html">注册</a></li>
-                    <li class="menu-item" data-menu-key="62"><a href="404.html">Error 404</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
 </div>
-    <div class="g-body">
-        <div class="g-statues-bar p-lr">
-            <div class="bread">
-                <a href="###" class="bread-link">首页</a>
-                <span class="bread-sep">/</span>
-                <span class="bread-link">组件</span>
-                <span class="bread-sep">/</span>
-                <span class="bread-link">下拉</span>
-            </div>
-        </div>
-        <div class="p">
-            <div class="row">
-                <div class="span-4 m-b">
-                    <div class="card card-bordered">
-                        <div class="card-head">
-                            <div class="card-title">基于select初始化</div>
-                        </div>
-                        <div class="card-body">
-                            <select class="demo demo-fromdom" name="select1" >
-                              <option disabled>--请选择--</option>
-                              <option value="1">山东</option>
-                              <option value="2">山西</option>
-                              <option value="3">河南</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="span-4 m-b">
-                    <div class="card card-bordered">
-                        <div class="card-head">
-                            <div class="card-title">基于数据初始化</div>
-                        </div>
-                        <div class="card-body">
-                            <div class="demo demo-insert"> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="span-4 m-b">
-                    <div class="card card-bordered">
-                        <div class="card-head">
-                            <div class="card-title">多选</div>
-                        </div>
-                        <div class="card-body">
-                            <div class="demo demo-multi"> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="span-4 m-b">
-                    <div class="card card-bordered">
-                        <div class="card-head">
-                            <div class="card-title">层级选择</div>
-                        </div>
-                        <div class="card-body">
-                            <div class="demo demo-cascader"> </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    
-    <script src="/Flow-UI/dashboard/lib/sea.js" id="seajsnode"></script>
-    <script>
-    seajs.use('js/select');
-    </script>
-</body>
-
-</html>

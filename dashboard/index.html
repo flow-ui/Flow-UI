@@ -36,37 +36,37 @@
 <div class="g-side">
     <nav id="g-menu" class="g-menu">
         <ul class="menu-ui menu-vertical menu-dark">
-            <li class="menu-item" data-menu-key="1"><i class="ion"></i> <a href="index.html">控制台</a></li>
+            <li class="menu-item" data-menu-key="1" data-page="dashboard"><i class="ion"></i> 控制台</li>
             <li class="menu-submenu" data-menu-key="2">
                 <div class="menu-item-title"><i class="ion"></i> 组件 <i class="menu-sub-ion ion"></i></div>
                 <ul class="menu-sub-group">
-                    <li class="menu-item" data-menu-key="20"><a href="button.html">按钮</a></li>
-                    <li class="menu-item" data-menu-key="21"><a href="card.html">卡片</a></li>
-                    <li class="menu-item" data-menu-key="22"><a href="modal.html">弹窗</a></li>
-                    <li class="menu-item" data-menu-key="23"><a href="switch.html">开关</a></li>
-                    <li class="menu-item" data-menu-key="24"><a href="table.html">表格</a></li>
-                    <li class="menu-item" data-menu-key="25"><a href="tabs.html">选项卡</a></li>
-                    <li class="menu-item" data-menu-key="26"><a href="todo.html">待办事项</a></li>
-                    <li class="menu-item" data-menu-key="27"><a href="collapse.html">折叠面板</a></li>
-                    <li class="menu-item" data-menu-key="28"><a href="page.html">分页</a></li>
+                    <li class="menu-item" data-menu-key="20" data-page="button">按钮</li>
+                    <li class="menu-item" data-menu-key="21" data-page="card">卡片</li>
+                    <li class="menu-item" data-menu-key="22" data-page="modal">弹窗</li>
+                    <li class="menu-item" data-menu-key="23" data-page="switch">开关</li>
+                    <li class="menu-item" data-menu-key="24" data-page="table">表格</li>
+                    <li class="menu-item" data-menu-key="25" data-page="tabs">选项卡</li>
+                    <li class="menu-item" data-menu-key="26" data-page="todo">待办事项</li>
+                    <li class="menu-item" data-menu-key="27" data-page="collapse">折叠面板</li>
+                    <li class="menu-item" data-menu-key="28" data-page="page">分页</li>
                 </ul>
             </li>
-            <li class="menu-item" data-menu-key="3"><i class="ion"></i> <a href="form.html">表单</a></li>
+            <li class="menu-item" data-menu-key="3" data-page="form"><i class="ion"></i> 表单</li>
             <li class="menu-submenu" data-menu-key="4">
                 <div class="menu-item-title"><i class="ion">&#xe629;</i> 插件 <i class="menu-sub-ion ion"></i></div>
                 <ul class="menu-sub-group">
-                    <li class="menu-item" data-menu-key="40"><a href="calendar.html">日历</a></li>
-                    <li class="menu-item" data-menu-key="41"><a href="dragpanel.html">拖拽布局</a></li>
-                    <li class="menu-item" data-menu-key="42"><a href="input.html">输入框</a></li>
-                    <li class="menu-item" data-menu-key="43"><a href="notice.html">提醒</a></li>
-                    <li class="menu-item" data-menu-key="44"><a href="slider.html">滑块</a></li>
-                    <li class="menu-item" data-menu-key="45"><a href="select.html">下拉选择</a></li>
-                    <li class="menu-item" data-menu-key="46"><a href="datagrid.html">数据表格</a></li>
-                    <li class="menu-item" data-menu-key="47"><a href="echart.html">图表</a></li>
-                    <li class="menu-item" data-menu-key="48"><a href="ztree.html">树</a></li>
+                    <li class="menu-item" data-menu-key="40" data-page="calendar">日历</li>
+                    <li class="menu-item" data-menu-key="41" data-page="dragpanel">拖拽布局</li>
+                    <li class="menu-item" data-menu-key="42" data-page="input">输入框</li>
+                    <li class="menu-item" data-menu-key="43" data-page="notice">提醒</li>
+                    <li class="menu-item" data-menu-key="44" data-page="slider">滑块</li>
+                    <li class="menu-item" data-menu-key="45" data-page="select">下拉选择</li>
+                    <li class="menu-item" data-menu-key="46" data-page="datagrid">数据表格</li>
+                    <li class="menu-item" data-menu-key="47" data-page="echart">图表</li>
+                    <li class="menu-item" data-menu-key="48" data-page="ztree">树</li>
                 </ul>
             </li>
-            <li class="menu-item" data-menu-key="5"><i class="ion"></i> <a href="widgets.html">挂件</a></li>
+            <li class="menu-item" data-menu-key="5" data-page="widgets"><i class="ion"></i> 挂件</li>
             <li class="menu-submenu" data-menu-key="6">
                 <div class="menu-item-title"><i class="ion">&#xe632;</i> 页面 <i class="menu-sub-ion ion"></i></div>
                 <ul class="menu-sub-group">
@@ -78,288 +78,13 @@
         </ul>
     </nav>
 </div>
-    <div class="g-body">
-        <div class="g-statues-bar p-lr">
-            <div class="bread">
-                <a href="###" class="bread-link">首页</a>
-                <span class="bread-sep">/</span>
-                <span class="bread-link">控制台</span>
-            </div>
+    <div class="g-statues-bar p-lr">
+        <div class="bread" id="mybread">
+
         </div>
-        <div class="p">
-            <div class="row m-b">
-                <div class="span-3">
-                    <div class="card card-primary card-inverse">
-                        <div class="card-body">
-                            <div class="row tc">
-                                <div class="span-3">
-                                    <i class="ion" style="font-size: 4em">&#xe632;</i>
-                                </div>
-                                <div class="span-9">
-                                    <h2>4.589</h2>
-                                    <h4 class="text-muted">CLIENTS</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="span-3">
-                    <div class="card card-success card-inverse">
-                        <div class="card-body">
-                            <div class="row tc">
-                                <div class="span-3">
-                                    <i class="ion" style="font-size: 4em">&#xe629;</i>
-                                </div>
-                                <div class="span-9">
-                                    <h2>789</h2>
-                                    <h4 class="text-muted">DEALS</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="span-3">
-                    <div class="card card-warning card-inverse">
-                        <div class="card-body">
-                            <div class="row tc">
-                                <div class="span-3">
-                                    <i class="ion" style="font-size: 4em">&#xe6a3;</i>
-                                </div>
-                                <div class="span-9">
-                                    <h2>$1.999,50</h2>
-                                    <h4 class="text-muted">INCOME</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="span-3">
-                    <div class="card card-danger card-inverse">
-                        <div class="card-body">
-                            <div class="row tc">
-                                <div class="span-3">
-                                    <i class="ion" style="font-size: 4em">&#xe64f;</i>
-                                </div>
-                                <div class="span-9">
-                                    <h2>999</h2>
-                                    <h4 class="text-muted">ACCOUNT</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row m-b">
-                <div class="span-9">
-                    <div class="card card-bordered">
-                        <div class="card-head">
-                            <div class="card-title">图表</div>
-                            <div class="card-extra">
-                                <a href="###" id="reset-index-charts"><i class="ion">&#xe65d;</i></a>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div id="index-charts" style="height: 400px"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="span-3">
-                    <div class="card card-bordered">
-                        <div class="card-head">
-                            <div class="card-title">指数</div>
-                        </div>
-                        <div class="card-body">
-                            <div style="height: 400px">
-                                <p class="m-b-sm">Visits (40% - 29.703 Users)</p>
-                                <div class="progress progress-success progress-show-info">
-                                    <div class="progress-inner">
-                                        <div class="progress-bg" style="width: 45%;"></div>
-                                    </div>
-                                    <span class="progress-text"><span class="progress-text-inner">45%</span></span>
-                                </div>
-                                <p class="m-b-sm">Unique (20% - 24.093 Unique Users)</p>
-                                <div class="progress progress-info progress-show-info">
-                                    <div class="progress-inner">
-                                        <div class="progress-bg" style="width: 25%;"></div>
-                                    </div>
-                                    <span class="progress-text"><span class="progress-text-inner">25%</span></span>
-                                </div>
-                                <p class="m-b-sm">Pageviews (60% - 78.706 Views)</p>
-                                <div class="progress progress-warning progress-show-info">
-                                    <div class="progress-inner">
-                                        <div class="progress-bg" style="width: 65%;"></div>
-                                    </div>
-                                    <span class="progress-text"><span class="progress-text-inner">65%</span></span>
-                                </div>
-                                <p class="m-b-sm">New Users (80% - 22.123 Users)</p>
-                                <div class="progress progress-danger progress-show-info">
-                                    <div class="progress-inner">
-                                        <div class="progress-bg" style="width: 80%;"></div>
-                                    </div>
-                                    <span class="progress-text"><span class="progress-text-inner">80%</span></span>
-                                </div>
-                                <p class="m-b-sm">Bounce Rate (40.15%)</p>
-                                <div class="progress progress-success progress-show-info">
-                                    <div class="progress-inner">
-                                        <div class="progress-bg" style="width: 40%;"></div>
-                                    </div>
-                                    <span class="progress-text"><span class="progress-text-inner">40%</span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row m-b">
-                <div class="span-3">
-                    <div class="card card-bordered">
-                        <div class="card-body">
-                            <div id="index-echarts-2" style="height: 300px"></div>
-                        </div>
-                        <div class="card-foot">
-                            <div class="p-sm">
-                                $11.234,00
-                                <div class="r">
-                                    <span class="text-danger"><i class="ion">&#xe618;</i></span>
-                                    15%
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="span-9">
-                    <div id="index-table" style="height: 400px"></div>
-                </div>
-            </div>
-            <div class="row m-b">
-                <div class="span-6">
-                    <div class="card card-bordered">
-                        <div class="card-head">
-                            <div class="card-title">
-                                简单表格
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Username</th>
-                                        <th>Date registered</th>
-                                        <th>Role</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Samppa Nori</td>
-                                        <td>2012/01/01</td>
-                                        <td>Member</td>
-                                        <td>
-                                            <span class="label label-success">Active</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Estavan Lykos</td>
-                                        <td>2012/02/01</td>
-                                        <td>Staff</td>
-                                        <td>
-                                            <span class="label label-danger">Banned</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Chetan Mohamed</td>
-                                        <td>2012/02/01</td>
-                                        <td>Admin</td>
-                                        <td>
-                                            <span class="label label-default">Inactive</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Derick Maximinus</td>
-                                        <td>2012/03/01</td>
-                                        <td>Member</td>
-                                        <td>
-                                            <span class="label label-warning">Pending</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Friderik Dávid</td>
-                                        <td>2012/01/21</td>
-                                        <td>Staff</td>
-                                        <td>
-                                            <span class="label label-success">Active</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="span-6">
-                    <div class="card card-bordered">
-                        <div class="card-head">
-                            <div class="card-title">
-                                边框线/hover
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-hover table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Username</th>
-                                        <th>Date registered</th>
-                                        <th>Role</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Samppa Nori</td>
-                                        <td>2012/01/01</td>
-                                        <td>Member</td>
-                                        <td>
-                                            <span class="label label-success">Active</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Estavan Lykos</td>
-                                        <td>2012/02/01</td>
-                                        <td>Staff</td>
-                                        <td>
-                                            <span class="label label-danger">Banned</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Chetan Mohamed</td>
-                                        <td>2012/02/01</td>
-                                        <td>Admin</td>
-                                        <td>
-                                            <span class="label label-default">Inactive</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Derick Maximinus</td>
-                                        <td>2012/03/01</td>
-                                        <td>Member</td>
-                                        <td>
-                                            <span class="label label-warning">Pending</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Friderik Dávid</td>
-                                        <td>2012/01/21</td>
-                                        <td>Staff</td>
-                                        <td>
-                                            <span class="label label-success">Active</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </div>
+    <div class="g-body" id="main">
+        
     </div>
     
     <script src="/Flow-UI/dashboard/lib/sea.js" id="seajsnode"></script>
