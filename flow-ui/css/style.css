@@ -677,19 +677,14 @@ input[type='button'].btn-block {
   border-color: #1979a3;
 }
 .card {
+  display: block;
   font-size: 14px;
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   overflow: hidden;
-  -ms-flex-direction: column;
-      flex-direction: column;
   height: 100%;
   transition: all 0.2s ease-in-out;
   border-radius: 4px;
   background: #fff;
-  -webkit-box-orient: vertical;
 }
 .card:hover {
   border-color: #eeeeee;
@@ -726,14 +721,12 @@ input[type='button'].btn-block {
 }
 .card-body {
   padding: 22.4px;
-  -webkit-box-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
 }
 .card-foot {
   padding: 4px 22.4px;
   background-color: #eeeeee;
   border-top: 1px solid #e8e9eb;
+  overflow: hidden;
 }
 .card.card-primary .card-head,
 .card.card-primary .card-foot {
@@ -2492,7 +2485,7 @@ big.form-mark {
 .menu-vertical .menu-item-title {
   position: relative;
   z-index: 1;
-  padding: 14px 23.8px;
+  padding: 11.2px 23.8px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }

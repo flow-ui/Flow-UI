@@ -54,7 +54,6 @@ seajs.config({
         'webuploader/webuploader'           : 'v1.0.0',
         'zTree/zTree'                       : 'v0.0.1',
         'album'                             : 'v2.2.13',
-        'appcan'                            : 'v0.1.0',
         'autocomplete'                      : 'v0.1.0',
         'badge'                             : 'v0.0.1',
         'base'                              : 'v3.3.3',
