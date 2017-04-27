@@ -31,7 +31,7 @@ define(function(require) {
 	var mymenu = Menu({
 		el: '#g-menu',
 		mode: 'vertical',
-		onSelect: function(key, $item) {
+		onClick: function(key, $item, isCurrent) {
 			if($item.find('a').length){
 				window.location.href = $item.find('a').attr('href');
 			}else if($item.data('page')){

@@ -1,8 +1,8 @@
 /*
  * name: page.js
- * version: v1.0.3
- * update: 防止模板起止符号自定义
- * date: 2017-04-19
+ * version: v1.0.4
+ * update: el参数覆盖bug
+ * date: 2017-04-27
  */
 define('page', function(require, exports, module) {
 	"use strict";
@@ -141,9 +141,9 @@ define('page', function(require, exports, module) {
 	pagerender = etpl.compile(template);
 
 	$.fn.page = function(config) {
-		return Page($.extend(config || {}, {
+		return Page($.extend({
 			el: this
-		}));
+		}, config || {}));
 	};
 	module.exports = Page;
 });

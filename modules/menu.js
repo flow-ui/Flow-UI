@@ -1,8 +1,8 @@
 /*
  * name: menu.js
- * version: v0.1.2
- * update: onselect => onSelect
- * date: 2017-04-25
+ * version: v0.2.0
+ * update: add onClick
+ * date: 2017-04-27
  */
 define('menu', function(require, exports, module) {
 	"use strict";
@@ -19,7 +19,8 @@ define('menu', function(require, exports, module) {
 			actived: null,
 			opened: [],
 			toggle: true,
-			onSelect: null
+			onSelect: null,
+			onClick: null
 		},
 		render = function(opt) {
 			if (!$.isArray(opt.data) || !opt.data.length) {
@@ -110,14 +111,17 @@ define('menu', function(require, exports, module) {
 			}
 			$this.on('click', '.menu-item', function(e) {
 				e.preventDefault();
+				var isCur = $(this).hasClass('menu-item-active');
 				if (opt.mode === 'vertical') {
 					e.stopPropagation();
 				}
-				if ($(this).hasClass('menu-item-active')) {
+				if(typeof opt.onClick === 'function'){
+					opt.onClick($(this).data('menu-key'), $(this), isCur);
+				}
+				if (isCur) {
 					return null;
 				}
 				activeItem($this, $(this));
-
 				if (!$(this).hasClass('menu-submenu') && typeof opt.onSelect === 'function') {
 					opt.onSelect($(this).data('menu-key'), $(this));
 				}

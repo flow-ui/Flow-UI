@@ -3407,21 +3407,6 @@ $.ajax({
                                             </code>
                                         </pre>
                                             </li>
-                                            <li><code>success</code>回调增强，success回调除了请求返回的数据以外还将收到一个err参数，布尔值，代表请求是否失败（根据status值判断，跟默认的error回调无关），如果返回数据带有msg信息，将以box插件的msg方法提示2s，提示结束后继续执行success，示例：
-                                                <pre>
-                                        <code>
-$.ajax({
-  url: seajs.root + '/test/data.json',
-  success:function(res, err){
-    if(err){
-      return console.warn('请求失败');
-    }
-    console.log(res);
-  }
-})
-                                        </code>
-                                      </pre>
-                                            </li>
                                             <li><code>error</code>回调默认处理，根据ajax的四种错误原因使用box插件弹出提示</li>
                                         </ol>
                                     </td>
@@ -5540,7 +5525,11 @@ $().datepicker({
                             </tr>
                             <tr>
                                 <th>onSelect</th>
-                                <td>选择菜单时触发回调，@param(key, $item) : 当前项<code>key</code>值，当前项目节点</td>
+                                <td>菜单切换时触发回调，@param(key, $item) : 当前项<code>key</code>值，当前项目节点</td>
+                            </tr>
+                            <tr>
+                                <th>onClick</th>
+                                <td>菜单点击回调，@param(key, $item, isCurrent) : 当前项<code>key</code>值，当前项目节点，是否已选中</td>
                             </tr>
                         </table>
                         <h5>返回方法</h5>
