@@ -39,7 +39,7 @@ define('select', function(require, exports, module) {
         .select-ui-options-bottom{border-top:0;border-radius:0 0 4px 4px}\
         .select-ui-options-top.select-ui-cascader{border-bottom:1px solid #e3e8ee;margin-bottom:-1px;}\
         .select-ui-options-bottom.select-ui-cascader{border-top:1px solid #e3e8ee;margin-top:-1px;}', module.uri);
-    var $ = window.jQuery || require('jquery'),
+    var $ = window.$ || require('jquery'),
         base = require('base'),
         def = {
             data: null,

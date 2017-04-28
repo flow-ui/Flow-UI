@@ -6,7 +6,7 @@
  */
 define('paging-load', function(require, exports, module) {
 	"use strict";
-	var $ = window.jQuery || require('jquery'),
+	var $ = window.$ || require('jquery'),
 		def = {
 			url: null,
 			size: 6,

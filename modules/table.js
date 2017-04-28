@@ -7,7 +7,7 @@
 define('table', function(require, exports, module) {
 	"use strict";
 	require('dropdown');
-	var $ = window.jQuery || require('jquery'),
+	var $ = window.$ || require('jquery'),
 		base = require('base'),
 		def = {
 			el: null,

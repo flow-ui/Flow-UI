@@ -12,7 +12,7 @@ define('timepicker', function(require, exports, module) {
 		.timepicker-ui li{height: 24px;line-height: 24px;width:100%; padding: 0 0 0 16px;text-align: left;user-select: none;cursor: pointer;transition: background .2s ease-in-out;}\
 		.timepicker-ui li:hover,.timepicker-ui li._check{background:#f3f3f3}\
 		.timepicker-ui-confirm{border-top: 1px solid #e3e8ee;text-align: right;padding: 8px;clear: both;}', module.uri);
-	var $ = window.jQuery || require('jquery'),
+	var $ = window.$ || require('jquery'),
 		Tip = require('tip'),
 		def = {
 			el: null,

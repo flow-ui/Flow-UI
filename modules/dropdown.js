@@ -14,7 +14,7 @@ define('dropdown', function(require, exports, module) {
 		.dropdown-default .dropdown-item.disabled:hover{background:inherit;}\
 		.dropdown-default .dropdown-group{padding:4px 0; border-bottom:1px solid #eee;}', module.uri);
 
-	var $ = window.jQuery || require('jquery'),
+	var $ = window.$ || require('jquery'),
 		Tip = require('tip'),
 		def = {
 			el: null,

@@ -6,7 +6,7 @@
  */
 define('marquee', function(require, exports, module) {
 	seajs.importStyle('.marquee_wrapper{position:relative;overflow:hidden}', module.uri);
-	var $ = window.jQuery || require('jquery');
+	var $ = window.$ || require('jquery');
 /*
  * Pause $ plugin v0.1
  * Copyright 2010 by Tobia Conforto <tobia.conforto@gmail.com>

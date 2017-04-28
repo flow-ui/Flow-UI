@@ -16,7 +16,7 @@ define('city-select', function(require, exports, module) {
 		.city-selector-item{float:left; cursor:pointer;margin:1em;}\
 		.city-selector-item:hover,.city-selector-items.cur{color:#ff6e0a;}', module.uri);
 	require('tip');
-	var $ = window.jQuery || require('jquery'),
+	var $ = window.$ || require('jquery'),
 		base = require('base'),
 		def = {
 			el: null,

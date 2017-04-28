@@ -5,7 +5,7 @@
  * base: ZeroClipboard, http://www.steamdev.com/zclip/
  */
 define('copy', function(require, exports, module) {
-    window.$ = window.jQuery || require('jquery');
+    window.$ = window.$ || require('jquery');
     var swfRote = require.resolve('./ZeroClipboard.swf');
     swfRote = swfRote.split(".js")[0];
 

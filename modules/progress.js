@@ -6,7 +6,7 @@
  */
 define('progress', function(require, exports, module) {
 	"use strict";
-	var $ = window.jQuery || require('jquery'),
+	var $ = window.$ || require('jquery'),
 		def = {
 			el: null,
 			persent: 0,

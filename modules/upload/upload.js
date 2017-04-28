@@ -7,7 +7,7 @@
  */
 define('upload', function(require, exports, module) {
   'use strict';
-  var $ = window.jQuery || require('jquery'),
+  var $ = window.$ || require('jquery'),
     iframeCount = 0;
 
   function Uploader(options) {

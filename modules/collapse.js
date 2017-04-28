@@ -15,7 +15,7 @@ border: .4em solid; border-color: transparent transparent transparent #ccc;}\
 		.collapse .card-head{background:#f5f5f5;cursor:pointer;user-select:none;-webkit-user-select:none;}\
 		.collapse .card-body{display:none;}\
 		.collapse .card-opened .card-body{display:block;}', module.uri);
-	var $ = window.jQuery || require('jquery'),
+	var $ = window.$ || require('jquery'),
 		etpl = require('etpl'),
 		def = {
 			el: null,

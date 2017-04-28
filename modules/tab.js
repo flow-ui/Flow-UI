@@ -6,7 +6,7 @@
  */
 define('tab', function(require, exports, module) {
 	"use strict";
-	var $ = window.jQuery || require('jquery'),
+	var $ = window.$ || require('jquery'),
 		etpl = require('etpl'),
 		def = {
 			el: null,

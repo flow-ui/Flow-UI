@@ -33,7 +33,7 @@ define('box', function(require, exports, module) {
 		.box-wrap-msg-clo{position:absolute; height:52px;line-height:52px;right:0;top:0}\
 		.box-wrap-msg-clo .ion{margin:0;font-size:16px}\
 		.box-wrap-msg-clo:hover{opacity:.8}', module.uri);
-	var $ = window.jQuery || require('jquery'),
+	var $ = window.$ || require('jquery'),
 		base = require('base'),
 		Language = [{
 			close: "关闭",

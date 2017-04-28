@@ -9,7 +9,7 @@ define('drag-panel', function(require, exports, module) {
 	seajs.importStyle('.drag-panel-start{opacity: 0;}\
 		.drag-panel-cell{transition:all ease .3s;}\
 		.drag-panel-cell .card-head{cursor:move;}', module.uri);
-	var $ = window.jQuery || require('jquery'),
+	var $ = window.$ || require('jquery'),
 		def = {
 			el: null,
 			sortkey: 'data-key',

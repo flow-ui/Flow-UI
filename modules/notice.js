@@ -15,7 +15,7 @@ define('notice', function(require, exports, module) {
 		.notice-close{position: absolute; right: 16px; top: 15px; color: #999; outline: 0;font-size:1.5em;cursor:pointer;-webkit-user-select:none;user-select:none}\
 		.notice-just-title .notice-content{padding:20px;}\
 		.notice-just-title .notice-close{top:20px;}', module.uri);
-	var $ = window.jQuery || require('jquery'),
+	var $ = window.$ || require('jquery'),
 		base = require('base'),
 		def = {
 			title: '',

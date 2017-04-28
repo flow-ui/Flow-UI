@@ -7,7 +7,7 @@
 define("sendcode", function(require, exports, module) {
 	"use strict";
 	require('box');
-	var $ = window.jQuery || require('jquery'),
+	var $ = window.$ || require('jquery'),
 		def = {
 			url: null,
 			keyName: 'mobile',

@@ -42,7 +42,7 @@ define('album', function(require, exports, module) {
 			.album_gallery .slide_nav{display:none}}'
 		, module.uri);
 	require('slide');
-	var $ = window.jQuery || require('jquery'),
+	var $ = window.$ || require('jquery'),
 		def = {
 			blankclose: false,
 			title: null,

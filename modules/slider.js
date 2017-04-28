@@ -20,7 +20,7 @@ define('slider', function(require, exports, module) {
         .slider-disabled{cursor: not-allowed;}\
         .slider-disabled .progress-bg{background:#ccc;}\
         .slider-disabled .slider-handle{background:#999;cursor: not-allowed;}', module.uri);
-	var $ = window.jQuery || require('jquery'),
+	var $ = window.$ || require('jquery'),
 		drag = require('drag'),
 		def = {
 			el: null,

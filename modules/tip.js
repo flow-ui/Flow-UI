@@ -23,7 +23,7 @@ define('tip', function(require, exports, module) {
 		.tip-top .tip-arr-cell{border-top-color:#fff;bottom:-11px;left:50%;margin-left:-6px}\
 		.tip-bottom .tip-arr{border-bottom-color:#ccc;top:-12px;left:50%;margin-left:-6px}\
 		.tip-bottom .tip-arr-cell{border-bottom-color:#fff;top:-11px;left:50%;margin-left:-6px}', module.uri);
-	var $ = window.jQuery || require('jquery'),
+	var $ = window.$ || require('jquery'),
 		base = require('base'),
 		def = {
 			el: null,

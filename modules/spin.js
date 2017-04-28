@@ -6,7 +6,7 @@
  */
 define('spin', function(require, exports, module) {
 	"use strict";
-	var $ = window.jQuery || require('jquery'),
+	var $ = window.$ || require('jquery'),
 		base = require('base'),
 		template = '<div class="spin-wrap" id="flowui-spin"><div class="spin-main"><div class="spin-text"></div></div></div>',
 		def = {

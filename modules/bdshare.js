@@ -5,7 +5,7 @@
 * date: 2015-09-16
 */
 define('bdshare',function(require, exports, module) {
-	var $ = window.jQuery || require('jquery');
+	var $ = window.$ || require('jquery');
 	
 	module.exports=function(commonConf,shareConf){
 		if(commonConf===void(0)){

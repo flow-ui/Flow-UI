@@ -14,7 +14,7 @@ define('scroll-load', function(require, exports, module) {
         100% { -webkit-transform: rotateZ(360deg);}}\
         @keyframes rotation { 0% { transform: rotateZ(0deg);}\
         100% { transform: rotateZ(360deg);}}', module.uri);
-    var $ = window.jQuery || require('jquery'),
+    var $ = window.$ || require('jquery'),
         base = require('base'),
         def = {
             callback: null,

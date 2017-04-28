@@ -6,7 +6,7 @@
  */
 define('drag', function(require, exports, module) {
     'use strict';
-    var $ = window.jQuery || require('jquery'),
+    var $ = window.$ || require('jquery'),
         base = require('base'),
         ready = require('img-ready'),
         def = {

@@ -11,7 +11,7 @@ define('scroll-col', function(require, exports, module) {
 		.arrs{position:absolute;cursor:pointer;z-index:9;-webkit-user-select:none;user-select:none}\
 		.arrs.unable{cursor:default}', module.uri);
 	require('easing');
-	var $ = window.jQuery || require('jquery');
+	var $ = window.$ || require('jquery');
 	var def = {
 		direct: 'left', // 自动播放方向，可选left | right
 		mode: '', // 特殊模式，可选 hero(全屏三图滚动) | unloop（不循环）

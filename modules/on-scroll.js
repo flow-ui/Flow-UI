@@ -5,7 +5,7 @@
  * date: 2016-01-21
  */
 define('on-scroll', function(require, exports, module) {
-	var $ = window.jQuery || require('jquery');
+	var $ = window.$ || require('jquery');
 	var base = require('base');
 	var def = {
 		offset: null,

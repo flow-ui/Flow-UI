@@ -10,7 +10,7 @@ define('input', function(require, exports, module) {
     	.icon-left .form-control-feedback{right:auto;left:0;}\
         .input-widget .btn{min-width:0}\
         .input-widget .btn:first{border-left:0}', module.uri);
-    var $ = window.jQuery || require('jquery'),
+    var $ = window.$ || require('jquery'),
         base = require('base'),
         etpl = require('etpl'),
         def = {

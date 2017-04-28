@@ -31,7 +31,7 @@ define('datepicker', function(require, exports, module) {
     .datepicker-panel>ul[data-view=week]>li,.datepicker-panel>ul[data-view=week]>li:hover{cursor:default;background-color:#fff}\
     .datepicker-hide{display:none}", module.uri);
 
-  var $ = window.jQuery || require('jquery');
+  var $ = window.$ || require('jquery');
   var base = require('base');
   var $window = $(window);
   var document = window.document;
