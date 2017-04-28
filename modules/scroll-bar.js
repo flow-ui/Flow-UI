@@ -13,7 +13,7 @@ define('scroll-bar', function(require, exports, module) {
         .scrollbar-ui .scroll_slider{position:absolute;left:0;cursor:default;background:#666}.scroll_slider_on{background:#ccc}', module.uri);
     require('mousewheel');
 
-    var $ = require('jquery'),
+    var $ = window.jQuery || require('jquery'),
         base = require('base'),
         def = {
             wrap: null, //包裹元素，默认不指定，将新增div.scroll_cont

@@ -6,7 +6,7 @@
  */
 define('page', function(require, exports, module) {
 	"use strict";
-	var $ = require('jquery'),
+	var $ = window.jQuery || require('jquery'),
 		etpl = require('etpl'),
 		template = '<ul class="${wrapClass}">\
             <li><a href="javascript:;"<!-- if: ${isFirst} --> class="unable"<!-- else --> data-to="${prevPage}"<!-- /if -->>上一页</a></li>\

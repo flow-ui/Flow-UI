@@ -6,7 +6,7 @@
  */
 define('responsive', function(require, exports, module) {
 	'use strict';
-	var $ = require('jquery');
+	var $ = window.jQuery || require('jquery');
 	/*
 	 * 延迟渲染
 	 */

@@ -10,7 +10,7 @@ define('zoom', function(require, exports, module) {
 		.zoomdiv.active{opacity:1;}\
 		.jqZoomPup{position:absolute;border:1px solid #aaa;background:#fff;background:rgba(255,255,255,.4);filter:alpha(Opacity=50);cursor:move;z-index:9;display:none}',
 		module.uri);
-	var $ = require('jquery'),
+	var $ = window.jQuery || require('jquery'),
 		base = require('base'),
 		ready = require('img-ready'),
 		MouseEvent = function(e) {

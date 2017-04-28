@@ -6,7 +6,7 @@
  */
 define('countdown', function(require, exports, module) {
 	'use strict';
-	var $ = require('jquery'),
+	var $ = window.jQuery || require('jquery'),
 		leadingZeros = function(num, length) {
 			length = length || 2;
 			num = String(num);

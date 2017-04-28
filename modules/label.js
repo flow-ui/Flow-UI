@@ -6,7 +6,7 @@
  */
 define('label', function(require, exports, module) {
 	"use strict";
-	var $ = require('jquery'),
+	var $ = window.jQuery || require('jquery'),
 		def = {
 			el: null,
 			color: null,

@@ -12,7 +12,7 @@ define('mousewheel',function(require, exports, module) {
  *
  * Requires: jQuery 1.2.2+
  */
-	var $ = require('jquery'),
+	var $ = window.jQuery || require('jquery'),
         toFix  = ['wheel', 'mousewheel', 'DOMMouseScroll', 'MozMousePixelScroll'],
         toBind = ( 'onwheel' in document || document.documentMode >= 9 ) ?
                     ['wheel'] : ['mousewheel', 'DomMouseScroll', 'MozMousePixelScroll'],

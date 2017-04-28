@@ -6,7 +6,7 @@
  */
 define('base', function(require, exports, module) {
 	'use strict';
-	var $ = require('jquery');
+	var $ = window.jQuery || require('jquery');
 
 	var getUID = function() {
         var maxId = 65536;

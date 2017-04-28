@@ -260,7 +260,7 @@
 	}
 })(this);
 define('img-loaded', function(require, exports, module) {
-	var $ = require('jquery');
+	var $ = window.jQuery || require('jquery');
 	var console = window.console;
 	var hasConsole = typeof console !== 'undefined';
 

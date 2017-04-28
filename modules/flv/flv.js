@@ -5,7 +5,7 @@
  * date: 2015-09-25
  */
 define('flv', function(require, exports, module) {
-	var $ = require('jquery'),
+	var $ = window.jQuery || require('jquery'),
 		flvPlayer = require.resolve('./vcastr.swf').slice(0, -3),
 		regExt = /(.*)\.([^.?]+)\??[^.?]*$/,
 		def = {

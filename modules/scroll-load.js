@@ -1,8 +1,8 @@
 /*
  * name: scroll-load
- * version: 1.0.0
- * updata: rebuild
- * data: 2016-12-28
+ * version: 1.0.1
+ * updata: loadingTemplate允许为空
+ * data: 2017-04-27
  */
 define('scroll-load', function(require, exports, module) {
     "use strict";
@@ -14,7 +14,7 @@ define('scroll-load', function(require, exports, module) {
         100% { -webkit-transform: rotateZ(360deg);}}\
         @keyframes rotation { 0% { transform: rotateZ(0deg);}\
         100% { transform: rotateZ(360deg);}}', module.uri);
-    var $ = require('jquery'),
+    var $ = window.jQuery || require('jquery'),
         base = require('base'),
         def = {
             callback: null,
@@ -26,7 +26,7 @@ define('scroll-load', function(require, exports, module) {
     $.fn.scrollLoad = function(config) {
         var $wrap = $(this),
             opt = $.extend({}, def, config || {}),
-            loadingId = base.getUUID(),
+            loadingId = $wrap.data('scroll-load-id') || base.getUUID(),
             scrollDom, viewH, contHeight, scrollCB, running, $loading, destory;
         if($wrap.length>1){
             $wrap = $wrap.eq(0);
@@ -48,7 +48,7 @@ define('scroll-load', function(require, exports, module) {
         }
         if ($wrap.find('#' + loadingId).length) {
             $loading = $wrap.find('#' + loadingId).hide();
-        } else {
+        } else if(opt.loadingTemplate && opt.loadingTemplate.split){
             $loading = $(opt.loadingTemplate).attr('id', loadingId).hide();
         }
         if (!opt.force) {
@@ -56,12 +56,12 @@ define('scroll-load', function(require, exports, module) {
                 destory();
                 return $wrap;
             }
-            if ($wrap.data('scroll-end-init')) {
+            if ($wrap.data('scroll-load-id')) {
                 return $wrap;
             }
         }
         destory = function() {
-            $wrap.data('scroll-end-init', 0);
+            $wrap.data('scroll-load-id', null);
             scrollDom.unbind('scroll', scrollCB);
         };
         viewH = function() {
@@ -77,17 +77,22 @@ define('scroll-load', function(require, exports, module) {
             if (contentH - viewH() - scrollTop < opt.distance) {
                 running = true;
                 //插入加载提示
-                $wrap.append($loading.show()).scrollTop($wrap.scrollTop() + $loading.outerHeight(true) + opt.distance);
+                if($loading){
+                    $wrap.append($loading.show()).scrollTop($wrap.scrollTop() + $loading.outerHeight(true) + opt.distance);
+                }else{
+                    $wrap.scrollTop($wrap.height());
+                }
+                
                 if(typeof(opt.callback) === 'function'){
                     opt.callback(function(){
-                        $loading.hide();
+                        $loading && $loading.hide();
                         running = null;
                     });
                 }
             }
         };
-        if (!$wrap.data('scroll-end-init')) {
-            $wrap.data('scroll-end-init', 1);
+        if (!$wrap.data('scroll-load-id')) {
+            $wrap.data('scroll-load-id', loadingId);
             scrollDom.on('scroll', scrollCB);
         }
         return {

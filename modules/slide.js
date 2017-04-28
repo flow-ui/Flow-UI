@@ -19,7 +19,7 @@ define('slide', function(require, exports, module) {
         .slide_nav .on{background:#999;}\
         .slide .arrs{position:absolute;cursor:pointer;z-index:9;-webkit-user-select:none;user-select:none}\
         .arrs.unable{cursor:default}', module.uri);
-    var $ = require('jquery'),
+    var $ = window.jQuery || require('jquery'),
         base = require('base'),
         def = {
             wrap: 'ul',

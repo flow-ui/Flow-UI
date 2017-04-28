@@ -1,12 +1,12 @@
 /*
  * name: paging-load.js
- * version: v0.0.1
+ * version: v0.0.2
  * update: build
- * date: 2017-03-27
+ * date: 2017-04-27
  */
 define('paging-load', function(require, exports, module) {
 	"use strict";
-	var $ = require('jquery'),
+	var $ = window.jQuery || require('jquery'),
 		def = {
 			url: null,
 			size: 6,
@@ -15,44 +15,51 @@ define('paging-load', function(require, exports, module) {
 			nomore: null,
 			error: null
 		},
+		loadProcess = [],
+		newGetPage = function() {
+			var loadPage = 0,
+				func = function(pullback) {
+					if (pullback) {
+						return --loadPage;
+					}
+					return ++loadPage;
+				};
+			return func;
+		},
 		pagingLoad = function(option) {
 			var opt = $.extend({}, def, option || {}),
 				sendParam = $.extend(true, {}, opt.data),
-				trueUrl,
-				thisProcessIndex;
+				trueUrl;
 			if (!opt.url) {
 				return console.warn('toload()参数缺少url');
 			}
 			trueUrl = opt.url + '?' + $.param(opt.data);
-			
 			var init = function() {
-				var processes = pagingLoad.prototype.process,
-					i = 0,
-					n = processes.length,
+				var i = 0,
+					n = loadProcess.length,
 					getPage;
 				for (; i < n; ++i) {
-					if (processes[i].url == trueUrl) {
-						thisProcessIndex = i;
-						getPage = processes[i].getPage;
+					if (loadProcess[i].url == trueUrl) {
+						getPage = loadProcess[i].getPage;
 						break;
 					}
 				}
 				if (!getPage) {
-					getPage = pagingLoad.prototype.newGetPage();
-					processes.push({
+					getPage = newGetPage();
+					loadProcess.push({
 						url: trueUrl,
 						getPage: getPage
 					});
-					pagingLoad.prototype.process = processes;
 				}
 				return getPage;
 			};
-
+			
 			return {
 				load: function() {
+					var Ajax = window.api ? app.ajax : $.ajax;
 					sendParam.page_index = init()();
 					sendParam.page_size = opt.size;
-					$.ajax({
+					Ajax({
 						type: 'get',
 						url: opt.url,
 						data: sendParam,
@@ -74,36 +81,33 @@ define('paging-load', function(require, exports, module) {
 						}
 					});
 				},
-				reload: function() {
+				reload: function(hold) {
+					var i = 0,
+						n = loadProcess.length,
+						thisProcessIndex;
+					for (; i < n; ++i) {
+						if (loadProcess[i].url == trueUrl) {
+							thisProcessIndex = i;
+							break;
+						}
+					}
 					if (thisProcessIndex !== void 0) {
-						var processes = pagingLoad.prototype.process;
-						processes.splice(thisProcessIndex, 1);
-						pagingLoad.prototype.process = processes;
+						loadProcess.splice(thisProcessIndex, 1);
+					} else {
+						console.warn('reload():找不到paging-load进程');
+					}
+					if(!hold){
+						this.load();
 					}
 				},
 				destroy: function() {
-					if (thisProcessIndex !== void 0) {
-						this.reload();
-						delete this.init;
-						delete this.load;
-						delete this.reload;
-						delete this.destroy;
-					}
+					this.reload(true);
+					delete this.load;
+					delete this.reload;
+					delete this.destroy;
 				}
 			};
 		};
-
-	pagingLoad.prototype.newGetPage = function() {
-		var loadPage = 0,
-			func = function(pullback) {
-				if (pullback) {
-					return --loadPage;
-				}
-				return ++loadPage;
-			};
-		return func;
-	};
-	pagingLoad.prototype.process = [];
 
 	module.exports = pagingLoad;
 });

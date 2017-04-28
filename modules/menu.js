@@ -8,7 +8,7 @@ define('menu', function(require, exports, module) {
 	"use strict";
 	seajs.importStyle('', module.uri);
 	var DropDown = require('dropdown');
-	var $ = require('jquery'),
+	var $ = window.jQuery || require('jquery'),
 		def = {
 			el: null,
 			data: null,

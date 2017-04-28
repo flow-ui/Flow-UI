@@ -18,7 +18,7 @@ define("input-number", function(require, exports, module) {
 		.counter_default .pro_counter_reduce{bottom:0;border-top:0;border-bottom-right-radius:4px;}\
 		.counter_default .pro_counter_add{top:0;border-bottom:0;border-top-right-radius:4px;}', module.uri);
 	require('input');
-	var $ = require('jquery'),
+	var $ = window.jQuery || require('jquery'),
 		def = {
 			val: 1,
 			countstep: 1,

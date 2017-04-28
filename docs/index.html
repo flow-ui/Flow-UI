@@ -6766,12 +6766,16 @@ $().datepicker({
                     <td>scroll-load</td>
                     <td>
                         <h5>描述</h5>
-                        <p>监听滚动元素滚动到底事件，自动添加加载条，并执行加载方法</p>
+                        <p>监听元素滚动到底部事件，返回<code>scrollLoad</code>方法，语法<code>scrollLoad(config)</code>，或使用jQuery语法格式<code>$el.scrollLoad(config)</code></p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
+                                <th>el</th>
+                                <td>默认<code>null</code>，要监听的元素，使用jQuery语法可省略</td>
+                            </tr>
+                            <tr>
                                 <th>distance</th>
-                                <td>默认70，距离底部开始加载的距离，单位px</td>
+                                <td>默认<code>70</code>，距离底部开始加载的距离，单位px</td>
                             </tr>
                             <tr>
                                 <th>callback(scrollStop)</th>
@@ -6779,15 +6783,14 @@ $().datepicker({
                             </tr>
                             <tr>
                                 <th>force</th>
-                                <td>默认false，强制执行</td>
+                                <td>默认<code>false</code>，强制执行</td>
                             </tr>
                             <tr>
                                 <th>loadingTemplate</th>
-                                <td>默认'&lt;div class=&quot;scrollLoadSpinning&quot;&gt;&lt;span class=&quot;_spin&quot;&gt;&lt;/span&gt;&lt;/div&gt;'，加载条html</td>
+                                <td>默认<code>'&lt;div class=&quot;scrollLoadSpinning&quot;&gt;&lt;span class=&quot;_spin&quot;&gt;&lt;/span&gt;&lt;/div&gt;'</code>，加载条html</td>
                             </tr>
                         </table>
                         <h5>返回方法</h5>
-                        <p>返回实例操作句柄，包含以下方法</p>
                         <table class="table table-hover">
                             <tr>
                                 <th>destory</th>

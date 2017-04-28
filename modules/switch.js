@@ -6,7 +6,7 @@
  */
 define('switch', function(require, exports, module) {
 	"use strict";
-	var $ = require('jquery'),
+	var $ = window.jQuery || require('jquery'),
 		def = {
 			el: null,
 			name: null,

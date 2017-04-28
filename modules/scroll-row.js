@@ -6,7 +6,7 @@
  */
 define('scroll-row', function(require, exports, module) {
 	require('easing');
-	var $ = require('jquery');
+	var $ = window.jQuery || require('jquery');
 	var def = {
 		prev: null,
 		next: null,

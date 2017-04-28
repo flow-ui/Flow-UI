@@ -17,7 +17,7 @@ define('mousemenu',function(require, exports, module) {
         .smart_menu_a:hover .smart_menu_triangle,.smart_menu_a_hover .smart_menu_triangle{border-left-color:#fff}\
         .smart_menu_li_hover .smart_menu_box{top:-1px;left:130px}'
         ,module.uri)
-    var $ = require('jquery'),
+    var $ = window.jQuery || require('jquery'),
         base = require('base'),
         D = $(document).data("func", {});
     $.mousemenu = function(){};
