@@ -1,14 +1,18 @@
 ### Flow-UI
 
-Flow-UI是一套轻量级的前端UI框架，基于Seajs 实现js模块化开发，内置多种业务场景解决方案。
+Flow-UI 是一套组件化UI框架，支持定制主题，主要服务于前台及中后台产品。
 
 ### 兼容性
 
 IE8+
 
-### 主页
+### 文档
 
 https://tower1229.github.io/Flow-UI/docs/
+
+### 演示
+
+http://tower1229.github.io/Flow-UI/docs/demo.html
 
 ### 配套自动化工具
 
