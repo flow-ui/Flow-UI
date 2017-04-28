@@ -21,7 +21,9 @@
 body{font-size:16px; line-height: 1.6; color: #4d4e53;background: #fff;
 font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
 overflow-x: hidden;}
-
+@media only screen and (max-device-width: 1366px) {
+	.wrap{width:1000px;max-width: 90%;}
+}
 /*
 * style
 */
