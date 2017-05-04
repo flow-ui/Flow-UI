@@ -1,8 +1,8 @@
 /*
  * name: input-number.js
- * version: v0.1.3
- * update: disabled按钮背景色调整
- * date: 2017-04-17
+ * version: v0.1.4
+ * update: 自动初始化元素前缀改为.flow-ui
+ * date: 2017-05-03
  */
 define("input-number", function(require, exports, module) {
 	"use strict";
@@ -166,5 +166,5 @@ define("input-number", function(require, exports, module) {
 		return inputObject;
 	};
 	//自动初始化
-	return $('.flowui-input-number').inputNumber();
+	return $('.flow-ui-input-number').inputNumber();
 });

@@ -1,8 +1,8 @@
 /*
  * name: switch.js
- * version: v0.3.0
- * update: 支持基于checkbox初始化
- * date: 2017-04-20
+ * version: v0.4.1
+ * update: 基于checkbox初始化checked状态bug
+ * date: 2017-05-03
  */
 define('switch', function(require, exports, module) {
 	"use strict";
@@ -10,7 +10,7 @@ define('switch', function(require, exports, module) {
 		def = {
 			el: null,
 			name: null,
-			value: false,
+			value: null,
 			round: false,
 			color: "default",
 			disabled: false,
@@ -55,7 +55,9 @@ define('switch', function(require, exports, module) {
 			if (!$this.length || $this.data('switch-init')) {
 				return null;
 			}
-
+			if($.isPlainObject($this.data('config'))){
+				$.extend(opt, $this.data('config'));
+			}
 			$switch = $(template);
 			if (opt.round) {
 				classTemp.push('switch-round');
@@ -87,7 +89,12 @@ define('switch', function(require, exports, module) {
 					$syncInput = $('<input type="checkbox" >');
 				}
 			}
-			$syncInput.prop('checked', opt.value);
+			if(opt.value===null){
+				opt.value = $syncInput.prop('checked');
+			}else{
+				$syncInput.prop('checked', opt.value);
+			}
+			
 			if ($syncInput.prop('checked')) {
 				classTemp.push('switch-on');
 			}
@@ -127,5 +134,8 @@ define('switch', function(require, exports, module) {
 			el: this
 		}, config || {}));
 	};
+	$('.flow-ui-switch').each(function(){
+		$(this).switch();
+	});
 	module.exports = Switch;
 });

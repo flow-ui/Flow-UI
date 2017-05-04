@@ -1,8 +1,8 @@
 /*
  * name: select.js
- * version: v4.3.4
- * update: 使用scrollbar美化滚动条
- * date: 2017-04-25
+ * version: v4.3.5
+ * update: 自动初始化元素前缀改为flow-ui
+ * date: 2017-05-03
  */
 define('select', function(require, exports, module) {
     "use strict";
@@ -83,20 +83,20 @@ define('select', function(require, exports, module) {
             });
             return hasChildren;
         },
-        clearStatus = function(data){
-                    $.each(data, function(i,e){
-                        delete e.selected;
-                        if(e.children){
-                            clearStatus(e.children);
-                        }
-                    });
-                },
+        clearStatus = function(data) {
+            $.each(data, function(i, e) {
+                delete e.selected;
+                if (e.children) {
+                    clearStatus(e.children);
+                }
+            });
+        },
         render = function(renderData, opt, selectedCB, path) {
             var _options = '',
                 _doms = '',
                 _path = '',
                 selectedChildren,
-                each = function(data){
+                each = function(data) {
                     var key = 0,
                         _lis = '',
                         thisTurnPath = _path;
@@ -108,7 +108,7 @@ define('select', function(require, exports, module) {
                         var selected = data[key].selected;
                         var disabled = data[key].disabled;
                         var hasChildren = $.isArray(data[key].children) && data[key].children.length;
-                        if(!hasChildren){
+                        if (!hasChildren) {
                             //原生结构
                             _options += '<option' + (disabled ? ' disabled' : '') +
                                 (selected ? ' selected' : '') + ' value="' + value + '">' + text + '</option>';
@@ -117,7 +117,7 @@ define('select', function(require, exports, module) {
                         if (!(selected && opt && opt.hideSelected) && !(disabled && opt && opt.hideDisabled)) {
                             _lis += ('<li class="' + (disabled ? '_disabled' : '') + (selected ? ' _selected' : '') + (hasChildren ? ' _hasChildren' : '') + '" data-val="' + value + '"' + (hasChildren || thisTurnPath ? ' data-path="' + (thisTurnPath || '') + key + '"' : '') + '>' + text + '</li>');
                         }
-                        if(selected && hasChildren){
+                        if (selected && hasChildren) {
                             selectedChildren = data[key].children;
                             _path += (key + '/');
                         }
@@ -129,11 +129,11 @@ define('select', function(require, exports, module) {
                             });
                         }
                     }
-                    if(!_lis){
+                    if (!_lis) {
                         _lis = '<li class="_disabled">暂无数据</li>';
                     }
                     _doms += ('<ul class="scrollbar">' + _lis + '</ul>');
-                    if(selectedChildren){
+                    if (selectedChildren) {
                         each(selectedChildren);
                     }
                 };
@@ -161,7 +161,7 @@ define('select', function(require, exports, module) {
                     initSelsectd = selectItem;
                 }
             });
-            if(!$.isArray(selectData) || !selectData.length){
+            if (!$.isArray(selectData) || !selectData.length) {
                 return console.warn('select: 无数据！');
             }
             //未定义selected默认第一项
@@ -235,80 +235,80 @@ define('select', function(require, exports, module) {
     //selectOptions & event
     if (!selectOptions.length) {
         selectOptions = $('<div class="select-ui-options"><ul></ul></div>')
-        .on('click', 'li', function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            if ($(this).hasClass('_disabled')) {
-                return null;
-            }
-            var _val = $.trim($(this).data('val')),
-                _text = $(this).text(),
-                _thisSelect = selectOptions.data('choosetarget'),
-                _thisOriginSelect = _thisSelect.prev('select'),
-                _data = _thisOriginSelect.data('data'),
-                _opt = _thisOriginSelect.data('opt'),
-                dataPath = $(this).data('path'),
-                cascader;
-            if (dataPath!==void(0)) {
-                //级联
-                var children = _data;
-                cascader = !$(this).hasClass('_hasChildren');
-                clearStatus(children);
-                $.each(String(dataPath).split('/'), function(pathIndex, path) {
-                    $.each(children, function(childIndex, child){
-                        if(childIndex === parseInt(path)){
-                            child.selected = true;
-                        }
-                    });
-                    children = children[path].children;
-                });
-            } else if (_opt.multi) {
-                //多选
-                var isRepeat,
-                    multival = [];
-                if (_thisOriginSelect.data('multitarget').val()) {
-                    multival = _thisOriginSelect.data('multitarget').val().split(',');
+            .on('click', 'li', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                if ($(this).hasClass('_disabled')) {
+                    return null;
                 }
-                $.each(multival, function(i, e) {
-                    if (e === _val) {
-                        isRepeat = true;
-                        $.each(_data, function(i, d) {
-                            if (d.value === _val) {
-                                d.selected = false;
-                                return false;
+                var _val = $.trim($(this).data('val')),
+                    _text = $(this).text(),
+                    _thisSelect = selectOptions.data('choosetarget'),
+                    _thisOriginSelect = _thisSelect.prev('select'),
+                    _data = _thisOriginSelect.data('data'),
+                    _opt = _thisOriginSelect.data('opt'),
+                    dataPath = $(this).data('path'),
+                    cascader;
+                if (dataPath !== void(0)) {
+                    //级联
+                    var children = _data;
+                    cascader = !$(this).hasClass('_hasChildren');
+                    clearStatus(children);
+                    $.each(String(dataPath).split('/'), function(pathIndex, path) {
+                        $.each(children, function(childIndex, child) {
+                            if (childIndex === parseInt(path)) {
+                                child.selected = true;
                             }
                         });
-                        return false;
+                        children = children[path].children;
+                    });
+                } else if (_opt.multi) {
+                    //多选
+                    var isRepeat,
+                        multival = [];
+                    if (_thisOriginSelect.data('multitarget').val()) {
+                        multival = _thisOriginSelect.data('multitarget').val().split(',');
                     }
-                });
-                if (!isRepeat) {
-                    $.each(_data, function(i, d) {
-                        if (d.value === _val) {
-                            d.selected = true;
+                    $.each(multival, function(i, e) {
+                        if (e === _val) {
+                            isRepeat = true;
+                            $.each(_data, function(i, d) {
+                                if (d.value === _val) {
+                                    d.selected = false;
+                                    return false;
+                                }
+                            });
                             return false;
                         }
                     });
-                }
-                multival = null;
-                _val = multitext(_data).value;
-                _text = multitext(_data).text;
-            } else {
-                //单选
-                var _key = 0;
-                for (; _key < _data.length; _key++) {
-                    if ($.trim(_data[_key].value) === _val) {
-                        _data[_key].selected = true;
-                    } else if (_data[_key].selected) {
-                        _data[_key].selected = false;
+                    if (!isRepeat) {
+                        $.each(_data, function(i, d) {
+                            if (d.value === _val) {
+                                d.selected = true;
+                                return false;
+                            }
+                        });
+                    }
+                    multival = null;
+                    _val = multitext(_data).value;
+                    _text = multitext(_data).text;
+                } else {
+                    //单选
+                    var _key = 0;
+                    for (; _key < _data.length; _key++) {
+                        if ($.trim(_data[_key].value) === _val) {
+                            _data[_key].selected = true;
+                        } else if (_data[_key].selected) {
+                            _data[_key].selected = false;
+                        }
                     }
                 }
-            }
-            //重新生成DOM
-            createDom(_thisOriginSelect.data('data', _data).data('lasttext', _text).data('iscascader', cascader));
-            if(dataPath===void(0) || (dataPath!==void(0) && cascader)){
-                hideOption();
-            }
-        });
+                //重新生成DOM
+                createDom(_thisOriginSelect.data('data', _data).data('lasttext', _text).data('iscascader', cascader));
+                if (dataPath === void(0) || (dataPath !== void(0) && cascader)) {
+                    hideOption();
+                }
+            });
         $('body').append(selectOptions);
     }
 
@@ -415,11 +415,11 @@ define('select', function(require, exports, module) {
                                     });
                                 });
                             }
-                        } else if(isCascader(data)){
+                        } else if (isCascader(data)) {
                             value = value.split(',');
                             if (value.length) {
                                 var eachData = data,
-                                    eachFunc = function(v){
+                                    eachFunc = function(v) {
                                         $.each(eachData, function(i, d) {
                                             if (v === d.value) {
                                                 d.selected = true;
@@ -721,12 +721,12 @@ define('select', function(require, exports, module) {
     };
 
     $.fn.select = function(config) {
-        return Select($.extend(config, {
-            el: $(this)
-        }));
+        return Select($.extend({
+            el: this
+        }, config));
     };
     //自动初始化
-    $('.flowui-select').select();
+    $('.flow-ui-select').select();
 
     module.exports = Select;
 });

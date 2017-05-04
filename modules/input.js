@@ -1,8 +1,8 @@
 /*
  * name: input.js
- * version: v0.1.1
- * update: 删除多余空格
- * date: 2017-04-14
+ * version: v0.1.2
+ * update: 自动初始化元素前缀改为.flow-ui
+ * date: 2017-05-03
  */
 define('input', function(require, exports, module) {
     "use strict";
@@ -285,5 +285,5 @@ define('input', function(require, exports, module) {
         return returnObject;
     };
     //自动初始化
-    return $('.flowui-input').input();
+    return $('.flow-ui-input').input();
 });

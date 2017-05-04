@@ -23,32 +23,124 @@
         <div class="span-6 m-b">
             <div class="card card-bordered">
                 <div class="card-head">
-                    <div class="card-title">多选/序号</div>
+                    <div class="card-title">增删改查</div>
+                    <div class="card-extra">
+                        <span class="btn btn-sm btn-success tab3-add">增加</span>
+                        <span class="btn btn-sm btn-danger tab3-del">删除</span>
+                        <span class="btn btn-sm btn-warning tab3-edi">修改</span>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="grid3"></div>
                 </div>
+                <div class="card-foot">
+                    <div class="tab3-page tc"></div>
+                </div>
             </div>
+            <script type="text/template" id="formTemplate">
+                <form class="form formTemplate p">
+                    <div class="form-group row">
+                        <label class="span-2 control-label">产品名称</label>
+                        <div class="span-10">
+                            <input type="text" name="product" datatype="s4-16" class="form-control" value="${product}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="span-2 control-label">品牌</label>
+                        <div class="span-10">
+                            <input type="text" name="manufacturer" datatype="s4-16" class="form-control" value="${manufacturer}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="span-2 control-label">类型</label>
+                        <div class="span-10">
+                            <select class="form-control phoneTypeSelect" name="type" datatype="*" value="${type}"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="span-2 control-label">长（mm）</label>
+                        <div class="span-10">
+                            <input type="text" name="size.length" datatype="f" class="form-control" value="${size.length}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="span-2 control-label">宽（mm）</label>
+                        <div class="span-10">
+                            <input type="text" name="size.width" datatype="f" class="form-control" value="${size.width}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="span-2 control-label">高（mm）</label>
+                        <div class="span-10">
+                            <input type="text" name="size.height" datatype="f" class="form-control" value="${size.height}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="span-2 control-label">操作系统</label>
+                        <div class="span-10">
+                            <input type="text" name="os" datatype="*" class="form-control" value="${os}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="span-2 control-label">CPU</label>
+                        <div class="span-10">
+                            <input type="text" name="cpu" datatype="*" class="form-control" value="${cpu}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="span-2 control-label">屏幕尺寸（英寸）</label>
+                        <div class="span-10">
+                            <input type="text" name="screen" datatype="f" class="form-control" value="${screen}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="span-2 control-label">是否触屏</label>
+                        <div class="span-10">
+                            <input type="checkbox" name="touchScreen" class="flow-ui-switch" data-config={"color":"primary"} <!-- if: ${touchScreen} --> checked="checked"<!-- /if -->>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="span-2 control-label">价格（元）</label>
+                        <div class="span-10">
+                            <input type="text" name="price" datatype="n" class="form-control" value="${price}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="span-2 control-label">库存</label>
+                        <div class="span-10">
+                            <input type="text" name="storage" datatype="n" class="form-control" value="${storage}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="span-2 control-label">特点</label>
+                        <div class="span-10">
+                            <textarea name="comment" datatype="*" class="form-control">${comment}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="pull-right-2 span-4">
+                            <button type="submit" class="btn btn-block btn-primary">保存</button>
+                        </div>
+                        <div class="pull-right-2 span-4">
+                            <button type="reset" class="btn btn-block btn-warning">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </script>
         </div>
         <div class="span-6 m-b">
             <div class="card card-bordered">
                 <div class="card-head">
-                    <div class="card-title">滚动</div>
+                    <div class="card-title">主从表</div>
                 </div>
                 <div class="card-body">
                     <div class="grid4"></div>
                 </div>
-            </div>
-        </div>
-        <div class="span-6 m-b">
-            <div class="card card-bordered">
-                <div class="card-head">
-                    <div class="card-title">固定列</div>
-                </div>
-                <div class="card-body">
-                    <div class="grid5"></div>
+                <div class="card-foot">
+                    <div class="tab4-page tc"></div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>

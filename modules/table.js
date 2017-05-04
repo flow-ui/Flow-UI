@@ -1,8 +1,8 @@
 /*
  * name: table.js
- * version: v1.5.4
- * update: 某些情况列宽计算错误
- * date: 2017-04-25
+ * version: v1.5.6
+ * update: 多选模式下onSelect回调增加第四个参数isSelect
+ * date: 2017-05-03
  */
 define('table', function(require, exports, module) {
 	"use strict";
@@ -47,13 +47,13 @@ define('table', function(require, exports, module) {
 			if (isNaN(parseFloat(opt.height)) || !parseFloat(opt.height)) {
 				opt.height = $this.height();
 			}
-			if(!parseFloat(opt.height)){
+			if (!parseFloat(opt.height)) {
 				opt.height = 'auto';
 			}
 			//索引列
 			if (opt.index) {
-				$.each(opt.column, function(i, e){
-					if(e.type && e.type === 'index'){
+				$.each(opt.column, function(i, e) {
+					if (e.type && e.type === 'index') {
 						opt.column.splice(i, 1);
 						return false;
 					}
@@ -67,8 +67,8 @@ define('table', function(require, exports, module) {
 			}
 			//勾选列
 			if (opt.multi) {
-				$.each(opt.column, function(i, e){
-					if(e.type && e.type === 'selection'){
+				$.each(opt.column, function(i, e) {
+					if (e.type && e.type === 'selection') {
 						opt.column.splice(i, 1);
 						return false;
 					}
@@ -353,11 +353,11 @@ define('table', function(require, exports, module) {
 					var thisColWidth = col.width;
 					var thisColClass = [];
 					if (!thisColWidth) {
-						if(totalWidthCopy2 && otherPartsCopy===1){
+						if (totalWidthCopy2 && otherPartsCopy === 1) {
 							thisColWidth = Math.max(totalWidthCopy2, 60 + (col.sort || $.isArray(col.filters) ? 40 : 0));
-						}else{
+						} else {
 							thisColWidth = Math.max(Math.floor(totalWidthCopy / otherParts), 60 + (col.sort || $.isArray(col.filters) ? 40 : 0));
-							if(totalWidthCopy2 > thisColWidth){
+							if (totalWidthCopy2 > thisColWidth) {
 								totalWidthCopy2 -= thisColWidth;
 							}
 						}
@@ -366,7 +366,7 @@ define('table', function(require, exports, module) {
 					if (fixedIndex !== void(0) && fixedIndex >= i) {
 						fixedWidth += thisColWidth;
 					}
-					
+
 					tableWidth += thisColWidth;
 					switch (col.align) {
 						case 'center':
@@ -481,9 +481,9 @@ define('table', function(require, exports, module) {
 				thead += colgroup;
 				thead += theadCont;
 				thead += '</table></div>';
-				if(!tData.length){
+				if (!tData.length) {
 					tbody += ('<div class="p">' + opt.noDataText + '</div>');
-				}else{
+				} else {
 					var tbodyCont = getBody(tData, opt);
 					if (part === 'body') {
 						//body局部更新
@@ -659,7 +659,7 @@ define('table', function(require, exports, module) {
 						multiCollection.push(opt.oData[row]);
 					}
 					if (typeof opt.onSelect === 'function') {
-						opt.onSelect(row, opt.oData[row], multiCollection);
+						opt.onSelect(row, opt.oData[row], multiCollection, isSelect);
 					}
 				} else {
 					if (multiCollection.length && (row === multiCollection[0][indexKey])) {
@@ -766,7 +766,7 @@ define('table', function(require, exports, module) {
 							selectRow($(this).data('index'));
 						});
 					}
-					if(typeof opt.onReady === 'function'){
+					if (typeof opt.onReady === 'function') {
 						opt.onReady(opt.ajaxRes);
 						delete opt.ajaxRes;
 					}
@@ -856,7 +856,11 @@ define('table', function(require, exports, module) {
 					}
 				},
 				reload: function() {
-					generate(opt.rowData, opt);
+					if (opt.load && opt.load.url && opt.load.url.split) {
+						loadData(opt.load);
+					} else {
+						generate(opt.rowData, opt);
+					}
 				},
 				getRows: function() {
 					return $this.data('data');

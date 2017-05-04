@@ -1,8 +1,8 @@
 /*
  * name: menu.js
- * version: v0.2.0
- * update: add onClick
- * date: 2017-04-27
+ * version: v0.2.1
+ * update: onSelect将与active方法联动
+ * date: 2017-05-03
  */
 define('menu', function(require, exports, module) {
 	"use strict";
@@ -80,9 +80,12 @@ define('menu', function(require, exports, module) {
 			}
 			return menu;
 		},
-		activeItem = function($el, $item) {
+		activeItem = function($el, $item, opt) {
 			$el.find('.menu-item-active').removeClass('menu-item-active');
-			return $item.addClass('menu-item-active').parents('.menu-submenu').addClass('menu-opened');
+			$item.addClass('menu-item-active').parents('.menu-submenu').addClass('menu-opened');
+			if (!$item.hasClass('menu-submenu') && typeof opt.onSelect === 'function') {
+				opt.onSelect($item.data('menu-key'), $item);
+			}
 		},
 		Menu = function(config) {
 			var opt = $.extend({}, def, config || {}),
@@ -116,15 +119,13 @@ define('menu', function(require, exports, module) {
 					e.stopPropagation();
 				}
 				if(typeof opt.onClick === 'function'){
-					opt.onClick($(this).data('menu-key'), $(this), isCur);
+					return opt.onClick($(this).data('menu-key'), $(this), isCur);
 				}
 				if (isCur) {
 					return null;
 				}
-				activeItem($this, $(this));
-				if (!$(this).hasClass('menu-submenu') && typeof opt.onSelect === 'function') {
-					opt.onSelect($(this).data('menu-key'), $(this));
-				}
+				activeItem($this, $(this), opt);
+				
 			}).data('menu-init', true);
 
 			if (opt.mode === 'vertical' && opt.toggle) {
@@ -163,7 +164,7 @@ define('menu', function(require, exports, module) {
 				active: function(key) {
 					$(opt.el).find('.menu-item').each(function(i, item) {
 						if ($(item).data('menu-key') === key) {
-							return activeItem($(opt.el), $(item));
+							return activeItem($(opt.el), $(item), opt);
 						}
 					});
 				}

@@ -1,8 +1,8 @@
 /*
 * name: validform.js
-* version: v2.4.6
-* update: tipSweep 失效bug
-* data: 2017-04-24
+* version: v2.5.1
+* update: 删除form情况下报错
+* data: 2017-05-03
 */
 define('validform',function(require, exports, module) {
 	"use strict";
@@ -20,6 +20,7 @@ define('validform',function(require, exports, module) {
 				"*4-16": "请填写4到16位任意字符！",
 				"n": "请填写数字！",
 				"n4-16": "请填写4到16位数字！",
+				"f": "请填写数字！",
 				"s": "不能输入特殊字符！",
 				"s4-16": "请填写4到16位字符！",
 				"p": "请填写邮政编码！",
@@ -110,6 +111,7 @@ define('validform',function(require, exports, module) {
 			"*4-16": /^[\w\W]{4,16}$/,
 			"n": /^\d+$/,
 			"n4-16": /^\d{4,16}$/,
+			"f": /^((\d+)?)(\.\d+)?$/,
 			"s": /^[\u4E00-\u9FA5\uf900-\ufa2d\w\.\s]+$/,
 			"s4-16": /^[\u4E00-\u9FA5\uf900-\ufa2d\w\.\s]{4,16}$/,
 			"p": /^[0-9]{6}$/,
@@ -244,6 +246,9 @@ define('validform',function(require, exports, module) {
 				regxp3 = /(.*?)\d+(.+?)\d+(.*)/,
 				mac = datatype.match(regxp),
 				temp, str;
+			if(!curform.data("tipmsg")){
+				return null;
+			}
 			if (recheck == "recheck") {
 				str = curform.data("tipmsg").reck || tipmsg.reck;
 				return str;

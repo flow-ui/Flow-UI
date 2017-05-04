@@ -1058,7 +1058,6 @@ fieldset[disabled] .form-control {
 }
 select.form-control {
   min-width: 4em;
-  padding: 8px 10px;
 }
 input[type='search'] {
   -webkit-appearance: none;

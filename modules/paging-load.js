@@ -1,8 +1,8 @@
 /*
  * name: paging-load.js
- * version: v0.0.2
- * update: build
- * date: 2017-04-27
+ * version: v0.0.3
+ * update: reload()异常警告bug
+ * date: 2017-05-02
  */
 define('paging-load', function(require, exports, module) {
 	"use strict";
@@ -53,7 +53,7 @@ define('paging-load', function(require, exports, module) {
 				}
 				return getPage;
 			};
-			
+
 			return {
 				load: function() {
 					var Ajax = window.api ? app.ajax : $.ajax;
@@ -93,10 +93,10 @@ define('paging-load', function(require, exports, module) {
 					}
 					if (thisProcessIndex !== void 0) {
 						loadProcess.splice(thisProcessIndex, 1);
-					} else {
+					} else if (hold) {
 						console.warn('reload():找不到paging-load进程');
 					}
-					if(!hold){
+					if (!hold) {
 						this.load();
 					}
 				},

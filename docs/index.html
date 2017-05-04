@@ -2606,6 +2606,12 @@ always: null            // complete function(done|fail)
                             </tr>
                             <tr>
                                 <td>
+                                    f：</td>
+                                <td>浮点数类型；
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     s：</td>
                                 <td>字符串类型；
                                 </td>
@@ -4925,7 +4931,7 @@ $().datepicker({
                     <td>
                         <h5>描述</h5>
                         <p>数字输入框插件，继承<a href="#Input（输入框）">【input】</a>插件配置和方法（部分配置无效），支持标签<code>data-options</code>属性传参</p>
-                        <p>具有<code>.flowui-input-number</code>的元素将自动应用插件。</p>
+                        <p><code>$('.flow-ui-input-number')</code>元素将自动初始化，并且支持data-config属性</p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
@@ -4995,7 +5001,7 @@ $().datepicker({
                     <td>
                         <h5>描述</h5>
                         <p>输入框插件，可以基于input、textarea标签生成文本框，也可以基于其他标签在其内部插入一个文本框，支持<code>data-options</code>属性传参</p>
-                        <p>具有<code>.flowui-input</code>的元素将自动应用插件。</p>
+                        <p><code>$('.flow-ui-input')</code>元素将自动初始化，并且支持data-config属性</p>
                         <h5>配置</h5>
                         <table class="table table-hover">
                             <tr>
@@ -7608,6 +7614,7 @@ $().datepicker({
                         <td>
                             <h5>描述</h5>
                             <p>开关插件，返回<code>Switch</code>方法，语法<code>Switch(config)</code>，或使用jquery插件语法<code>$el.switch(config)</code></p>
+                            <p><code>$('.flow-ui-switch')</code>元素将自动初始化，并且支持data-config属性</p>
                             <h5>配置</h5>
                             <table class="table table-hover">
                                 <tr>
@@ -7974,8 +7981,8 @@ $().datepicker({
                                 <tr>
                                     <th>onSelect</th>
                                     <td>
-                                        <p>默认无，单选/多选回调方法。</p>
-                                        <p>@param(index, row, [rowArray]) : 当前选中行数，当前行数据，所有选中行数据数组(仅多选有此参数)</p>
+                                        <p>默认无，单选/多选结果变化回调方法。</p>
+                                        <p>@param(index, row, rowArray, [isSelect]) : 当前行数，当前行数据，所有选中行数据数组，是否选中(仅多选有此参数)</p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -8112,7 +8119,7 @@ $().datepicker({
                                 <tr>
                                     <th>reload</th>
                                     <td>
-                                        <p>使用初始数据重载表格</p>
+                                        <p>将表格重置为初始数据或重新加载远程数据</p>
                                     </td>
                                 </tr>
                                 <tr>

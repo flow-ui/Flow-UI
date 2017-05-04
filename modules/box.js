@@ -103,7 +103,7 @@ define('box', function(require, exports, module) {
 			if (typeof(cont) === 'object' && cont.length) {
 				//现有dom
 				cont.show();
-				if (cont.context) {
+				if (cont.context && cont.parent().length) {
 					//默认保护
 					s.protect = cont.parent();
 				}
