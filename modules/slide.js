@@ -51,7 +51,6 @@ define('slide', function(require, exports, module) {
         getNext = function(number, _step, count) {
             _step = _step || 1;
             number = number >= count - _step ? 0 : number + _step;
-            console.log(number)
             return number;
         },
         setNavs = function($navs, count, current, step) {

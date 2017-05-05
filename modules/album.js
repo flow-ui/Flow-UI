@@ -1,8 +1,8 @@
 /*
  * name: album.js
- * version: v2.2.13
- * update: update icon
- * date: 2017-03-27
+ * version: v2.2.14
+ * update: onSlide/onReady
+ * date: 2017-05-05
  */
 define('album', function(require, exports, module) {
 	'use strict';
@@ -11,11 +11,11 @@ define('album', function(require, exports, module) {
 		.album_ordinary .slide_c{text-align:center}\
 		.album_ordinary .slide_c img{vertical-align:middle;width:auto;max-height:100%}\
 		.album_ordinary .slide_c p{position:absolute;left:0;bottom:80px;width:100%;line-height:22px;color:#fff;font-size:16px}\
-		.album_ordinary .album_btns { position:absolute;z-index:99;}\
+		.album_ordinary .album_btns { position:absolute;z-index:99;user-select:none;-webkit-user-select:none}\
 		.album_ordinary .album_btns:hover{filter:alpha(opacity=80);opacity:0.8;}\
 		.album_ordinary .album_prev,.album_ordinary .album_next { width:10%;height:5em;line-height:5em;top:50%;margin-top:-3em;font-size:4em;text-align:center;color:#fff;cursor:pointer;}\
 		.album_ordinary .album_prev { left:10%;}.album_ordinary .album_next{right:10%;}\
-		.album_ordinary .album_close{width:2em;height:2em;line-height:38px;margin:0;text-align:center;cursor:pointer;background:#fabd00;color:#fff;font-size:20px;right:0;top:0;}\
+		.album_ordinary .album_close{width:2em;height:2em;line-height:38px;margin:0;text-align:center;cursor:pointer;color:#fff;font-size:20px;right:0;top:0;}\
 		.album_ordinary .slide_nav,.album_ordinary.unable .album_next,.album_ordinary.unable .album_prev{display:none}\
 		.album_preview .slide_nav{display:block;width:100%;left:0;top:50%}\
 		.album_preview .slide_nav a{display:none;position:absolute;top:-28px;width:80px;height:55px;line-height:55px;border:4px solid #ffd643;cursor:pointer}\
@@ -56,8 +56,8 @@ define('album', function(require, exports, module) {
 			imgattr: null,
 			prevHtml: '<i class="ion">&#xe62d;</i>',
 			nextHtml: '<i class="ion">&#xe610;</i>',
-			callback: function() {},
-			ext: function() {}
+			onSlide: function() {},
+			onReady: function() {}
 		};
 
 	$.fn.album = function(config) {
@@ -153,13 +153,13 @@ define('album', function(require, exports, module) {
 						start: Start,
 						imgattr: opt.imgattr,
 						auto: false,
-						callback: function(o, b, now) {
+						onSlide: function(o, b, now) {
 							if (o.find('.album_page_now').length) {
 								o.find('.album_page_now').text(now + 1);
 							}
-							typeof(opt.callback) === 'function' && opt.callback(o, b, now);
+							typeof(opt.onSlide) === 'function' && opt.onSlide(o, b, now);
 						},
-						ext: function(o, b, count) {
+						onReady: function(o, b, count) {
 							//点空白关闭
 							if (opt.blankclose) {
 								o.on('click', function(e) {
@@ -168,7 +168,7 @@ define('album', function(require, exports, module) {
 									}
 								});
 							}
-							o.find('.album_close').on('click', function() {
+							o.on('click', '.album_close', function() {
 								new_slide.animate({
 									top: '-102%'
 								}, 320, function() {
@@ -185,11 +185,11 @@ define('album', function(require, exports, module) {
 									}, 320);
 								}, i * 160);
 							});
-							typeof(opt.ext) === 'function' && opt.ext(o, b, count);
+							typeof(opt.onReady) === 'function' && opt.onReady(o, b, count);
 						}
 					});
 			});
 			$this.data('albuminit', true);
-		})
+		});
 	}
 });
