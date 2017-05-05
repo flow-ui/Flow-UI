@@ -17,3 +17,7 @@ http://tower1229.github.io/Flow-UI/docs/demo.html
 ### 配套自动化工具
 
 [Flow-CLI](https://tower1229.github.com/Flow-CLI/docs/)
+
+### License 
+
+MIT
