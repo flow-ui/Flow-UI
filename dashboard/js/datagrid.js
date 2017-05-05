@@ -470,7 +470,7 @@ define(function(require) {
 					current: tab4LoadData.data.page_index,
 					onChange: function(page) {
 						tab4LoadData.data.page_index = page;
-						datagrid.load(tab4LoadData);
+						datagrid4.load(tab4LoadData);
 					}
 				});
 			});
