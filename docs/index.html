@@ -5537,11 +5537,11 @@ $().datepicker({
                             </tr>
                             <tr>
                                 <th>onSelect</th>
-                                <td>菜单切换时触发回调，@param(key, $item) : 当前项<code>key</code>值，当前项目节点</td>
+                                <td>菜单切换时触发回调，@param(object, $item) : 当前数据对象，当前Dom对象</td>
                             </tr>
                             <tr>
                                 <th>onClick</th>
-                                <td>菜单点击回调，@param(key, $item, isCurrent) : 当前项<code>key</code>值，当前项目节点，是否已选中</td>
+                                <td>菜单点击回调，@param(object, $item, isCurrent) : 当前数据对象，当前Dom对象，是否已选中</td>
                             </tr>
                         </table>
                         <h5>返回方法</h5>
@@ -5560,6 +5560,8 @@ $().datepicker({
                             <code>
     &lt;div class=&quot;wrap&quot;&gt;
         &lt;nav id=&quot;menu&quot;&gt;&lt;/nav&gt;
+        &lt;div class=&quot;btn btn-default menu-open&quot;&gt;打开子菜单&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default menu-active&quot;&gt;激活第三项&lt;/div&gt;
     &lt;/div&gt;
                             </code>
                         </pre>
@@ -5602,9 +5604,16 @@ $().datepicker({
         key: 'id',
         actived: 1,
         toggle: false,
-        onselect: function(key){
-            console.log(key);
+        onSelect: function(object, item){
+            console.log(object, item);
         }
+    });
+    
+    $('.menu-open').on('click', function(){
+        mymenu.open(3);
+    });
+    $('.menu-active').on('click', function(){
+        mymenu.active(4);
     });
                             </code>
                         </pre>

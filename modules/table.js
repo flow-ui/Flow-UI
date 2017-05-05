@@ -761,7 +761,7 @@ define('table', function(require, exports, module) {
 
 				render(tData, opt, part);
 
-				if (!$this.data('table-events')) {
+				if (part !== 'placehold' && !$this.data('table-events')) {
 					$this.data('table-events', true);
 					//绑定事件
 					$this.on('click', 'td.table-cell-editable', function(e) {

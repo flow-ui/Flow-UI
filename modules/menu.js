@@ -1,8 +1,8 @@
 /*
  * name: menu.js
- * version: v0.2.1
- * update: onSelect将与active方法联动
- * date: 2017-05-03
+ * version: v0.2.2
+ * update: 回调事件第一个参数返回整个数据对象
+ * date: 2017-05-05
  */
 define('menu', function(require, exports, module) {
 	"use strict";
@@ -22,11 +22,12 @@ define('menu', function(require, exports, module) {
 			onSelect: null,
 			onClick: null
 		},
+		objectQueue = [],
 		render = function(opt) {
+			objectQueue = [];
 			if (!$.isArray(opt.data) || !opt.data.length) {
 				return null;
 			}
-
 			var menu = '<ul class="menu-ui">';
 			$.each(opt.data, function(i, m) {
 				var isActive = opt.actived !== null && opt.actived === m[opt.key],
@@ -50,15 +51,18 @@ define('menu', function(require, exports, module) {
 						}
 						menu += ('<li class="menu-submenu' + extClass + '" data-menu-key="' + m[opt.key] + '"><div class="menu-item-title">' + m.item + (opt.toggle ? (' <i class="menu-sub-ion ion">' + opt.subicon + '</i>') : '') + '</div><ul class="menu-sub-group">');
 						$.each(m.sub, function(i, sub) {
-							menu += ('<li class="menu-item" data-menu-key="' + sub[opt.key] + '">' + sub.item + '</li>');
+							menu += ('<li class="menu-item" data-menu-key="' + sub[opt.key] + '" data-index="'+ objectQueue.length +'">' + sub.item + '</li>');
+							objectQueue.push(sub);
 						});
 						menu += '</ul></li>';
 					} else {
-						menu += ('<li class="menu-item' + extClass + '" data-menu-key="' + m[opt.key] + '">' + m.item + '</li>');
+						menu += ('<li class="menu-item' + extClass + '" data-menu-key="' + m[opt.key] + '" data-index="'+ objectQueue.length +'">' + m.item + '</li>');
+						objectQueue.push(m);
 					}
 				} else {
 					//横向
-					menu += ('<li class="menu-item' + extClass + (hasSub ? ' menu-submenu' : '') + '" data-menu-key="' + m[opt.key] + '">' + m.item + (hasSub ? ' <i class="menu-sub-ion ion">' + opt.subicon + '</i>' : '') + '</li>');
+					menu += ('<li class="menu-item' + extClass + (hasSub ? ' menu-submenu' : '') + '" data-menu-key="' + m[opt.key] + '" data-index="'+ objectQueue.length +'">' + m.item + (hasSub ? ' <i class="menu-sub-ion ion">' + opt.subicon + '</i>' : '') + '</li>');
+					objectQueue.push(m);
 				}
 
 			});
@@ -81,10 +85,11 @@ define('menu', function(require, exports, module) {
 			return menu;
 		},
 		activeItem = function($el, $item, opt) {
+			var object = objectQueue[$item.data('index')];
 			$el.find('.menu-item-active').removeClass('menu-item-active');
 			$item.addClass('menu-item-active').parents('.menu-submenu').addClass('menu-opened');
 			if (!$item.hasClass('menu-submenu') && typeof opt.onSelect === 'function') {
-				opt.onSelect($item.data('menu-key'), $item);
+				opt.onSelect(object, $item);
 			}
 		},
 		Menu = function(config) {
@@ -112,14 +117,15 @@ define('menu', function(require, exports, module) {
 					});
 				}
 			}
-			$this.on('click', '.menu-item', function(e) {
+			$this.on('click', '.menu-item[data-index]', function(e) {
 				e.preventDefault();
 				var isCur = $(this).hasClass('menu-item-active');
+				var object = objectQueue[$(this).data('index')];
 				if (opt.mode === 'vertical') {
 					e.stopPropagation();
 				}
 				if(typeof opt.onClick === 'function'){
-					return opt.onClick($(this).data('menu-key'), $(this), isCur);
+					return opt.onClick(object, $(this), isCur);
 				}
 				if (isCur) {
 					return null;
@@ -140,9 +146,15 @@ define('menu', function(require, exports, module) {
 							trigger: 'click',
 							items: opt.data[i].sub,
 							width: $(horizontalSub).outerWidth(),
-							onclick: function(item) {
+							onclick: function(item, isCur) {
+								if(typeof opt.onClick === 'function'){
+									return opt.onClick(item, null, isCur);
+								}
+								if (isCur) {
+									return null;
+								}
 								if (typeof opt.onSelect === 'function') {
-									opt.onSelect(item[opt.key]);
+									opt.onSelect(item, null);
 								}
 							}
 						});
@@ -155,18 +167,13 @@ define('menu', function(require, exports, module) {
 
 			return {
 				open: function(key) {
-					$(opt.el).find('.menu-item').each(function(i, item) {
-						if ($(item).hasClass('menu-submenu') && $(item).data('menu-key') === key) {
-							return $(item).trigger('click');
-						}
-					});
+					var $menu = $(opt.el).find('.menu-item[data-menu-key="'+key+'"]');
+					if ($menu.length && $menu.hasClass('menu-submenu')) {
+						return $menu.trigger('click');
+					}
 				},
 				active: function(key) {
-					$(opt.el).find('.menu-item').each(function(i, item) {
-						if ($(item).data('menu-key') === key) {
-							return activeItem($(opt.el), $(item), opt);
-						}
-					});
+					return activeItem($(opt.el), $(opt.el).find('.menu-item[data-menu-key="'+key+'"]'), opt);
 				}
 			};
 		};
