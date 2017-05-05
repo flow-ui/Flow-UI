@@ -8141,7 +8141,7 @@ $().datepicker({
                                 <tr>
                                     <th>highlightRow(index)</th>
                                     <td>
-                                        <p>高亮当前(分页)第index行，index从0开始计数</p>
+                                        <p>高亮第index条数据所在行，index从0开始计数</p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -8171,7 +8171,7 @@ $().datepicker({
                                 <tr>
                                     <th>getEntity(index, key)</th>
                                     <td>
-                                        <p>获取当前(分页)第index行属性为key的单元格操作实例</p>
+                                        <p>获取第index条数据所在行且属性为key的单元格操作实例</p>
                                         <p>实例具有以下方法：</p>
                                         <table class="table">
                                             <tr>
@@ -8237,6 +8237,18 @@ $().datepicker({
                                     <th>sort(key, [method])</th>
                                     <td>
                                         <p>将属性为key的列按照method排序，method为标准排序方法，接受a,b两个参数，若不传method将使用js默认的数据sort()方法排序</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>detailFormater(index, render)</th>
+                                    <td>
+                                        <p>为第index条数据所在行生成附加内容，@(index, render) : 数据所在行, 内容生成方法</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>detailClear(index)</th>
+                                    <td>
+                                        <p>清除第index条数据所在行的附加内容</p>
                                     </td>
                                 </tr>
                             </table>

@@ -1,8 +1,8 @@
 /*
  * name: table.js
- * version: v1.5.6
- * update: 多选模式下onSelect回调增加第四个参数isSelect
- * date: 2017-05-03
+ * version: v1.6.0
+ * update: add detailFormater()/detailClear()
+ * date: 2017-05-05
  */
 define('table', function(require, exports, module) {
 	"use strict";
@@ -153,7 +153,7 @@ define('table', function(require, exports, module) {
 										$this.find('.row' + rowIndex + '-' + key).replaceWith(inject(targetTd));
 										if (fixedTable.length) {
 											var fixedTd = controlParser($this.find('.row' + rowIndex + '-' + key), true).html();
-											fixedTable.children('tr').eq(rowIndex).children('td').eq(fixTdIndex).html(fixedTd);
+											fixedTable.children('tr[data-index="' + rowIndex + '"]').children('td').eq(fixTdIndex).html(fixedTd);
 										}
 									}
 									return newRowData;
@@ -182,6 +182,9 @@ define('table', function(require, exports, module) {
 								if (isEditing) {
 									return null;
 								}
+								if (col.key === void(0)) {
+									return null;
+								}
 								if (typeof $dom === 'function') {
 									editCb = $dom;
 									$dom = null;
@@ -191,7 +194,7 @@ define('table', function(require, exports, module) {
 								}
 								if ($dom.length) {
 									isEditing = true;
-									//使api操作不可编辑单元格
+									//使api得以操作不可编辑单元格
 									$dom.addClass('table-cell-editable');
 									var that = this;
 									var oldValue = opt.oData[rowData[indexKey]][col.key];
@@ -204,6 +207,9 @@ define('table', function(require, exports, module) {
 									}
 									var $input = $(inputHTML).on('blur', function(e) {
 										var newValue = $(this).val();
+										if (typeof oldValue === 'number') {
+											newValue = parseFloat(newValue);
+										}
 										var isValid = true;
 										if (typeof col.validateMethod === 'function') {
 											isValid = col.validateMethod(newValue);
@@ -213,7 +219,7 @@ define('table', function(require, exports, module) {
 										}
 										var newRow = that.set(col.key, newValue);
 										isEditing = false;
-										if (oldValue !== newValue) {
+										if (oldValue !== void(0) && (oldValue !== newValue)) {
 											var updateObject;
 											$.each(changes.update, function(i, u) {
 												if (u.index === rowData[indexKey]) {
@@ -253,7 +259,7 @@ define('table', function(require, exports, module) {
 							try {
 								opt.renderCollection.push({
 									id: renderTagId,
-									el: col.render(rowData[col.key], rowData, rowIndex, tdEntity),
+									el: col.ellipsis ? $('<div class="el" style="width:' + (col.thisColWidth - 36) + 'px"></div>').append(col.render(rowData[col.key], rowData, rowIndex, tdEntity)) : col.render(rowData[col.key], rowData, rowIndex, tdEntity),
 									entity: tdEntity
 								});
 							} catch (e) {
@@ -281,6 +287,9 @@ define('table', function(require, exports, module) {
 					if (rowData.split) {
 						tdcont += ('<td>' + rowData + '</td>');
 					} else if ($.isPlainObject(rowData)) {
+						if(rowData[indexKey]){
+							rowIndex = rowData[indexKey];
+						}
 						$.each(opt.column, function(colIndex, colData) {
 							tdcont += getTd(rowIndex, rowData, colData);
 						});
@@ -482,7 +491,11 @@ define('table', function(require, exports, module) {
 				thead += theadCont;
 				thead += '</table></div>';
 				if (!tData.length) {
-					tbody += ('<div class="p">' + opt.noDataText + '</div>');
+					if (part === 'placehold') {
+						tbody += ('<div class="p">正在加载...</div>');
+					} else {
+						tbody += ('<div class="p">' + opt.noDataText + '</div>');
+					}
 				} else {
 					var tbodyCont = getBody(tData, opt);
 					if (part === 'body') {
@@ -552,15 +565,15 @@ define('table', function(require, exports, module) {
 							$fixed.children('.table-body').scrollTop($(this).scrollTop());
 						});
 						if (opt.hover) {
-							tableObj.children('.table-body').on('mouseenter', 'tr', function() {
-								$fixed.find('.table-body tr').eq($(this).index()).addClass('table-tr-hover');
-							}).on('mouseleave', 'tr', function() {
-								$fixed.find('.table-body tr').eq($(this).index()).removeClass('table-tr-hover');
+							tableObj.children('.table-body').on('mouseenter', 'tr[data-index]', function() {
+								$fixed.find('.table-body tr[data-index="' + $(this).data('index') + '"]').addClass('table-tr-hover');
+							}).on('mouseleave', 'tr[data-index]', function() {
+								$fixed.find('.table-body tr[data-index="' + $(this).data('index') + '"]').removeClass('table-tr-hover');
 							});
-							$fixed.children('.table-body').on('mouseenter', 'tr', function() {
-								tableObj.find('.table-body tr').eq($(this).index()).addClass('table-tr-hover');
+							$fixed.children('.table-body').on('mouseenter', 'tr[data-index]', function() {
+								tableObj.find('.table-body tr[data-index="' + $(this).data('index') + '"]').addClass('table-tr-hover');
 							}).on('mouseleave', 'tr', function() {
-								tableObj.find('.table-body tr').eq($(this).index()).removeClass('table-tr-hover');
+								tableObj.find('.table-body tr[data-index="' + $(this).data('index') + '"]').removeClass('table-tr-hover');
 							});
 						}
 					}
@@ -576,14 +589,14 @@ define('table', function(require, exports, module) {
 
 				if (opt.fixedIndex !== void(0) && $fixed.length) {
 					//移除交互控件name
-					$fixed.find('.table-body tr').each(function(row, tr) {
+					$fixed.find('.table-body tr[data-index]').each(function(row, tr) {
 						$(tr).find('td').each(function(i, td) {
 							if (i > opt.fixedIndex) {
 								controlParser($(td)).attr('class', 'tofixed');
 							}
 						});
 					});
-					tableObj.children('.table-body').find('tr').each(function(row, tr) {
+					tableObj.children('.table-body').find('tr[data-index]').each(function(row, tr) {
 						$(tr).find('td').each(function(i, td) {
 							if (i <= opt.fixedIndex) {
 								controlParser($(td)).attr('class', 'tofixed');
@@ -598,7 +611,7 @@ define('table', function(require, exports, module) {
 			//同步勾选状态
 			var syncStatus = function() {
 				$this.find('.table-body').each(function(tindex, table) {
-					$(table).find('tr').each(function(i, tr) {
+					$(table).find('tr[data-index]').each(function(i, tr) {
 						var isIn = false;
 						$.each(multiCollection, function(i, choosen) {
 							if ($(tr).data('index') === choosen[indexKey]) {
@@ -702,7 +715,7 @@ define('table', function(require, exports, module) {
 					opt.oData = tData;
 					multiCollection = [];
 				}
-				if (opt.page && opt.page.pageSize) {
+				if (opt.page && opt.page.pageSize && part !== 'placehold') {
 					//数据分页
 					var tDataGroup = [];
 					var pageTemp = [];
@@ -757,7 +770,7 @@ define('table', function(require, exports, module) {
 						entity.edit($(this));
 					}).on('click', '.table-choose-input', function(e) {
 						e.stopPropagation();
-						selectRow($(this).parents('tr').data('index'), $(this).prop('checked'));
+						selectRow($(this).parents('tr[data-index]').data('index'), $(this).prop('checked'));
 					});
 					if (opt.multi) {
 						$this.on('click', '.table-choose-all', selectAll);
@@ -809,6 +822,7 @@ define('table', function(require, exports, module) {
 				if (!$this.height()) {
 					$this.height($this.height() || opt.height || 200);
 				}
+				generate([], opt, 'placehold');
 				loadData(opt.load);
 			} else {
 				return console.warn('Table(): 无可用数据源！');
@@ -872,18 +886,18 @@ define('table', function(require, exports, module) {
 					if (index === void 0 || index >= $this.data('data').length) {
 						index = $this.data('data').length - 1;
 					}
-					var sth = $this.find('.table-wrapper>.table-body').find('tr').eq(index - 1).offset().top - $this.find('.table-wrapper>.table-body').offset().top;
+					var sth = $this.find('.table-wrapper>.table-body').find('tr[data-index]').eq(index - 1).offset().top - $this.find('.table-wrapper>.table-body').offset().top;
 					$this.find('.table-wrapper>.table-body').scrollTop(sth);
 				},
 				highlightRow: function(index) {
 					if (index === void 0) {
 						return null;
 					}
-					if (index >= $this.data('data').length) {
-						index = $this.data('data').length - 1;
+					if (index >= opt.oData.length) {
+						return console.warn('highlightRow(): index 超出当前数据范围！');
 					}
 					$this.find('.table-body').each(function(i, e) {
-						$(e).find('tr').eq(index - 1).addClass('table-highlight');
+						$(e).find('tr[data-index="'+index+'"]').addClass('table-highlight');
 					});
 				},
 				selectAll: function() {
@@ -902,7 +916,7 @@ define('table', function(require, exports, module) {
 					if (index === void 0 || !key) {
 						return console.warn('getEntity(): 参数不完整！');
 					}
-					if (index >= $this.data('data').length) {
+					if (index >= opt.oData.length) {
 						return console.warn('getEntity(): index 超出当前数据范围！');
 					}
 					var $td = $this.find('.row' + index + '-' + key);
@@ -956,7 +970,7 @@ define('table', function(require, exports, module) {
 					}
 				},
 				deleteRow: function(index) {
-					if (index >= $this.data('data').length) {
+					if (index >= opt.oData.length) {
 						return console.warn('deleteRow(): index 超出当前数据范围！');
 					}
 					var cData = base.deepcopy(opt.oData);
@@ -982,6 +996,37 @@ define('table', function(require, exports, module) {
 						} else {
 							render(sortedData, opt, 'body');
 						}
+					}
+				},
+				detailFormater: function(index, render){
+					if (index===void(0) || (index >= opt.oData.length)) {
+						return console.warn('detailFormater(): 缺少参数或 index 超出当前数据范围！');
+					}
+					if(typeof render === 'function'){
+						var appendDetail = render();
+						var currentTr = $this.find('tr[data-index="'+index+'"]');
+						if(currentTr.length){
+							var newTR;
+							if(currentTr.data('detail')){
+								newTR = currentTr.data('detail');
+							}else{
+								newTR = $('<tr><td style="border-top:0" colspan="'+opt.column.length+'"><div class="table-cell"></div></td></tr>');
+								currentTr.after(newTR);
+								currentTr.data('detail', newTR);
+							}
+							newTR.find('.table-cell').html(appendDetail);
+						}
+					}
+				},
+				detailClear: function(index){
+					if (index===void(0) || (index >= opt.oData.length)) {
+						return console.warn('detailClear(): 缺少参数或 index 超出当前数据范围！');
+					}
+					var currentTr = $this.find('tr[data-index="'+index+'"]');
+					if(currentTr.length && currentTr.data('detail')){
+						var newTR = currentTr.data('detail');
+						currentTr.data('detail', null);
+						newTR.remove();
 					}
 				}
 			};
