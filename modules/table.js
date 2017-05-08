@@ -492,7 +492,7 @@ define('table', function(require, exports, module) {
 				thead += '</table></div>';
 				if (!tData.length) {
 					if (part === 'placehold') {
-						tbody += ('<div class="p">正在加载...</div>');
+						//首次ajax加载
 					} else {
 						tbody += ('<div class="p">' + opt.noDataText + '</div>');
 					}

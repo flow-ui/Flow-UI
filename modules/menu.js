@@ -1,8 +1,8 @@
 /*
  * name: menu.js
- * version: v0.2.2
- * update: 回调事件第一个参数返回整个数据对象
- * date: 2017-05-05
+ * version: v0.2.3
+ * update: 基于已有DOM初始化的bug
+ * date: 2017-05-08
  */
 define('menu', function(require, exports, module) {
 	"use strict";
@@ -108,6 +108,9 @@ define('menu', function(require, exports, module) {
 					console.warn('menu: key未配置，部分功能无法使用');
 				}
 			}else{
+				$this.find('.menu-item').each(function(i, e){
+					$(e).attr('data-index', i);
+				});
 				if(opt.actived){
 					$this.find('[data-menu-key="'+ opt.actived +'"]').addClass('menu-item-active').parents('.menu-submenu').addClass('menu-opened');
 				}
