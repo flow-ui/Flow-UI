@@ -3641,105 +3641,105 @@ table th[class*='col-'] {
   font-size: 14px;
 }
 .ztree li {
+  list-style-type: none;
   white-space: nowrap;
   outline: none;
-  list-style-type: none;
 }
 .ztree li ul {
   position: relative;
   padding: 0 0 0 20px;
 }
 .ztree li ul.line:before {
-  content: "";
   position: absolute;
-  left: 10px;
   top: 0;
+  left: 10px;
   height: 100%;
+  content: '';
   border-right: 1px dotted #dbdbdb;
 }
 .ztree li .center_docu:before,
 .ztree li .bottom_docu:before,
 .ztree li .center_docu:after,
 .ztree li .bottom_docu:after {
-  content: "";
   position: absolute;
+  content: '';
   border: 0 dotted #dbdbdb;
 }
 .ztree li .center_docu:before {
-  height: 100%;
   left: 10px;
+  height: 100%;
   border-left-width: 1px;
 }
 .ztree li .center_docu:after {
-  width: 50%;
   top: 50%;
   left: 11px;
+  width: 50%;
   border-top-width: 1px;
 }
 .ztree li .bottom_docu:before {
-  height: 50%;
   left: 10px;
+  height: 50%;
   border-left-width: 1px;
 }
 .ztree li .bottom_docu:after {
-  width: 50%;
   top: 50%;
   left: 11px;
+  width: 50%;
   border-top-width: 1px;
 }
 .ztree li a {
-  padding: 0 3px;
-  margin: 0;
-  cursor: pointer;
-  height: 22px;
-  line-height: 22px;
-  color: #555555;
-  vertical-align: middle;
   display: inline-block;
+  line-height: 22px;
+  height: 22px;
+  margin: 0;
+  padding: 0 3px;
+  cursor: pointer;
   transition: none;
+  vertical-align: middle;
+  color: #555555;
 }
 .ztree li a.curSelectedNode {
-  background-color: #c9e9f7;
   color: #000;
   border-radius: 4px;
+  background-color: #c9e9f7;
 }
 .ztree li a.curSelectedNode_Edit {
-  background-color: #9dd6f0;
-  color: #000;
   height: 20px;
-  border: 1px #6cc2e8 solid;
   opacity: 0.8;
+  color: #000;
+  border: 1px #6cc2e8 solid;
+  background-color: #9dd6f0;
 }
 .ztree li a.tmpTargetNode_inner {
-  background-color: #4fcbf0;
-  color: #fff;
   opacity: 0.8;
+  color: #fff;
+  background-color: #4fcbf0;
   filter: alpha(opacity=80);
 }
 .ztree li a input.rename {
-  height: 22px;
+  font-size: 12px;
   line-height: 22px;
   width: 80px;
-  padding: 0;
+  height: 22px;
   margin: 0;
-  font-size: 12px;
-  background: none;
+  padding: 0;
   vertical-align: top;
   border: 0;
+  background: none;
 }
 .ztree li span {
   display: inline-block;
-  height: 22px;
   line-height: 22px;
+  height: 22px;
   margin-right: 2px;
 }
 .ztree li span.button {
   position: relative;
-  margin: 0;
   width: 22px;
-  vertical-align: middle;
+  margin: 0;
   cursor: pointer;
   text-align: center;
+  vertical-align: middle;
 }
 .ztree li span.button.edit {
   color: #25ae88;
@@ -3769,19 +3769,19 @@ table th[class*='col-'] {
   border-radius: 8px;
 }
 .ztree li span.button.chk:after {
-  content: "";
   position: absolute;
-  -webkit-transform: rotate(0deg) scale(0);
-          transform: rotate(0deg) scale(0);
+  top: 1px;
+  left: 4px;
+  width: 4px;
+  height: 8px;
+  content: '';
   transition: -webkit-transform 0.2s ease-in-out;
   transition: transform 0.2s ease-in-out;
   transition: transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
-  width: 4px;
-  height: 8px;
-  top: 1px;
-  left: 4px;
-  border-bottom: 2px solid #fff;
+  -webkit-transform: rotate(0deg) scale(0);
+          transform: rotate(0deg) scale(0);
   border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
 }
 .ztree li span.button.checkbox_false_full_focus {
   border-color: #ccc;
@@ -3802,12 +3802,12 @@ table th[class*='col-'] {
 }
 .ztree li span.button.checkbox_true_part:after,
 .ztree li span.button.checkbox_true_part_focus:after {
+  top: 5px;
+  left: 2px;
   width: 10px;
   height: 1px;
   -webkit-transform: rotate(0deg) scale(1);
           transform: rotate(0deg) scale(1);
-  left: 2px;
-  top: 5px;
   border-right: 0;
 }
 .ztree li span.button.radio_true_full,
@@ -3820,12 +3820,12 @@ table th[class*='col-'] {
 .ztree li span.chk.radio_true_full_focus:after,
 .ztree li span.chk.radio_true_part:after,
 .ztree li span.chk.radio_true_part_focus:after {
-  width: 8px;
-  border: 0;
-  -webkit-transform: rotate(0deg) scale(1);
-          transform: rotate(0deg) scale(1);
   top: 3px;
   left: 3px;
+  width: 8px;
+  -webkit-transform: rotate(0deg) scale(1);
+          transform: rotate(0deg) scale(1);
+  border: 0;
   border-radius: 4px;
   background: #39f;
 }
@@ -3846,19 +3846,19 @@ table th[class*='col-'] {
 .ztree li span.button.bottom_close:before,
 .ztree li span.button.center_open:before,
 .ztree li span.button.center_close:before {
-  content: "";
   position: absolute;
+  top: 5px;
   left: 5px;
-  top: 3px;
-  border: 6px solid;
-  border-color: transparent transparent transparent #666;
+  content: '';
+  transition: -webkit-transform ease 0.3s;
+  transition: transform ease 0.3s;
+  transition: transform ease 0.3s, -webkit-transform ease 0.3s;
   -webkit-transform: rotateZ(0deg);
           transform: rotateZ(0deg);
-  transition: -webkit-transform ease .3s;
-  transition: transform ease .3s;
-  transition: transform ease .3s, -webkit-transform ease .3s;
   -webkit-transform-origin: 25% 50%;
           transform-origin: 25% 50%;
+  border: 6px solid;
+  border-color: transparent transparent transparent #666;
 }
 .ztree li span.button.noline_open:before,
 .ztree li span.button.roots_open:before,
@@ -3869,36 +3869,36 @@ table th[class*='col-'] {
 }
 .ztree li span.button.ico_loading {
   margin-right: 2px;
-  background: url("data:image/gif;base64,R0lGODlhEAAQAKIGAMLY8YSx5HOm4Mjc88/g9Ofw+v///wAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQFCgAGACwAAAAAEAAQAAADMGi6RbUwGjKIXCAA016PgRBElAVlG/RdLOO0X9nK61W39qvqiwz5Ls/rRqrggsdkAgAh+QQFCgAGACwCAAAABwAFAAADD2hqELAmiFBIYY4MAutdCQAh+QQFCgAGACwGAAAABwAFAAADD1hU1kaDOKMYCGAGEeYFCQAh+QQFCgAGACwKAAIABQAHAAADEFhUZjSkKdZqBQG0IELDQAIAIfkEBQoABgAsCgAGAAUABwAAAxBoVlRKgyjmlAIBqCDCzUoCACH5BAUKAAYALAYACgAHAAUAAAMPaGpFtYYMAgJgLogA610JACH5BAUKAAYALAIACgAHAAUAAAMPCAHWFiI4o1ghZZJB5i0JACH5BAUKAAYALAAABgAFAAcAAAMQCAFmIaEp1motpDQySMNFAgA7") 0 center no-repeat;
+  background: url('data:image/gif;base64,R0lGODlhEAAQAKIGAMLY8YSx5HOm4Mjc88/g9Ofw+v///wAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQFCgAGACwAAAAAEAAQAAADMGi6RbUwGjKIXCAA016PgRBElAVlG/RdLOO0X9nK61W39qvqiwz5Ls/rRqrggsdkAgAh+QQFCgAGACwCAAAABwAFAAADD2hqELAmiFBIYY4MAutdCQAh+QQFCgAGACwGAAAABwAFAAADD1hU1kaDOKMYCGAGEeYFCQAh+QQFCgAGACwKAAIABQAHAAADEFhUZjSkKdZqBQG0IELDQAIAIfkEBQoABgAsCgAGAAUABwAAAxBoVlRKgyjmlAIBqCDCzUoCACH5BAUKAAYALAYACgAHAAUAAAMPaGpFtYYMAgJgLogA610JACH5BAUKAAYALAIACgAHAAUAAAMPCAHWFiI4o1ghZZJB5i0JACH5BAUKAAYALAAABgAFAAcAAAMQCAFmIaEp1motpDQySMNFAgA7') 0 center no-repeat;
 }
 ul.tmpTargetzTree {
-  background-color: #2EA9DF;
   opacity: 0.8;
+  background-color: #2EA9DF;
   filter: alpha(opacity=80);
 }
 span.tmpzTreeMove_arrow {
+  position: absolute;
   width: 18px;
   height: 18px;
-  position: absolute;
   color: #4fcbf0;
 }
 ul.ztree.zTreeDragUL {
-  margin: 0;
-  padding: 0;
+  overflow: hidden;
   position: absolute;
   width: auto;
   height: auto;
-  overflow: hidden;
-  background-color: #dbdbdb;
-  border: 1px #176b53 dotted;
+  margin: 0;
+  padding: 0;
   opacity: 0.8;
+  border: 1px #176b53 dotted;
+  background-color: #dbdbdb;
   filter: alpha(opacity=80);
 }
 .zTreeMask {
-  z-index: 10000;
-  background-color: #cfcfcf;
-  opacity: 0.0;
-  filter: alpha(opacity=0);
   position: absolute;
+  z-index: 10000;
+  opacity: 0.0;
+  background-color: #cfcfcf;
+  filter: alpha(opacity=0);
 }
 /* mystyle */
