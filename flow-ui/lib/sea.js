@@ -32,8 +32,7 @@ seajs.config({
 		"makethumb"      : "upload/makethumb",
 		"localResizeIMG" : "upload/localResizeIMG",
 		"video"		     : "video/video",
-		"webuploader"    : "webuploader/webuploader",
-		"zTree"    		 : "zTree/zTree"
+		"webuploader"    : "webuploader/webuploader"
 	}
 });
 
@@ -52,7 +51,6 @@ seajs.config({
         'validform/validform'               : 'v2.5.2',
         'video/video'                       : 'v0.0.1',
         'webuploader/webuploader'           : 'v1.0.0',
-        'zTree/zTree'                       : 'v0.1.0',
         'album'                             : 'v2.2.14',
         'appcan'                            : 'v0.1.0',
         'autocomplete'                      : 'v0.1.0',
@@ -61,7 +59,7 @@ seajs.config({
         'bdshare'                           : 'v3.1.2',
         'box'                               : 'v3.11.6',
         'city-select'                       : 'v1.0.2',
-        'collapse'                          : 'v0.0.1',
+        'collapse'                          : 'v0.0.2',
         'countdown'                         : 'v1.1.1',
         'datepicker'                        : 'v2.0.2',
         'drag'                              : 'v0.8.0',
@@ -73,7 +71,7 @@ seajs.config({
         'img-loaded'                        : 'v0.0.1',
         'img-ready'                         : 'v1.0.0',
         'input-number'                      : 'v0.1.4',
-        'input'                             : 'v0.1.2',
+        'input'                             : 'v0.1.3',
         'instantclick'                      : 'v0.0.1',
         'label'                             : 'v0.0.1',
         'lazyload'                          : 'v2.1.0',
@@ -86,7 +84,7 @@ seajs.config({
         'notice'                            : 'v0.0.3',
         'offcanvas'                         : 'v2.0.4',
         'on-scroll'                         : 'v2.1.3',
-        'page'                              : 'v1.0.4',
+        'page'                              : 'v1.0.5',
         'paging-load'                       : 'v0.0.3',
         'pjax'                              : 'v0.0.1',
         'placeholder'                       : 'v0.0.1',
@@ -103,12 +101,13 @@ seajs.config({
         'slider'                            : 'v0.0.2',
         'spin'                              : 'v0.0.2',
         'switch'                            : 'v0.4.1',
-        'tab'                               : 'v4.1.1',
-        'table'                             : 'v1.6.0',
+        'tab'                               : 'v4.1.2',
+        'table'                             : 'v1.6.1',
         'timepicker'                        : 'v0.1.2',
         'tip'                               : 'v1.5.0',
         'touch'                             : 'v0.1.1',
-        'zoom'                              : 'v2.0.4'
+        'zoom'                              : 'v2.0.4',
+        'zTree'                             : 'v0.2.0'
     };
     var manifest = {};
     for(var key in mod){

@@ -1,8 +1,8 @@
 /*
  * name: table.js
- * version: v1.6.0
- * update: add detailFormater()/detailClear()
- * date: 2017-05-05
+ * version: v1.6.1
+ * update: 应用空数据后无法更新数据bug
+ * date: 2017-05-08
  */
 define('table', function(require, exports, module) {
 	"use strict";
@@ -273,7 +273,6 @@ define('table', function(require, exports, module) {
 								entity: tdEntity
 							});
 							thisTagCont = '<div id="' + renderTagId + '"></div>';
-							//thisTagCont = (col.ellipsis ? '<div class="el" style="width:' + (col.thisColWidth - 36) + 'px">' + rowData[col.key] + '</div>' : ((rowData[col.key]) === null || rowData[col.key] === void(0)) ? opt.noDataText : rowData[col.key]);
 						}
 						thisColTag += (thisTagCont + '</div></td>');
 				}
@@ -494,7 +493,7 @@ define('table', function(require, exports, module) {
 					if (part === 'placehold') {
 						//首次ajax加载
 					} else {
-						tbody += ('<div class="p">' + opt.noDataText + '</div>');
+						tbody += ('<table class="table"><tbody><tr><td style="border-top:0" colspan="'+opt.column.length+'"><div class="p">' + opt.noDataText + '</div></td></tr></tbody></table>');
 					}
 				} else {
 					var tbodyCont = getBody(tData, opt);

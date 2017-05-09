@@ -1,8 +1,8 @@
 /*
  * name: collapse.js
- * version: v0.0.1
- * update: build
- * date: 2017-04-21
+ * version: v0.0.2
+ * update: 创建新的etplEngine实例
+ * date: 2017-05-08
  */
 define('collapse', function(require, exports, module) {
 	"use strict";
@@ -17,6 +17,7 @@ border: .4em solid; border-color: transparent transparent transparent #ccc;}\
 		.collapse .card-opened .card-body{display:block;}', module.uri);
 	var $ = window.$ || require('jquery'),
 		etpl = require('etpl'),
+		etplEngine = new etpl.Engine(),
 		def = {
 			el: null,
 			conts: '.panel',
@@ -155,11 +156,11 @@ border: .4em solid; border-color: transparent transparent transparent #ccc;}\
 			};
 		};
 
-	etpl.config({
+	etplEngine.config({
 		variableOpen: '${',
 		variableClose: '}'
 	});
-	render = etpl.compile(template);
+	render = etplEngine.compile(template);
 
 	$.fn.collapse = function(config) {
 		return Collapse($.extend({

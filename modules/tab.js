@@ -1,13 +1,14 @@
 /*
  * name: tab.js
- * version: v4.1.1
- * update: remove autoplay
- * date: 2017-04-21
+ * version: v4.1.2
+ * update: 创建新的etplEngine实例
+ * date: 2017-05-08
  */
 define('tab', function(require, exports, module) {
 	"use strict";
 	var $ = window.$ || require('jquery'),
 		etpl = require('etpl'),
+		etplEngine = new etpl.Engine(),
 		def = {
 			el: null,
 			conts: ".tab-cont", //内容元素
@@ -151,11 +152,11 @@ define('tab', function(require, exports, module) {
 			};
 		};
 
-	etpl.config({
+	etplEngine.config({
 		variableOpen: '${',
 		variableClose: '}'
 	});
-	render = etpl.compile(template);
+	render = etplEngine.compile(template);
 
 	$.fn.tab = function(config) {
 		return Tab($.extend({

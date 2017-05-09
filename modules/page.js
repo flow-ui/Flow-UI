@@ -1,13 +1,14 @@
 /*
  * name: page.js
- * version: v1.0.4
- * update: el参数覆盖bug
- * date: 2017-04-27
+ * version: v1.0.5
+ * update: 创建新的etplEngine实例
+ * date: 2017-05-08
  */
 define('page', function(require, exports, module) {
 	"use strict";
 	var $ = window.$ || require('jquery'),
 		etpl = require('etpl'),
+		etplEngine = new etpl.Engine(),
 		template = '<ul class="${wrapClass}">\
             <li><a href="javascript:;"<!-- if: ${isFirst} --> class="unable"<!-- else --> data-to="${prevPage}"<!-- /if -->>上一页</a></li>\
             <!-- for: ${pages} as ${page} -->\
@@ -134,11 +135,11 @@ define('page', function(require, exports, module) {
 			};
 		};
 
-	etpl.config({
+	etplEngine.config({
 		variableOpen: '${',
 		variableClose: '}'
 	});
-	pagerender = etpl.compile(template);
+	pagerender = etplEngine.compile(template);
 
 	$.fn.page = function(config) {
 		return Page($.extend({

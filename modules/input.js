@@ -1,8 +1,8 @@
 /*
  * name: input.js
- * version: v0.1.2
- * update: 自动初始化元素前缀改为.flow-ui
- * date: 2017-05-03
+ * version: v0.1.3
+ * update: 创建新的etplEngine实例
+ * date: 2017-05-08
  */
 define('input', function(require, exports, module) {
     "use strict";
@@ -13,6 +13,7 @@ define('input', function(require, exports, module) {
     var $ = window.$ || require('jquery'),
         base = require('base'),
         etpl = require('etpl'),
+        etplEngine = new etpl.Engine(),
         def = {
             color: '',
             id: '',
@@ -217,7 +218,11 @@ define('input', function(require, exports, module) {
     </${wrapTag}>';
                 }
             }
-            render = etpl.compile(template);
+            etplEngine.config({
+                variableOpen: '${',
+                variableClose: '}'
+            });
+            render = etplEngine.compile(template);
             var renderDom = $(render(opt)),
                 shadowInput = renderDom.find('#' + opt.id),
                 validformHandle;
