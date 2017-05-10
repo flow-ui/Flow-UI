@@ -1,8 +1,8 @@
 /*
  * name: table.js
- * version: v1.6.1
- * update: 应用空数据后无法更新数据bug
- * date: 2017-05-08
+ * version: v1.7.0
+ * update: getSelected([prop])允许接收过滤属性
+ * date: 2017-05-10
  */
 define('table', function(require, exports, module) {
 	"use strict";
@@ -878,8 +878,16 @@ define('table', function(require, exports, module) {
 				getRows: function() {
 					return $this.data('data');
 				},
-				getSelected: function() {
-					return multiCollection;
+				getSelected: function(prop) {
+					if(prop && prop.split){
+						var _selected = [];
+						$.each(multiCollection, function(i, e){
+							_selected.push(e[prop]);
+						});
+						return _selected;
+					}else{
+						return multiCollection;
+					}
 				},
 				scrollTo: function(index) {
 					if (index === void 0 || index >= $this.data('data').length) {

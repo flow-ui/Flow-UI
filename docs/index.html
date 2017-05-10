@@ -6134,16 +6134,22 @@ $().datepicker({
                         <h5>实例方法</h5>
                         <table class="table table-hover">
                             <tr>
-                                <th>load</th>
-                                <td>加载新的一页，参数中将包含从<code>1</code>开始累加的<code>"page_index"</code>值</td>
+                                <th>load([callback])</th>
+                                <td>
+                                    <p>加载新的一页，参数中将包含从<code>1</code>开始累加的<code>"page_index"</code>值，@param([callback]) : 加载完成后回调方法，若参数中的success/nomore方法明确<code>return</code>则该回调不执行。</p>
+                                </td>
                             </tr>
                             <tr>
-                                <th>reload</th>
-                                <td>将当前实例的页码重置为初始值</td>
+                                <th>reload()</th>
+                                <td>
+                                    <p>将当前实例的页码重置为初始值</p>
+                                </td>
                             </tr>
                             <tr>
-                                <th>destroy</th>
-                                <td>销毁当前实例</td>
+                                <th>destroy()</th>
+                                <td>
+                                    <p>销毁当前实例</p>
+                                </td>
                             </tr>
                         </table>
                         <h5>示例</h5>
@@ -8099,9 +8105,9 @@ $().datepicker({
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>getSelected</th>
+                                    <th>getSelected([prop])</th>
                                     <td>
-                                        <p>返回当前所选行数据</p>
+                                        <p>返回当前所选行数据，允许传入过滤属性，不传将返回完整对象数组，@param([prop]) : 过滤属性</p>
                                     </td>
                                 </tr>
                                 <tr>
