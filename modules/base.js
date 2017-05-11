@@ -1,40 +1,40 @@
 /*
  * name: base
- * version: 3.3.2
- * update: url.set() bug
- * date: 2017-04-20
+ * version: 3.4.0
+ * update: 统一设置规则
+ * date: 2017-05-11
  */
 define('base', function(require, exports, module) {
 	'use strict';
 	var $ = window.$ || require('jquery');
 
 	var getUID = function() {
-        var maxId = 65536;
-        var uid = 0;
-        return function() {
-            uid = (uid + 1) % maxId;
-            return uid;
-        };
-    } ();
+		var maxId = 65536;
+		var uid = 0;
+		return function() {
+			uid = (uid + 1) % maxId;
+			return uid;
+		};
+	}();
 
-    var getUUID = function(len) {
-        len = len || 6;
-        len = parseInt(len, 10);
-        len = isNaN(len) ? 6: len;
-        var seed = "0123456789abcdefghijklmnopqrstubwxyzABCEDFGHIJKLMNOPQRSTUVWXYZ";
-        var seedLen = seed.length - 1;
-        var uuid = "";
-        while (len--) {
-            uuid += seed[Math.round(Math.random() * seedLen)];
-        }
-        return uuid;
-    };
+	var getUUID = function(len) {
+		len = len || 6;
+		len = parseInt(len, 10);
+		len = isNaN(len) ? 6 : len;
+		var seed = "0123456789abcdefghijklmnopqrstubwxyzABCEDFGHIJKLMNOPQRSTUVWXYZ";
+		var seedLen = seed.length - 1;
+		var uuid = "";
+		while (len--) {
+			uuid += seed[Math.round(Math.random() * seedLen)];
+		}
+		return uuid;
+	};
 
-    var getIndex = function(){
-    	return 99 + getUID();
-    };
+	var getIndex = function() {
+		return 99 + getUID();
+	};
 
-    var deepcopy = function(source) {
+	var deepcopy = function(source) {
 		var sourceCopy = source instanceof Array ? [] : {};
 		for (var item in source) {
 			sourceCopy[item] = typeof source[item] === 'object' ? deepcopy(source[item]) : source[item];
@@ -45,81 +45,27 @@ define('base', function(require, exports, module) {
 	 * ajax优化
 	 */
 	var ajaxLocalCacheQueue = {};
-	var _ajaxSetup = function(jQuery){
-		var catchAjaxError = function(event, request, settings) {
-			if(request.statusText === "canceled"){
-				return null;
-			}
-			require.async('box', function() {
-				var errmsg = '';
-				switch (request.readyState) {
-					case 0:
-						errmsg = '网络错误，请检查网络连接！';
-					break;
-					case 1:
-						errmsg = '请求异常中断！';
-					break;
-					case 2:
-						errmsg = '数据接收错误！';
-					break;
-					case 3:
-						errmsg = '数据解析错误！';
-					break;
-					case 4:
-						errmsg = '服务端错误！';
-					break;
-					default:
-						errmsg = '未知错误！';
-				}
-				$.box.msg(errmsg, {
-					color: 'danger'
-				});
-				console.warn(errmsg + 'url: ' + settings.url + '; status: '+ request.status);
-			});
-		};
+	var _ajaxSetup = function(jQuery) {
 		jQuery.ajaxSetup({
 			beforeSend: function(xhr, setting) {
-				var tempSuccess = setting.success;
 				//默认数据类型
 				if (!setting.dataType) {
-					if(_browser.ie && _browser.ie<=9){
+					if (_browser.ie && _browser.ie <= 9) {
 						//ie8\9开启跨域
-						if(setting.url.indexOf(window.location.host)<0){
+						if (setting.url.indexOf(window.location.host) < 0) {
 							$.support.cors = true;
 						}
 					}
 					setting.dataType = 'json';
 				}
-				//默认回调处理
-				if (setting.dataType === 'json') {
-					setting.success = function(res) {
-						//某些环境json数据不能正确解析
-						if(res.split){
-							res = $.parseJSON(res);
-						}
-						if (res.msg) {
-							require.async('box', function() {
-								$.box.msg(res.msg, {
-									color: res.status === 'Y' ? 'success' : 'danger',
-									delay: 2000,
-									onclose: function() {
-										tempSuccess(res, res.status !== 'Y');
-									}
-								});
-							});
-						} else {
-							typeof tempSuccess === 'function' && tempSuccess(res, res.status !== 'Y');
-						}
-					};
-				}
 				//默认超时时间
 				if (!setting.timeout) {
-					setting.timeout = seajs.set.util.timeout || 1.5e4;
+					setting.timeout = seajs.set.base && seajs.set.base.timeout || 1.5e4;
 				}
 				//数据缓存
 				if (window.localStorage && setting.localCache !== void(0)) {
 					var cacheKey,
-						cacheNameSep = ['|','^','@','+','$'],
+						cacheNameSep = ['|', '^', '@', '+', '$'],
 						cacheNamePrefix = '_ajaxcache',
 						cacheName,
 						cacheDeadline,
@@ -137,20 +83,20 @@ define('base', function(require, exports, module) {
 						cacheKey = setting.url;
 					}
 					//请求队列
-					if(ajaxLocalCacheQueue[cacheKey]){
+					if (ajaxLocalCacheQueue[cacheKey]) {
 						ajaxLocalCacheQueue[cacheKey].push(setting.success);
 						xhr.ignoreError = true;
 						return xhr.abort();
 					}
 					//间隔符容错
-					$.each(cacheNameSep,function(i,sep){
-						if(cacheKey.indexOf(sep)===-1){
+					$.each(cacheNameSep, function(i, sep) {
+						if (cacheKey.indexOf(sep) === -1) {
 							cacheNameSep = sep;
 							return false;
 						}
 					});
-					if(!cacheNameSep.split){
-						return console.log('url('+cacheKey+')包含异常字符无法缓存');
+					if (!cacheNameSep.split) {
+						return console.log('url(' + cacheKey + ')包含异常字符无法缓存');
 					}
 					//查找缓存
 					$.each(localStorage, function(key, val) {
@@ -182,7 +128,7 @@ define('base', function(require, exports, module) {
 							setting.success = function(res) {
 								var newDeadline = new Date().getTime() + setting.localCache,
 									newCacheName = [cacheNamePrefix, cacheKey, newDeadline].join(cacheNameSep);
-								$.each(ajaxLocalCacheQueue[cacheKey],function(i,cb){
+								$.each(ajaxLocalCacheQueue[cacheKey], function(i, cb) {
 									typeof cb === 'function' && cb(res);
 								});
 								delete ajaxLocalCacheQueue[cacheKey];
@@ -198,17 +144,47 @@ define('base', function(require, exports, module) {
 							};
 						}
 						nowDate = null;
-					} else if(cacheName){
+					} else if (cacheName) {
 						//清除缓存
 						localStorage.removeItem(cacheName);
-						if(isDebug){
-							console.log('debug模式：数据['+cacheName+']已清除');
+						if (isDebug) {
+							console.log('debug模式：数据[' + cacheName + ']已清除');
 						}
 					}
 				}
 			}
 		});
-		$( document ).ajaxError(catchAjaxError);
+		$(document).ajaxError(function(event, request, settings) {
+			if (request.statusText === "canceled") {
+				return null;
+			}
+			require.async('box', function() {
+				var errmsg = '';
+				switch (request.readyState) {
+					case 0:
+						errmsg = '网络错误，请检查网络连接！';
+						break;
+					case 1:
+						errmsg = '请求异常中断！';
+						break;
+					case 2:
+						errmsg = '数据接收错误！';
+						break;
+					case 3:
+						errmsg = '数据解析错误！';
+						break;
+					case 4:
+						errmsg = '服务端错误！';
+						break;
+					default:
+						errmsg = '未知错误！';
+				}
+				$.box.msg(errmsg, {
+					color: 'danger'
+				});
+				console.warn(errmsg + 'url: ' + settings.url + '; status: ' + request.status);
+			});
+		});
 	};
 	/*
 	 * cookie
@@ -276,11 +252,11 @@ define('base', function(require, exports, module) {
 			}
 		};
 	};
-	
+
 	/*
 	 * 获取url参数
 	 */
-	var _getUrlParam = function (name, url) {
+	var _getUrlParam = function(name, url) {
 		var urlParamReg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
 		var s = url ? (url.split('?')[1] ? url.split('?')[1] : '') : window.location.search.substr(1);
 		var r = s.match(urlParamReg);
@@ -292,19 +268,19 @@ define('base', function(require, exports, module) {
 	/*
 	 * 设置url参数
 	 */
-	var _setUrlParam = function(name, val, url){
+	var _setUrlParam = function(name, val, url) {
 		var urlParamReg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
 		var s = url ? (url.split('?')[1] ? url.split('?')[1] : '') : window.location.search.substr(1);
-		if(s){
+		if (s) {
 			var result = url || window.location.href;
 			var r = s.match(urlParamReg);
-			if(r !== null){
-				var ori = r[0].replace(/&/g,'');
+			if (r !== null) {
+				var ori = r[0].replace(/&/g, '');
 				return result.replace(ori, name + '=' + val);
-			}else{
+			} else {
 				return result + '&' + name + '=' + val;
 			}
-		}else{
+		} else {
 			return url + '?' + name + '=' + val;
 		}
 	};
@@ -429,7 +405,7 @@ define('base', function(require, exports, module) {
 								data = status = null;
 							}
 							if (hold) {
-								if(typeof(hold) === 'function'){
+								if (typeof(hold) === 'function') {
 									hold();
 								}
 							} else if (typeof(callback) === 'function') {
@@ -516,7 +492,7 @@ define('base', function(require, exports, module) {
 					}
 				}
 			}
-		}else{
+		} else {
 			return console.warn('getScript()参数错误！');
 		}
 	};

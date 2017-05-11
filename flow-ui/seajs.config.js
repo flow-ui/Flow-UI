@@ -1,9 +1,10 @@
+
 // 模块根路径
 seajs.root = '' ? '/' + '' : ''; 
 
 // 插件设置
 seajs.set = {
-	util: {
+	base: {
 		timeout: 1.5e4
 	}
 };
@@ -28,5 +29,8 @@ seajs.config({
 		"localResizeIMG" : "upload/localResizeIMG",
 		"video"		     : "video/video",
 		"webuploader"    : "webuploader/webuploader"
-	}
+	},
+    localcache:{
+        timeout: 2e4
+    }
 });

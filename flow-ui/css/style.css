@@ -1014,7 +1014,6 @@ a.bg-danger:hover {
   padding: 0 8px;
   display: block;
   width: 100%;
-  -webkit-transition: border-color ease-in-out 0.1s;
   box-sizing: border-box;
   vertical-align: middle;
   transition: border-color ease-in-out 0.1s;
@@ -1022,29 +1021,18 @@ a.bg-danger:hover {
   border: 1px solid #e8e9eb;
   background: #fff;
   border-radius: 4px;
-  *padding: 0;
 }
 .form-control:focus {
   border-color: #2EA9DF;
   outline: 0;
 }
-.form-control::-moz-placeholder {
-  opacity: 1;
-  color: #dbdbdb;
-}
-.form-control:-ms-input-placeholder {
-  color: #dbdbdb;
-}
-.form-control::-webkit-input-placeholder {
-  color: #aaa;
-}
-.form-control.blank {
+.form-control-blank {
   border-width: 0 0 1px 0;
   background: none;
-}
-.form-control.blank:focus {
-  box-shadow: none;
   border-radius: 0;
+}
+.form-control-blank:focus {
+  box-shadow: none;
 }
 .form-control[disabled],
 .form-control[readonly],
@@ -1061,6 +1049,8 @@ select.form-control {
 }
 input[type='search'] {
   -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
 }
 textarea.form-control {
   height: 119px;
@@ -1087,30 +1077,19 @@ textarea.input-sm {
   margin-bottom: 11.2px;
   cursor: pointer;
 }
+.radio + .radio,
+.checkbox + .checkbox {
+  margin-top: -5.6px;
+}
 .form-group .radio,
 .form-group .checkbox {
   margin-top: 0;
   margin-bottom: 0;
 }
-.radio label,
-.checkbox label {
-  font-weight: normal;
-  min-height: 20px;
-  margin-bottom: 0;
-  padding-left: 20px;
-  cursor: pointer;
-}
 .radio input[type='radio'],
-.radio-inline input[type='radio'],
-.checkbox input[type='checkbox'],
-.checkbox-inline input[type='checkbox'] {
+.checkbox input[type='checkbox'] {
   float: left;
   margin-left: -20px;
-  cursor: pointer;
-}
-.radio + .radio,
-.checkbox + .checkbox {
-  margin-top: -5px;
 }
 .radio-inline,
 .checkbox-inline,
@@ -1128,25 +1107,86 @@ textarea.input-sm {
   margin-top: 0;
   margin-left: 8px;
 }
+.radio.disabled,
+.checkbox.disabled,
+fieldset[disabled] .radio,
+fieldset[disabled] .checkbox,
 input[type='radio'][disabled],
-input[type='checkbox'][disabled],
-input[type='radio'].disabled,
-input[type='checkbox'].disabled,
-fieldset[disabled] input[type='radio'],
-fieldset[disabled] input[type='checkbox'] {
+input[type='checkbox'][disabled] {
   cursor: not-allowed;
 }
-.radio-inline.disabled,
-.checkbox-inline.disabled,
-fieldset[disabled] .radio-inline,
-fieldset[disabled] .checkbox-inline {
-  cursor: not-allowed;
+/* radio & check runtime */
+.radio.runtime input[type='radio'],
+.checkbox.runtime input[type='checkbox'] {
+  visibility: hidden;
 }
-.radio.disabled label,
-.checkbox.disabled label,
-fieldset[disabled] .radio label,
-fieldset[disabled] .checkbox label {
-  cursor: not-allowed;
+.radio.runtime:before,
+.checkbox.runtime:before,
+.radio.runtime:after,
+.checkbox.runtime:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.checkbox.runtime:before,
+.radio.runtime:before {
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -8px 4px 0 0;
+  border: 1px solid #d7dde4;
+  border-radius: 2px;
+  background: #fff;
+}
+.checkbox.runtime:after {
+  top: 50%;
+  left: 5px;
+  width: 4px;
+  height: 8px;
+  margin-top: -6px;
+  transition: -webkit-transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+  -webkit-transform: rotate(0deg) scale(0);
+          transform: rotate(0deg) scale(0);
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+}
+.checkbox.checked.runtime:before {
+  border-color: #2EA9DF;
+  background-color: #2EA9DF;
+}
+.checkbox.checked.runtime:after {
+  -webkit-transform: rotate(45deg) scale(1);
+          transform: rotate(45deg) scale(1);
+}
+.radio.runtime:before {
+  border-radius: 8px;
+  border-color: #2EA9DF;
+}
+.radio.disabled:before {
+  border-color: #d7dde4;
+}
+.radio.runtime:after {
+  top: 50%;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: #2EA9DF;
+  margin-top: -4px;
+  transition: -webkit-transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+  -webkit-transform: rotate(0deg) scale(0);
+          transform: rotate(0deg) scale(0);
+  visibility: hidden;
+}
+.radio.checked.runtime:after {
+  -webkit-transform: rotate(0deg) scale(1);
+          transform: rotate(0deg) scale(1);
+  visibility: visible;
 }
 .form-control-static {
   height: 32px;
@@ -1156,6 +1196,22 @@ fieldset[disabled] .checkbox label {
 .form-control-static.input-sm {
   padding-right: 0;
   padding-left: 0;
+}
+.help-block {
+  display: block;
+  margin-top: 8px;
+  margin-bottom: 11.9px;
+  color: #dbdbdb;
+}
+.form-mark {
+  display: inline-block;
+  margin: 0 0.3em;
+  color: #CB4042;
+  vertical-align: text-top;
+  line-height: normal;
+}
+big.form-mark {
+  font-size: 1.5em;
 }
 .input-sm {
   font-size: 12px;
@@ -1228,16 +1284,13 @@ fieldset[disabled] .checkbox label {
   width: 25px;
   height: 25px;
 }
+.has-feedback .form-control-feedback {
+  right: 2%;
+}
 .has-primary .help-block,
 .has-primary .control-label,
 .has-primary .radio,
-.has-primary .checkbox,
-.has-primary .radio-inline,
-.has-primary .checkbox-inline,
-.has-primary.radio label,
-.has-primary.checkbox label,
-.has-primary.radio-inline label,
-.has-primary.checkbox-inline label {
+.has-primary .checkbox {
   color: #2EA9DF;
 }
 .has-primary .form-control {
@@ -1257,13 +1310,7 @@ fieldset[disabled] .checkbox label {
 .has-auxiliary .help-block,
 .has-auxiliary .control-label,
 .has-auxiliary .radio,
-.has-auxiliary .checkbox,
-.has-auxiliary .radio-inline,
-.has-auxiliary .checkbox-inline,
-.has-auxiliary.radio label,
-.has-auxiliary.checkbox label,
-.has-auxiliary.radio-inline label,
-.has-auxiliary.checkbox-inline label {
+.has-auxiliary .checkbox {
   color: #FFC408;
 }
 .has-auxiliary .form-control {
@@ -1283,13 +1330,7 @@ fieldset[disabled] .checkbox label {
 .has-info .help-block,
 .has-info .control-label,
 .has-info .radio,
-.has-info .checkbox,
-.has-info .radio-inline,
-.has-info .checkbox-inline,
-.has-info.radio label,
-.has-info.checkbox label,
-.has-info.radio-inline label,
-.has-info.checkbox-inline label {
+.has-info .checkbox {
   color: #4fcbf0;
 }
 .has-info .form-control {
@@ -1309,13 +1350,7 @@ fieldset[disabled] .checkbox label {
 .has-success .help-block,
 .has-success .control-label,
 .has-success .radio,
-.has-success .checkbox,
-.has-success .radio-inline,
-.has-success .checkbox-inline,
-.has-success.radio label,
-.has-success.checkbox label,
-.has-success.radio-inline label,
-.has-success.checkbox-inline label {
+.has-success .checkbox {
   color: #25ae88;
 }
 .has-success .form-control {
@@ -1335,13 +1370,7 @@ fieldset[disabled] .checkbox label {
 .has-warning .help-block,
 .has-warning .control-label,
 .has-warning .radio,
-.has-warning .checkbox,
-.has-warning .radio-inline,
-.has-warning .checkbox-inline,
-.has-warning.radio label,
-.has-warning.checkbox label,
-.has-warning.radio-inline label,
-.has-warning.checkbox-inline label {
+.has-warning .checkbox {
   color: #F05E1C;
 }
 .has-warning .form-control {
@@ -1361,13 +1390,7 @@ fieldset[disabled] .checkbox label {
 .has-danger .help-block,
 .has-danger .control-label,
 .has-danger .radio,
-.has-danger .checkbox,
-.has-danger .radio-inline,
-.has-danger .checkbox-inline,
-.has-danger.radio label,
-.has-danger.checkbox label,
-.has-danger.radio-inline label,
-.has-danger.checkbox-inline label {
+.has-danger .checkbox {
   color: #CB4042;
 }
 .has-danger .form-control {
@@ -1383,12 +1406,6 @@ fieldset[disabled] .checkbox label {
 }
 .has-danger .form-control-feedback {
   color: #CB4042;
-}
-.help-block {
-  display: block;
-  margin-top: 8px;
-  margin-bottom: 11.9px;
-  color: #dbdbdb;
 }
 .form-inline .form-group .help-block {
   display: inline-block;
@@ -1425,41 +1442,22 @@ fieldset[disabled] .checkbox label {
 .form-inline .has-feedback .form-control-feedback {
   top: 0;
 }
-.form .radio,
-.form .checkbox,
-.form .radio-inline,
-.form .checkbox-inline {
-  padding-top: 10px;
-}
-.form .control-label {
+.control-label {
   margin-bottom: 0;
   height: 32px;
   line-height: 32px;
   overflow: hidden;
   text-align: right;
 }
-.form .has-feedback .form-control-feedback {
-  right: 2%;
-}
-.form .form-group-lg .control-label {
+.form-group-lg .control-label {
   font-size: 16px;
   height: 40px;
   line-height: 40px;
 }
-.form .form-group-sm .control-label {
+.form-group-sm .control-label {
   font-size: 12px;
   height: 25px;
   line-height: 25px;
-}
-.form-mark {
-  display: inline-block;
-  margin: 0 0.3em;
-  color: #CB4042;
-  vertical-align: text-top;
-  line-height: normal;
-}
-big.form-mark {
-  font-size: 1.5em;
 }
 .input-group {
   display: table;
@@ -1527,7 +1525,7 @@ big.form-mark {
   display: table-cell;
 }
 .input-group-addon:not(:first-child):not(:last-child),
-.input-group-btn:not(:first-child):not(:last-child),
+.input-group-btn > .btn:not(:first-child):not(:last-child),
 .input-group .form-control:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
@@ -1550,11 +1548,7 @@ big.form-mark {
 }
 .input-group .form-control:first-child,
 .input-group-addon:first-child,
-.input-group-btn:first-child > .btn,
-.input-group-btn:first-child > .btn-group > .btn,
-.input-group-btn:first-child > .dropdown-toggle,
-.input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
-.input-group-btn:last-child > .btn-group:not(:last-child) > .btn {
+.input-group-btn > .btn:first-child {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -1563,11 +1557,7 @@ big.form-mark {
 }
 .input-group .form-control:last-child,
 .input-group-addon:last-child,
-.input-group-btn:last-child > .btn,
-.input-group-btn:last-child > .btn-group > .btn,
-.input-group-btn:last-child > .dropdown-toggle,
-.input-group-btn:first-child > .btn:not(:first-child),
-.input-group-btn:first-child > .btn-group:not(:first-child) > .btn {
+.input-group-btn > .btn:last-child {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -1581,6 +1571,7 @@ big.form-mark {
   font-size: 14px;
   position: relative;
   white-space: nowrap;
+  font-size: 0;
 }
 .input-group-btn > .btn {
   position: relative;
@@ -1593,12 +1584,10 @@ big.form-mark {
 .input-group-btn > .btn:active {
   z-index: 2;
 }
-.input-group-btn:first-child > .btn,
-.input-group-btn:first-child > .btn-group {
+.input-group-btn:first-child > .btn {
   margin-right: -1px;
 }
-.input-group-btn:last-child > .btn,
-.input-group-btn:last-child > .btn-group {
+.input-group-btn:last-child > .btn {
   margin-left: -1px;
 }
 .row {

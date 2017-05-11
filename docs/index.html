@@ -40,12 +40,8 @@
   |    |-- js/                      //js文件
   |    |-- lib/                     //模块库以外的js文件
   |    |-- index.html               //索引页
-  |    |-- blank.html               //空白页
-  |    |-- demo.html                //UI演示页
-  |    |-- fullpage.html            //滚屏场景示例
-  |    |-- pjax-page-1/2.html       //PJAX场景示例
-  |    |-- seajs.config.js          //站点配置文件
-  |    `-- favicon.ico 
+  |    |-- seajs.config.js          //配置文件
+  |    `-- favicon.ico              //网页图标
   |-- public/                   //项目公共文件
   ·-- modules/                  //本地模块库（可选）
                 </code>
@@ -67,7 +63,7 @@
                     seajs.root
                 </td>
                 <td>
-                    模块化js加载起始路径，如果站点存在于二级目录需要设置此项。
+                    [string] 模块化js加载起始路径，通常为<code>""</code>，例如页面在站点二级目录，需设置此项为目录名称。
                 </td>
             </tr>
             <tr>
@@ -75,7 +71,11 @@
                     seajs.set
                 </td>
                 <td>
-                    模块设置或自定义功能设置。
+                    [object] 模块设置或自定义功能设置，例如<code>seajs.set = {
+    base: {
+        timeout: 1.5e4
+    }
+};</code>
                 </td>
             </tr>
             <tr>
@@ -83,7 +83,7 @@
                     seajs.config.base
                 </td>
                 <td>
-                    模块化文件存放路径，默认<code>seajs.root + "/modules"</code>，也可以配置其他位置或远程位置。
+                    [string] 模块化文件存放路径，默认<code>seajs.root + "/modules"</code>，也可以配置其他位置或远程位置。
                 </td>
             </tr>
             <tr>
@@ -91,7 +91,7 @@
                     seajs.config.paths
                 </td>
                 <td>
-                    路径短语，默认配置了<code>js</code>文件夹和<code>lib</code>文件夹。
+                    [object] 路径短语，默认配置了<code>js</code>文件夹和<code>lib</code>文件夹。
                 </td>
             </tr>
             <tr>
@@ -99,7 +99,7 @@
                     seajs.config.alias
                 </td>
                 <td>
-                    模块短命名。
+                    [object] 模块短命名。
                 </td>
             </tr>
             <tr>
@@ -107,7 +107,7 @@
                     seajs.localcache.timeout
                 </td>
                 <td>
-                    本地缓存方案加载超时时间，单位ms，默认<code>2e4</code>
+                    [number] 本地缓存方案加载超时时间，单位ms，默认<code>2e4</code>
                 </td>
             </tr>
         </table>
@@ -194,7 +194,7 @@
 @table-head-height: 40px;
             </code>
         </pre>
-        <p>点此进一步了解<a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>。</p>
+        <p>点此进一步了解自动化工具<a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>。</p>
         <h3 id="css-component">组件列表</h3>
         <nav class="modules_index" id="component_index"></nav>
         <p>部分样式组件仅供插件调用，如<code>tree.less</code>，将不在此罗列。</p>
@@ -824,45 +824,47 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <h5>内联表单</h5>
-                    <form class="form-inline m-b">
-                        <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
-                        <div class="input-group">
-                            <div class="input-group-addon">@</div>
-                            <input class="form-control" type="email" placeholder="Enter email">
+                        <div class="row m-tb">
+                            <div class="span-12">
+                                <h5>内联表单</h5>
+                                <form class="form-inline m-b">
+                                    <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">@</div>
+                                        <input class="form-control" type="email" placeholder="Enter email">
+                                    </div>
+                                    <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword2
+                        " placeholder="Password">
+                                    <button type="button" class="btn btn-primary">Sign in</button>
+                                </form>
+                            </div>
                         </div>
-                        <label class="sr-only" for="exampleInputPassword2">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword2
-            " placeholder="Password">
-                        <button type="button" class="btn btn-primary">Sign in</button>
-                    </form>
-                    <h5>特殊样式</h5>
-                    <div class="m-b" style="width:800px">
-                        <div class="row">
+                        <div class="row m-tb">
                             <div class="span-6">
+                                <h5>特殊样式</h5>
                                 <form class="form">
-                                    <div class="form-group form-group-sm row has-success has-feedback">
-                                        <label class="control-label span-3">Input with success</label>
-                                        <div class="span-9">
-                                            <input type="text" class="form-control" placeholder="小尺寸"> <i class="ion form-control-feedback">&#xe60c;</i>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row has-warning has-feedback">
-                                        <label class="control-label span-3">Input with warning</label>
-                                        <div class="span-9">
-                                            <input type="text" class="form-control" placeholder="普通尺寸"> <i class="ion form-control-feedback">&#xe60d;</i>
-                                        </div>
-                                    </div>
-                                    <div class="form-group form-group-lg row has-danger has-feedback">
-                                        <label class="control-label span-3">Input with error</label>
-                                        <div class="span-9">
-                                            <input type="text" class="form-control" placeholder="大尺寸"> <i class="ion form-control-feedback">&#xe623;</i>
+                                    <div class="form-group row has-feedback">
+                                        <label class="control-label span-3">带图标</label>
+                                        <div class="span-9 has-primary">
+                                            <input type="text" class="form-control"> <i class="ion form-control-feedback">&#xe60d;</i>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label span-3" for="inputGroupSuccess2">带徽标控件<big class="form-mark">*</big></label>
+                                        <label class="control-label span-3">必填标记<big class="form-mark">*</big></label>
+                                        <div class="span-9 ">
+                                            <input type="text" class="form-control" placeholder="必填">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label span-3">填空</label>
+                                        <div class="span-9">
+                                            <input type="text" class="form-control form-control-blank" placeholder="请填写"> 
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label span-3" for="inputGroupSuccess2">带徽标</label>
                                         <div class="span-9">
                                             <div class="input-group">
                                                 <span class="input-group-addon">@</span>
@@ -870,6 +872,28 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                </form>
+                            </div>
+                            <div class="span-6">
+                                <h5>按钮组</h5>
+                                <div class="m-tb">
+                                    <div class="input-group-btn">
+                                        <div class="btn btn-default">btn1</div>
+                                        <div class="btn btn-default">btn2</div>
+                                        <div class="btn btn-default">btn3</div>
+                                        <div class="btn btn-default">btn4</div>
+                                    </div>
+                                </div>
+                                <div class="m-tb">
+                                    <div class="input-group-btn">
+                                        <div class="btn btn-primary">primary</div>
+                                        <div class="btn btn-success">success</div>
+                                        <div class="btn btn-warning">warning</div>
+                                        <div class="btn btn-danger">danger</div>
+                                    </div>
+                                </div>
+                                <div class="m-tb">
                                     <div class="input-group">
                                         <div class="input-group-addon "><i class="ion">&#xe7da;</i></div>
                                         <input class="form-control" type="email" placeholder="What are you looking for?">
@@ -877,11 +901,11 @@
                                             <button class="btn btn-primary">搜素</button>
                                         </div>
                                     </div>
-
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    
                     <table class="table table-hover">
                         <tr>
                             <td style="width:7em">.form</td>
@@ -970,9 +994,18 @@
                         <tr>
                             <td>.form-control</td>
                             <td>
-                                <p>用于普通<code>input</code>元素</p>
+                                <p>定义<code>input/textarea</code>控件样式</p>
                                 <p><code>
     &lt;input type=&quot;text&quot; class=&quot;form-control&quot;&gt;
+                                    </code></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.form-control-blank</td>
+                            <td>
+                                <p>叠加<code>form-control</code>元素，使成为填空样式</p>
+                                <p><code>
+    &lt;input type=&quot;text&quot; class=&quot;form-control form-control-blank&quot;&gt;
                                     </code></p>
                             </td>
                         </tr>
@@ -1046,11 +1079,6 @@
                             <td>.control-label</td>
                             <td>
                                 <p>定义一个与form-control元素对齐的提示元素</p>
-                                <p><code>
-    &lt;div class=&quot;form-control-static&quot;&gt;
-        请输入姓名
-    &lt;/div&gt;
-                                    </code></p>
                             </td>
                         </tr>
                         <tr>
@@ -1075,22 +1103,18 @@
                             <td>.form-mark</td>
                             <td>
                                 <p>定义一个醒目标记元素</p>
-                                <p><code>
-    &lt;div class=&quot;control-label&quot;&gt;
-    请输入：&lt;big class=&quot;form-mark&quot;&gt;*&lt;/big&gt;
-    &lt;/div&gt;
-                                    </code></p>
                             </td>
                         </tr>
                         <tr>
                             <td>.disabled</td>
                             <td>
-                                <p>叠加更改为不可用状态</p>
-                                <p><code>
-    &lt;label class=&quot;checkbox disabled&quot;&gt;
-        &lt;input type=&quot;checkbox&quot; value=&quot;1&quot;&gt;checkbox
-    &lt;/label&gt;
-                                    </code></p>
+                                <p>叠加到空间使不可用</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.input-group-btn</td>
+                            <td>
+                                <p>定义一个按钮组</p>
                             </td>
                         </tr>
                     </table>
@@ -3990,6 +4014,161 @@ $.ajax({
                     </pre>
                     </td>
                 </tr>
+                <tr id="Checks（勾选控件）">
+                    <td>Checks</td>
+                    <td>
+                        <h5>描述</h5>
+                        <p>基本组件-单/多选框。</p>
+                        <p>返回<code>Checks</code>方法，语法：<code>Checks(params...)</code>，或者使用jquery插件语法：<code>$.checks(params...)</code></p>
+                        <h5>配置</h5>
+                        <table class="table">
+                            <tr>
+                                <th>el</th>
+                                <td>
+                                    <p>默认<code>null</code>，控件生成元素，直接调用<code>Checks</code>方法必填，jquery插件调用时可忽略</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>type</th>
+                                <td>
+                                    <p>默认<code>"checkbox"</code>，切换单/多选模式，可选"radio"</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>name</th>
+                                <td>
+                                    <p>默认<code>null</code>，指定该组控件的name</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>data</th>
+                                <td>
+                                    <p>默认<code>null</code>，控件数据，数据格式见示例，也支持使用标签初始化，标签格式见示例</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>checked</th>
+                                <td>
+                                    <p>默认<code>null</code>，已选择项的<code>value</code>值，数组格式</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>disabled</th>
+                                <td>
+                                    <p>默认<code>null</code>，禁用项的<code>value</code>值，数组格式</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>mode</th>
+                                <td>
+                                    <p>默认<code>"inline"</code>，将采用内联样式，可选"block"</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>onChange</th>
+                                <td>
+                                    <p>默认<code>null</code>，选项变化回调方法，@param(checked) : 已选项，"checkbox"模式返回所选项value数组，radio"模式返回所选项value）</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>onReady</th>
+                                <td>
+                                    <p>默认<code>null</code>，初始化完成回调方法，@param(checked) : 已选项，"checkbox"模式返回所选项value数组，radio"模式返回所选项value）</p>
+                                </td>
+                            </tr>
+                            
+                        </table>
+                        <h5>返回方法</h5>
+                        <table class="table">
+                            <tr>
+                                <th>checked([value])</th>
+                                <td>
+                                    <p>获取/设置已选项，"checkbox"模式接收value数组，"radio"模式接收value</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>disabled([value])</th>
+                                <td>
+                                    <p>获取/设置禁用项，接收value数组</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <h5>返回方法</h5>
+                        <pre>
+                            <code>
+    &lt;div class=&quot;wrap&quot;&gt;
+        &lt;form class=&quot;form&quot; id=&quot;testform&quot;&gt;
+            &lt;div class=&quot;form-group demo1&quot;&gt;
+                使用数据初始化
+            &lt;/div&gt;
+            &lt;div class=&quot;form-group demo2&quot;&gt;
+                使用标签初始化
+                &lt;input type=&quot;radio&quot; value=&quot;1&quot; name=&quot;radio1&quot; label=&quot;香蕉&quot; checked&gt;
+                &lt;input type=&quot;radio&quot; value=&quot;2&quot; name=&quot;radio1&quot; label=&quot;西瓜&quot;&gt;
+                &lt;input type=&quot;radio&quot; value=&quot;3&quot; name=&quot;radio1&quot; label=&quot;猕猴桃&quot; disabled&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;input-group-btn&quot;&gt;
+                &lt;div class=&quot;btn btn-default checkall&quot;&gt;全选checkbox&lt;/div&gt;
+                &lt;div class=&quot;btn btn-default checknone&quot;&gt;反选checkbox&lt;/div&gt;
+                &lt;div class=&quot;btn btn-default radiocheck&quot;&gt;选中radio第二项&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;p class=&quot;form-control-static&quot; id=&quot;log&quot;&gt;&lt;/p&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+                            </code>
+                        </pre>
+                        <pre>
+                            <code>
+    var checks = require('checks');
+    var showLog = function(checked){
+        if(checked){
+            console.log(checked);
+        }
+        $('#log').text($('#testform').serialize());
+    };
+
+    var mycheck = checks({
+        el: $('.demo1'),
+        type: 'checkbox',
+        name: 'datacheck',
+        data: [{
+            value: 'yingtao',
+            label: '樱桃'
+        },{
+            value: 'tianhua',
+            label: '甜瓜'
+        },{
+            value: 'caomei',
+            label: '草莓'
+        }],
+        checked: ['yingtao'],
+        disabled: ['caomei'],
+        onChange: showLog,
+        onReady: showLog
+    });
+
+    var myradio = checks({
+        el: $('.demo2'),
+        type: 'radio',
+        onChange: showLog,
+        onReady: showLog
+    });
+                                
+    $('.input-group-btn').on('click', '.btn', function(){
+        $(this).addClass('active').siblings('.active').removeClass('active');
+        if($(this).hasClass('checkall')){
+            mycheck.checked(['yingtao','tianhua','caomei']);
+        } else if($(this).hasClass('checknone')){
+            mycheck.checked([]);
+        } else if($(this).hasClass('radiocheck')){
+            myradio.checked('2');
+        }
+    });
+    
+                            </code>
+                        </pre>
+                    </td>
+                </tr>
                 <tr id="City-select（地区选择器）">
                     <td>city-select</td>
                     <td>
@@ -6186,25 +6365,6 @@ $().datepicker({
     $('.destroy').on('click', function(){
         myload.destroy();
     });
-                            </code>
-                        </pre>
-                    </td>
-                </tr>
-                <tr id="Placeholder">
-                    <td>placeholder</td>
-                    <td>
-                        <h5>描述</h5>
-                        <p>placeholder特性兼容插件</p>
-                        <h5>示例</h5>
-                        <pre>
-                            <code>
-    &lt;input type=&quot;text&quot; placeholder=&quot;兼容ie8&quot;&gt;
-                            </code>
-                        </pre>
-                        <pre>
-                            <code>
-    require('placeholder');
-    $('input, textarea').placeholder();
                             </code>
                         </pre>
                     </td>

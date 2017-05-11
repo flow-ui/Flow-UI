@@ -3,12 +3,13 @@
 /* Seajs.style.js */
 !function(){var a,b=/\W/g,c=document,d=document.getElementsByTagName("head")[0]||document.documentElement;seajs.importStyle=function(e,f){if(!f||(f=f.replace(b,"-"),!c.getElementById(f))){var g;if(!a||f?(g=c.createElement("style"),f&&(g.id=f),d.appendChild(g)):g=a,void 0!==g.styleSheet){if(c.getElementsByTagName("style").length>31)throw new Error("Exceed the maximal count of style tags in IE");g.styleSheet.cssText+=e}else g.appendChild(c.createTextNode(e));f||(a=g)}},define("seajs/seajs-style/1.0.2/seajs-style",[],{})}();
 
+
 // 模块根路径
 seajs.root = '' ? '/' + '' : ''; 
 
 // 插件设置
 seajs.set = {
-	util: {
+	base: {
 		timeout: 1.5e4
 	}
 };
@@ -33,7 +34,10 @@ seajs.config({
 		"localResizeIMG" : "upload/localResizeIMG",
 		"video"		     : "video/video",
 		"webuploader"    : "webuploader/webuploader"
-	}
+	},
+    localcache:{
+        timeout: 2e4
+    }
 });
 
 (function(seajs){
@@ -55,9 +59,10 @@ seajs.config({
         'appcan'                            : 'v0.1.0',
         'autocomplete'                      : 'v0.1.0',
         'badge'                             : 'v0.0.1',
-        'base'                              : 'v3.3.3',
+        'base'                              : 'v3.4.0',
         'bdshare'                           : 'v3.1.2',
         'box'                               : 'v3.11.6',
+        'checks'                            : 'v0.0.1',
         'city-select'                       : 'v1.0.2',
         'collapse'                          : 'v0.0.2',
         'countdown'                         : 'v1.1.1',
@@ -85,9 +90,8 @@ seajs.config({
         'offcanvas'                         : 'v2.0.4',
         'on-scroll'                         : 'v2.1.3',
         'page'                              : 'v1.0.5',
-        'paging-load'                       : 'v0.0.3',
+        'paging-load'                       : 'v0.1.0',
         'pjax'                              : 'v0.0.1',
-        'placeholder'                       : 'v0.0.1',
         'progress'                          : 'v0.0.3',
         'qr'                                : 'v0.1.0',
         'responsive'                        : 'v0.0.1',
@@ -102,7 +106,7 @@ seajs.config({
         'spin'                              : 'v0.0.2',
         'switch'                            : 'v0.4.1',
         'tab'                               : 'v4.1.2',
-        'table'                             : 'v1.6.1',
+        'table'                             : 'v1.7.0',
         'timepicker'                        : 'v0.1.2',
         'tip'                               : 'v1.5.0',
         'touch'                             : 'v0.1.1',
