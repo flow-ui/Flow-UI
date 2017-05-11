@@ -7,6 +7,7 @@
 define('checks', function(require, exports, module) {
     "use strict";
     var $ = window.$ || require('jquery'),
+        base = require('base'),
         etpl = require('etpl'),
         etplEngine = new etpl.Engine(),
         compiler,
@@ -93,28 +94,40 @@ define('checks', function(require, exports, module) {
         },
         Checks = function(config) {
             var opt = $.extend({}, def, config || {}),
-                $this = $(opt.el).eq(0);
+                $this = $(opt.el).eq(0),
+                localData,
+                localChecked,
+                localDisabled;
             if (!$this.length || $this.data('checks-opt')) {
                 return null;
             }
             if (opt.type !== 'checkbox') {
                 opt.type = 'radio';
             }
-            if ($.isArray(opt.data)) {
-                if (!$.isArray(opt.checked)) {
-                    opt.checked = [];
+            if($.isArray(opt.data)){
+                localData = base.deepcopy(opt.data);
+            }
+            if($.isArray(opt.checked)){
+                localChecked = base.deepcopy(opt.checked);
+            }
+            if($.isArray(opt.disabled)){
+                localDisabled = base.deepcopy(opt.disabled);
+            }
+            if ($.isArray(localData)) {
+                if (!$.isArray(localChecked)) {
+                    localChecked = [];
                 }
-                if (!$.isArray(opt.disabled)) {
-                    opt.disabled = [];
+                if (!$.isArray(localDisabled)) {
+                    localDisabled = [];
                 }
-                extendStatus(opt.data, {
-                    checked: opt.checked,
-                    disabled: opt.disabled
+                extendStatus(localData, {
+                    checked: localChecked,
+                    disabled: localDisabled
                 });
             } else {
-                opt.data = [];
-                opt.checked = [];
-                opt.disabled = [];
+                localData = [];
+                localChecked = [];
+                localDisabled = [];
                 //数据收集
                 $this.find('input[type="' + opt.type + '"]').each(function(i, e) {
                     var _checked = $(e).prop('checked'),
@@ -125,7 +138,7 @@ define('checks', function(require, exports, module) {
                     if (!_val) {
                         _val = _label;
                     }
-                    opt.data.push({
+                    localData.push({
                         value: _val,
                         name: _name,
                         label: _label,
@@ -133,15 +146,15 @@ define('checks', function(require, exports, module) {
                         disabled: _disabled
                     });
                     if (_checked) {
-                        opt.checked.push(_val);
+                        localChecked.push(_val);
                     }
                     if (_disabled) {
-                        opt.disabled.push(_disabled);
+                        localDisabled.push(_disabled);
                     }
                 });
             }
             //统一处理
-            $.each(opt.data, function(i, e) {
+            $.each(localData, function(i, e) {
                 e.type = opt.type;
                 e.mode = opt.mode;
                 if (opt.name && opt.name.split) {
@@ -155,64 +168,64 @@ define('checks', function(require, exports, module) {
                 if ($(this).prop('checked')) {
                     if (opt.type === 'checkbox') {
                         var isIn;
-                        $.each(opt.checked, function(i, chk) {
+                        $.each(localChecked, function(i, chk) {
                             if (chk === _val) {
                                 isIn = true;
                                 return false;
                             }
                         });
                         if (!isIn) {
-                            opt.checked.push(_val);
+                            localChecked.push(_val);
                         }
                     } else {
-                        opt.checked = [_val];
+                        localChecked = [_val];
                     }
                 } else {
-                    $.each(opt.checked, function(i, chk) {
+                    $.each(localChecked, function(i, chk) {
                         if (chk === _val) {
-                            opt.checked.splice(i, 1);
+                            localChecked.splice(i, 1);
                             return false;
                         }
                     });
                 }
-                render($this, opt.data, {
-                    checked: opt.checked
+                render($this, localData, {
+                    checked: localChecked
                 }, 'fromControl');
 
             }).data('checks-opt', opt);
 
             //init
-            render($this, opt.data);
+            render($this, localData);
             if (typeof opt.onReady === 'function') {
-                opt.onReady(opt.type === 'checkbox' ? opt.checked : opt.checked[0]);
+                opt.onReady(opt.type === 'checkbox' ? localChecked : localChecked[0]);
             }
 
             return {
                 checked: function(value) {
                     if (value === void(0)) {
-                        return opt.type === 'checkbox' ? opt.checked : opt.checked[0];
+                        return opt.type === 'checkbox' ? localChecked : localChecked[0];
                     } else {
                         if (opt.type === 'checkbox' && $.isArray(value)) {
                             opt.checked = value;
                         } else if (opt.type === 'radio') {
                             if (!value) {
-                                opt.checked = [];
+                                localChecked = [];
                             } else {
-                                opt.checked = [value];
+                                localChecked = [value];
                             }
                         }
-                        render($this, opt.data, {
-                            checked: opt.checked
+                        render($this, localData, {
+                            checked: localChecked
                         });
                     }
                 },
                 disabled: function(value) {
                     if (value === void(0)) {
-                        return opt.disabled;
+                        return localDisabled;
                     } else if ($.isArray(value)) {
-                        opt.disabled = value;
-                        render($this, opt.data, {
-                            disabled: opt.disabled
+                        localDisabled = value;
+                        render($this, localData, {
+                            disabled: localDisabled
                         });
                     }
                 }
