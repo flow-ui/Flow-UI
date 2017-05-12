@@ -928,24 +928,26 @@ a.bg-danger:hover {
 }
 .dl dt {
   font-weight: 700;
-  padding: 0 .5em;
+  padding: 0.2em 0.5em;
 }
 .dl dd {
-  padding: 0 .5em;
+  padding: 0.2em 0.5em;
 }
 .dl-table dt {
   float: left;
   clear: left;
   overflow: hidden;
   width: 10em;
+  padding-left: 0;
+  padding-right: 0;
   text-align: right;
   white-space: nowrap;
   text-overflow: ellipsis;
-  padding: 0;
 }
 .dl-table dd {
   margin-left: 11em;
-  padding: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 .flex-col {
   overflow: hidden;
