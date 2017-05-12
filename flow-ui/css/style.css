@@ -1531,6 +1531,9 @@ big.form-mark {
 .input-group .form-control:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
+.input-group-addon .btn {
+  vertical-align: top;
+}
 .input-group-addon,
 .input-group-btn {
   vertical-align: middle;
