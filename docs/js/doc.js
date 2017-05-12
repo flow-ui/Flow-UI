@@ -28,42 +28,41 @@ define(function(require) {
 			$modItems = table,
 			_mod;
 		_mod = '<ul class="full-row">';
-		$modItems.find('tr[id]').each(function(i, e) {
-				var _modName = $(e).attr('id');
-				_mod += '<li class="span-4 smal-8"><a href="#' + _modName + '">' + _modName + '</a></li>';
-				//代码预览
-				if ($(e).children('td:last').find('pre').length > 1) {
-					$(e).children('td:last').append('<p><a href="javascript:;" target="_blank" class="viewDemo">viewDemo</a></p>');
-				}
-			}).end()
-			.on('click', '.viewDemo', function(e) {
-				e.preventDefault();
-				window.DemoTitle = $(this).parents('tr').find('td').eq(0).text();
-				window.DemoHtml = $(this).parents('td').find('pre').eq(-2).text();
-				window.DemoJs = $(this).parents('td').find('pre').eq(-1).text();
-				window.open('run.html?page=' + window.DemoTitle);
-			});
+		$modItems.find('dt[id]').each(function(i, e) {
+			var _modName = $(e).attr('id'),
+				_cont = $(e).next('dd');
+			_mod += '<li class="span-4 smal-8"><a href="#' + _modName + '">' + _modName + '</a></li>';
+			//代码预览
+			if (_cont.length && _cont.find('pre').length > 1) {
+				_cont.append('<p><a href="javascript:;" target="_blank" class="LiveDemo"><i class="ion">&#xe668;</i> LiveDemo </a></p>');
+			}
+		}).end().on('click', '.LiveDemo', function(e) {
+			e.preventDefault();
+			window.DemoTitle = $(this).parents('dd').prev('dt[id]').text();
+			window.DemoHtml = $(this).parents('dd').find('pre').eq(-2).text();
+			window.DemoJs = $(this).parents('dd').find('pre').eq(-1).text();
+			window.open('run.html?page=' + window.DemoTitle);
+		});
 		_mod += '</ul>';
 		$modMenu.html(_mod);
 	};
 
 	createNavfromTable($('#component_index'), $('#component_list'));
-	createNavfromTable($('#common_index'), $('#common_list'));
 	createNavfromTable($('#modules_index'), $('#modules_list'));
 
 	/*代码着色*/
 	require('copy');
 	require('box');
-	var copybtn = $('<div id="d_clip_button">Copy</div>').appendTo('body');
+	var copybtn = $('<div id="d_clip_button"><i class="ion">&#xe6b5;</i> Copy</div>').appendTo('body');
 	var copyCode = '';
 	copybtn.css({
 		position: 'absolute',
 		padding: '3px 14px',
-		border: '1px solid #ccc',
-		background: '#fff',
 		top: '-999px',
 		zIndex: 999,
-		borderRadius: '3px'
+		color:'#61ce3c',
+		border:'1px solid #61ce3c',
+		borderRadius:'2px'
 	});
 	var showCopyBtn = function(e) {
 		var pre = $(e.target).is('pre') ? $(e.target) : $(e.target).parents('pre');
@@ -113,6 +112,5 @@ define(function(require) {
 			cons.log("hello, u");
 		}
 	}
-
 
 });
