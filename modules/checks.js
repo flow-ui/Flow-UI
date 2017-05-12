@@ -1,8 +1,8 @@
 /*
  * name: checks.js
- * version: v0.0.1
- * update: build
- * date: 2017-12-28
+ * version: v0.0.2
+ * update: bug fix
+ * date: 2017-05-12
  */
 define('checks', function(require, exports, module) {
     "use strict";
@@ -87,7 +87,7 @@ define('checks', function(require, exports, module) {
                     });
                     $this.html(html);
                     if (typeof opt.onChange === 'function') {
-                        opt.onChange(opt.type === 'checkbox' ? opt.checked : opt.checked[0]);
+                        opt.onChange(status && $.isArray(status.checked) ? (opt.type === 'checkbox' ? status.checked : status.checked[0]) : (opt.type === 'checkbox' ? [] : ''));
                     }
                 }
             }
@@ -206,7 +206,7 @@ define('checks', function(require, exports, module) {
                         return opt.type === 'checkbox' ? localChecked : localChecked[0];
                     } else {
                         if (opt.type === 'checkbox' && $.isArray(value)) {
-                            opt.checked = value;
+                            localChecked = value;
                         } else if (opt.type === 'radio') {
                             if (!value) {
                                 localChecked = [];
