@@ -1393,15 +1393,25 @@
                 <dt id="rect（等比填充）">rect.less</dt>
                 <dd>
                     <p>类<code>rect-[比例:number]</code>可以定义一个对应宽高比的矩形，内部<code>._full</code>子元素将充满该矩形，示例：</p>
-                    <pre>
-          <code>
-    &lt;div style=&quot;width:400px&quot;&gt;
-      &lt;div class=&quot;rect-75&quot;&gt;
-        &lt;img src=&quot;http://temp.im/400x300/&quot; class=&quot;_full&quot;&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-          </code>
-        </pre>
+                    <div class="playground">
+                          <div class="row">
+                              <div class="span-4">
+                                  <div class="rect-100">
+                                    <img src="http://temp.im/400x400/" class="_full">
+                                  </div>
+                              </div>
+                              <div class="span-4">
+                                  <div class="rect-75">
+                                    <img src="http://temp.im/400x400/" class="_full">
+                                  </div>
+                              </div>
+                              <div class="span-4">
+                                  <div class="rect-50">
+                                    <img src="http://temp.im/400x200/" class="_full">
+                                  </div>
+                              </div>
+                          </div>        
+                    </div>
                     <p>内置比例：</p>
                     <table class="table">
                         <tr>
@@ -1584,70 +1594,56 @@
                 <dt id="switch（开关）">switch.less</dt>
                 <dd>
                     <div class="playground">
-                        <label class="switch switch-primary m-r">
-                            <div class="track">
-                                <div class="handle"></div>
-                            </div>
-                        </label>
-                        <label class="switch switch-primary switch-on m-r">
-                            <div class="track">
-                                <div class="handle"></div>
-                            </div>
-                        </label>
-                        <label class="switch switch-primary switch-disabled m-r">
-                            <div class="track">
-                                <div class="handle"></div>
-                            </div>
-                        </label>
-                        <label class="switch switch-round switch-success m-r">
-                            <div class="track">
-                                <div class="handle"></div>
-                            </div>
-                        </label>
-                        <label class="switch switch-round switch-success switch-on m-r">
-                            <div class="track">
-                                <div class="handle"></div>
-                            </div>
-                        </label>
-                        <label class="switch switch-round switch-success switch-disabled m-r">
-                            <div class="track">
-                                <div class="handle"></div>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="m-b">
-                        <label class="switch switch-lg switch-warning m-r">
-                            <div class="track">
-                                <div class="handle"></div>
-                            </div>
-                        </label>
-                        <label class="switch switch-lg switch-warning switch-on m-r">
-                            <div class="track">
-                                <div class="handle"></div>
-                            </div>
-                        </label>
-                        <label class="switch switch-lg switch-warning switch-disabled m-r">
-                            <div class="track">
-                                <div class="handle"></div>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="m-b">
-                        <label class="switch switch-sm switch-danger m-r">
-                            <div class="track">
-                                <div class="handle"></div>
-                            </div>
-                        </label>
-                        <label class="switch switch-sm switch-danger switch-on m-r">
-                            <div class="track">
-                                <div class="handle"></div>
-                            </div>
-                        </label>
-                        <label class="switch switch-sm switch-danger switch-disabled m-r">
-                            <div class="track">
-                                <div class="handle"></div>
-                            </div>
-                        </label>
+                        <div class="m-b">
+                            <label class="switch switch-primary m-r">
+                                <div class="track">
+                                    <div class="handle"></div>
+                                </div>
+                            </label>
+                            <label class="switch switch-primary switch-on m-r">
+                                <div class="track">
+                                    <div class="handle"></div>
+                                </div>
+                            </label>
+                            <label class="switch switch-primary switch-disabled m-r">
+                                <div class="track">
+                                    <div class="handle"></div>
+                                </div>
+                            </label>
+                            <label class="switch switch-round switch-success m-r">
+                                <div class="track">
+                                    <div class="handle"></div>
+                                </div>
+                            </label>
+                            <label class="switch switch-round switch-success switch-on m-r">
+                                <div class="track">
+                                    <div class="handle"></div>
+                                </div>
+                            </label>
+                            <label class="switch switch-round switch-success switch-disabled m-r">
+                                <div class="track">
+                                    <div class="handle"></div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="m-b">
+                            <label class="switch switch-sm switch-on m-r">
+                                <div class="track">
+                                    <div class="handle"></div>
+                                </div>
+                            </label>
+                            <label class="switch switch-warning switch-on m-r">
+                                <div class="track">
+                                    <div class="handle"></div>
+                                </div>
+                            </label>
+                            <label class="switch switch-lg switch-danger switch-on m-r">
+                                <div class="track">
+                                    <div class="handle"></div>
+                                </div>
+                            </label>
+                        </div>
+                        
                     </div>
                     <table class="table">
                         <tr>
@@ -1774,7 +1770,7 @@
                         </tr>
                         <tr>
                             <td>.scrollbar-dark</td>
-                            <td>黑色调滚动条样式</td>
+                            <td>叠加到.scrollbar呈现黑色调滚动条样式</td>
                         </tr>
                     </table>
                     <p></p>
