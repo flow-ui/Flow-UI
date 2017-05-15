@@ -137,11 +137,14 @@ define(function(require) {
 			mehtod: true,
 			handle: function(key, type) {
 				datagrid.load({
-					url: 'https://o14ufxb92.qnssl.com/phone.json',
+					url: 'http://rapapi.org/mockjsdata/9195/mock/phone/',
 					data: {
 						sort: type,
 						key: key
-					}
+					},
+			        dataParser: function(res){
+			            return res.data;
+			        }
 				});
 			}
 		},
@@ -257,10 +260,13 @@ define(function(require) {
 	var datagrid = Table({
 		el: '#index-table',
 		load: {
-			url: 'https://o14ufxb92.qnssl.com/phone.json',
+			url: 'http://rapapi.org/mockjsdata/9195/mock/phone/',
 			data: {
 				id: 123
-			}
+			},
+	        dataParser: function(res){
+	            return res.data;
+	        }
 		},
 		column: myColumn
 	});

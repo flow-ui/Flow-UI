@@ -164,11 +164,14 @@ define(function(require) {
 	}];
 	//加载配置
 	var tab3LoadData = {
-		url: 'https://o14ufxb92.qnssl.com/phone.json',
+		url: 'http://rapapi.org/mockjsdata/9195/mock/phone/',
 		data: {
 			page_size: 10,
 			page_index: 1
-		}
+		},
+        dataParser: function(res){
+            return res.data;
+        }
 	};
 	//调用Table
 	var datagrid = Table({
@@ -396,11 +399,14 @@ define(function(require) {
 	}];
 	//主表加载配置
 	var tab4LoadData = {
-		url: 'https://o14ufxb92.qnssl.com/phone.json',
+		url: 'http://rapapi.org/mockjsdata/9195/mock/phone/',
 		data: {
 			page_size: 10,
 			page_index: 1
-		}
+		},
+        dataParser: function(res){
+            return res.data;
+        }
 	};
 	//从表列数据
 	var myColumn4Sub = [{
