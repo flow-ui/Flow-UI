@@ -2442,46 +2442,56 @@
                     </tbody>
                 </table>
                 <h5>演示</h5>
-                <pre> <code>
-        &lt;form id="myform"&gt;
-            &lt;p&gt;测试数据：&lt;input type="text" name="key1" value="value1"&gt;&lt;/p&gt;
-            &lt;p&gt;测试数据：&lt;input type="text" name="key2" value="value2"&gt;&lt;/p&gt;
-            &lt;p&gt;文件名称：&lt;input type="text" readonly id="filename"&gt;&lt;/p&gt;
-        &lt;/form&gt;                                    
-        &lt;button type="button" id="selectFile" class="btn btn-primary"&gt;选择&lt;/button&gt;
-        &lt;button type="button" id="doupload" class="btn btn-warning"&gt;上传&lt;/button&gt;
-                                      </code>
+                <pre>
+                    <code>
+    &lt;div class=&quot;wrap&quot;&gt;
+         &lt;div class=&quot;row&quot;&gt;
+             &lt;div class=&quot;span-6&quot;&gt;
+                 &lt;form class=&quot;form m&quot; id=&quot;myform&quot;&gt;
+                    &lt;p class=&quot;form-group&quot;&gt;key1：&lt;input type=&quot;text&quot; class=&quot;form-control&quot; name=&quot;key1&quot; value=&quot;value1&quot;&gt;&lt;/p&gt;
+                    &lt;p class=&quot;form-group&quot;&gt;key2：&lt;input type=&quot;text&quot; class=&quot;form-control&quot; name=&quot;key2&quot; value=&quot;value2&quot;&gt;&lt;/p&gt;
+                    &lt;p class=&quot;form-group&quot;&gt;文件名称：&lt;input type=&quot;text&quot; class=&quot;form-control&quot; readonly id=&quot;filename&quot;&gt;&lt;/p&gt;
+                    &lt;div class=&quot;from-group&quot;&gt;
+                        &lt;button type=&quot;button&quot; id=&quot;selectFile&quot; class=&quot;btn btn-primary&quot;&gt;选择&lt;/button&gt;
+                        &lt;button type=&quot;button&quot; id=&quot;doupload&quot; class=&quot;btn btn-warning&quot;&gt;上传&lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/form&gt;                                    
+                &lt;div class=&quot;m&quot; id=&quot;uploaded&quot;&gt;&lt;/div&gt;
+             &lt;/div&gt;
+         &lt;/div&gt;
+     &lt;/div&gt;
+                    </code>
                 </pre>
-                <pre> <code>
-          require.async('upload', function(Uploader) {
-            var uploader = new Uploader({
-              trigger: '#selectFile',
-              name: 'file',
-              data:function(){
+                <pre>
+                    <code>
+    require.async('upload', function(Uploader) {
+        var uploader = new Uploader({
+            trigger: '#selectFile',
+            name: 'file',
+            data: function() {
                 var serializeArray = $('#myform').serializeArray(),
-                  formData = {};
-                $.each(serializeArray,function(i,e){
-                  formData[e.name] = e.value;
+                    formData = {};
+                $.each(serializeArray, function(i, e) {
+                    formData[e.name] = e.value;
                 });
                 return formData;
-              },
-              action: seajs.root + "/test/fileupload.php",
-              change: function(file){
-                //不自动上传
+            },
+            action: "http://host.refined-x.com/test/fileupload.php",
+            change: function(file) {
                 $('#filename').val(file[0].name);
-              },
-              progress: function(event, position, total, percent) {
+            },
+            progress: function(event, position, total, percent) {
                 console.log('已上传 ' + position + '/' + total + ' ' + percent + '%');
-              },
-              success: function(response) {
-                console.log('完成');
-              }
-            });
+            },
+            success: function(response) {
+                $('#uploaded').html('&lt;img src="' + response.path + '" alt="" /&gt;');
+            }
+        });
 
-            $('#doupload').on('click', function() {
-              uploader.submit();
-            });
-          });
+        $('#doupload').on('click', function() {
+            uploader.submit();
+        });
+    });
                                   </code>
                 </pre>
             </dd>
@@ -2686,7 +2696,7 @@
              &lt;/p&gt;
              &lt;p class="valid"&gt;
              &lt;label&gt;验证码：&lt;/label&gt;
-             &lt;input type="text" class="inp" name="validnum" datatype="*" ajaxurl="/test/validRand.php"
+             &lt;input type="text" class="inp" name="validnum" datatype="*" ajaxurl="http://refined-x.com/test/validRand.php"
              sucmsg="验证码正确！" nullmsg="请输入验证码！" errormsg="验证码错误!"&gt;
              &lt;img src="http://temp.im/80x20/?text=8888" id="rand" &gt;看不清？&lt;a href="###" id=""&gt;换一张&lt;/a&gt;
              &lt;/p&gt;
@@ -2705,7 +2715,7 @@
           var loginForm = $('#reg_form').Validform({
               tiptype:1,              //1：弹出；其他：输入框后插入
               ajaxPost:true,
-              url: seajs.root + '/test/ajax.php',
+              url: 'http://refined-x.com/test/ajax.php',
               usePlugin:{             //密码强度插件，不需要就删掉
                 passwordstrength:{
                   minLen:6,     //设置密码长度最小值，默认为0;
@@ -2831,7 +2841,7 @@
           //初始化上传实例
             var uploader = WebUploader.create({
               auto:false,                       // 自动上传，默认false
-              server: '/test/fileupload.php',   // 上传地址
+              server: 'http://refined-x.com/test/fileupload.php',   // 上传地址
               pick: '#filePicker',              // 选择文件按钮
               sendAsBinary: true,               // 避免部分版本安卓微信无法上传问题
               accept:{                           
@@ -3393,7 +3403,7 @@
           * @option.rely(boolen): 批量加载的js是否保持线性顺序，默认false，将同时请求
           */
           //利用线性加载特定版本jquery的例子
-          base.getScript(['http://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js', seajs.root + '/test/test2'], function(data) {
+          base.getScript(['http://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js', 'http://refined-x.com/test/test2'], function(data) {
               var $ = window.jQuery;
               $.fn.test2();
               }, {
@@ -3430,7 +3440,7 @@
           */
             var base = require('base');
             base.ajaxCombo({
-                comboUrl:"/test/combo.php"      //设置合并请求发送地址
+                comboUrl:"http://refined-x.com/test/combo.php"      //设置合并请求发送地址
             });
 
             $.ajax({
@@ -3843,13 +3853,13 @@
             });
             
             $('.boxAjax').on('click',function(){
-              Box.ajax(seajs.root + '/test/ajax.php', { 
+              Box.ajax('http://refined-x.com/test/ajax.php', { 
                 param: "param1" //Ajax参数
               });
             });
             
             $('.boxIfram').on('click',function(){
-              var myifr = Box.ifram('/test/iframCloseTest.html',{
+              var myifr = Box.ifram('http://refined-x.com/test/iframCloseTest.html',{
                 name: "closeTestIfram",  //ifram name，默认空（不是弹窗标题）
                 width: 320,     //iframe宽，默认640
                 height: 240     //iframe高，默认480
@@ -5163,7 +5173,14 @@
             <dt id="Instantclick（链接预加载）">instantclick</dt>
             <dd>
                 <h5>描述</h5>
-                <p>链接预加载插件，详情查看<a href="#instantclick">【链接预加载】</a></p>
+                <p>链接预加载插件，详细应用方案查看<a href="#instantclick">【链接预加载】</a>，文档参见<a href="http://instantclick.io/documentation" target="_blank">官方文档</a></p>
+                <h5>示例</h5>
+                <pre>
+                    <code>
+    var ic = require('instantclick');
+    ic.init();
+                    </code>
+                </pre>
             </dd>
             <dt id="Label（标签）">label</dt>
             <dd>
@@ -6421,7 +6438,7 @@
                                 <pre> <code>
            &lt;!--发起Ajax的例子--&gt;
            &lt;div class="demo topush"&gt;
-              &lt;textarea class="hide" data-url="/test/ajax.php"&gt; &lt;/textarea&gt;
+              &lt;textarea class="hide" data-url="http://refined-x.com/test/ajax.php"&gt; &lt;/textarea&gt;
            &lt;/div&gt;
                                                 </code>
                                     <code>
@@ -8977,7 +8994,7 @@ $.ajax({
         <h3 id="fullpage">全屏翻页</h3>
         <p>全屏翻页(fullpage)模式的简单实现，见 <a href="https://github.com/tower1229/Flow-UI/blob/master/flow-ui/fullpage.html" target="_blank">demo页面</a>。</p>
         <h3 id="instantclick">链接预加载</h3>
-        <p>结合<a href="https://github.com/tower1229/seajs-modules" target="_blank">seajs-modules</a>提供的<a href="http://instantclick.io" target="_blank">instantclick</a>插件，实现链接预加载、无刷新切换（PJAX）、加载进度条等特性，并扩展了页面切换后记住滚动位置的功能。</p>
+        <p>结合<a href="#Instantclick（链接预加载）">【instantclick】</a>插件，实现链接预加载、无刷新切换（PJAX）、加载进度条等特性，并扩展了页面切换后记住滚动位置的功能。</p>
         <h4>使用</h4>
         <p>预加载技术有一定特殊性，普通模块加载方式将失效，需要使用优化后的pjax专用模板，开发中基本保持了原有模块化开发体验，主要存在以下三点细节上的不同：</p>
         <h5>区别1：页面底部引用js时增加回调并执行返回函数（使用者无需关心）</h5>
@@ -9052,7 +9069,7 @@ $.ajax({
     });
     //第一批次合并请求
     $.ajax({
-        url: seajs.root + '/test/ajax.php',
+        url: 'http://refined-x.com/test/ajax.php',
         data: {
           test: 'hello1',
           sign: 's1'
@@ -9064,7 +9081,7 @@ $.ajax({
     });
     $.ajax({
         type: 'post',
-        url: seajs.root + '/test/ajax.php',
+        url: 'http://refined-x.com/test/ajax.php',
         data: {
           test: 'hello2',
           sign: 's2'
@@ -9077,7 +9094,7 @@ $.ajax({
     //第二批次合并请求
     setTimeout(function() {
         $.ajax({
-          url: seajs.root + '/test/ajax.php',
+          url: 'http://refined-x.com/test/ajax.php',
           data: {
             test: 'hello3',
             sign: 's3'
@@ -9089,7 +9106,7 @@ $.ajax({
         });
         $.ajax({
           type: 'post',
-          url: seajs.root + '/test/ajax.php',
+          url: 'http://refined-x.com/test/ajax.php',
           data: {
             test: 'hello4'
           },
@@ -9101,7 +9118,7 @@ $.ajax({
     }, 300);
     //不参与合并的请求
     $.ajax({
-        url: seajs.root + '/test/ajax.php',
+        url: 'http://refined-x.com/test/ajax.php',
         data: {
           test: '普通未合并ajax'
         },
