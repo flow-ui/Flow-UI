@@ -1,7 +1,7 @@
 /*
  * name: table.js
- * version: v1.7.1
- * update: 表格最小高度100
+ * version: v1.8.0
+ * update: 增加 onLoad 配置
  * date: 2017-05-17
  */
 define('table', function(require, exports, module) {
@@ -26,7 +26,8 @@ define('table', function(require, exports, module) {
 			highlight: false,
 			page: null,
 			onSelect: null, // index, row, [all]
-			onReady: null
+			onReady: null,
+			onLoad: null
 		},
 		Table = function(config) {
 			var opt = $.extend({}, def, config || {}),
@@ -780,6 +781,12 @@ define('table', function(require, exports, module) {
 					}
 					if (typeof opt.onReady === 'function') {
 						opt.onReady(opt.ajaxRes);
+						if (typeof opt.onLoad !== 'function'){
+							delete opt.ajaxRes;
+						}
+					}
+					if (typeof opt.onLoad === 'function') {
+						opt.onLoad(opt.ajaxRes);
 						delete opt.ajaxRes;
 					}
 				}
