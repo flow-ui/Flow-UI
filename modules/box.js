@@ -1,8 +1,8 @@
 /*
  * name: box.js
- * version: v3.11.5
- * update: protect元素插入原父元素
- * date: 2017-04-28
+ * version: v3.11.6
+ * update: setSize()方法bug
+ * date: 2017-05-03
  */
 define('box', function(require, exports, module) {
 	"use strict";
@@ -239,7 +239,7 @@ define('box', function(require, exports, module) {
 				if ($o.s.height === 'auto') {
 					if ($o.s.layout) {
 						//jquery可以通过hide获取真实高度
-						outHeight = $o.out.find('.box-wrap-body').hide().outerHeight(true) + barHeight;
+						outHeight = $o.out.find('.box-wrap-body').height('auto').hide().outerHeight(true) + barHeight;
 					} else {
 						outHeight = $o.out.height();
 					}

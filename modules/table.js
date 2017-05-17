@@ -1,8 +1,8 @@
 /*
  * name: table.js
- * version: v1.7.0
- * update: getSelected([prop])允许接收过滤属性
- * date: 2017-05-10
+ * version: v1.7.1
+ * update: 表格最小高度100
+ * date: 2017-05-17
  */
 define('table', function(require, exports, module) {
 	"use strict";
@@ -47,7 +47,7 @@ define('table', function(require, exports, module) {
 			if (isNaN(parseFloat(opt.height)) || !parseFloat(opt.height)) {
 				opt.height = $this.height();
 			}
-			if (!parseFloat(opt.height)) {
+			if (!parseFloat(opt.height) || opt.height < 100) {
 				opt.height = 'auto';
 			}
 			//索引列

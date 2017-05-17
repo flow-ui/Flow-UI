@@ -449,7 +449,6 @@ define(function(require) {
 							load: tab4SubData,
 							column: myColumn4Sub,
 							multi: true,
-							height: 400,
 							onReady: function(res) {
 								require.async('page', function() {
 									$box.find('.tab4-sub-page').page({
@@ -463,6 +462,7 @@ define(function(require) {
 								});
 								//Table实例化完成后调整从表弹窗尺寸
 								box.setSize(tab4subboxHandle);
+
 							}
 						});
 					}
