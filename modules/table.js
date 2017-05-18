@@ -1,8 +1,8 @@
 /*
  * name: table.js
- * version: v1.8.0
- * update: 增加 onLoad 配置
- * date: 2017-05-17
+ * version: v1.8.1
+ * update: data()方法不响应空数组bug
+ * date: 2017-05-18
  */
 define('table', function(require, exports, module) {
 	"use strict";
@@ -836,7 +836,7 @@ define('table', function(require, exports, module) {
 
 			return {
 				data: function(data) {
-					if ($.isArray(data) && data.length) {
+					if ($.isArray(data)) {
 						generate(data, opt);
 					} else {
 						return opt.oData;

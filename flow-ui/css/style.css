@@ -681,7 +681,6 @@ input[type='button'].btn-block {
   font-size: 14px;
   position: relative;
   overflow: hidden;
-  height: 100%;
   transition: all 0.2s ease-in-out;
   border-radius: 4px;
   background: #fff;
@@ -3293,12 +3292,12 @@ big.form-mark {
   background: #922829;
 }
 .table {
+  font-size: 14px;
   width: 100%;
   max-width: 100%;
   border: 1px solid #e8e9eb;
-  background: #fff;
   border-radius: 4px;
-  font-size: 14px;
+  background: #fff;
 }
 .table > thead > tr > th,
 .table > thead > tr > td,
@@ -3306,22 +3305,22 @@ big.form-mark {
 .table > tfoot > tr > th,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
+  font-weight: normal;
   line-height: 1.42857143;
-  padding: 0 18px;
   height: 48px;
+  padding: 0 18px;
   vertical-align: inherit;
   border-top: 1px solid #e8e9eb;
-  font-weight: normal;
 }
 .table > thead > tr > th,
 .table > thead > tr > td {
-  height: 40px;
-  line-height: 40px;
-  vertical-align: bottom;
   font-weight: normal;
-  background: #eeeeee;
+  line-height: 40px;
+  height: 40px;
   padding-top: 0;
   padding-bottom: 0;
+  vertical-align: bottom;
+  background: #eeeeee;
 }
 .table > tbody > tr:first-child > th,
 .table > tbody > tr:first-child > td {
@@ -3345,9 +3344,9 @@ big.form-mark {
 .table-condensed > tfoot > tr > th,
 .table-condensed > tbody > tr > td,
 .table-condensed > tfoot > tr > td {
+  height: auto;
   padding-top: 5px;
   padding-bottom: 5px;
-  height: auto;
 }
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th,
@@ -3365,15 +3364,15 @@ big.form-mark {
   background-color: #eeeeee;
 }
 table col[class*='col-'] {
-  position: static;
   display: table-column;
   float: none;
+  position: static;
 }
 table td[class*='col-'],
 table th[class*='col-'] {
-  position: static;
   display: table-cell;
   float: none;
+  position: static;
 }
 .table-responsive {
   overflow-x: auto;
@@ -3423,10 +3422,12 @@ table th[class*='col-'] {
     border-bottom: 0;
   }
 }
+/* for table plugin */
 .table-wrapper {
-  position: relative;
-  overflow-y: hidden;
   overflow-x: hidden;
+  overflow-y: hidden;
+  position: relative;
+  box-sizing: border-box;
   cursor: default;
   border: 1px solid #e8e9eb;
   border-radius: 4px;
@@ -3440,14 +3441,14 @@ table th[class*='col-'] {
   padding: 0;
 }
 .table-wrapper .table-cell {
-  padding: 0 15px;
   overflow: hidden;
+  padding: 0 15px;
   white-space: normal;
   word-break: break-all;
 }
 .table-scroll-x {
-  overflow-y: hidden;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 .table-header .table,
 .table-body .table {
@@ -3465,40 +3466,40 @@ table th[class*='col-'] {
   position: relative;
 }
 .table-body .table .table-cell-dirty:before {
-  content: "";
   position: absolute;
+  top: 0;
+  left: 0;
   width: 0;
   height: 0;
-  left: 0;
-  top: 0;
+  content: '';
   border: 4px solid;
   border-color: #2EA9DF transparent transparent #2EA9DF;
 }
 .table-highlight,
 .table-hover > tbody > .table-highlight:hover {
-  background: #2EA9DF;
   color: #fff;
+  background: #2EA9DF;
 }
 .table-sort,
 .table-filter {
   display: inline-block;
+  overflow: hidden;
+  position: relative;
+  line-height: 1.4em;
   width: 1.4em;
   height: 1.4em;
-  line-height: 1.4em;
   margin: -1px 0 0 4px;
-  overflow: hidden;
   cursor: pointer;
-  position: relative;
   vertical-align: middle;
   color: #c3cbd6;
 }
 .table-sort .ion {
   display: block;
-  font-size: 1.3em;
-  height: .7em;
-  line-height: .7em;
   overflow: hidden;
   position: absolute;
+  font-size: 1.3em;
+  line-height: 0.7em;
+  height: 0.7em;
   transition: color 0.2s ease-in-out;
 }
 .table-sort .table-sort-up {
@@ -3511,11 +3512,11 @@ table th[class*='col-'] {
   color: #2EA9DF;
 }
 .table-fixed {
+  overflow: hidden;
   position: absolute;
   top: 0;
   left: 0;
   box-shadow: 2px 0 6px -2px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
 }
 .table-fixed .table-header,
 .table-fixed .table-body {
@@ -3523,12 +3524,12 @@ table th[class*='col-'] {
 }
 .table-wrapper .table-cell-editer {
   position: absolute;
-  top: 0;
-  height: 100%;
   z-index: 9;
+  top: 0;
+  line-height: 1.7;
+  height: 100%;
   padding-top: 8px;
   padding-bottom: 8px;
-  line-height: 1.7;
 }
 .wrap {
   width: 1200px;

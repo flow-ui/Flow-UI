@@ -106,7 +106,7 @@ seajs.config({
         'spin'                              : 'v0.0.2',
         'switch'                            : 'v0.4.1',
         'tab'                               : 'v4.1.2',
-        'table'                             : 'v1.7.0',
+        'table'                             : 'v1.8.1',
         'timepicker'                        : 'v0.1.2',
         'tip'                               : 'v1.5.0',
         'touch'                             : 'v0.1.1',
