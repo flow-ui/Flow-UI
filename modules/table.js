@@ -1,7 +1,7 @@
 /*
  * name: table.js
- * version: v1.8.1
- * update: data()方法不响应空数组bug
+ * version: v1.8.4
+ * update: 并行ajax进程管理
  * date: 2017-05-18
  */
 define('table', function(require, exports, module) {
@@ -332,6 +332,7 @@ define('table', function(require, exports, module) {
 			};
 			var render = function(tData, opt, part) {
 				if (!$.isArray(tData) || !$.isArray(opt.column) || !opt.column.length) {
+					console.log(tData, opt.column)
 					return console.warn('table: data or column配置有误！');
 				}
 				var colgroup = '<colgroup>';
@@ -494,7 +495,7 @@ define('table', function(require, exports, module) {
 					if (part === 'placehold') {
 						//首次ajax加载
 					} else {
-						tbody += ('<table class="table"><tbody><tr><td style="border-top:0" colspan="'+opt.column.length+'"><div class="p">' + opt.noDataText + '</div></td></tr></tbody></table>');
+						tbody += ('<table class="table">' + colgroup + '<tbody><tr><td style="border-top:0" colspan="'+opt.column.length+'"><div class="p">' + opt.noDataText + '</div></td></tr></tbody></table>');
 					}
 				} else {
 					var tbodyCont = getBody(tData, opt);
@@ -733,77 +734,79 @@ define('table', function(require, exports, module) {
 						tDataGroup.push(base.deepcopy(pageTemp));
 						pageTemp = null;
 					}
-
-					tData = tDataGroup[0];
-					require.async('page', function(Page) {
-						var pageEl;
-						if (opt.page.el && $(opt.page.el).length) {
-							pageEl = $(opt.page.el);
-						} else if (!$('#' + indexKey).length) {
-							pageEl = $('<div id="' + indexKey + '"></div>');
-							$this.after(pageEl);
-						} else {
-							pageEl = $('#' + indexKey);
-						}
-						tPager = Page({
-							el: pageEl,
-							total: tDataGroup.length,
-							onChange: function(pagenumber) {
-								tData = tDataGroup[pagenumber - 1];
-								render(tData, opt, 'body');
-								if (typeof opt.page.onChange === 'function') {
-									opt.page.onChange(pagenumber);
-								}
+					if(tDataGroup.length){
+						tData = tDataGroup[0];
+						require.async('page', function(Page) {
+							var pageEl;
+							if (opt.page.el && $(opt.page.el).length) {
+								pageEl = $(opt.page.el);
+							} else if (!$('#' + indexKey).length) {
+								pageEl = $('<div id="' + indexKey + '"></div>');
+								$this.after(pageEl);
+							} else {
+								pageEl = $('#' + indexKey);
 							}
+							tPager = Page({
+								el: pageEl,
+								total: tDataGroup.length,
+								onChange: function(pagenumber) {
+									tData = tDataGroup[pagenumber - 1];
+									render(tData, opt, 'body');
+									if (typeof opt.page.onChange === 'function') {
+										opt.page.onChange(pagenumber);
+									}
+								}
+							});
 						});
-					});
+					}
 				}
 
 				render(tData, opt, part);
 
-				if (part !== 'placehold' && !$this.data('table-events')) {
-					$this.data('table-events', true);
-					//绑定事件
-					$this.on('click', 'td.table-cell-editable', function(e) {
-						e.stopPropagation();
-						var entity = $(this).data('entity');
-						entity.edit($(this));
-					}).on('click', '.table-choose-input', function(e) {
-						e.stopPropagation();
-						selectRow($(this).parents('tr[data-index]').data('index'), $(this).prop('checked'));
-					});
-					if (opt.multi) {
-						$this.on('click', '.table-choose-all', selectAll);
-					} else {
-						$this.on('click', '.table-body tr', function() {
-							selectRow($(this).data('index'));
+				if (part !== 'placehold') {
+					if(!$this.data('table-events')){
+						$this.data('table-events', true);
+						//绑定事件
+						$this.on('click', 'td.table-cell-editable', function(e) {
+							e.stopPropagation();
+							var entity = $(this).data('entity');
+							entity.edit($(this));
+						}).on('click', '.table-choose-input', function(e) {
+							e.stopPropagation();
+							selectRow($(this).parents('tr[data-index]').data('index'), $(this).prop('checked'));
 						});
-					}
-					if (typeof opt.onReady === 'function') {
-						opt.onReady(opt.ajaxRes);
-						if (typeof opt.onLoad !== 'function'){
-							delete opt.ajaxRes;
+						if (opt.multi) {
+							$this.on('click', '.table-choose-all', selectAll);
+						} else {
+							$this.on('click', '.table-body tr', function() {
+								selectRow($(this).data('index'));
+							});
+						}
+						if (typeof opt.onReady === 'function') {
+							opt.onReady(opt.ajaxRes);
 						}
 					}
 					if (typeof opt.onLoad === 'function') {
 						opt.onLoad(opt.ajaxRes);
-						delete opt.ajaxRes;
 					}
 				}
+				delete opt.ajaxRes;
 			};
 			var loadData = function(set, part) {
 				require.async('spin', function() {
-					var loading = $this.spin({
-						icon: '&#xe66e;'
-					});
-					$.ajax({
+					if($.isPlainObject(loadData.loading)){
+						loadData.loading = loadData.loading.hide();
+						loadData.progress.abort();
+					}
+					loadData.loading = $this.spin();
+					loadData.progress = $.ajax({
 						type: set.method || 'get',
 						url: set.url,
 						dataType: 'json',
 						data: set.data || {},
 						success: function(res) {
 							var ajaxData;
-							loading.hide();
+							loadData.loading = loadData.loading.hide();
 							if (typeof set.dataParser === 'function') {
 								ajaxData = set.dataParser(res);
 							} else {
@@ -816,6 +819,11 @@ define('table', function(require, exports, module) {
 							}
 							opt.ajaxRes = res;
 							generate(opt.rowData, opt, part);
+						},
+						error: function(){
+							if($.isPlainObject(loadData.loading)){
+								loadData.loading = loadData.loading.hide();
+							}
 						}
 					});
 				});

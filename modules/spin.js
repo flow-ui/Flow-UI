@@ -1,14 +1,14 @@
 /*
  * name: spin.js
- * version: v0.0.2
- * update: 图标定位bug
+ * version: v0.0.3
+ * update: .spin-wrap去掉id
  * date: 2017-04-18
  */
 define('spin', function(require, exports, module) {
 	"use strict";
 	var $ = window.$ || require('jquery'),
 		base = require('base'),
-		template = '<div class="spin-wrap" id="flowui-spin"><div class="spin-main"><div class="spin-text"></div></div></div>',
+		template = '<div class="spin-wrap"><div class="spin-main"><div class="spin-text"></div></div></div>',
 		def = {
 			el: null,
 			icon: '&#xe66e;',

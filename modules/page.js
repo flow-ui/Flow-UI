@@ -1,8 +1,8 @@
 /*
  * name: page.js
- * version: v1.0.5
- * update: 创建新的etplEngine实例
- * date: 2017-05-08
+ * version: v1.0.6
+ * update: opt.total === 0 渲染空字符串
+ * date: 2017-05-18
  */
 define('page', function(require, exports, module) {
 	"use strict";
@@ -32,54 +32,58 @@ define('page', function(require, exports, module) {
 			var showStart,
 				showEnd,
 				i,
-				_;
-			if (pageData.total < pageData.showNum) {
-				pageData.showNum = pageData.total;
-			}
-			if (pageData.total < pageData.current) {
-				pageData.current = pageData.total;
-			}
-			if (pageData.current <= pageData.showNum) {
-				showStart = 1;
-			} else if (pageData.total - pageData.current >= pageData.showNum) {
-				showStart = pageData.current;
-			} else {
-				showStart = pageData.total - pageData.showNum + 1;
-			}
-			showEnd = showStart + pageData.showNum - 1;
-			pageData.pages = [];
-			for (i = showStart; i <= showEnd; i++) {
-				_ = {
-					num: i,
-					to: i
-				};
-				if (pageData.current == i) {
-					_.active = true;
+				_,
+				_html = '';
+			if (pageData.total !== 0) {
+				if (pageData.total < pageData.showNum) {
+					pageData.showNum = pageData.total;
 				}
-				pageData.pages.push(_);
-			}
+				if (pageData.total < pageData.current) {
+					pageData.current = pageData.total;
+				}
+				if (pageData.current <= pageData.showNum) {
+					showStart = 1;
+				} else if (pageData.total - pageData.current >= pageData.showNum) {
+					showStart = pageData.current;
+				} else {
+					showStart = pageData.total - pageData.showNum + 1;
+				}
+				showEnd = showStart + pageData.showNum - 1;
+				pageData.pages = [];
+				for (i = showStart; i <= showEnd; i++) {
+					_ = {
+						num: i,
+						to: i
+					};
+					if (pageData.current == i) {
+						_.active = true;
+					}
+					pageData.pages.push(_);
+				}
 
-			if (showStart > pageData.showNum) {
-				pageData.pages.splice(0, 0, {
-					num: pageData.holder,
-					to: pageData.current - pageData.showNum
-				});
+				if (showStart > pageData.showNum) {
+					pageData.pages.splice(0, 0, {
+						num: pageData.holder,
+						to: pageData.current - pageData.showNum
+					});
+				}
+				if (pageData.total > showEnd) {
+					pageData.pages.push({
+						num: pageData.holder,
+						to: showEnd + 1
+					});
+				}
+				pageData.isFirst = (pageData.current == 1);
+				pageData.isLast = (pageData.current == pageData.total);
+				if (!pageData.isFirst) {
+					pageData.prevPage = pageData.current - 1;
+				}
+				if (!pageData.isLast) {
+					pageData.nextPage = pageData.current + 1;
+				}
+				_html = pagerender(pageData);
 			}
-			if (pageData.total > showEnd) {
-				pageData.pages.push({
-					num: pageData.holder,
-					to: showEnd + 1
-				});
-			}
-			pageData.isFirst = (pageData.current == 1);
-			pageData.isLast = (pageData.current == pageData.total);
-			if (!pageData.isFirst) {
-				pageData.prevPage = pageData.current - 1;
-			}
-			if (!pageData.isLast) {
-				pageData.nextPage = pageData.current + 1;
-			}
-			$el.data('pagedata', pageData).html(pagerender(pageData));
+			$el.data('pagedata', pageData).html(_html);
 		},
 		Page = function(config) {
 			var opt = $.extend({}, def, config || {}),
@@ -100,7 +104,7 @@ define('page', function(require, exports, module) {
 						render($(opt.el), pageData);
 					}
 				};
-			if (!$(opt.el).length || !opt.total) {
+			if (!$(opt.el).length || typeof opt.total !== 'number') {
 				return console.warn('page():缺少el或total参数!');
 			}
 
