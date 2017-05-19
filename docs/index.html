@@ -3124,7 +3124,7 @@
                         <tr>
                             <th>el</th>
                             <td>
-                                <p>默认 <code>null</code>，要显示徽标的元素，直接调用Badge方法必填，jquery插件调用时可忽略</p>
+                                <p>默认 <code>null</code>，要显示徽标的元素，直接调用Badge方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
                             </td>
                         </tr>
                         <tr>
@@ -3904,7 +3904,7 @@
                         <tr>
                             <th>el</th>
                             <td>
-                                <p>默认<code>null</code>，控件生成元素，直接调用<code>Checks</code>方法必填，jquery插件调用时可忽略</p>
+                                <p>默认<code>null</code>，控件生成元素，直接调用<code>Checks</code>方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
                             </td>
                         </tr>
                         <tr>
@@ -4057,7 +4057,7 @@
                         <tr>
                             <th>el</th>
                             <td>
-                                <p>触发元素，默认无，直接调用citySelect方法必填，jquery插件调用时可忽略</p>
+                                <p>触发元素，默认无，直接调用citySelect方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
                             </td>
                         </tr>
                         <tr>
@@ -4148,7 +4148,7 @@
                         <tr>
                             <th>el</th>
                             <td>
-                                <p>插入/生成折叠面板的元素，默认无，直接调用Collapse方法必填，jquery插件调用时可忽略</p>
+                                <p>插入/生成折叠面板的元素，默认无，直接调用Collapse方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
                             </td>
                         </tr>
                         <tr>
@@ -4527,7 +4527,7 @@
                     <tbody>
                         <tr>
                             <th>el</th>
-                            <td>默认<code>null</code>，拖拽面板外边界，直接调用DragPanel方法必填，jquery插件调用时可忽略</td>
+                            <td>默认<code>null</code>，拖拽面板外边界，直接调用DragPanel方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
                         </tr>
                         <tr>
                             <th>sortkey</th>
@@ -4687,7 +4687,7 @@
                     <tbody>
                         <tr>
                             <th>el</th>
-                            <td>默认<code>null</code>，制定触发元素，直接调用Tip方法必填，jquery插件调用时可忽略</td>
+                            <td>默认<code>null</code>，制定触发元素，直接调用Tip方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
                         </tr>
                         <tr>
                             <th>trigger</th>
@@ -5192,7 +5192,7 @@
                         <tr>
                             <th>el</th>
                             <td>
-                                <p>默认 <code>null</code>，表格生成元素，直接调用Label方法必填，jquery插件调用时可忽略</p>
+                                <p>默认 <code>null</code>，表格生成元素，直接调用Label方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
                             </td>
                         </tr>
                         <tr>
@@ -5487,7 +5487,7 @@
                     <tbody>
                         <tr>
                             <th>el</th>
-                            <td>默认<code>null</code>，制定触发元素，直接调用Menu方法必填，jquery插件调用时可忽略</td>
+                            <td>默认<code>null</code>，制定触发元素，直接调用Menu方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
                         </tr>
                         <tr>
                             <th>data</th>
@@ -6043,7 +6043,7 @@
                     <tbody>
                         <tr>
                             <th>el</th>
-                            <td>默认无，必填，分页展示容器，jquery选择器格式，直接调用Page方法必填，jquery插件调用时可忽略</td>
+                            <td>默认无，必填，分页展示容器，jquery选择器格式，直接调用Page方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
                         </tr>
                         <tr>
                             <th>current</th>
@@ -6208,7 +6208,7 @@
                         <tr>
                             <th>el</th>
                             <td>
-                                <p>默认 <code>null</code>，进度条容器元素，直接调用 <code>Progress</code>方法必填，jquery插件调用时可忽略</p>
+                                <p>默认 <code>null</code>，进度条容器元素，直接调用 <code>Progress</code>方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
                             </td>
                         </tr>
                         <tr>
@@ -6226,7 +6226,7 @@
                         <tr>
                             <th>active</th>
                             <td>
-                                <p>默认 <code>true</code>，实例是否为激活状态，当persent值达到100后自动设为 <code>false</code></p>
+                                <p>默认 <code>true</code>，实例是否为激活状态（动态光影），当persent值达到100后自动设为 <code>false</code></p>
                             </td>
                         </tr>
                         <tr>
@@ -7679,29 +7679,29 @@
                         <tr>
                             <th>el</th>
                             <td>
-                                <p>默认<code>null</code>，生成/插入选项卡元素，直接调用Tab方法必填，jquery插件调用时可忽略</p>
+                                <p>默认<code>null</code>，生成/插入选项卡元素，直接调用Tab方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
                             </td>
                         </tr>
                         <tr>
                             <th>conts</th>
                             <td>
-                                <p>默认<code>".tab-cont"</code>；基于标签创建时要在$el中查找的选项卡元素，该元素的内容将作为选项卡内容；</p>
+                                <p>默认<code>".tab-cont"</code>；基于标签创建时，$el中指定的选项卡元素选择器，该元素的内容将作为选项卡内容；</p>
                                 <p>该元素的<code>data-tab-title</code>属性值将作为选项卡标签标题，另外还支持<code>actived / disabled</code>属性，分别用于指定初始显示和禁用该选项卡</p>
                             </td>
                         </tr>
                         <tr>
                             <th>data</th>
                             <td>
-                                <p>默认<code>null</code>，用于基于数据创建选项卡，优先级高于基于标签创建，格式:</p>
+                                <p>默认<code>null</code>，用于基于数据创建选项卡，优先级高于基于标签创建，对象数组格式，对象属性:</p>
                                 <code>
-                                                    { <br>
-                                                    title: "", //标签标题<br>
-                                                    cont: "", //选选卡内容<br>
-                                                    actived: [boolean], //激活当前选项卡<br>
-                                                    disabled: [boolean], //禁用当前选项卡<br>
-                                                    color: [""] //当前选项卡颜色，支持【Color】组件中的所有颜色<br>
-                                                    }
-                                                </code>
+                                    { <br>
+                                    title: "", //标签标题<br>
+                                    cont: "", //选选卡内容<br>
+                                    actived: boolean, //可选，激活当前选项卡<br>
+                                    disabled: boolean, //可选，禁用当前选项卡<br>
+                                    color: string //可选，当前选项卡颜色，支持【Color】组件中的所有颜色<br>
+                                    }
+                                </code>
                             </td>
                         </tr>
                         <tr>
@@ -7713,7 +7713,13 @@
                         <tr>
                             <th>act</th>
                             <td>
-                                <p>默认<code>"click"</code>，触发事件</p>
+                                <p>默认<code>"click"</code>，触发事件，可选"mouseenter"</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>throttle</th>
+                            <td>
+                                <p>默认<code>300</code>，当act为"mouseenter"时的函数节流间隔，单位ms</p>
                             </td>
                         </tr>
                         <tr>
@@ -7781,11 +7787,12 @@
                 &lt;/div&gt;
 
                 &lt;div class="m"&gt;
-                    &lt;div class="btn btn-default setactive"&gt;激活第2个&lt;/div&gt;
-                    &lt;div class="btn btn-default setdisabled"&gt;禁用/解禁&lt;/div&gt;
+                    &lt;div class="btn btn-default setactive"&gt;激活2&lt;/div&gt;
+                    &lt;div class="btn btn-default setdisabled"&gt;禁用/解禁3&lt;/div&gt;
+                    &lt;div class="btn btn-default getactive"&gt;获取当前index&lt;/div&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
-                                        </code>
+                    </code>
                 </pre>
                 <pre> <code>
             require('tab');
@@ -7800,7 +7807,10 @@
                 mytabs.disabled(2, disabled);
                 disabled = !disabled;
             });
-                                       </code>
+            $('.getactive').on('click', function(){
+                console.log('actived: ' + mytabs.active());
+            });
+                    </code>
                 </pre>
             </dd>
             <dt id="Table（数据表格）">table</dt>
@@ -7814,7 +7824,7 @@
                         <tr>
                             <th>el</th>
                             <td>
-                                <p>默认<code>null</code>，表格生成元素，直接调用Table方法必填，jquery插件调用时可忽略</p>
+                                <p>默认<code>null</code>，表格生成元素，直接调用Table方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
                             </td>
                         </tr>
                         <tr>
@@ -8555,7 +8565,7 @@
                         <tr>
                             <th>el</th>
                             <td>
-                                <p>默认<code>null</code>，制定触发元素，直接调用TimePicker方法必填，jquery插件调用时可忽略；当元素具有<code>value</code>属性时，value将自动同步所选时间</p>
+                                <p>默认<code>null</code>，制定触发元素，直接调用TimePicker方法必填，jquery插件调用时可忽略，默认应用$(this)；当元素具有<code>value</code>属性时，value将自动同步所选时间</p>
                             </td>
                         </tr>
                         <tr>
@@ -8679,7 +8689,7 @@
                     <tbody>
                         <tr>
                             <th>el</th>
-                            <td>默认<code>null</code>，制定触发元素，直接调用Tip方法必填，jquery插件调用时可忽略</td>
+                            <td>默认<code>null</code>，制定触发元素，直接调用Tip方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
                         </tr>
                         <tr>
                             <th>trigger</th>

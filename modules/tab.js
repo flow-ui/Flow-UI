@@ -1,8 +1,8 @@
 /*
  * name: tab.js
- * version: v4.1.2
- * update: 创建新的etplEngine实例
- * date: 2017-05-08
+ * version: v4.2.0
+ * update: 增加 throttle 配置
+ * date: 2017-05-19
  */
 define('tab', function(require, exports, module) {
 	"use strict";
@@ -14,7 +14,8 @@ define('tab', function(require, exports, module) {
 			conts: ".tab-cont", //内容元素
 			data: null,
 			active: undefined, //初始显示，默认第一个
-			act: 'click', //触发动作
+			act: 'click', //mouseenter, 
+			throttle: 300, 
 			extra: null,
 			beforeChange: null, 
 			onChange: null, 
@@ -37,7 +38,7 @@ define('tab', function(require, exports, module) {
 				$this = $(opt.el).eq(0),
 				thisPosition,
 				toggletab,
-				tiemout,
+				throttleTimer,
 				$tab_t,
 				$tab_c,
 				tabsData,
@@ -85,44 +86,45 @@ define('tab', function(require, exports, module) {
 			}
 
 			$this.data('tab-init', true).addClass('tab').css('position', thisPosition).html(html).fadeIn(160);
+			if (typeof opt.extra === 'function') {
+				opt.extra = opt.extra();
+			}
 			if (opt.extra) {
-				if (typeof opt.extra === 'function') {
-					opt.extra = opt.extra();
-				}
-				$this.find('.tab-extra').append(opt.extra);
+				$this.find('.tab-extra').html(opt.extra);
 			}
 			$tab_t = $this.find('.tab-title');
 			$tab_c = $this.find('.tab-cont');
 
-			toggletab = function(i) {
-				$tab_t.eq(i).addClass('tab-actived').siblings().removeClass('tab-actived');
-				$tab_c.eq(i).addClass('tab-actived').siblings().removeClass('tab-actived');
+			toggletab = function($this) {
+				var index = $this.index();
+				if(opt.active === index || $this.hasClass('tab-disabled') || $this.hasClass('tab-actived')){
+					return null;
+				}
+				opt.active = index;
+				typeof(opt.beforeChange) === 'function' && opt.beforeChange(index);
+				$tab_t.eq(index).addClass('tab-actived').siblings('.tab-actived').removeClass('tab-actived');
+				$tab_c.eq(index).addClass('tab-actived').siblings('.tab-actived').removeClass('tab-actived');
+				setTimeout(function() {
+					typeof(opt.onChange) === 'function' && opt.onChange(index);
+				}, 0);
 			};
 
 			$tab_t.on(opt.act, function(event) {
 				event.preventDefault();
-				if ($(this).hasClass('tab-disabled') || $(this).hasClass('tab-actived')) {
-					return null;
-				}
-
-				var index = $(this).index(),
-					_timeout,
+				var targetTab = $(this),
 					_last;
-				typeof(opt.beforeChange) === 'function' && opt.beforeChange(index);
-				if (event.timeStamp) {
+				if (opt.act === 'mouseenter' && event.timeStamp) {
 					_last = event.timeStamp;
-					_timeout = setTimeout(function() {
+					throttleTimer && clearTimeout(throttleTimer);
+					throttleTimer = setTimeout(function() {
 						if (_last - event.timeStamp === 0) {
-							toggletab(index);
+							toggletab(targetTab);
 						}
-					}, opt.tiemout);
+						_last = null;
+					}, opt.throttle);
 				} else {
-					toggletab(index);
+					toggletab(targetTab);
 				}
-				setTimeout(function() {
-					typeof(opt.onChange) === 'function' && opt.onChange(index);
-					index = _timeout = _last = null;
-				}, 0);
 			}).eq(opt.active).trigger(opt.act);
 
 			typeof opt.onReady === 'function' && opt.onReady($this, opt);
