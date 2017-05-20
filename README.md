@@ -1,7 +1,7 @@
 ### Flow-UI
 Flow-UI 是一套组件化UI框架，支持定制主题，主要服务于前台及中后台产品。
 
-[![compatibility](https://img.shields.io/badge/compatibility-IE8%2B-orange.svg)]() (https://travis-ci.org/tower1229/Flow-UI) [![GitHub release](https://img.shields.io/github/release/tower1229/Flow-UI.svg)]() [![license](https://img.shields.io/github/license/tower1229/Flow-UI.svg)]()
+[![compatibility](https://img.shields.io/badge/compatibility-IE8%2B-orange.svg)]() [![GitHub release](https://img.shields.io/github/release/tower1229/Flow-UI.svg)]() [![license](https://img.shields.io/github/license/tower1229/Flow-UI.svg)]()
 
 ### 兼容性
 
