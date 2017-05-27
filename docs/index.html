@@ -7556,6 +7556,107 @@
                                         </code>
                 </pre>
             </dd>
+            <dt id="Store（数据存取）">Store</dt>
+            <dd>
+                <h5>描述</h5>
+                <p>页面级异步数据存取插件，返回<code>Store</code>对象</code></p>
+                <h5>方法</h5>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>init([config])</th>
+                            <td>
+                                <p>设置默认ajax参数，默认：</p>
+                                <pre>
+                                    <code>
+{
+    type: 'get',
+    url: '',
+    dataType: 'json',
+    data: {}
+}
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>add(object)</th>
+                            <td>
+                                <p>添加预取数据对象，将继承默认ajax参数，格式：</p>
+                                <pre>
+                                    <code>
+{
+    key: '',        //string, 数据别名
+    type: 'get',
+    url: '',
+    dataType: 'json',
+    data: {}
+}
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>clear([keyArray])</th>
+                            <td>
+                                <p>传入由key数组，将某(几)项数据从队列和存储中移除，不传keyArray将清空Store中的所有队列和存储</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>ready([keyArray], callback)</th>
+                            <td>
+                                <p>确保某(几)项数据已经获取后执行回调方法，不传keyArray将获取队列所有数据</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>update([keyArray], [callback])</th>
+                            <td>
+                                <p>更新某(几)项数据，不传keyArray将更新队列所有数据，若传入callback函数，将在完成后执行</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h5>示例</h5>
+                <pre>
+                    <code>
+    &lt;div class=&quot;wrap&quot;&gt;
+        &lt;button class=&quot;btn btn-default add&quot;&gt;add&lt;/button&gt;
+        &lt;button class=&quot;btn btn-default ready&quot;&gt;ready(控制台查看输出)&lt;/button&gt;
+        &lt;button class=&quot;btn btn-default clear&quot;&gt;clear&lt;/button&gt;
+        &lt;div id=&quot;log&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+                    </code>
+                </pre>
+                <pre>
+                    <code>
+    var store = require('store');
+    //初始化配置
+    store.init({
+        url: 'http://rapapi.org/mockjsdata/9195/tree/getNode'
+    });
+    
+    $('.add').on('click', function(){
+        var randomId = parseInt(Math.random() * 1e6);
+        store.add({
+            key: 'api-' + randomId,
+            data: {
+                hello: randomId
+            }
+        });
+        $('#log').append('&lt;p&gt;添加 api-' + randomId+'&lt;/p&gt;');
+    });
+    $('.ready').on('click', function(){
+        store.ready(function(states) {
+            console.log('states ready: ', states);
+        });
+    });
+    $('.clear').on('click', function(){
+        store.clear();
+        $('#log').empty();
+    });
+                    </code>
+                </pre>
+            </dd>
             <dt id="Switch（开关）">Switch</dt>
             <dd>
                 <h5>描述</h5>

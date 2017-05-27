@@ -1,8 +1,8 @@
 /*
  * name: base
- * version: 3.4.0
- * update: 统一设置规则
- * date: 2017-05-11
+ * version: 3.4.1
+ * update: ajax本地缓存bug
+ * date: 2017-05-27
  */
 define('base', function(require, exports, module) {
 	'use strict';
@@ -69,16 +69,10 @@ define('base', function(require, exports, module) {
 						cacheNamePrefix = '_ajaxcache',
 						cacheName,
 						cacheDeadline,
-						cacheVal,
-						isDebug = _getUrlParam('debug');
+						cacheVal;
 					//获取url
-					if (setting.type.toUpperCase() === 'POST' && $.isPlainObject(setting.data)) {
-						var _param = '?';
-						$.each(function(i, e) {
-							_param += (i + '=' + e + '&');
-						});
-						cacheKey = setting.url + _param.slice(-1);
-						_param = null;
+					if (setting.type.toUpperCase() === 'POST') {
+						cacheKey = setting.url + '?' + setting.data;
 					} else {
 						cacheKey = setting.url;
 					}
@@ -107,7 +101,7 @@ define('base', function(require, exports, module) {
 							return false;
 						}
 					});
-					if (!isDebug && setting.localCache && !isNaN(setting.localCache)) {
+					if (setting.localCache && !isNaN(setting.localCache)) {
 						var nowDate = new Date().getTime();
 						if (cacheDeadline && cacheDeadline > nowDate) {
 							//console.log('使用缓存 '+cacheDeadline+'>'+nowDate);
@@ -147,9 +141,7 @@ define('base', function(require, exports, module) {
 					} else if (cacheName) {
 						//清除缓存
 						localStorage.removeItem(cacheName);
-						if (isDebug) {
-							console.log('debug模式：数据[' + cacheName + ']已清除');
-						}
+						console.log('缓存数据[' + cacheName + ']已清除');
 					}
 				}
 			}
