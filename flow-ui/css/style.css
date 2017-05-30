@@ -2326,7 +2326,7 @@ big.form-mark {
 .label-closable .ion:last-child {
   font-size: 1em;
   margin-left: 0.4em;
-  vertical-align: middle;
+  vertical-align: baseline;
   opacity: 0.7;
   transition: opacity ease .3s;
 }
