@@ -9,11 +9,13 @@ IE8+
 
 ### 文档
 
-https://tower1229.github.io/Flow-UI/docs/
+[Flow-UI Documention](https://tower1229.github.io/Flow-UI/docs/)
 
 ### 演示
 
-http://tower1229.github.io/Flow-UI/docs/demo.html
+[Flow-UI 概览](http://tower1229.github.io/Flow-UI/docs/demo.html)
+
+[Flow-UI 控制台](http://refined-x.com/Flow-UI/dashboard/index.html)
 
 ### 配套自动化工具
 
