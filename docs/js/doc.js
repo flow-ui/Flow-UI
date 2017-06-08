@@ -31,7 +31,7 @@ define(function(require) {
 		$modItems.find('dt[id]').each(function(i, e) {
 			var _modName = $(e).attr('id'),
 				_cont = $(e).next('dd');
-			_mod += '<li class="span-4 smal-6"><a href="#' + _modName + '" class="el">' + _modName + '</a></li>';
+			_mod += '<li class="span-4 smal-6"><a href="#' + encodeURI(_modName) + '" class="el">' + _modName + '</a></li>';
 			//代码预览
 			if (_cont.length && _cont.find('pre').length > 1) {
 				_cont.append('<p><a href="javascript:;" target="_blank" class="LiveDemo"><i class="ion">&#xe668;</i> LiveDemo </a></p>');
