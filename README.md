@@ -21,6 +21,5 @@ IE8+
 
 [Flow-CLI](https://tower1229.github.com/Flow-CLI/docs/)
 
-### License 
-
-GPL-3.0
+## 更多
+> [前端路上](http://refined-x.com)
