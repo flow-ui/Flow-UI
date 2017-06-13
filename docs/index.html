@@ -28,6 +28,12 @@
         <p> <strong class="text-primary">Flow-UI</strong> 是一套组件化UI框架，支持定制主题，主要服务于前台及中后台产品。</p>
         <h4>兼容性</h4>
         <p>IE8+</p>
+        <h4>示例项目</h4>
+        <p> <a href="demo.html" target="_blank"><i class="ion">&#xe60e;</i> Flow-UI 概览 </a> </p>
+        <p> <a href="/Flow-UI/dashboard/index.html" target="_blank"><i class="ion">&#xe620;</i> Flow-UI 控制台 </a> </p>
+        <h4 id="download">下载</h4>
+        <p>Github：<a href="https://github.com/tower1229/Flow-UI" target="_blank">Flow-UI</a></p>
+        <p>OsChina: <a href="http://git.oschina.net/genvision/Flow-UI" target="_blank">Flow-UI</a></p>
         <h4>目录结构</h4>
         <pre>
             <code class="javascript"> 
@@ -44,17 +50,12 @@
   ·-- modules/                  //本地模块库(可选)
                 </code>
           </pre>
-        <h3 id="getStart">使用</h3>
-        <h4 id="download">下载</h4>
-        <p>Github：<a href="https://github.com/tower1229/Flow-UI" target="_blank">Flow-UI</a></p>
-        <p>OsChina: <a href="http://git.oschina.net/genvision/Flow-UI" target="_blank">Flow-UI</a></p>
-        <h4>快速开始</h4>
+        <h3 id="get-start">快速开始</h3>
         <p>1. 拷贝<code>flow-ui/</code>和<code>modules/</code>到项目中；</p>
         <p>2. 根据需要修改配置，<code>seajs.config.js</code>包含框架所需的所有配置；</p>
         <p>3. 启动本地服务，访问 <a href="http://localhost/flow-ui/index.html" target="_blank">http://localhost/flow-ui/index.html</a></p>
-        <h4>自动化工具</h4>
-        <p><a href="https://github.com/tower1229/Flow-CLI" target="_blank">Flow-CLI</a></p>
-        <h4>配置</h4>
+        
+        <h4>项目配置</h4>
         <table class="table">
             <tr>
                 <td>
@@ -109,12 +110,11 @@
                 </td>
             </tr>
         </table>
+        <h4>自动化工具</h4>
+        <p>基于nodejs的前端自动化工具<a href="https://github.com/tower1229/Flow-CLI" target="_blank">Flow-CLI</a></p>
     </section>
     <section class="wrap" id="css">
         <h2>CSS</h2>
-        <h3 id="css-demo">UI展示</h3>
-        <p><i class="ion">&#xe60e;</i> <strong><a href="demo.html" target="_blank">Flow-UI 概览</a></strong></p>
-        <p><i class="ion">&#xe620;</i> <strong><a href="/Flow-UI/dashboard/index.html" target="_blank">Flow-UI 控制台</a></strong></p>
         <h3 id="css-compile">定制主题</h3>
         <p>Flow-UI基于<code>less</code>实现UI组件化，从全站样式中抽离出配置文件，可实现灵活的风格控制和组件选配，要充分发挥Flow-UI的定制性，需要搭配自动化编译工具 <a href="https://github.com/front-flow/Flow-CLI" target="_blank">Flow-CLI</a>使用，示例主题配置如下：</p>
         <pre>
@@ -2005,9 +2005,7 @@
         <p>基于模块化加载方式，网站脚本拆分为两部分：<code>业务代码</code>和<code>组件</code></p>
         <p><code>业务代码</code>是具体业务脚本，每个页面模板都有一个对应的js文件放在项目内<code>js/</code>文件夹中，<code>js/</code>里还有一个<code>common.js</code>用于管理公用代码，这个文件夹组成了站点的业务层。</p>
         <p><code>组件</code>是对特定功能的封装，如jquery、轮显效果、视频播放器，日期选择器，表单验证等，用于被业务层调用，实现特定功能。模块封装相关文档见 <a href="https://github.com/seajs/seajs/issues/242" target="_blank">CMD模块定义规范</a>。 </p>
-        
-        <h3 id="js-app">业务代码</h3>
-        <h4>加载并执行</h4>
+        <h4>加载模块</h4>
         <p><code>seajs.use()</code>方法可以启动并执行一个模块化的js文件，如首页底部的：<code>seajs.use('js/index');</code>，将启动并执行"js/index.js"，首页里的js效果都要在这里实现。</p>
         <p>要使用某功能模块，就要先引用模块，语法是<code>require("模块路径")</code>，或者用异步加载的方式<code>require.async("模块路径"，"回调方法")</code>。</p>
         <p>以index.js为例：</p>
@@ -2057,7 +2055,7 @@
                 <pre> <code>
           &lt;!--html--&gt;
           &lt;audio preload="auto" &gt;
-             &lt;source src="http://7xnt8z.com1.z0.glb.clouddn.com/sample.mp3" /&gt;
+             &lt;source src="http://static.refined-x.com/sample.mp3" /&gt;
           &lt;/audio&gt;
                               </code>
                 </pre>
@@ -2146,7 +2144,7 @@
           var player=require('flv');
 
           var player_2 = player({
-             src: 'http://7xnt8z.com1.z0.glb.clouddn.com/sample.flv',
+             src: 'http://static.refined-x.com/sample.flv',
              loop:true
           });
           var player_3 = player({
@@ -2784,7 +2782,7 @@
                 <h5>示例</h5>
                 <pre> <code>
           &lt;video id="really-cool-video" class="video-js vjs-default-skin"&gt;
-            &lt;source src="http://7xnt8z.com1.z0.glb.clouddn.com/sample.mp4" type='video/mp4'&gt;
+            &lt;source src="http://static.refined-x.com/sample.mp4" type='video/mp4'&gt;
             &lt;p class="vjs-no-js"&gt;不支持js的浏览器会看到这个&lt;/p&gt;
           &lt;/video&gt;
                                     </code>
@@ -3881,7 +3879,7 @@
             });
 
             $('.boximg').on('click',function(){
-              var imgBox = Box.img('http://7xnt8z.com1.z0.glb.clouddn.com/view0.jpg',{
+              var imgBox = Box.img('http://static.refined-x.com/view0.jpg',{
                 onshow:function($this){
                   $this.on('click',function(){
                     Box.hide(imgBox);
@@ -7328,11 +7326,11 @@
                     <code>
           &lt;div class="demo"&gt;
             &lt;ul&gt;
-              &lt;li&gt;&lt;img src="http://7xnt8z.com1.z0.glb.clouddn.com/view0.jpg" /&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;img src="http://7xnt8z.com1.z0.glb.clouddn.com/view1.jpg" /&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;img src="http://7xnt8z.com1.z0.glb.clouddn.com/view2.jpg" /&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;img src="http://7xnt8z.com1.z0.glb.clouddn.com/view3.jpg" /&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;img src="http://7xnt8z.com1.z0.glb.clouddn.com/view4.jpg" /&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;img src="http://static.refined-x.com/view0.jpg" /&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;img src="http://static.refined-x.com/view1.jpg" /&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;img src="http://static.refined-x.com/view2.jpg" /&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;img src="http://static.refined-x.com/view3.jpg" /&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;img src="http://static.refined-x.com/view4.jpg" /&gt;&lt;/li&gt;
             &lt;/ul&gt;
           &lt;/div&gt;
 
