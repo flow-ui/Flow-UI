@@ -1,8 +1,8 @@
 /*
  * name: box.js
- * version: v3.11.6
- * update: setSize()方法bug
- * date: 2017-05-03
+ * version: v3.11.7
+ * update: 屏蔽关闭按钮默认事件
+ * date: 2017-06-21
  */
 define('box', function(require, exports, module) {
 	"use strict";
@@ -195,7 +195,7 @@ define('box', function(require, exports, module) {
 				$blank.show();
 			}
 			if (s.bar && s.shut) {
-				$o.out.find(".box-wrap-close a").on('click', function(e) {
+				$o.out.find(".box-wrap-close a").one('click', function(e) {
 					e.preventDefault();
 					return Box.hide($o);
 				});
@@ -347,24 +347,27 @@ define('box', function(require, exports, module) {
 			var s = $.extend({}, def, options || {});
 			var element = $('<div class="box-wrap-remind">' + message + '</div>' + '<div class="box-wrap-foot -confirm"><button class="btn boxconfirm">' + (s.oktext ? s.oktext : Language[s.lang].confirm) + '</button><button class="btn boxcancel">' + (s.canceltext ? s.canceltext : Language[s.lang].cancel) + '</button></div>');
 			var o = Box.open(element, s);
-			o.out.find(".boxconfirm").click(function() {
-				if ($.isFunction(sureCall)) {
-					sureCall.call(this);
-				}
-			}).focus();
-			o.out.find(".boxcancel").click(function() {
+			o.out.find(".boxcancel").one('click', function(e) {
+				e.preventDefault();
 				if (cancelCall && $.isFunction(cancelCall)) {
 					cancelCall.call(this);
 				}
 				Box.hide(o);
-			});
+			}).end()
+			.find(".boxconfirm").one('click', function(e) {
+				e.preventDefault();
+				if ($.isFunction(sureCall)) {
+					sureCall.call(this);
+				}
+			}).focus();
 			return o;
 		},
 		alert: function(message, callback, options) {
 			var s = $.extend({}, def, options || {});
 			var element = $('<div class="box-wrap-remind">' + message + '</div>' + '<div class="box-wrap-foot"><button class="btn boxconfirm">' + (s.oktext ? s.oktext : Language[s.lang].confirm) + '</button></div>');
 			var o = Box.open(element, s);
-			o.out.find(".boxconfirm").click(function() {
+			o.out.find(".boxconfirm").one('click', function(e) {
+				e.preventDefault();
 				if (callback && $.isFunction(callback)) {
 					callback.call(this);
 				}
@@ -384,7 +387,8 @@ define('box', function(require, exports, module) {
 				element = '<div class="box-wrap-msg"><div class="box-wrap-msg-cont bg-' + s.color + '">' + message + '</div><div class="box-wrap-msg-clo"><a href="#" title="' + Language[s.lang].close + '">×</a></div></div>';
 			}
 			var o = Box.open(element, s);
-			o.out.find(".box-wrap-msg-clo").one('click', function() {
+			o.out.find(".box-wrap-msg-clo").one('click', function(e) {
+				e.preventDefault();
 				Box.hide(o);
 			});
 			return o;
@@ -430,7 +434,8 @@ define('box', function(require, exports, module) {
 			options.layout = false;
 			options.onshow = function($box) {
 				$box.append('<div class="box-wrap-close box-img-close"><a>x</a></div>')
-					.find('.box-img-close').on('click', function() {
+					.find('.box-img-close').one('click', function(e) {
+						e.preventDefault();
 						Box.hide(imgBox);
 					});
 			};
