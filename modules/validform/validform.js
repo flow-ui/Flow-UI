@@ -1,8 +1,8 @@
 /*
 * name: validform.js
-* version: v2.5.2
-* update: tiptype=1个别情况不弹出错误提示
-* data: 2017-05-05
+* version: v2.5.3
+* update: 修复弹窗颜色bug
+* data: 2017-06-25
 */
 define('validform',function(require, exports, module) {
 	"use strict";
@@ -10,6 +10,7 @@ define('validform',function(require, exports, module) {
 	seajs.importStyle('.Validform_right{color:#71b83d}.Validform_wrong{color:red;white-space:nowrap}.Validform_loading{padding-left:20px}.Validform_error{background-color:#ffe7e7}.passwordStrength{display:block;height:18px;line-height:16px;clear:both;overflow:hidden;margin-bottom:5px}.passwordStrength b{font-weight:normal}.passwordStrength b,.passwordStrength span{display:inline-block;vertical-align:middle;line-height:16px;line-height:18px\9;height:16px}.passwordStrength span{width:63px;text-align:center;background-color:#d0d0d0;border-right:1px solid #fff}.passwordStrength .last{border-right:0;width:61px}.passwordStrength .bgStrength{color:#fff;background-color:#71b83d}'
 		,module.uri);
 	var $ = window.$ || require('jquery');
+	var ajaxRequest = $.ajax;
 	var win = window;
 	var undef = void 0;
 	var errorobj = null,
@@ -389,17 +390,23 @@ define('validform',function(require, exports, module) {
 			return arr;
 		},
 		showmsg: function(msg, type, o) {
-			msg = $.trim(msg);	
-			if(o.type===2){
-				if(type!=1){
-					o.obj.siblings(".Validform_checktip").removeClass('Validform_wrong').addClass('Validform_right').empty();
-				}
+			msg = $.trim(msg);
+			var color;
+			switch(o.type){
+				case 1:
+					color = 'info';
+				break;
+				case 2:
+					color = 'success';
+				break;
+				default:
+					color = 'warning';
+			}
+			if(o.type===2 && type!=1){
+				o.obj.siblings(".Validform_checktip").removeClass('Validform_wrong').addClass('Validform_right').empty();
 				return null;
 			}
 			if (msg === undef || msg === '') {
-				return null;
-			}
-			if(type == 1 && (msg==tipmsg.r || msg==tipmsg.c || msg==tipmsg.p)){
 				return null;
 			}
 			$.extend(o, {
@@ -410,9 +417,10 @@ define('validform',function(require, exports, module) {
 				return;
 			}
 			if (type == 1) {
-				$.box.msg(msg, {
+				$.box.hide(Validform.util.boxHandle);
+				Validform.util.boxHandle = $.box.msg(msg, {
 					delay: 2e3,
-					color: 'warning'
+					color: color
 				});
 			} else {
 				o.obj.siblings(".Validform_checktip").html(msg);
@@ -477,7 +485,6 @@ define('validform',function(require, exports, module) {
 				Validform.util.abort.call(_this[0]);
 				var ajaxsetup = $.extend(true, {}, settings.ajaxurl || {});
 				var localconfig = {
-					type: seajs.develop ? 'get' : 'post',
 					cache: false,
 					url: ajaxurl,
 					data: "param=" + encodeURIComponent(inputval) + "&name=" + encodeURIComponent($(this).attr("name")),
@@ -488,7 +495,8 @@ define('validform',function(require, exports, module) {
 							data.info && inputobj.attr("sucmsg", data.info);
 							_this.removeClass("Validform_error");
 							Validform.util.showmsg.call(curform, inputobj.attr("sucmsg") || curform.data("tipmsg").r || tipmsg.r, settings.tiptype, {
-								obj: inputobj
+								obj: inputobj,
+								type: 2
 							}, "bycheck");
 							
 							errorobj = null;
@@ -547,7 +555,7 @@ define('validform',function(require, exports, module) {
 					};
 				}
 				ajaxsetup = $.extend({}, localconfig, ajaxsetup);
-				_this[0].validform_ajax = $.ajax(ajaxsetup);
+				_this[0].validform_ajax = ajaxRequest(ajaxsetup);
 				return "ajax";
 			} else if (ajaxurl && Validform.util.isEmpty.call($(this), inputval)) {
 				Validform.util.abort.call(_this[0]);
@@ -746,7 +754,7 @@ define('validform',function(require, exports, module) {
 						}
 					};
 					ajaxsetup = $.extend({}, localconfig, ajaxsetup);
-					curform[0].validform_ajax = $.ajax(ajaxsetup);
+					curform[0].validform_ajax = ajaxRequest(ajaxsetup);
 				} else {
 					if (!settings.postonce) {
 						curform[0].validform_status = "normal";

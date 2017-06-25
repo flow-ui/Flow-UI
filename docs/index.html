@@ -2711,7 +2711,7 @@
              &lt;/p&gt;
              &lt;p class="valid"&gt;
              &lt;label&gt;验证码：&lt;/label&gt;
-             &lt;input type="text" class="inp" name="validnum" datatype="*" ajaxurl="http://refined-x.com/test/validRand.php"
+             &lt;input type="text" class="inp" name="validnum" datatype="*" ajaxurl="http://host.refined-x.com/test/validRand.php"
              sucmsg="验证码正确！" nullmsg="请输入验证码！" errormsg="验证码错误!"&gt;
              &lt;img src="http://temp.im/80x20/?text=8888" id="rand" &gt;看不清？&lt;a href="###" id=""&gt;换一张&lt;/a&gt;
              &lt;/p&gt;
@@ -2730,7 +2730,7 @@
           var loginForm = $('#reg_form').Validform({
               tiptype:1,              //1：弹出；其他：输入框后插入
               ajaxPost:true,
-              url: 'http://refined-x.com/test/ajax.php',
+              url: 'http://host.refined-x.com/test/ajax.php',
               usePlugin:{             //密码强度插件，不需要就删掉
                 passwordstrength:{
                   minLen:6,     //设置密码长度最小值，默认为0;
@@ -2817,145 +2817,6 @@
                                     </code>
                 </pre>
             </dd>
-            <!-- <dt id="Webuploader">webuploader</dt>
-            <dd>
-                <h5>描述</h5>
-                <p>改造自<a href="http://fex.baidu.com/webuploader/" target="_blank">webuploader</a>，兼容ie6 +，android4 +，支持上传前压缩，上传前剪裁，分段上传，MD5秒传，断点续传</p>
-                <p>插件封装的很底层，用起来较麻烦，但是功能很全面，demo演示了一个具有拖拽上传、截图粘贴上传、格式过滤、获取缩略图、上传前压缩、队列管理功能的上传示例。</p>
-                <h5>注意</h5>
-                <p>将废弃，建议使用<a href="#Upload(上传)">【Upload】</a></p>
-                <h5>配置</h5>
-                <p>见<a href="http://fex.baidu.com/webuploader/doc/index.html" target="_blank">官网文档</a></p>
-                <h5>示例</h5>
-                <pre> <code>
-          &lt;style&gt;
-          .demo{margin:50px;border:4px dashed #ccc;padding:100px;}
-          .uploader-list{overflow: hidden;margin:10px 0;}
-          .uploader-list .file-item{float: left;width: 100px;height: 100px;position: relative;
-          border:4px solid #ccc;border-radius: 4px;margin:0 8px 8px 0;overflow: hidden;}
-          .uploader-list .file-item .info{position: absolute;left: 0;bottom:0;width: 100%;
-          background:rgba(0,0,0,.5);color:#fff;text-align: center;}
-          .uploader-list .file-item .progress{position: absolute;left: 0;height: 40px;top:50%;
-          margin-top:-20px;width: 100%; }
-          .uploader-list .file-item .progress span{position: absolute;left: 0;top:0;height: 100%;overflow: hidden;width: 0;background:green;opacity: .5;} 
-          .uploader-list .file-item.upload-state-done{border-color:green;}
-          .uploader-list .remove{position:absolute;right:0;top:0;font-size:1.5em;cursor:pointer;}
-          .uploader-list .remove:hover{opacity:.8;}
-          &lt;/style&gt;
-          
-          &lt;div id="uploader-demo" class="demo"&gt;
-              &lt;div id="fileList" class="uploader-list"&gt;&lt;/div&gt;
-              &lt;div id="filePicker" class="btn btn-default" &gt;选择图片&lt;/div&gt;
-              &lt;div id="ctlBtn" class="webuploader-pick btn btn-success"&gt;开始上传&lt;/div&gt;
-          &lt;/div&gt;
-                                        </code>
-                </pre>
-                <pre> <code>
-          var WebUploader = require('webuploader');
-
-          //初始化上传实例
-            var uploader = WebUploader.create({
-              auto:false,                       // 自动上传，默认false
-              server: 'http://refined-x.com/test/fileupload.php',   // 上传地址
-              pick: '#filePicker',              // 选择文件按钮
-              sendAsBinary: true,               // 避免部分版本安卓微信无法上传问题
-              accept:{                           
-                title: 'Images',
-                extensions: 'gif,jpg,jpeg,bmp,png', // 限制文件扩展名
-                mimeTypes: 'image/*'                // 限制选择文件时的可见格式
-            },
-            compress:{                          // 设置上传压缩
-              width: 800,
-              height: 600
-            }
-          });
-
-            //添加到上传列队
-            uploader.on( 'fileQueued', function( file ) {
-              var $li = $(
-                      '&lt;div id="' + file.id + '" class="file-item thumbnail"&gt;' +
-                          '&lt;img&gt;' +
-                          '&lt;div class="ion remove text-danger"&gt;&lt;/div&gt;' +
-                          '&lt;div class="info"&gt;' + file.name + '&lt;/div&gt;' +
-                      '&lt;/div&gt;'
-                      ),
-                  $img = $li.find('img');
-              $('#fileList').append( $li );
-
-              // 创建缩略图
-              uploader.makeThumb( file, function( error, src ) {
-                  if ( error ) {
-                      $img.replaceWith('&lt;span&gt;不能预览&lt;/span&gt;');
-                      return;
-                  }
-                  $img.attr( 'src', src );
-              } ,100 ,100);
-              console.log('file add to queue,size:'+file.size/1024)
-          });
-
-          // 监听上传进度
-          uploader.on( 'uploadProgress', function( file, percentage ) {
-              var $li = $( '#'+file.id ),
-                  $percent = $li.find('.progress span');
-
-              if ( !$percent.length ) {
-                  $percent = $('&lt;p class="progress"&gt;&lt;span&gt;&lt;/span&gt;&lt;/p&gt;')
-                          .appendTo( $li )
-                          .find('span');
-              }
-              console.log(percentage);
-              $percent.css( 'width', percentage * 100 + '%' );
-          });
-
-          // 上传后判断服务器返回信息
-          uploader.on( 'uploadAccept', function( file, response ) {
-            if(response.err){
-              //不成功
-              return false;
-            }   
-          });
-
-          // 如果文件上传成功
-          uploader.on( 'uploadSuccess', function( file, response ) {
-              console.log('upload size:'+file.size/1024);
-              $( '#'+file.id ).addClass('upload-state-done');
-          });
-
-          // 如果文件上传失败
-          uploader.on( 'uploadError', function( file ) {
-              console.log('uploadError');
-              var $li = $( '#'+file.id ),
-                  $error = $li.find('div.error');
-
-              if ( !$error.length ) {
-                  $error = $('&lt;div class="error"&gt;&lt;/div&gt;').appendTo( $li );
-              }
-
-              $error.text('上传失败');
-          });
-
-          // 完成上传后，无论成功或者失败，都移除文件队列和进度条。
-          uploader.on( 'uploadComplete', function( file ) {
-              uploader.removeFile(file.id,true);
-              $( '#'+file.id ).fadeOut(512);
-          });
-
-          // 绑定上传按钮
-          $('#ctlBtn').on( 'click', function() {
-              uploader.upload();
-          });
-
-          //绑定删除按钮
-          $('#fileList').on('click','.remove',function(){
-            var DOM = $(this).parent();
-            uploader.removeFile(DOM.attr('id'),true);
-            DOM.remove();
-            DOM = null;
-          });
-
-                                    </code>
-                </pre>
-            </dd> -->
             <dt id="Album(相册)">album</dt>
             <dd>
                 <h5>描述</h5>
@@ -3418,7 +3279,7 @@
           * @option.rely(boolen): 批量加载的js是否保持线性顺序，默认false，将同时请求
           */
           //利用线性加载特定版本jquery的例子
-          base.getScript(['http://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js', 'http://refined-x.com/test/test2'], function(data) {
+          base.getScript(['http://apps.bdimg.com/libs/jquery/1.7.1/jquery.min.js', 'http://host.refined-x.com/test/test2'], function(data) {
               var $ = window.jQuery;
               $.fn.test2();
               }, {
@@ -3455,7 +3316,7 @@
           */
             var base = require('base');
             base.ajaxCombo({
-                comboUrl:"http://refined-x.com/test/combo.php"      //设置合并请求发送地址
+                comboUrl:"http://host.refined-x.com/test/combo.php"      //设置合并请求发送地址
             });
 
             $.ajax({
@@ -3868,13 +3729,13 @@
             });
             
             $('.boxAjax').on('click',function(){
-              Box.ajax('http://refined-x.com/test/ajax.php', { 
+              Box.ajax('http://host.refined-x.com/test/ajax.php', { 
                 param: "param1" //Ajax参数
               });
             });
             
             $('.boxIfram').on('click',function(){
-              var myifr = Box.ifram('http://refined-x.com/test/iframCloseTest.html',{
+              var myifr = Box.ifram('http://host.refined-x.com/test/iframCloseTest.html',{
                 name: "closeTestIfram",  //ifram name，默认空(不是弹窗标题)
                 width: 320,     //iframe宽，默认640
                 height: 240     //iframe高，默认480
@@ -6453,7 +6314,7 @@
                                 <pre> <code>
            &lt;!--发起Ajax的例子--&gt;
            &lt;div class="demo topush"&gt;
-              &lt;textarea class="hide" data-url="http://refined-x.com/test/ajax.php"&gt; &lt;/textarea&gt;
+              &lt;textarea class="hide" data-url="http://host.refined-x.com/test/ajax.php"&gt; &lt;/textarea&gt;
            &lt;/div&gt;
                                                 </code>
                                     <code>
@@ -9201,7 +9062,7 @@ $.ajax({
     });
     //第一批次合并请求
     $.ajax({
-        url: 'http://refined-x.com/test/ajax.php',
+        url: 'http://host.refined-x.com/test/ajax.php',
         data: {
           test: 'hello1',
           sign: 's1'
@@ -9213,7 +9074,7 @@ $.ajax({
     });
     $.ajax({
         type: 'post',
-        url: 'http://refined-x.com/test/ajax.php',
+        url: 'http://host.refined-x.com/test/ajax.php',
         data: {
           test: 'hello2',
           sign: 's2'
@@ -9226,7 +9087,7 @@ $.ajax({
     //第二批次合并请求
     setTimeout(function() {
         $.ajax({
-          url: 'http://refined-x.com/test/ajax.php',
+          url: 'http://host.refined-x.com/test/ajax.php',
           data: {
             test: 'hello3',
             sign: 's3'
@@ -9238,7 +9099,7 @@ $.ajax({
         });
         $.ajax({
           type: 'post',
-          url: 'http://refined-x.com/test/ajax.php',
+          url: 'http://host.refined-x.com/test/ajax.php',
           data: {
             test: 'hello4'
           },
@@ -9250,7 +9111,7 @@ $.ajax({
     }, 300);
     //不参与合并的请求
     $.ajax({
-        url: 'http://refined-x.com/test/ajax.php',
+        url: 'http://host.refined-x.com/test/ajax.php',
         data: {
           test: '普通未合并ajax'
         },
