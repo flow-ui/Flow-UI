@@ -2631,7 +2631,7 @@
                                 tipSweep:
                             </th>
                             <td>
-                                默认<code>false</code>，是否只在提交前集中验证，每个输入框blur都会出发验证
+                                默认<code>true</code>，是否只在提交前集中验证，每个输入框blur都会出发验证
                             </td>
                         </tr>
                         <tr>
@@ -2683,52 +2683,58 @@
                     </tbody>
                 </table>
                 <h5>示例</h5>
-                <pre> <code>
-          &lt;style&gt;
-          .demo label{display: inline-block;width: 5em;vertical-align: middle;}
-          &lt;/style&gt;
-                                    </code>
+                <pre> 
                     <code>
-          &lt;form class="demo" id="reg_form"&gt;
-             &lt;p&gt;
-             &lt;label&gt;用户名：&lt;/label&gt;
-             &lt;input type="text" class="inp" name="username" datatype="/^[A-Za-z0-9\u9fa5@\u9fa5.]{2,20}$/"
-             sucmsg="用户名验证通过！" nullmsg="请输入用户名！" errormsg="用户名非法!"&gt;
-             &lt;/p&gt;
-             &lt;p&gt;
-             &lt;label&gt;密 码：&lt;/label&gt;
-             &lt;input type="password" class="inp" name="userpassword" datatype="*6-15"
-             errormsg="密码范围在6~15位之间！" plugin="passwordStrength" &gt;
-             &lt;span class="passwordStrength" style=""&gt;&lt;b&gt;密码强度：&lt;/b&gt; &lt;span&gt;弱&lt;/span&gt;&lt;span&gt;中&lt;/span&gt;&lt;span class="last"&gt;强&lt;/span&gt;&lt;/span&gt;
-             &lt;/p&gt;
-             &lt;p&gt;
-             &lt;label&gt;确认密码：&lt;/label&gt;
-             &lt;input type="password" name="userpassword2" datatype="*" recheck="userpassword" errormsg="您两次输入的密码不一致！"&gt;
-             &lt;/p&gt;
-             &lt;p&gt;
-             &lt;label&gt;邮箱：&lt;/label&gt;
-             &lt;input type="text" class="inp" name="email" datatype="e"  errormsg="请输入正确的邮箱!" ignore="ignore"&gt;
-             &lt;/p&gt;
-             &lt;p class="valid"&gt;
-             &lt;label&gt;验证码：&lt;/label&gt;
-             &lt;input type="text" class="inp" name="validnum" datatype="*" ajaxurl="http://host.refined-x.com/test/validRand.php"
-             sucmsg="验证码正确！" nullmsg="请输入验证码！" errormsg="验证码错误!"&gt;
-             &lt;img src="http://temp.im/80x20/?text=8888" id="rand" &gt;看不清？&lt;a href="###" id=""&gt;换一张&lt;/a&gt;
-             &lt;/p&gt;
-             &lt;p&gt;
-             &lt;a href="###"&gt;同意用户协议&lt;/a&gt; &lt;input type="checkbox" name="agree" datatype="*" nullmsg="请阅读并同意用户协议" &gt;
-             &lt;/p&gt;
-             &lt;p&gt;
-             &lt;button type="submit" class="btn"&gt;注册&lt;/button&gt;
-             &lt;/p&gt;
-          &lt;/form&gt;
-                                    </code>
-                </pre>
-                <pre> <code>
+    &lt;style&gt;
+        .demo {
+            width: 50em;
+            margin:auto;
+        }
+    &lt;/style&gt;
+
+    &lt;form class=&quot;demo form&quot; id=&quot;reg_form&quot;&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label class=&quot;control-label&quot;&gt;用户名：&lt;/label&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control&quot; name=&quot;username&quot; datatype=&quot;/^[A-Za-z0-9\u9fa5@\u9fa5.]{2,20}$/&quot; sucmsg=&quot;用户名验证通过！&quot; nullmsg=&quot;请输入用户名！&quot; errormsg=&quot;用户名非法!&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label class=&quot;control-label&quot;&gt;密 码：&lt;/label&gt;
+            &lt;input type=&quot;password&quot; class=&quot;form-control&quot; name=&quot;userpassword&quot; datatype=&quot;*6-15&quot; errormsg=&quot;密码范围在6~15位之间！&quot; plugin=&quot;passwordStrength&quot;&gt;
+            &lt;span class=&quot;passwordStrength r&quot;&gt;&lt;span&gt;弱&lt;/span&gt;&lt;span&gt;中&lt;/span&gt;&lt;span class=&quot;last&quot;&gt;强&lt;/span&gt;&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label class=&quot;control-label&quot;&gt;确认密码：&lt;/label&gt;
+            &lt;input type=&quot;password&quot; class=&quot;form-control&quot; name=&quot;userpassword2&quot; datatype=&quot;*&quot; recheck=&quot;userpassword&quot; errormsg=&quot;您两次输入的密码不一致！&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label class=&quot;control-label&quot;&gt;邮箱：&lt;/label&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control&quot; name=&quot;email&quot; datatype=&quot;e&quot; errormsg=&quot;请输入正确的邮箱!&quot; ignore=&quot;ignore&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label class=&quot;control-label&quot;&gt;验证码：&lt;/label&gt;
+            &lt;div class=&quot;row&quot;&gt;
+                &lt;div class=&quot;span-6&quot;&gt;
+                    &lt;input type=&quot;text&quot; class=&quot;form-control&quot; name=&quot;validnum&quot; datatype=&quot;*&quot; ajaxurl=&quot;http://host.refined-x.com/test/validRand.php&quot; sucmsg=&quot;验证码正确！&quot; nullmsg=&quot;请输入验证码！&quot; errormsg=&quot;验证码错误!&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;span-6&quot;&gt;
+                    &lt;img src=&quot;http://temp.im/80x30/?text=8888&quot; style=&quot;vertical-align: middle;&quot;&gt; 看不清？&lt;a href=&quot;###&quot;&gt;换一张&lt;/a&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;help-block&quot;&gt;
+            &lt;label class=&quot;checkbox&quot;&gt; 同意用户协议&lt;input type=&quot;checkbox&quot; name=&quot;agree&quot; datatype=&quot;*&quot; nullmsg=&quot;请阅读并同意用户协议&quot;&gt;&lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;注册&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+                        </code>
+                    </pre>
+                <pre> 
+                    <code>
           //js
           require('validform');
           var loginForm = $('#reg_form').Validform({
-              tiptype:1,              //1：弹出；其他：输入框后插入
               ajaxPost:true,
               url: 'http://host.refined-x.com/test/ajax.php',
               usePlugin:{             //密码强度插件，不需要就删掉

@@ -43,7 +43,7 @@ define('validform',function(require, exports, module) {
 		},
 		defaults = {
 			tiptype: 1,
-			tipSweep: false,
+			tipSweep: true,
 			showAllError: false,
 			postonce: false,
 			ajaxPost: false,
