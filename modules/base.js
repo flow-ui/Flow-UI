@@ -1,8 +1,8 @@
 /*
  * name: base
- * version: 3.4.1
- * update: ajax本地缓存bug
- * date: 2017-05-27
+ * version: 3.4.2
+ * update: getScript add beforeLoad()
+ * date: 2017-07-01
  */
 define('base', function(require, exports, module) {
 	'use strict';
@@ -371,7 +371,7 @@ define('base', function(require, exports, module) {
 		if (road && road.split || ($.isArray(road) && road.length)) {
 			var def = {
 					css: false,
-					jquery: false,
+					beforeLoad: null,
 					rely: false
 				},
 				opt = $.extend({}, def, $.isPlainObject(callback) ? callback : option || {}),
@@ -406,9 +406,8 @@ define('base', function(require, exports, module) {
 						},
 						load = function(errorCallback) {
 							errorCallback = errorCallback || scriptError;
-							if (opt.jquery) {
-								window.$ = $;
-								window.jQuery = $;
+							if (typeof opt.beforeLoad === 'function') {
+								opt.beforeLoad();
 							}
 							script.type = "text/javascript";
 							if (script.addEventListener) {
