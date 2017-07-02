@@ -908,5 +908,7 @@ define('validform',function(require, exports, module) {
 	$.fn.Validform = function(settings) {
 		return new Validform(this, settings);
 	};
-	module.exports = Validform;
+	module.exports = function(forms, settings, inited){
+		return new Validform(forms, settings, inited);
+	};
 });
