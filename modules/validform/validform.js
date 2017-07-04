@@ -1,8 +1,8 @@
 /*
 * name: validform.js
-* version: v2.5.3
-* update: 修复弹窗颜色bug
-* data: 2017-06-25
+* version: v2.5.4
+* update: bug fix
+* data: 2017-07-02
 */
 define('validform',function(require, exports, module) {
 	"use strict";
@@ -50,6 +50,7 @@ define('validform',function(require, exports, module) {
 			checkTime: 100 //验证延时
 		};
 	var Validform = function(forms, settings, inited) {
+		forms = $(forms);
 		settings = $.extend({}, defaults, settings);
 		settings.datatype && $.extend(Validform.util.dataType, settings.datatype);
 		var brothers = this;
