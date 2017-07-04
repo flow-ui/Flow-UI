@@ -1,8 +1,8 @@
 /*
  * name: slide.js
- * version: v4.2.2
- * update: arr_prev bug
- * date: 2017-04-19
+ * version: v4.2.3
+ * update: bug fix
+ * date: 2017-07-04
  */
 define('slide', function(require, exports, module) {
     "use strict";
@@ -216,7 +216,9 @@ define('slide', function(require, exports, module) {
                         _prev = getPrev(current, _step, count),
                         _next = getNext(current, _step, count),
                         toggleCellClass = function() {
-                            $cell.removeClass('active').eq(current)._loadimg(opt.imgattr).addClass('active');
+                            $cell.removeClass('active slide_prev slide_next').eq(current)._loadimg(opt.imgattr).addClass('active');
+                            $cell.eq(_prev).addClass('slide_prev');
+                            $cell.eq(_next).addClass('slide_next');
                         };
                     windowLock = true;
                     setNavs($navs, count, current, step);
@@ -237,12 +239,10 @@ define('slide', function(require, exports, module) {
                             break;
                         case 'slide':
                             direct == void(0) && (direct = true);
-                            var wrap_move = direct ? -_Distance * 2 : 0,
-                                targetClass = direct ? 'slide_next' : 'slide_prev';
+                            var wrap_move = direct ? -_Distance * 2 : 0;
                             if (isInit) {
                                 toggleCellClass();
                             } else {
-                                $cell.removeClass('slide_prev slide_next').eq(current).addClass(targetClass);
                                 $wrap.css('transition', 'all ' + opt.duration + 'ms ' + opt.animate)._css(_Direction, wrap_move + 'px');
                                 setTimeout(function() {
                                     $wrap.css('transition', 'all 0s')._css(_Direction, -_Distance + 'px');

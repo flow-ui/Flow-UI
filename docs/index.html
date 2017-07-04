@@ -2847,10 +2847,6 @@
                             <td>默认等于cell，触发相册的元素，可传入cell的子元素选择器</td>
                         </tr>
                         <tr>
-                            <th>type</th>
-                            <td>皮肤，可选 1:普通 | 2:前后缩略图 | 3:所有缩略图</td>
-                        </tr>
-                        <tr>
                             <th>hook</th>
                             <td>默认空字符串，用于附加自定义样式</td>
                         </tr>
@@ -2868,11 +2864,11 @@
                         </tr>
                         <tr>
                             <th>prevHtml</th>
-                            <td>默认'<i class="ion"></i>'，左箭头html</td>
+                            <td>左箭头html</td>
                         </tr>
                         <tr>
                             <th>nextHtml</th>
-                            <td>默认'<i class="ion"></i>'，右箭头html</td>
+                            <td>右箭头html</td>
                         </tr>
                         <tr>
                             <th>imgattr</th>
@@ -3281,7 +3277,7 @@
           * @callabck(function): 加载完成的回调，接收加载的js文本和返回状态，批量加载只返回最后一个js文本
           * @option(object): 若callback是object格式将被作为option使用
           * @option.css(boolean/string/array): 是否依赖css，默认false，<br>传入true将加载与js同名同级css文件
-          * @option.jquery(boolean): 被加载脚本是否依赖jquery，默认false
+          * @option.beforeLoad(function): 加载前回调
           * @option.rely(boolen): 批量加载的js是否保持线性顺序，默认false，将同时请求
           */
           //利用线性加载特定版本jquery的例子
