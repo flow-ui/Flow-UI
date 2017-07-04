@@ -78,6 +78,9 @@ define('album', function(require, exports, module) {
 						<span class="album_btns album_next" />\
 						<span class="album_btns album_close"><i class="ion">&#xe7de;</i></span>\
 				</div>');
+				if(opt.blankclose){
+					albumNode.find('.album_close').css('display', 'none');
+				}
 				thisCell = null;
 			})();
 			if ($this.data('albuminit')) return;

@@ -2826,7 +2826,7 @@
             <dt id="Album(相册)">album</dt>
             <dd>
                 <h5>描述</h5>
-                <p>相册插件，依赖幻灯片模块(slide.js)。</p>
+                <p>相册插件，依赖幻灯片模块(slide.js)。返回<code>Album</code>方法，语法：<code>Album(config)</code>，或者使用jquery插件语法：<code>$el.album(config)</code></p>
                 <h5>配置</h5>
                 <table class="table">
                     <tbody>
@@ -6382,6 +6382,130 @@
                     </tbody>
                 </table>
             </dd>
+            <dt id="Render(渲染器)">render</dt>
+            <dd>
+                <h5>描述</h5>
+                <p>创建一个<code>数据->模板</code>的单项绑定渲染器，返回<code>Render</code>方法，语法<code>var myRender = Render(confg)</code>。</p>
+                <p>依赖etpl模块</p>
+                <h5>配置</h5>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>el</td>
+                            <td>
+                                <p>默认<code>null</code>，模板填充元素，必填</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>template</td>
+                            <td>
+                                <p>默认<code>''</code>，etpl模板字符串，默认将寻找el内具有[template]属性的元素，将其<code>value或innerText</code>作为模板字符串，建议用<code>textarea/script</code>元素作为模板容器</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>data</td>
+                            <td>
+                                <p>默认<code>null</code>，将作为初始化模板数据</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>reload</td>
+                            <td>
+                                <p>默认<code>true</code>，决定以<code>.html()/.append()</code>的方式填充模板</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>callback</td>
+                            <td>
+                                <p>默认<code>null</code>，渲染完成后回调方法</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h5>返回方法</h5>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>set(config)</td>
+                            <td>
+                                <p>修改渲染器配置，通产用来修改reload模式和callback回调</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>data([setData])</td>
+                            <td>
+                                <p>为渲染器赋值/取值，使用新数据渲染的结果将同步到容器元素</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>push(node, arrayData)</td>
+                            <td>
+                                <p>向node节点下的数组插入arrayData数据，如果node节点不存在或格式不是数组，将先设置为空数组。使用新数据渲染的结果将同步到容器元素</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>destroy()</td>
+                            <td>
+                                <p>销毁示例移除容器元素</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h5>示例</h5>
+                <pre>
+                    <code>
+    &lt;div class=&quot;p&quot; id=&quot;wrap&quot;&gt;
+        &lt;textarea style=&quot;display: none&quot; template&gt;
+        render result: ${time}
+        &lt;/textarea&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;p&quot;&gt;
+        &lt;div class=&quot;btn btn-default setIntval&quot;&gt;暂停/恢复&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default setReload&quot;&gt;重载/填充&lt;/div&gt;
+        &lt;div class=&quot;btn btn-default destroy&quot;&gt;销毁&lt;/div&gt;
+    &lt;/div&gt;
+                    </code>
+                </pre>
+                <pre>
+                    <code>
+    var render = require('render');
+    var myRender = render({
+        el: '#wrap',
+        reload: reload,
+        callback: function($el, html) {
+            console.log(html);
+        }
+    });
+    var reload = true;
+    var int = setInterval(function() {
+        myRender.data({
+            time: new Date()
+        });
+    }, 1000);
+
+    $('.setIntval').on('click', function() {
+        if (int) {
+            int = clearInterval(int);
+        } else {
+            int = setInterval(function() {
+                myRender.data({
+                    time: new Date()
+                });
+            }, 1000)
+        }
+    });
+    $('.setReload').on('click', function(){
+        reload = !reload;
+        myRender.set({
+            reload: reload
+        });
+    });
+    $('.destroy').on('click', function(){
+        myRender.destroy();
+    });
+                    </code>
+                </pre>
+            </dd>
             <dt id="Scroll-bar(滚动条)">scroll-bar</dt>
             <dd>
                 <h5>描述</h5>
@@ -7100,7 +7224,7 @@
             <dt id="Slide(幻灯片)">slide</dt>
             <dd>
                 <h5>描述</h5>
-                <p> 幻灯片效果，支持触屏操作，支持PC端图片按需加载(不可与响应式图片同时使用)。</p>
+                <p> 幻灯片效果，支持触屏操作，支持基于数据创建，支持PC端图片按需加载(不可与响应式图片同时使用)。返回<code>Slide</code>方法，语法：<code>Slide(config)</code>，或者使用jquery插件语法：<code>$el.slide(config)</code></p>
                 <h5>注意</h5>
                 <ol>
                     <li>自动生成的导航(小圆点)和左右箭头默认<code>display:none</code>且不绑定事件，使用时需先在样式中显示；</li>
@@ -7111,12 +7235,33 @@
                 <table class="table">
                     <tbody>
                         <tr>
+                            <th>el</th>
+                            <td>默认<code>null</code>，容器元素，直接调用Slide方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
+                        </tr>
+                        <tr>
+                            <th>data</th>
+                            <td>默认<code>null</code>，幻灯片数据，优先级高于从Dom中查找，对象数组格式：
+                                <pre>
+                                    <code>
+[
+    {
+        src: '',    //图片src
+        alt: '',    //图片alt
+        link: ''    //图片链接
+    },
+    ...
+]
+                                    </code>
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
                             <th>wrap</th>
-                            <td>默认"ul"，指定包裹元素</td>
+                            <td>默认"ul"，不传<code>data</code>时用来指定包裹元素</td>
                         </tr>
                         <tr>
                             <th>cell</th>
-                            <td>默认"li"，指定切换元素</td>
+                            <td>默认"li"，不传<code>data</code>时用来指定切换元素</td>
                         </tr>
                         <tr>
                             <th>effect</th>

@@ -1,8 +1,8 @@
 /*
  * name: base
- * version: 3.4.2
- * update: getScript add beforeLoad()
- * date: 2017-07-01
+ * version: 3.4.3
+ * update: update _css()
+ * date: 2017-07-04
  */
 define('base', function(require, exports, module) {
 	'use strict';
@@ -321,15 +321,15 @@ define('base', function(require, exports, module) {
 			//赋值
 			if (canTrans && hasTrans) {
 				number = parseFloat(number) + 'px';
-				$(this).css('transform', 'translateZ(0) ' + theTrans + '(' + number + ')');
+				$(this).get(0).style.transform = ('translateZ(0) ' + theTrans + '(' + number + ')');
 			} else {
 				$(this).css(LeftOrTop, number);
 			}
 			return $(this);
 		} else {
 			//取值
-			if (canTrans && hasTrans && $(this).css('transform') !== 'none') {
-				var transData = $(this).css('transform').match(/\((.*\,?\s?){6}\)$/)[0].substr(1).split(',');
+			if (canTrans && hasTrans && $(this).get(0).style.transform !== 'none') {
+				var transData = $(this).get(0).style.transform.match(/\((.*\,?\s?){6}\)$/)[0].substr(1).split(',');
 				return parseFloat(transData[matrixPosi]);
 			} else {
 				return $(this).css(LeftOrTop);
