@@ -4708,7 +4708,8 @@
             <dt id="Etpl(模板引擎)">etpl</dt>
             <dd>
                 <h5>描述</h5>
-                <p>模板引擎，用于相对大量的视图渲染，详见<a href="https://github.com/ecomfe/etpl" target="_blank">项目主页</a></p>
+                <p>模板引擎，用于相对大量的视图渲染，文档详见<a href="https://github.com/ecomfe/etpl" target="_blank">项目主页</a></p>
+                <p>对于动态数据渲染场景，推荐基于etpl的渲染器<a href="#Render(渲染器)">Render</a></p>
                 <h5>内置过滤器</h5>
                 <table class="table">
                     <tbody>
@@ -5156,7 +5157,30 @@
             <dt id="Lazyload(图片懒加载)">lazyload</dt>
             <dd>
                 <h5>描述</h5>
-                <p>图片懒加载插件，用于滚动时加载视窗内的元素背景或图片，懒加载元素或图片需要用<code>data-lazy</code>属性存贮图片地址。</p>
+                <p>图片懒加载插件，用于滚动时加载视窗内的元素背景或图片。</p>
+                <h5>配置</h5>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>attr</th>
+                            <td>
+                                <p>默认 <code>data-lazy</code>，懒加载元素或图片存贮图片地址的属性。</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>everyCount</th>
+                            <td>
+                                <p>默认 <code>3</code>，每次加载的数量。</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>distance</th>
+                            <td>
+                                <p>默认 <code>100</code>，距离目标进入屏幕可见范围的开始加载的距离，单位px。</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
                 <h5>示例</h5>
                 <pre> <code>
           &lt;style&gt;
