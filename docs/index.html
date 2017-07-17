@@ -5848,12 +5848,15 @@
             <dt id="On-scroll(滚动监听)">on-scroll</dt>
             <dd>
                 <h5>描述</h5>
-                <p>监听页面滚动并操作出现在视野中的元素，可用于长页面滚动时做滚动加载；</p>
-                <p>当指定target时，target的li子元素数量需与效果元素数量对应，当前元素对应的<code>target&gt;li</code>将添加"active"类；</p>
-                <p>当target向上滚出视野时将被添加<code>fixed</code>类，当指定targetFix时，<code>fixed</code>类将添加在targetFix元素上。</p>
+                <p>监听指定元素随页面滚动出现在视野中的事件，返回<code>onScroll</code>方法，语法：<code>onScroll(config)</code>，或者使用jquery插件语法：<code>$el.onScroll(config);</code></p>
+                <p>可用于长页面懒加载；当指定元素为多个时，还可以关联定位(target)元素，实现滚动导航；当target元素向上滚出视野时，将为target元素或指定的targetFix元素添加<code>fixed</code>类，用于实现固定在页面顶部效果。</p>
                 <h5>配置</h5>
                 <table class="table">
                     <tbody>
+                        <tr>
+                            <th>el</th>
+                            <td>默认无，监听元素选择器，直接调用方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
+                        </tr>
                         <tr>
                             <th>offset</th>
                             <td>可选，顶部位置计算偏移量，默认0</td>
@@ -5872,7 +5875,7 @@
                         </tr>
                         <tr>
                             <th>speed</th>
-                            <td>可选，滚动动画时间，单位ms，默认320</td>
+                            <td>可选，滚动动画时间，单位ms，默认300</td>
                         </tr>
                         <tr>
                             <th>onshow</th>
@@ -5882,76 +5885,105 @@
                 </table>
                 <h5>示例</h5>
                 <pre> <code>
-          &lt;!-- html --&gt;
-          &lt;style&gt;
-          .target_wrap{height:42px;}
-          .demo_Target{width:980px;margin:0 auto;overflow: hidden;*zoom:1;background:#fff;border-left:1px solid #eee;}
-          .demo_Target li{float: left;height: 40px;line-height: 40px;border:1px solid #eee;margin-left:-1px;width: 33%;text-align: center;cursor: pointer;}
-          .demo_Target.fixed{position: fixed;left: 50%;margin-left: -490px;top:0;z-index: 99;}
-          .demo_Target .active{color:#39f;background:#eee;}
-          .demo_sections{width:978px;border:1px solid #ccc;padding:2em 0;margin:2em auto;
-          height: 800px;}
-          .lazyPush{height: 400px;}
-          &lt;/style&gt;
+    &lt;!-- html --&gt;
+    &lt;style&gt;
+        .target_wrap {
+            height: 42px;
+        }
+        
+        .demo_Target {
+            width: 980px;
+            margin: 0 auto;
+            overflow: hidden;
+            *zoom: 1;
+            background: #fff;
+            border-left: 1px solid #eee;
+        }
+        
+        .demo_Target li {
+            float: left;
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid #eee;
+            margin-left: -1px;
+            width: 33%;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .demo_Target.fixed {
+            position: fixed;
+            left: 50%;
+            margin-left: -490px;
+            top: 0;
+            z-index: 99;
+        }
+        
+        .demo_Target .active {
+            color: #39f;
+            background: #eee;
+        }
+        
+        .demo_sections {
+            width: 978px;
+            border: 1px solid #ccc;
+            padding: 2em 0;
+            margin: 2em auto;
+            height: 800px;
+        }
+        
+        .lazyPush {
+            height: 400px;
+        }
+    &lt;/style&gt;
 
-          &lt;div class="target_wrap"&gt;
-            &lt;ul class="demo_Target"&gt;
-              &lt;li&gt;channel01&lt;/li&gt;
-              &lt;li&gt;channel02&lt;/li&gt;
-              &lt;li&gt;channel03&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/div&gt;
-          &lt;div class="demo_sections"&gt;
-            anything...1
-          &lt;/div&gt;
-          &lt;div class="demo_sections"&gt;
-            anything...2
-          &lt;/div&gt;
-          &lt;div class="demo_sections"&gt;
-            anything...3
-          &lt;/div&gt;
-
-          &lt;div class="lazyPush"&gt;
-          &lt;textarea class="hide"&gt;
-            &lt;img src="http://temp.im/500x400/"&gt;
+    &lt;div class=&quot;target_wrap&quot;&gt;
+        &lt;ul class=&quot;demo_Target&quot;&gt;
+            &lt;li&gt;channel01&lt;/li&gt;
+            &lt;li&gt;channel02&lt;/li&gt;
+            &lt;li&gt;channel03&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;demo_sections&quot;&gt;
+        anything...1
+        &lt;textarea class=&quot;hide&quot;&gt;
+            &lt;img src=&quot;http://temp.im/500x400/&quot;&gt;
           &lt;/textarea&gt;
-          &lt;/div&gt;
-          &lt;div class="lazyPush"&gt;
-          &lt;textarea class="hide"&gt;
-            &lt;img src="http://temp.im/500x400/"&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;demo_sections&quot;&gt;
+        anything...2
+        &lt;textarea class=&quot;hide&quot;&gt;
+            &lt;img src=&quot;http://temp.im/500x400/&quot;&gt;
           &lt;/textarea&gt;
-          &lt;/div&gt;
-          &lt;div class="lazyPush"&gt;
-          &lt;textarea class="hide"&gt;
-            &lt;img src="http://temp.im/500x400/"&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;demo_sections&quot;&gt;
+        anything...3
+        &lt;textarea class=&quot;hide&quot;&gt;
+            &lt;img src=&quot;http://temp.im/500x400/&quot;&gt;
           &lt;/textarea&gt;
-          &lt;/div&gt;
-                                    </code>
+    &lt;/div&gt;
+                    </code>
                 </pre>
-                <pre> <code>
-          // js 参数说明
-          require('on-scroll');
-          //定位
-          $('.demo_sections').onScroll({
-            offset:42,
-            target:'.demo_Target'
-          });
-
-          //滚动加载
-          $('.lazyPush').onScroll({
-            onshow:function(elem){
-              base.topush($(elem),function(){
-                console.log('懒加载完成')
-              })
-            }
-          })  
-                                    </code>
+                <pre>
+                    <code>
+    var responsive = require('responsive');
+    require('on-scroll');
+    $('.demo_sections').onScroll({
+        offset: 42,
+        target: '.demo_Target',
+        onshow: function(elem, index) {
+            responsive.topush(elem, function() {
+                console.log('元素' + index + '懒加载完成');
+            });
+        }
+    }); 
+                    </code>
                 </pre>
             </dd>
             <dt id="Page(分页)">page</dt>
             <dd>
                 <h5>描述</h5>
-                <p>按指定配置生成分页组件，返回Page方法，语法：<code>Page(config)</code>，或者使用jquery插件语法：<code>$el.page(config);</code></p>
+                <p>按指定配置生成分页组件，返回<code>Page</code>方法，语法：<code>Page(config)</code>，或者使用jquery插件语法：<code>$el.page(config);</code></p>
                 <h5>配置</h5>
                 <table class="table">
                     <tbody>
