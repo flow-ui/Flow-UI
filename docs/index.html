@@ -306,7 +306,7 @@
                     </table>
                     <p></p>
                 </dd>
-                <dt id="btn(按钮)">btn.less</dt>
+                <dt id="button(按钮)">btn.less</dt>
                 <dd>
                     <div class="playground">
                         <div class="m-tb">
@@ -397,6 +397,12 @@
                             <td>.btn-ghost</td>
                             <td>
                                 叠加更改为幽灵按钮
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.btn-block</td>
+                            <td>
+                                叠加更改为块级按钮
                             </td>
                         </tr>
                         <tr>
@@ -3002,7 +3008,7 @@
                         <tr>
                             <th>el</th>
                             <td>
-                                <p>默认 <code>null</code>，要显示徽标的元素，直接调用Badge方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
+                                <p>默认 <code>null</code>，要显示徽标的元素，直接调用方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
                             </td>
                         </tr>
                         <tr>
@@ -3782,7 +3788,7 @@
                         <tr>
                             <th>el</th>
                             <td>
-                                <p>默认<code>null</code>，控件生成元素，直接调用<code>Checks</code>方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
+                                <p>默认<code>null</code>，控件生成元素，直接调用方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
                             </td>
                         </tr>
                         <tr>
@@ -3935,7 +3941,7 @@
                         <tr>
                             <th>el</th>
                             <td>
-                                <p>触发元素，默认无，直接调用citySelect方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
+                                <p>触发元素，默认无，直接调用方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
                             </td>
                         </tr>
                         <tr>
@@ -4026,7 +4032,7 @@
                         <tr>
                             <th>el</th>
                             <td>
-                                <p>插入/生成折叠面板的元素，默认无，直接调用Collapse方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
+                                <p>插入/生成折叠面板的元素，默认无，直接调用方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
                             </td>
                         </tr>
                         <tr>
@@ -4405,7 +4411,7 @@
                     <tbody>
                         <tr>
                             <th>el</th>
-                            <td>默认<code>null</code>，拖拽面板外边界，直接调用DragPanel方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
+                            <td>默认<code>null</code>，拖拽面板外边界，直接调用方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
                         </tr>
                         <tr>
                             <th>sortkey</th>
@@ -4565,7 +4571,7 @@
                     <tbody>
                         <tr>
                             <th>el</th>
-                            <td>默认<code>null</code>，制定触发元素，直接调用Tip方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
+                            <td>默认<code>null</code>，制定触发元素，直接调用方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
                         </tr>
                         <tr>
                             <th>trigger</th>
@@ -5071,7 +5077,7 @@
                         <tr>
                             <th>el</th>
                             <td>
-                                <p>默认 <code>null</code>，表格生成元素，直接调用Label方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
+                                <p>默认 <code>null</code>，表格生成元素，直接调用方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
                             </td>
                         </tr>
                         <tr>
@@ -5157,10 +5163,16 @@
             <dt id="Lazyload(图片懒加载)">lazyload</dt>
             <dd>
                 <h5>描述</h5>
-                <p>图片懒加载插件，用于滚动时加载视窗内的元素背景或图片。</p>
+                <p>图片懒加载插件，用于滚动时加载视窗内的图片或元素背景。返回<code>LazyLoad</code>方法，语法：<code>Label(config)</code>，或使用jquery插件语法：<code>$el.lazyload(config)</code></p>
                 <h5>配置</h5>
                 <table class="table">
                     <tbody>
+                        <tr>
+                            <th>el</th>
+                            <td>
+                                <p>默认 <code>null</code>，懒加载区域选择器，直接调用方法必填，jquery插件调用时可忽略，将默认应用$(this)</p>
+                            </td>
+                        </tr>
                         <tr>
                             <th>attr</th>
                             <td>
@@ -5389,7 +5401,7 @@
                     <tbody>
                         <tr>
                             <th>el</th>
-                            <td>默认<code>null</code>，制定触发元素，直接调用Menu方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
+                            <td>默认<code>null</code>，制定触发元素，直接调用方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
                         </tr>
                         <tr>
                             <th>data</th>
@@ -5945,7 +5957,7 @@
                     <tbody>
                         <tr>
                             <th>el</th>
-                            <td>默认无，必填，分页展示容器，jquery选择器格式，直接调用Page方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
+                            <td>默认无，必填，分页展示容器，jquery选择器格式，直接调用方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
                         </tr>
                         <tr>
                             <th>current</th>
@@ -6110,7 +6122,7 @@
                         <tr>
                             <th>el</th>
                             <td>
-                                <p>默认 <code>null</code>，进度条容器元素，直接调用 <code>Progress</code>方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
+                                <p>默认 <code>null</code>，进度条容器元素，直接调用方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
                             </td>
                         </tr>
                         <tr>
@@ -7260,7 +7272,7 @@
                     <tbody>
                         <tr>
                             <th>el</th>
-                            <td>默认<code>null</code>，容器元素，直接调用Slide方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
+                            <td>默认<code>null</code>，容器元素，直接调用方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
                         </tr>
                         <tr>
                             <th>data</th>
@@ -7827,7 +7839,7 @@
                         <tr>
                             <th>el</th>
                             <td>
-                                <p>默认<code>null</code>，生成/插入选项卡元素，直接调用Tab方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
+                                <p>默认<code>null</code>，生成/插入选项卡元素，直接调用方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
                             </td>
                         </tr>
                         <tr>
@@ -7972,7 +7984,7 @@
                         <tr>
                             <th>el</th>
                             <td>
-                                <p>默认<code>null</code>，表格生成元素，直接调用Table方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
+                                <p>默认<code>null</code>，表格生成元素，直接调用方法必填，jquery插件调用时可忽略，默认应用$(this)</p>
                             </td>
                         </tr>
                         <tr>
@@ -8713,7 +8725,7 @@
                         <tr>
                             <th>el</th>
                             <td>
-                                <p>默认<code>null</code>，制定触发元素，直接调用TimePicker方法必填，jquery插件调用时可忽略，默认应用$(this)；当元素具有<code>value</code>属性时，value将自动同步所选时间</p>
+                                <p>默认<code>null</code>，制定触发元素，直接调用方法必填，jquery插件调用时可忽略，默认应用$(this)；当元素具有<code>value</code>属性时，value将自动同步所选时间</p>
                             </td>
                         </tr>
                         <tr>
@@ -8837,7 +8849,7 @@
                     <tbody>
                         <tr>
                             <th>el</th>
-                            <td>默认<code>null</code>，制定触发元素，直接调用Tip方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
+                            <td>默认<code>null</code>，制定触发元素，直接调用方法必填，jquery插件调用时可忽略，默认应用$(this)</td>
                         </tr>
                         <tr>
                             <th>trigger</th>

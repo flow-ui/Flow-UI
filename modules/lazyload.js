@@ -1,8 +1,8 @@
 /*
  * name: lazyload.js
- * version: v2.1.0
- * update: 函数节流
- * date: 2016-12-03
+ * version: v2.1.1
+ * update: 输出LazyLoad方法
+ * date: 2017-07-17
  */
 define('lazyload', function(require, exports, module) {
 	'use strict';
@@ -45,33 +45,41 @@ define('lazyload', function(require, exports, module) {
 				});
 				return console.log('lazyload() is all done!');
 			}
-			if (lazyimgs.eq(0).offset().top < ($(window).height() + $(window).scrollTop() + opt.distance)) {
+			var $win = $(window);
+			if (lazyimgs.eq(0).offset().top < ($win.height() + $win.scrollTop() + opt.distance)) {
 				loadimg(lazyimgs, opt.everyCount);
 			}
 		});
 		
-	$.fn.lazyload = function(config) {
-		return $(this).each(function(i, e) {
-			var $this = $(e),
-				lazyimgs = $this.is($(window)) ? $('['+opt.attr+']') : $this.find('['+opt.attr+']');
-			if (!lazyimgs.length) {
-				console.log('no element for lazyload()!');
-				return $this;
-			}
-			if($this.data('lazyloadinit')){
-				return $this;
-			}
-			if($this.get(0).scrollHeight){
-				target = $this;
-			}else{
-				target = $(window);
-			}
-			//初始加载绑定事件
-			init(lazyimgs);
-			target.bind({
-				'scroll': init,
-				'resize': init
-			});
+	var LazyLoad = function(config){
+		$.extend(opt, config || {});
+		var $this = $(opt.el).eq(0),
+			lazyimgs = $this.is($(window)) ? $('['+opt.attr+']') : $this.find('['+opt.attr+']');
+		if (!lazyimgs.length) {
+			console.log('no ' + '['+opt.attr+']' + ' for lazyload()!');
+			return $this;
+		}
+		if($this.data('lazyloadinit')){
+			return $this;
+		}
+		if($this.get(0).scrollHeight){
+			target = $this;
+		}else{
+			target = $(window);
+		}
+		//初始加载绑定事件
+		init(lazyimgs);
+		target.bind({
+			'scroll': init,
+			'resize': init
 		});
+		$this.data('lazyloadinit',true);
 	};
+	$.fn.lazyload = function(config) {
+		return LazyLoad($.extend({
+			el: this
+		}, config || {}));
+	};
+
+	module.exports = LazyLoad;
 });
