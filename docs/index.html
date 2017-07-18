@@ -5881,6 +5881,10 @@
                             <th>onshow</th>
                             <td>可选，元素第一次出现在视野的回调，默认无</td>
                         </tr>
+                        <tr>
+                            <th>ontop</th>
+                            <td>可选，当配置了target时，元素第一次与target距离为offset时触发，默认无</td>
+                        </tr>
                     </tbody>
                 </table>
                 <h5>示例</h5>
@@ -5975,6 +5979,9 @@
             responsive.topush(elem, function() {
                 console.log('元素' + index + '懒加载完成');
             });
+        },
+        ontop: function(elem, index){
+            console.log('ele' + index + '就位');
         }
     }); 
                     </code>

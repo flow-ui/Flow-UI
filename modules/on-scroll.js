@@ -1,8 +1,8 @@
 /*
  * name: on-scroll
  * version: v2.2.0
- * update: 变量错别字
- * date: 2016-01-21
+ * update: 增加ontop回调
+ * date: 2017-07-18
  */
 define('on-scroll', function(require, exports, module) {
 	var $ = window.$ || require('jquery'),
@@ -14,7 +14,8 @@ define('on-scroll', function(require, exports, module) {
 			targetCell: 'li',
 			targetFix: null,
 			speed: 300,
-			onshow: null
+			onshow: null,
+			ontop: null
 		};
 
 	var onScroll = function(config) {
@@ -81,13 +82,17 @@ define('on-scroll', function(require, exports, module) {
 			if (scrollDown) {
 				//向下
 				$this.each(function(i, e) {
-					if (!$(e).data('onscrolldone') && (parseInt($(e).offset().top) <= ($target ? 0 : winH) + winT + opt.offset)) {
-						_eIndex = i;
-						$(e).data('onscrolldone', true);
+					if (!e.onshowReady && (parseInt($(e).offset().top) <= winH + winT + opt.offset)) {
+						e.onshowReady = true;
 						typeof opt.onshow === 'function' && opt.onshow(e, i);
 					}
+					if ($target && !e.ontopReady && (parseInt($(e).offset().top) <= winT + opt.offset)) {
+						e.ontopReady = true;
+						_eIndex = i;
+						typeof opt.ontop === 'function' && opt.ontop(e, i);
+					}
 				});
-			} else {
+			} else if($target) {
 				//向上
 				$this.each(function(i, e) {
 					if (parseInt($(e).offset().top) >= winT + opt.offset) {
