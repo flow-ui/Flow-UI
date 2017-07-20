@@ -1,8 +1,8 @@
 /*
 * name: validform.js
-* version: v2.5.4
-* update: bug fix
-* data: 2017-07-02
+* version: v2.5.5
+* update: box handle为判断初始值bug
+* data: 2017-07-20
 */
 define('validform',function(require, exports, module) {
 	"use strict";
@@ -419,7 +419,9 @@ define('validform',function(require, exports, module) {
 				return;
 			}
 			if (type == 1) {
-				box.hide(Validform.util.boxHandle);
+				if(Validform.util.boxHandle){
+					box.hide(Validform.util.boxHandle);
+				}
 				Validform.util.boxHandle = box.msg(msg, {
 					delay: 2e3,
 					color: color
