@@ -1,8 +1,8 @@
 /*
  * name: tip.js
- * version: v1.5.0
- * update: add destroy method
- * date: 2017-04-06
+ * version: v1.5.1
+ * update: ie8兼容
+ * date: 2017-07-26
  */
 define('tip', function(require, exports, module) {
 	'use strict';
@@ -268,7 +268,7 @@ define('tip', function(require, exports, module) {
 							setTimeout(show, 0);
 						}
 					};
-					document.addEventListener('click', $this.documentHandler);
+					$(window).on('click', $this.documentHandler);
 					$this.on('click', $this.tipClickHandle);
 				} else {
 					$this.tipTriggerHandle = show;
@@ -297,7 +297,7 @@ define('tip', function(require, exports, module) {
 					$el.tipMouseenterHandle = null;
 					$el.tipMouseleaveHandle = null;
 				}else if(opt.trigger === 'click'){
-					document.removeEventListener('click', $el.documentHandler);
+					$(window).unbind('click', $el.documentHandler);
 					$el.unbind('click', $el.tipClickHandle);
 					$el.documentHandler = null;
 					$el.tipClickHandle = null;

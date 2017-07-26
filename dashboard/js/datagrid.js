@@ -255,7 +255,7 @@ define(function(require) {
 				});
 				//开关
 				require.async('switch', function() {
-					$box.find('.flow-ui-switch').switch();
+					$box.find('.flow-ui-switch').switcher();
 				});
 			}
 		});
@@ -354,7 +354,7 @@ define(function(require) {
 				});
 				//开关
 				require.async('switch', function() {
-					$box.find('.flow-ui-switch').switch();
+					$box.find('.flow-ui-switch').switcher();
 				});
 			}
 		});

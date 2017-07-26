@@ -10,46 +10,46 @@ define(function(require) {
 	require('switch');
 
 	$('.switch-default').each(function(i, e) {
-		$(e).switch({
+		$(e).switcher({
 			color: color[i],
 			value: true
 		});
 	});
 
 	$('.switch-radius').each(function(i, e) {
-		$(e).switch({
+		$(e).switcher({
 			color: color[i],
 			round: true,
 			value: true
 		});
 	});
 
-	$('.switch-lg').switch({
+	$('.switch-lg').switcher({
 		color: color[0],
 		size: 'lg',
 		value: true
 	});
-	$('.switch-normal').switch({
+	$('.switch-normal').switcher({
 		color: color[0],
 		value: true
 	});
-	$('.switch-sm').switch({
+	$('.switch-sm').switcher({
 		color: color[0],
 		size: 'sm',
 		value: true
 	});
-	$('.switch-round-lg').switch({
+	$('.switch-round-lg').switcher({
 		color: color[0],
 		size: 'lg',
 		value: true,
 		round: true
 	});
-	$('.switch-round-normal').switch({
+	$('.switch-round-normal').switcher({
 		color: color[0],
 		value: true,
 		round: true
 	});
-	$('.switch-round-sm').switch({
+	$('.switch-round-sm').switcher({
 		color: color[0],
 		size: 'sm',
 		value: true,

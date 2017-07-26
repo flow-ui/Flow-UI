@@ -1,8 +1,8 @@
 /*
  * name: table.js
- * version: v1.8.4
- * update: 并行ajax进程管理
- * date: 2017-05-18
+ * version: v1.8.5
+ * update: ie8兼容
+ * date: 2017-07-26
  */
 define('table', function(require, exports, module) {
 	"use strict";
@@ -35,7 +35,7 @@ define('table', function(require, exports, module) {
 				changes = {
 					add: [],
 					update: [],
-					delete: []
+					deleted: []
 				},
 				ajaxParam;
 			if (!$this.length) {
@@ -493,7 +493,7 @@ define('table', function(require, exports, module) {
 				thead += '</table></div>';
 				if (!tData.length) {
 					if (part === 'placehold') {
-						//首次ajax加载
+						//alert('首次ajax加载')
 					} else {
 						tbody += ('<table class="table">' + colgroup + '<tbody><tr><td style="border-top:0" colspan="'+opt.column.length+'"><div class="p">' + opt.noDataText + '</div></td></tr></tbody></table>');
 					}
@@ -820,10 +820,11 @@ define('table', function(require, exports, module) {
 							opt.ajaxRes = res;
 							generate(opt.rowData, opt, part);
 						},
-						error: function(){
+						error: function(x,t,i){
 							if($.isPlainObject(loadData.loading)){
 								loadData.loading = loadData.loading.hide();
 							}
+							console.warn(i);
 						}
 					});
 				});
@@ -1000,7 +1001,7 @@ define('table', function(require, exports, module) {
 					for (var i = index; i < cData.length; i++) {
 						cData[i][indexKey] = i;
 					}
-					changes.delete.push({
+					changes.deleted.push({
 						index: index,
 						row: delRow[0]
 					});
