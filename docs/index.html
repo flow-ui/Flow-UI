@@ -7759,7 +7759,7 @@
             <dt id="Switch(开关)">Switch</dt>
             <dd>
                 <h5>描述</h5>
-                <p>开关插件，返回<code>Switch</code>方法，语法<code>Switch(config)</code>，或使用jquery插件语法<code>$el.switch(config)</code></p>
+                <p>开关插件，返回<code>Switcher</code>方法，语法<code>Switcher(config)</code>，或使用jquery插件语法<code>$el.switcher(config)</code></p>
                 <p><code>$('.flow-ui-switch')</code>元素将自动初始化，并且支持data-config属性</p>
                 <h5>配置</h5>
                 <table class="table">
@@ -7844,7 +7844,7 @@
                 </pre>
                 <pre> <code>
             require('switch');
-            var myswitch = $('.demo').switch({
+            var myswitch = $('.demo').switcher({
                 color:'primary',
                 onChange: function(value){
                     console.log('switch is ',value);

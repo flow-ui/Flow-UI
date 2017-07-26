@@ -1,8 +1,8 @@
 /*
  * name: switch.js
- * version: v0.4.1
- * update: 基于checkbox初始化checked状态bug
- * date: 2017-05-03
+ * version: v1.0.0
+ * update: switch => switcher 避开js保留字
+ * date: 2017-07-26
  */
 define('switch', function(require, exports, module) {
 	"use strict";
@@ -18,7 +18,7 @@ define('switch', function(require, exports, module) {
 			onChange: null
 		},
 		template = '<label class="switch"><div class="track"><div class="handle"></div></div></label>',
-		Switch = function(config) {
+		Switcher = function(config) {
 			var opt = $.extend({}, def, config || {}),
 				$this = $(opt.el).eq(0),
 				$switch,
@@ -129,13 +129,13 @@ define('switch', function(require, exports, module) {
 			};
 		};
 
-	$.fn.switch = function(config) {
-		return Switch($.extend({
+	$.fn.switcher = function(config) {
+		return Switcher($.extend({
 			el: this
 		}, config || {}));
 	};
 	$('.flow-ui-switch').each(function(){
-		$(this).switch();
+		$(this).switcher();
 	});
-	module.exports = Switch;
+	module.exports = Switcher;
 });
