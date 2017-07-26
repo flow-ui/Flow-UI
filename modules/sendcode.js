@@ -1,8 +1,8 @@
 /*
  * name: sendcode.js
- * version: v0.2.0
- * update: mobile配置支持jquery选择器，用来获取value
- * date: 2017-02-22
+ * version: v0.2.1
+ * update: 多次点击bug
+ * date: 2017-07-26
  */
 define("sendcode", function(require, exports, module) {
 	"use strict";
@@ -66,16 +66,16 @@ define("sendcode", function(require, exports, module) {
 				thedata[opt.keyName] = mobileNumber;
 				$.extend(thedata, opt.data || {});
 				setAble($(this),false);
+				//开始倒计时
+				intv = setInterval(function() {
+					tick(renderTarget);
+				}, 1000);
 				$.ajax({
 					url: opt.url,
 					data: thedata,
 					success: function(res) {
 						$.box.hide(loading);
 						if (res.status === 'Y') {
-							//开始倒计时
-							intv = setInterval(function() {
-								tick(renderTarget);
-							}, 1000);
 							if (typeof callback === 'function') {
 								callback();
 							}

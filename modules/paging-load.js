@@ -1,12 +1,12 @@
 /*
  * name: paging-load.js
- * version: v0.1.0
- * update: load()支持回调
- * date: 2017-05-10
+ * version: v0.2.0
+ * update: reload()支持hold,data,cb
+ * date: 2017-07-25
  */
 define('paging-load', function(require, exports, module) {
 	"use strict";
-	var $ = window.$ || require('jquery'),
+	var $ = app.util,
 		def = {
 			url: null,
 			size: 6,
@@ -33,7 +33,13 @@ define('paging-load', function(require, exports, module) {
 			if (!opt.url) {
 				return console.warn('toload()参数缺少url');
 			}
-			trueUrl = opt.url + '?' + $.param(opt.data);
+			trueUrl = opt.url + '?' + (function(string){
+				var param = [];
+				$.each(string, function(i, e){
+					param.push(i + '=' + e);
+				});
+				return param.join('&');
+			})(opt.data);
 			var init = function() {
 				var i = 0,
 					n = loadProcess.length,
@@ -56,11 +62,10 @@ define('paging-load', function(require, exports, module) {
 
 			return {
 				load: function(cb) {
-					var Ajax = window.api ? app.ajax : $.ajax;
+					var Ajax = app.ajax;
 					sendParam.page_index = init()();
 					sendParam.page_size = opt.size;
 					Ajax({
-						type: 'get',
 						url: opt.url,
 						data: sendParam,
 						dataType: opt.dataType || 'json',
@@ -82,7 +87,7 @@ define('paging-load', function(require, exports, module) {
 						}
 					});
 				},
-				reload: function(hold) {
+				reload: function(hold, data, cb) {
 					var i = 0,
 						n = loadProcess.length,
 						thisProcessIndex;
@@ -97,8 +102,9 @@ define('paging-load', function(require, exports, module) {
 					} else if (hold) {
 						console.warn('reload():找不到paging-load进程');
 					}
+					$.extend(sendParam, data || {});
 					if (!hold) {
-						this.load();
+						this.load(cb);
 					}
 				},
 				destroy: function() {

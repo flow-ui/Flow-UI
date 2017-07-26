@@ -1,8 +1,8 @@
 /*
  * name: slide.js
- * version: v4.3.1
- * update: 导航slide bugfix
- * date: 2017-07-05
+ * version: v4.3.2
+ * update: create form data bugfix
+ * date: 2017-07-24
  */
 define('slide', function(require, exports, module) {
     "use strict";
@@ -101,6 +101,7 @@ define('slide', function(require, exports, module) {
             });
             slideNode += '</ul>';
         }
+        $this.prepend(slideNode);
         //运行条件检测
         $wrap = $this.find(opt.wrap).eq(0);
         $slides = $wrap.find(opt.cell);
@@ -115,7 +116,7 @@ define('slide', function(require, exports, module) {
             return $this;
         }
 
-        $this.addClass('slide slide_effect_' + opt.effect).prepend(slideNode);
+        $this.addClass('slide slide_effect_' + opt.effect);
         //初始化
         (function() {
             var _Target, _Direction, _Distance, _touchAction;
