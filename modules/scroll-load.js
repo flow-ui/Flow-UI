@@ -1,8 +1,8 @@
 /*
  * name: scroll-load
- * version: 1.0.1
- * updata: loadingTemplate允许为空
- * data: 2017-04-27
+ * version: 1.0.2
+ * updata: 不合法调用返回null
+ * data: 2017-07-26
  */
 define('scroll-load', function(require, exports, module) {
     "use strict";
@@ -14,89 +14,102 @@ define('scroll-load', function(require, exports, module) {
         100% { -webkit-transform: rotateZ(360deg);}}\
         @keyframes rotation { 0% { transform: rotateZ(0deg);}\
         100% { transform: rotateZ(360deg);}}', module.uri);
-    var $ = window.$ || require('jquery'),
+    var $ = window.jQuery || require('jquery'),
         base = require('base'),
         def = {
+            el: null,
             callback: null,
             force: false,
             distance: 70,
             loadingTemplate: '<div class="scrollLoadSpinning"><span class="_spin"></span></div>'
+        },
+        scrollLoad = function(config) {
+            var opt = $.extend({}, def, config || {}),
+                $wrap = $(opt.el).eq(0),
+                loadingId,
+                scrollDom, 
+                viewH, 
+                contHeight, 
+                scrollCB, 
+                running, 
+                $loading, 
+                destory;
+            if (!$wrap.length) {
+                console.warn(opt.el + '不存在');
+                return null;
+            }
+            loadingId = $wrap.data('scroll-load-id') || base.getUUID();
+            if ($wrap.is('body')) {
+                scrollDom = $(window);
+                contHeight = function() {
+                    return $(document).height();
+                };
+            } else {
+                scrollDom = $wrap;
+                if (!$wrap.find('.scrollLoadCont').length) {
+                    $wrap.wrapInner('<div class="scrollLoadCont" />');
+                }
+                contHeight = function() {
+                    return $wrap.children('.scrollLoadCont').height();
+                };
+            }
+            if ($wrap.find('#' + loadingId).length) {
+                $loading = $wrap.find('#' + loadingId).css('display','none');
+            } else if (opt.loadingTemplate && opt.loadingTemplate.split) {
+                $loading = $(opt.loadingTemplate).attr('id', loadingId).css('display','none');
+            }
+            if (!opt.force) {
+                if (window.nomore) {
+                    destory();
+                    return null;
+                }
+                if ($wrap.data('scroll-load-id')) {
+                    return null;
+                }
+            }
+            destory = function() {
+                $wrap.data('scroll-load-id', null);
+                scrollDom.unbind('scroll', scrollCB);
+            };
+            viewH = function() {
+                return scrollDom.height();
+            };
+            scrollCB = function() {
+                if (running) {
+                    return $wrap;
+                }
+                var contentH = contHeight(),
+                    scrollTop = $(this).scrollTop();
+                if (contentH - viewH() - scrollTop < opt.distance) {
+                    running = true;
+                    //插入加载提示
+                    if ($loading.length) {
+                        $wrap.append($loading.css('display','block')).scrollTop($wrap.scrollTop() + $loading.outerHeight(true) + opt.distance);
+                    } else {
+                        $wrap.scrollTop($wrap.height());
+                    }
+
+                    if (typeof(opt.callback) === 'function') {
+                        opt.callback(function() {
+                            $loading && $loading.css('display','none');
+                            running = null;
+                        });
+                    }
+                }
+            };
+            if (!$wrap.data('scroll-load-id')) {
+                $wrap.data('scroll-load-id', loadingId);
+                scrollDom.on('scroll', scrollCB);
+            }
+            return {
+                destory: destory
+            };
         };
 
     $.fn.scrollLoad = function(config) {
-        var $wrap = $(this),
-            opt = $.extend({}, def, config || {}),
-            loadingId = $wrap.data('scroll-load-id') || base.getUUID(),
-            scrollDom, viewH, contHeight, scrollCB, running, $loading, destory;
-        if($wrap.length>1){
-            $wrap = $wrap.eq(0);
-            console.warn('scrollLoad target must be single element!');
-        }
-        if ($wrap.is('body')) {
-            scrollDom = $(window);
-            contHeight = function() {
-                return $(document).height();
-            };
-        } else {
-            scrollDom = $wrap;
-            if (!$wrap.find('.scrollLoadCont').length) {
-                $wrap.wrapInner('<div class="scrollLoadCont" />');
-            }
-            contHeight = function() {
-                return $wrap.children('.scrollLoadCont').height();
-            };
-        }
-        if ($wrap.find('#' + loadingId).length) {
-            $loading = $wrap.find('#' + loadingId).hide();
-        } else if(opt.loadingTemplate && opt.loadingTemplate.split){
-            $loading = $(opt.loadingTemplate).attr('id', loadingId).hide();
-        }
-        if (!opt.force) {
-            if (window.nomore) {
-                destory();
-                return $wrap;
-            }
-            if ($wrap.data('scroll-load-id')) {
-                return $wrap;
-            }
-        }
-        destory = function() {
-            $wrap.data('scroll-load-id', null);
-            scrollDom.unbind('scroll', scrollCB);
-        };
-        viewH = function() {
-            return scrollDom.height();
-        };
-        scrollCB = function() {
-            if (running) {
-                return $wrap;
-            }
-            var contentH = contHeight(),
-                scrollTop = $(this).scrollTop();
-
-            if (contentH - viewH() - scrollTop < opt.distance) {
-                running = true;
-                //插入加载提示
-                if($loading){
-                    $wrap.append($loading.show()).scrollTop($wrap.scrollTop() + $loading.outerHeight(true) + opt.distance);
-                }else{
-                    $wrap.scrollTop($wrap.height());
-                }
-                
-                if(typeof(opt.callback) === 'function'){
-                    opt.callback(function(){
-                        $loading && $loading.hide();
-                        running = null;
-                    });
-                }
-            }
-        };
-        if (!$wrap.data('scroll-load-id')) {
-            $wrap.data('scroll-load-id', loadingId);
-            scrollDom.on('scroll', scrollCB);
-        }
-        return {
-            destory: destory
-        };
+        return scrollLoad($.extend({
+            el: this
+        }, config || {}));
     };
+    module.exports = scrollLoad;
 });
