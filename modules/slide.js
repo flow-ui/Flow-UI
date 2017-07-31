@@ -1,8 +1,8 @@
 /*
  * name: slide.js
- * version: v4.3.2
- * update: create form data bugfix
- * date: 2017-07-24
+ * version: v4.4.0
+ * update: add lazyload option
+ * date: 2017-07-31
  */
 define('slide', function(require, exports, module) {
     "use strict";
@@ -40,7 +40,7 @@ define('slide', function(require, exports, module) {
             prev: null,
             next: null,
             navs: null,
-            imgattr: 'slide-src',
+            lazyload: true,
             handletouch: false,
             onSlide: null,
             onReady: null
@@ -97,7 +97,7 @@ define('slide', function(require, exports, module) {
             });
             slideNode = '<ul>';
             $.each(opt.data, function(i, e){
-                slideNode += ('<li><a href="'+ (e.link || 'javascript:;') +'"><img src="' + (e.src || '') + '" alt="'+ (e.alt || '') +'"></a></li>')
+                slideNode += ('<li><a href="'+ (e.link || 'javascript:;') +'"><img ' + (opt.lazyload ? 'slide-src="' : 'src="') + (e.src || '') + '" alt="'+ (e.alt || '') +'"></a></li>')
             });
             slideNode += '</ul>';
         }
@@ -111,7 +111,7 @@ define('slide', function(require, exports, module) {
             $wrap.css({
                 'height': H
             }).addClass('slide_wrap');
-            $slides.unbind().addClass('slide_c')._loadimg(opt.imgattr).show();
+            $slides.unbind().addClass('slide_c')._loadimg('slide-src').show();
             typeof(opt.onReady) === 'function' && opt.onReady($this, $slides, slideLength);
             return $this;
         }
@@ -212,10 +212,10 @@ define('slide', function(require, exports, module) {
                                 }
                                 $wrap._css(_Direction, -_Distance + _distance + 'px');
                                 if (_distance < 0) {
-                                    $slides.eq(getNext(originIndex, 1, slideLength))._loadimg(opt.imgattr);
+                                    $slides.eq(getNext(originIndex, 1, slideLength))._loadimg('slide-src');
                                 }
                                 if (_distance > 0) {
-                                    $slides.eq(getPrev(originIndex, 1, slideLength))._loadimg(opt.imgattr);
+                                    $slides.eq(getPrev(originIndex, 1, slideLength))._loadimg('slide-src');
                                 }
                             },
                             'touchend': moveEnd,
@@ -239,7 +239,7 @@ define('slide', function(require, exports, module) {
                     .filter('.slide_next').removeClass('slide_next').end()
                     .eq(_prev).addClass('slide_prev').end()
                     .eq(_next).addClass('slide_next').end()
-                    .eq(current)._loadimg(opt.imgattr).addClass('active');
+                    .eq(current)._loadimg('slide-src').addClass('active');
                 };
                 windowLock = true;
                 setNavs($navs, slideLength, current, step);
@@ -247,10 +247,10 @@ define('slide', function(require, exports, module) {
                     case 'fade':
                         toggleCellClass(current);
                         if (isInit) {
-                            $slides.eq(current)._loadimg(opt.imgattr).addClass('active').show();
+                            $slides.eq(current)._loadimg('slide-src').addClass('active').show();
                         } else {
                             $slides.fadeOut(opt.duration)
-                                .eq(current)._loadimg(opt.imgattr).fadeIn(opt.duration * 1.5, function() {
+                                .eq(current)._loadimg('slide-src').fadeIn(opt.duration * 1.5, function() {
                                     $(this).addClass('active');
                                 });
                         }

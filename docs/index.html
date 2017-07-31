@@ -2877,8 +2877,8 @@
                             <td>右箭头html</td>
                         </tr>
                         <tr>
-                            <th>imgattr</th>
-                            <td>默认无，存放展示图片地址的img属性，注意<code>data-src</code>已被响应图片方案占用，避免冲突</td>
+                            <th>lazyload</th>
+                            <td>默认<code>true</code>，图片是否应用懒加载，基于DOM创建需手动给图片增加<code>slide-src</code>属性存储图片地址,基于数据创建将自动处理</td>
                         </tr>
                         <tr>
                             <th>onSlide</th>
@@ -6274,7 +6274,7 @@
             <dt id="Qr(二维码)">qr</dt>
             <dd>
                 <h5>描述</h5>
-                <p>生成二维码，封装自<a href="https://github.com/jeromeetienne/jquery-qrcode" target="_blank">jquery-qrcode</a>。</p>
+                <p>生成二维码，封装自<a href="https://github.com/davidshimjs/qrcodejs" target="_blank">davidshimjs/qrcodejs</a>。</p>
                 <h5>示例</h5>
                 <pre> <code>
           &lt;style&gt;
