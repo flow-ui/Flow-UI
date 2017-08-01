@@ -1,7 +1,7 @@
 /*
  * name: base
- * version: 3.4.4
- * update: update _loadimg()
+ * version: 3.5.0
+ * update: isEqual && 快照缓存
  * date: 2017-08-01
  */
 define('base', function(require, exports, module) {
@@ -42,6 +42,49 @@ define('base', function(require, exports, module) {
 		return sourceCopy;
 	};
 	/*
+	 * isEqual
+	 */
+	var isEqual = function(o, x) {
+		if (!$.isPlainObject(o) || !$.isPlainObject(x)) {
+			return false;
+		}
+		var p;
+		for (p in o) {
+			if (typeof(x[p]) == 'undefined') {
+				return false;
+			}
+		}
+		for (p in o) {
+			if (o[p]) {
+				switch (typeof(o[p])) {
+					case 'object':
+						if (!isEqual(o[p], x[p])) {
+							return false;
+						}
+						break;
+					case 'function':
+						if (typeof(x[p]) == 'undefined' ||
+							(p != 'equals' && o[p].toString() != x[p].toString()))
+							return false;
+						break;
+					default:
+						if (o[p] != x[p]) {
+							return false;
+						}
+				}
+			} else {
+				if (x[p])
+					return false;
+			}
+		}
+		for (p in x) {
+			if (typeof(o[p]) == 'undefined') {
+				return false;
+			}
+		}
+		return true;
+	};
+	/*
 	 * ajax优化
 	 */
 	var ajaxLocalCacheQueue = {};
@@ -60,7 +103,7 @@ define('base', function(require, exports, module) {
 				}
 				//默认超时时间
 				if (!setting.timeout) {
-					setting.timeout = seajs.set.base && seajs.set.base.timeout || 1.5e4;
+					setting.timeout = 1.5e4;
 				}
 				//数据缓存
 				if (window.localStorage && setting.localCache !== void(0)) {
@@ -70,6 +113,9 @@ define('base', function(require, exports, module) {
 						cacheName,
 						cacheDeadline,
 						cacheVal;
+					if (typeof setting.success !== 'function') {
+						return console.warn('setting.success error!');
+					}
 					//获取url
 					if (setting.type.toUpperCase() === 'POST') {
 						cacheKey = setting.url + '?' + setting.data;
@@ -79,8 +125,10 @@ define('base', function(require, exports, module) {
 					//请求队列
 					if (ajaxLocalCacheQueue[cacheKey]) {
 						ajaxLocalCacheQueue[cacheKey].push(setting.success);
-						xhr.ignoreError = true;
-						return xhr.abort();
+						if (setting.localCache !== 'snapshoot') {
+							xhr.ignoreError = true;
+							return xhr.abort();
+						}
 					}
 					//间隔符容错
 					$.each(cacheNameSep, function(i, sep) {
@@ -101,26 +149,38 @@ define('base', function(require, exports, module) {
 							return false;
 						}
 					});
-					if (setting.localCache && !isNaN(setting.localCache)) {
+					if (cacheVal && setting.dataType === 'json') {
+						cacheVal = $.parseJSON(cacheVal);
+					}
+					if (setting.localCache && (setting.localCache === 'snapshoot' || !isNaN(setting.localCache))) {
 						var nowDate = new Date().getTime();
-						if (cacheDeadline && cacheDeadline > nowDate) {
+						if (cacheDeadline && (cacheDeadline > nowDate)) {
 							//console.log('使用缓存 '+cacheDeadline+'>'+nowDate);
-							if (setting.dataType === 'json') {
-								cacheVal = $.parseJSON(cacheVal);
-							}
-							if (typeof setting.success === 'function') {
-								setting.success(cacheVal);
-								return false;
-							}
+							setting.success(cacheVal);
+							return false;
 						} else {
 							if (cacheDeadline && cacheDeadline <= nowDate) {
 								//console.log('缓存过期');
 								localStorage.removeItem(cacheName);
 							}
+							//使用快照
+							if (cacheDeadline === 'snapshoot') {
+								var snapshootData = cacheVal;
+								if ($.isPlainObject(cacheVal)) {
+									snapshootData = $.extend(true, {}, cacheVal, {
+										snapshoot: true
+									});
+								}
+								setting.success(snapshootData);
+							}
 							//console.log('建立缓存');
 							ajaxLocalCacheQueue[cacheKey] = [setting.success];
 							setting.success = function(res) {
-								var newDeadline = new Date().getTime() + setting.localCache,
+								//数据校验
+								if (setting.localCache === 'snapshoot' && isEqual(res, cacheVal)) {
+									return console.log('快照缓存命中');
+								}
+								var newDeadline = setting.localCache === 'snapshoot' ? 'snapshoot' : (new Date().getTime() + setting.localCache),
 									newCacheName = [cacheNamePrefix, cacheKey, newDeadline].join(cacheNameSep);
 								$.each(ajaxLocalCacheQueue[cacheKey], function(i, cb) {
 									typeof cb === 'function' && cb(res);
@@ -610,6 +670,7 @@ define('base', function(require, exports, module) {
 	module.exports = {
 		getUID: getUID,
 		getUUID: getUUID,
+		isEqual: isEqual,
 		getIndex: getIndex,
 		deepcopy: deepcopy,
 		browser: _browser,
