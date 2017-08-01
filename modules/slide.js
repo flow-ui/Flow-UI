@@ -1,12 +1,13 @@
 /*
  * name: slide.js
- * version: v4.4.0
- * update: add lazyload option
- * date: 2017-07-31
+ * version: v4.4.1
+ * update: img[slide-src]透明
+ * date: 2017-08-01
  */
 define('slide', function(require, exports, module) {
     "use strict";
     seajs.importStyle('.slide{position:relative;overflow:hidden;}\
+        .slide img[slide-src]{opacity:0}\
         .slide_wrap{position:relative;width:100%}\
         .slide_wrap img{max-width: none;}\
         .slide_c{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;display:none}\

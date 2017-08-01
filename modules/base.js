@@ -1,8 +1,8 @@
 /*
  * name: base
- * version: 3.4.3
- * update: update _css()
- * date: 2017-07-04
+ * version: 3.4.4
+ * update: update _loadimg()
+ * date: 2017-08-01
  */
 define('base', function(require, exports, module) {
 	'use strict';
@@ -354,9 +354,9 @@ define('base', function(require, exports, module) {
 			var _theSrc;
 			lazyImg.each(function(i, e) {
 				_theSrc = $.trim($(e).attr(imgattr));
-				if (_theSrc && _theSrc != 'loaded') {
+				if (_theSrc) {
 					if (e.tagName.toLowerCase() === 'img') {
-						$(e).attr('src', _theSrc).attr(imgattr, 'loaded').addClass('loaded');
+						$(e).attr('src', _theSrc).removeAttr(imgattr).addClass('loaded');
 					} else {
 						$(e).css("background-image", "url(" + _theSrc + ")").attr(imgattr, 'loaded').addClass('loaded');
 					}
