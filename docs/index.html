@@ -9350,11 +9350,43 @@ $.ajax({
         </pre>
         <h3 id="ajaxCache">AJAX缓存</h3>
         <p>框架为jQuery.ajax扩展两种缓存方式，定时缓存和快照缓存。</p>
-        <p>一、定时缓存顾名思义，即在特定时长内缓存数据，开启定时缓存的请求，在第一次成功返回数据后将不再重复发起请求，而是直接使用缓存数据，缓存过期后将自动清除，再次请求成功后将再次缓存，开启新的缓存周期，原理类似于函数防抖。</p>
+        <h4>定时缓存</h4>
+        <p>定时缓存即在特定时长内缓存数据，开启定时缓存的请求，在第一次成功返回数据后将不再重复发起请求，而是直接使用缓存数据，缓存过期后将自动清除，再次请求成功后将再次缓存，开启新的缓存周期，原理类似于函数防抖。</p>
         <p>开启定时缓存需要为ajax配置<code>localCache: 36000  //ms</code>，并且使用'success'配置回调函数。</p>
-        <p>二、所谓快照缓存，即把每一次成功返回的ajax结果保存为快照，下次发起相同请求（判断依据是url和参数相同）时第一时间将快照取出返回给回调函数，待真实数据返回后校验与快照是否相同（需要数据为json格式），若相同则缓存命中，不同则再次调用回调函数并传入真实数据，为了使业务中能够区分出快照，会为快照数据添加一个'snapshoot'属性值为'true'。</p>
+        <h4>快照缓存</h4>
+        <p>快照缓存即把每一次成功返回的ajax结果保存为快照，下次发起相同请求（判断依据是url和参数相同）时第一时间将快照取出返回给回调函数，待真实数据返回后校验与快照是否相同（需要数据为json格式），若相同则缓存命中，不同则再次调用回调函数并传入真实数据，为了使业务中能够区分出快照，会为快照数据添加一个'snapshoot'属性值为'true'。</p>
         <p>开启快照缓存需要为ajax配置<code>localCache:'snapshoot', dataType:'json'</code>选项，并且使用'success'配置回调函数。</p>
-        <p>详见<a href="#Base(工具包)">【base.js】</a>中<code>ajaxSetup</code>。</p>
+        <p>详见<a href="#Base(工具包)">【base.js】</a>中<code>ajaxSetup</code>，附快照缓存示例。</p>
+        <pre>
+            <code>
+    &lt;button id=&quot;test&quot; type=&quot;button&quot;&gt;send ajax&lt;/button&gt;
+    &lt;div id=&quot;log&quot;&gt;&lt;/div&gt;
+            </code>
+            <code>
+    //js
+    var base = require('base');
+    base.ajaxSetup($);
+    var $log = document.getElementById('log');
+    $('#test').on('click', function() {
+        $.ajax({
+            url: "http://rapapi.org/mockjsdata/9195/common/getRandom",
+            dataType:'json',
+            localCache: 'snapshoot',
+            success: function(res) {
+                if (res.snapshoot) {
+                    $log.innerText = ('快照数据:' + res.data);
+                } else {
+                    setTimeout(function() {
+                        $log.innerText = $log.innerText + ('\n最新数据:' + res.data);
+                        app.loading.hide();
+                    }, 0);
+                }
+            }
+        });
+    });
+            </code>
+        </pre>
+
         <h3 id="jscatch">js模块本地缓存</h3>
         <p>使用seajs-localcache插件实现manifest功能，通过manifest.js控制各模块版本(已合并至<code>/lib/seajs.js</code>)，manifest.js中注册的模块在第一次请求后会缓存到localstorage中，修改版本号即更新对应模块缓存。</p>
         <pre>
