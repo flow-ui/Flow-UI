@@ -44,8 +44,8 @@ define('base', function(require, exports, module) {
 	/*
 	 * isEqual
 	 */
-	var isEqual = function(o, x) {
-		if (!$.isPlainObject(o) || !$.isPlainObject(x)) {
+	function isEqual(o, x) {
+		if (!o || !x) {
 			return false;
 		}
 		var p;
@@ -84,6 +84,7 @@ define('base', function(require, exports, module) {
 		}
 		return true;
 	};
+	
 	/*
 	 * ajax优化
 	 */

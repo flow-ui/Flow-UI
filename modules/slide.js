@@ -1,7 +1,7 @@
 /*
  * name: slide.js
- * version: v4.4.1
- * update: img[slide-src]透明
+ * version: v4.5.0
+ * update: add data.attribute
  * date: 2017-08-01
  */
 define('slide', function(require, exports, module) {
@@ -98,7 +98,16 @@ define('slide', function(require, exports, module) {
             });
             slideNode = '<ul>';
             $.each(opt.data, function(i, e){
-                slideNode += ('<li><a href="'+ (e.link || 'javascript:;') +'"><img ' + (opt.lazyload ? 'slide-src="' : 'src="') + (e.src || '') + '" alt="'+ (e.alt || '') +'"></a></li>')
+                var attribute = '';
+                if($.isPlainObject(e.attribute)){
+                    var attrName;
+                    for(attrName in e.attribute){
+                        if(e.attribute.hasOwnProperty(attrName)){
+                            attribute += (' ' + attrName + '="' + e.attribute[attrName] + '"');
+                        }
+                    }
+                }
+                slideNode += ('<li'+attribute+'><a href="'+ (e.link || 'javascript:;') +'"><img ' + (opt.lazyload ? 'slide-src="' : 'src="') + (e.src || '') + '" alt="'+ (e.alt || '') +'"></a></li>')
             });
             slideNode += '</ul>';
         }
