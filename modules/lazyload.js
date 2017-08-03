@@ -1,8 +1,8 @@
 /*
  * name: lazyload.js
- * version: v2.1.1
- * update: 输出LazyLoad方法
- * date: 2017-07-17
+ * version: v2.1.2
+ * update: 匹配 base._loadimg()
+ * date: 2017-08-03
  */
 define('lazyload', function(require, exports, module) {
 	'use strict';
@@ -27,13 +27,13 @@ define('lazyload', function(require, exports, module) {
 		init = base.throttle(function(initImgs) {
 			if (initImgs && initImgs.length) {
 				lazyimgs = initImgs.filter(function() {
-					if ($(this).attr(opt.attr) != 'loaded') {
+					if ($(this).attr(opt.attr)) {
 						return this;
 					}
 				});
 			} else {
 				lazyimgs = lazyimgs.filter(function() {
-					if ($(this).attr(opt.attr) != 'loaded') {
+					if ($(this).attr(opt.attr)) {
 						return this;
 					}
 				});

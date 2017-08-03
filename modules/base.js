@@ -1,8 +1,8 @@
 /*
  * name: base
- * version: 3.5.0
- * update: isEqual && 快照缓存
- * date: 2017-08-01
+ * version: 3.5.1
+ * update: 默认ajax错误提示重复弹出bug
+ * date: 2017-08-03
  */
 define('base', function(require, exports, module) {
 	'use strict';
@@ -232,7 +232,10 @@ define('base', function(require, exports, module) {
 					default:
 						errmsg = '未知错误！';
 				}
-				$.box.msg(errmsg, {
+				if(window.ajaxErrorTip){
+					$.box.hide(window.ajaxErrorTip);	
+				}
+				window.ajaxErrorTip = $.box.msg(errmsg, {
 					color: 'danger'
 				});
 				console.warn(errmsg + 'url: ' + settings.url + '; status: ' + request.status);

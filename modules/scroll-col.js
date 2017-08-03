@@ -1,8 +1,8 @@
 /*
  * name: scroll-col.js
- * version: v4.2.4
- * update: 微信浏览器内无法滑动bug
- * date: 2016-04-01
+ * version: v4.2.5
+ * update: 检测运行条件提前
+ * date: 2017-08-03
  */
 define('scroll-col', function(require, exports, module) {
 	seajs.importStyle('.scroll{position:relative;overflow:hidden}\
@@ -62,6 +62,7 @@ define('scroll-col', function(require, exports, module) {
 			if (!showNumber) {
 				return console.log('滚动元素宽度超过容器宽度，无法滚动');
 			}
+
 			//处理步幅
 			if (opt.step > showNumber) {
 				opt.step = showNumber;
@@ -78,6 +79,13 @@ define('scroll-col', function(require, exports, module) {
 				opt.next = '.arr_next';
 
 				$arrs = $this.children('.arrs');
+			}
+			//运行条件检测
+			if (cells.length < showNumber + opt.step) {
+				$arrs.addClass('unable');
+				typeof(opt.ext) === 'function' && opt.ext($this, showNumber, allStep);
+				console.log('$("' + $this.attr('class') + '") has no enough cells to scroll.');
+				return $this;
 			}
 			//预处理
 			switch (opt.mode) {
@@ -171,13 +179,7 @@ define('scroll-col', function(require, exports, module) {
 				$navs = $this.find('.scroll_nav').children('a');
 				_links = null;
 			})();
-			//运行条件检测
-			if (cells.length < showNumber + opt.step) {
-				$arrs.addClass('unable');
-				typeof(opt.ext) === 'function' && opt.ext($this, showNumber, allStep);
-				console.log('$("' + $this.attr('class') + '") has no enough cells to scroll.');
-				return $this;
-			}
+			
 			/*
 			 * @ opt.step
 			 * @ unloop模式
