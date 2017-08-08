@@ -1,8 +1,8 @@
 /*
  * name: render
- * version: 0.0.1
- * update: build
- * date: 2017-06-30
+ * version: 0.1.0
+ * update: add etplConfig
+ * date: 2017-08-08
  */
 define('render', function(require, exports, module) {
 	'use strict';
@@ -14,7 +14,8 @@ define('render', function(require, exports, module) {
 		template: '',
 		data: null,
 		reload: true,
-		callback: null
+		callback: null,
+		etplConfig: null
 	};
 
 	module.exports = function(config) {
@@ -22,6 +23,10 @@ define('render', function(require, exports, module) {
 		var $el = $(opt.el);
 		if (!$el.length) {
 			return console.warn('Render: ${config.el} is necessary!');
+		}
+		//etpl config
+		if($.isPlainObject(opt.etplConfig)){
+			etpl.config(opt.etplConfig);
 		}
 		var template = opt.template;
 		if (!template) {
