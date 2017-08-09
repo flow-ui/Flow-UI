@@ -3,8 +3,6 @@
  */
 define(function(require) {
     var $ = require('jquery');
-    var com = require('./common');
-    
 
     var Dropdown = require('dropdown');
     Dropdown({
