@@ -51,11 +51,11 @@ define(function(require) {
     });
 
     require('switch');
-    $('.switchHandle1').switch({
+    $('.switchHandle1').switcher({
         color:'primary',
         value: true
     });
-    $('.switchHandle2').switch({
+    $('.switchHandle2').switcher({
         color:'success',
         round: true
     });
