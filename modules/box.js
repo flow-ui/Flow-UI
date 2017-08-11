@@ -1,8 +1,8 @@
 /*
  * name: box.js
- * version: v3.12.0
- * update: add toast()
- * date: 2017-08-08
+ * version: v3.12.1
+ * update: toast()样式微调
+ * date: 2017-08-11
  */
 define('box', function(require, exports, module) {
 	"use strict";
@@ -20,8 +20,8 @@ define('box', function(require, exports, module) {
 		.box-wrap-title{padding-left:1em;margin:0;font-weight:400;font-size:16px;color:#fff;line-height:inherit}\
 		.box-wrap-close{position:absolute;right:0;top:0;}\
 		.box-wrap-close a,.box-wrap-msg-clo a{font:700 1.5em/20px Tahoma;padding:.5em}\
-		.box-wrap-toast{display:inline-block;background:#434343;background:rgba(0,0,0,.6);color:#fff;height:2em; line-height:2em;padding:0 1em;border-radius:.5em;\
-			white-space:nowrap;max-width:20em;}\
+		.box-wrap-toast{display:inline-block;background:#434343;background:rgba(0,0,0,.6);color:#fff;line-height:2em;padding:.8em 1em;border-radius:.5em;\
+			max-width:20em;}\
 		.box-img-close{background:#fff;border-radius:4px}\
 		.box-wrap-body {background:#fff;overflow-x:hidden;overflow-y:auto}\
 		.box-wrap-remind{font-size:16px; padding:2em 2em;min-width:14em;overflow:hidden}\

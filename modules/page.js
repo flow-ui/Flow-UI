@@ -1,8 +1,8 @@
 /*
  * name: page.js
- * version: v1.0.6
- * update: opt.total === 0 渲染空字符串
- * date: 2017-05-18
+ * version: v1.0.7
+ * update: bug fix
+ * date: 2017-08-10
  */
 define('page', function(require, exports, module) {
 	"use strict";
@@ -100,7 +100,7 @@ define('page', function(require, exports, module) {
 					}
 					if (opt.auto && pageData && conf && $.isPlainObject(conf)) {
 						pageData.current = current;
-						pageData.showNum = conf.showNum || pageData.showNum;
+						pageData.showNum = conf.showNum || opt.showNum;
 						render($(opt.el), pageData);
 					}
 				};
