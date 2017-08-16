@@ -1,8 +1,8 @@
 /*
  * name: drag
- * vertion: v0.8.0
- * update: add onMove()
- * date: 2017-04-12
+ * vertion: v0.9.3
+ * update: 兼容触屏
+ * date: 2017-08-16
  */
 define('drag', function(require, exports, module) {
     'use strict';
@@ -21,14 +21,13 @@ define('drag', function(require, exports, module) {
         moveTimer,
         moveIt = function(ele, offset) {
             if (!moveTimer) {
+                var wst = $(window).scrollTop();
                 if (base.browser.support3d) {
-                    var translateX = $(ele).data('translateX') || '0px';
-                    var translateY = $(ele).data('translateY') || '0px';
                     var startX = $(ele).data('start').x;
                     var startY = $(ele).data('start').y;
                     var movecb = $(ele).data('movecb');
-                    translateX = (offset[0] - parseInt(startX)) + 'px';
-                    translateY = (offset[1] - parseInt(startY)) + 'px';
+                    var translateX = (offset[0] - parseInt(startX)) + 'px';
+                    var translateY = (offset[1] - parseInt(startY)) + 'px';
                     moveTimer = setTimeout(function() {
                         $(ele)
                             .data('translateX', translateX)
@@ -36,7 +35,7 @@ define('drag', function(require, exports, module) {
                             .get(0).style.transform = 'translate(' + translateX + ',' + translateY + ')';
                         moveTimer = clearTimeout(moveTimer);
                         typeof(movecb) === 'function' && movecb(ele);
-                    }, 1000 / 60);
+                    }, 0);
                 } else {
                     moveTimer = setTimeout(function() {
                         $(ele).css({
@@ -45,7 +44,7 @@ define('drag', function(require, exports, module) {
                         });
                         moveTimer = clearTimeout(moveTimer);
                         typeof(movecb) === 'function' && movecb(ele);
-                    }, 1000 / 60);
+                    }, 0);
                 }
             }
         },
@@ -65,32 +64,31 @@ define('drag', function(require, exports, module) {
             }
             ow = $this.outerWidth();
             oh = $this.outerHeight();
-            thisPosition = $this.css('position');
+            thisPosition = base.getStyle($this.get(0),'position');
 
             if (thisPosition !== 'absolute' && thisPosition !== 'fixed') {
                 cssobj.position = 'relative';
             }
             $this.css(cssobj).data('movecb', opt.onDrag).data('drag-init', 1);
             thisPosition = cssobj = null;
-            if (opt.wrap === null) {
-                if ($this.parent().is('body')) {
+            if ($(opt.wrap).length) {
+                fw = $(opt.wrap).outerWidth();
+                fh = $(opt.wrap).outerHeight();
+            } else {
+                 if ($this.parent().is('body')) {
                     fw = $(window).width();
                     fh = $(window).height();
                 } else {
                     fw = $this.parent().outerWidth();
                     fh = $this.parent().outerHeight();
                 }
-            } else if ($(opt.wrap).length) {
-                fw = $(opt.wrap).outerWidth();
-                fh = $(opt.wrap).outerHeight();
-            } else {
-                return console.warn('drag:warp参数错误');
             }
             bindEvents = function() {
                 var mousemove = function(e) {
-                        e.preventDefault();
+                        e.preventDefault && e.preventDefault();
                         var rx = parseInt(ox - mx + e.clientX),
                             ry = parseInt(oy - my + e.clientY),
+                            wst = base.getStyle($this.get(0),'position')==='fixed' ? 0 : $(window).scrollTop(),
                             movex, movey;
                         if (typeof opt.onMove === 'function') {
                             return opt.onMove(e.clientX - mx, my - e.clientY);
@@ -112,15 +110,15 @@ define('drag', function(require, exports, module) {
                             movex = rx;
                         }
                         // drective Y
-                        if ((ry < 0 && fw > ow) || (ry > 0 && fw < ow)) {
+                        if ((ry < wst && fw > ow) || (ry > wst && fw < ow)) {
                             if (!opt.overflow) {
-                                movey = 0;
+                                movey = wst;
                             } else {
                                 movey = ry;
                             }
-                        } else if ((ry > 0 && ry > (fh - oh)) || (ry < 0 && ry < (fh - oh))) {
+                        } else if ((ry > wst && ry > (fh - oh + wst)) || (ry < wst && ry < (fh - oh + wst))) {
                             if (!opt.overflow) {
-                                movey = fh - oh;
+                                movey = fh - oh + wst;
                             } else {
                                 movey = ry;
                             }
@@ -131,11 +129,16 @@ define('drag', function(require, exports, module) {
                     },
                     mouseup = function() {
                         $(document).off('mousemove', mousemove).off('mouseup', mouseup);
-                        typeof(opt.dragEnd) === 'function' && opt.dragEnd($this);
+                        if(typeof(opt.dragEnd) === 'function'){
+                            setTimeout(function(){
+                                opt.dragEnd($this);
+                            },64);
+                        }
                     };
                 $this.on("mousedown", function(e) {
+                    var wst = base.getStyle($this.get(0),'position')==='fixed' ? $(window).scrollTop() : 0;
                     ox = parseInt($this.offset().left) || 0;
-                    oy = parseInt($this.offset().top) || 0;
+                    oy = parseInt($this.offset().top - wst) || 0;
                     if (!$this.data('start')) {
                         $this.data('start', {
                             x: ox,
@@ -150,7 +153,29 @@ define('drag', function(require, exports, module) {
                     });
                     typeof(opt.dragStart) === 'function' && opt.dragStart($this);
                 });
+                //触屏
+                $this.on("touchstart", function(e) {
+                    e.preventDefault();
+                    var evt = e.originalEvent;
+                    var wst = base.getStyle($this.get(0),'position')==='fixed' ? $(window).scrollTop() : 0;
+                    ox = parseInt($this.offset().left) || 0;
+                    oy = parseInt($this.offset().top - wst) || 0;
+                    if (!$this.data('start')) {
+                        $this.data('start', {
+                            x: ox,
+                            y: oy
+                        });
+                    }
+                    mx = evt.touches[0].clientX;
+                    my = evt.touches[0].clientY;
+                    typeof(opt.dragStart) === 'function' && opt.dragStart($this);
+                }).on('touchmove', function(e){
+                    mousemove(e.originalEvent.touches[0]);
+                }).on('touchend', function(e){
+                    mouseup(e.originalEvent.touches[0]);
+                });
             };
+
             if ($this.get(0).nodeName.toLowerCase() == "img") {
                 // wait image's size
                 ready($this.attr('src'), function(w, h) {

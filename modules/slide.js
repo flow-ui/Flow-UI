@@ -1,8 +1,8 @@
 /*
  * name: slide.js
- * version: v4.5.0
- * update: add data.attribute
- * date: 2017-08-01
+ * version: v4.5.1
+ * update: auto run bug fix
+ * date: 2017-08-16
  */
 define('slide', function(require, exports, module) {
     "use strict";
@@ -191,7 +191,9 @@ define('slide', function(require, exports, module) {
                                 } else {
                                     touchStart = _startX;
                                 }
-                                opt.auto && clearInterval(timer);
+                                if(opt.auto && timer){
+                                    timer = clearInterval(timer);
+                                }
                                 $this.addClass('ontouch').data('moveTrigger', true);
                             },
                             'touchmove': function(event) {
@@ -294,6 +296,11 @@ define('slide', function(require, exports, module) {
                 setTimeout(function() {
                     typeof(opt.onSlide) === 'function' && opt.onSlide($this, $slides, originIndex);
                     windowLock = false;
+                    if(opt.auto && !timer){
+                        timer = setInterval(function() {
+                            efftct(getNext(originIndex, 1, slideLength), 1);
+                        }, opt.interval);
+                    }
                 }, opt.duration);
             };
         })();
@@ -399,7 +406,7 @@ define('slide', function(require, exports, module) {
             if (opt.pause === true) {
                 $this.on({
                     'mouseenter': function() {
-                        clearInterval(timer);
+                        timer = clearInterval(timer);
                     },
                     'mouseleave': function() {
                         clearInterval(timer);
@@ -421,7 +428,7 @@ define('slide', function(require, exports, module) {
                     } else {
                         $this.data('slidepause', true);
                         $(this).addClass('pause');
-                        clearInterval(timer);
+                        timer = clearInterval(timer);
                     }
                 });
             }
@@ -430,7 +437,7 @@ define('slide', function(require, exports, module) {
             .parent().on('DOMNodeRemoved', function(e) {
                 if ($(e.target).is($this)) {
                     //DOM移除后释放全局变量
-                    timer && clearInterval(timer);
+                    timer && (timer = clearInterval(timer));
                 }
             });
         //开始
