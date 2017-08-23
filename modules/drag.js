@@ -1,7 +1,7 @@
 /*
  * name: drag
- * vertion: v0.10.1
- * update: 增加handletouch/onClick配置
+ * vertion: v0.10.4
+ * update: 默认handletouch
  * date: 2017-08-23
  */
 define('drag', function(require, exports, module) {
@@ -17,7 +17,7 @@ define('drag', function(require, exports, module) {
             onDrag: null,
             dragEnd: null,
             onMove: null,
-            handletouch: false,
+            handletouch: true,
             onClick: null
         },
         moveTimer,
@@ -137,53 +137,59 @@ define('drag', function(require, exports, module) {
                             },64);
                         }
                     };
-                $this.on("mousedown", function(e) {
-                    var wst = base.getStyle($this.get(0),'position')==='fixed' ? $(window).scrollTop() : 0;
-                    ox = parseInt($this.offset().left) || 0;
-                    oy = parseInt($this.offset().top - wst) || 0;
-                    if (!$this.data('start')) {
-                        $this.data('start', {
-                            x: ox,
-                            y: oy
-                        });
-                    }
-                    mx = e.clientX;
-                    my = e.clientY;
-                    $(document).on({
-                        'mousemove': mousemove,
-                        'mouseup': mouseup
+                if(base.browser.isMobile){
+                    //触屏
+                    var clickHandle;
+                    $this.on("touchstart", function(e) {
+                        opt.handletouch && e.preventDefault();
+                        clickHandle = (typeof opt.onClick === 'function');
+                        var that = this;
+                        var evt = e.originalEvent;
+                        var wst = base.getStyle($this.get(0),'position')==='fixed' ? $(window).scrollTop() : 0;
+                        ox = parseInt($this.offset().left) || 0;
+                        oy = parseInt($this.offset().top - wst) || 0;
+                        if (!$this.data('start')) {
+                            $this.data('start', {
+                                x: ox,
+                                y: oy
+                            });
+                        }
+                        mx = evt.touches[0].clientX;
+                        my = evt.touches[0].clientY;
+                        if(clickHandle){
+                            clickHandle = setTimeout(function(){
+                                opt.onClick.call(that);
+                            }, 200);
+                        }
+                        typeof(opt.dragStart) === 'function' && opt.dragStart($this);
+                    }).on('touchmove', function(e){
+                        if(clickHandle){
+                            clickHandle = clearTimeout(clickHandle);
+                        }
+                        mousemove(e.originalEvent.touches[0]);
+                    }).on('touchend', function(e){
+                        mouseup(e.originalEvent.touches[0]);
                     });
-                    typeof(opt.dragStart) === 'function' && opt.dragStart($this);
-                });
-                //触屏
-                var clickHandle;
-                $this.on("touchstart", function(e) {
-                    opt.handletouch && e.preventDefault();
-                    clickHandle = (typeof opt.onClick === 'function');
-                    var evt = e.originalEvent;
-                    var wst = base.getStyle($this.get(0),'position')==='fixed' ? $(window).scrollTop() : 0;
-                    ox = parseInt($this.offset().left) || 0;
-                    oy = parseInt($this.offset().top - wst) || 0;
-                    if (!$this.data('start')) {
-                        $this.data('start', {
-                            x: ox,
-                            y: oy
+                }else{
+                    $this.on("mousedown", function(e) {
+                        var wst = base.getStyle($this.get(0),'position')==='fixed' ? $(window).scrollTop() : 0;
+                        ox = parseInt($this.offset().left) || 0;
+                        oy = parseInt($this.offset().top - wst) || 0;
+                        if (!$this.data('start')) {
+                            $this.data('start', {
+                                x: ox,
+                                y: oy
+                            });
+                        }
+                        mx = e.clientX;
+                        my = e.clientY;
+                        $(document).on({
+                            'mousemove': mousemove,
+                            'mouseup': mouseup
                         });
-                    }
-                    mx = evt.touches[0].clientX;
-                    my = evt.touches[0].clientY;
-                    if(clickHandle){
-                        clickHandle = setTimeout(opt.onClick, 200);
-                    }
-                    typeof(opt.dragStart) === 'function' && opt.dragStart($this);
-                }).on('touchmove', function(e){
-                    if(clickHandle){
-                        clickHandle = clearTimeout(clickHandle);
-                    }
-                    mousemove(e.originalEvent.touches[0]);
-                }).on('touchend', function(e){
-                    mouseup(e.originalEvent.touches[0]);
-                });
+                        typeof(opt.dragStart) === 'function' && opt.dragStart($this);
+                    });
+                }
             };
 
             if ($this.get(0).nodeName.toLowerCase() == "img") {
