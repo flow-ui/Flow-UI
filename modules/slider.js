@@ -1,8 +1,8 @@
 /*
  * name: slider.js
- * version: v0.0.2
- * update: default color = primary
- * date: 2017-04-14
+ * version: v0.0.3
+ * update: bug fix
+ * date: 2017-09-04
  */
 define('slider', function(require, exports, module) {
 	"use strict";
@@ -64,7 +64,6 @@ define('slider', function(require, exports, module) {
 						end = Math.max(opt.step + start, end);
 						end = Math.min(opt.max, end);
 						start = Math.min(end - opt.step, start);
-
 						if (!init && start === opt.value[0] && end === opt.value[1]) {
 							return null;
 						}
@@ -96,24 +95,26 @@ define('slider', function(require, exports, module) {
 						}
 						opt.value = end;
 					}
-
+					var StartWidth;
 					if (start !== void 0) {
 						var startTip = start;
 						if (typeof opt.tipRender === 'function') {
 							startTip = opt.tipRender(start);
 						}
-						$slider.find('.slider-handle-start').css('left', Math.round(start / total * 100) + '%')
+						StartWidth = Math.round((start-opt.min) / total * 100);
+						$slider.find('.slider-handle-start').css('left', StartWidth + '%')
 							.find('.slider-popper-inner').text(startTip).end().end()
-							.find('.progress-bg').css('left', Math.round(start / total * 100) + '%');
+							.find('.progress-bg').css('left', StartWidth + '%');
 					}
 					if (end !== void 0) {
 						var endTip = end;
 						if (typeof opt.tipRender === 'function') {
 							endTip = opt.tipRender(end);
 						}
-						$slider.find('.slider-handle-end').css('left', Math.round(end / total * 100) + '%')
+						var leftWidth = Math.round((end - (start || opt.min)) / total * 100) + (StartWidth || 0);
+						$slider.find('.slider-handle-end').css('left', leftWidth + '%')
 							.find('.slider-popper-inner').text(endTip).end().end()
-							.find('.progress-bg').css('width', Math.round((end - (start || 0)) / total * 100) + '%');
+							.find('.progress-bg').css('width', (leftWidth - (StartWidth || 0)) + '%');
 					}
 				},
 				disabled = function(flag, init){
@@ -181,7 +182,7 @@ define('slider', function(require, exports, module) {
 					hasWidth = startWidth + parseFloat($slider.find('.progress-bg').width());
 				},
 				onMove: function(x, y) {
-					var newEnd = opt.max * (hasWidth + x) / totalWidth;
+					var newEnd = (opt.max - opt.min) * (hasWidth + x) / totalWidth + opt.min;
 					if (isRange) {
 						return setValue([opt.value[0], newEnd]);
 					}
@@ -206,7 +207,7 @@ define('slider', function(require, exports, module) {
 						hasWidth = startWidth + parseFloat($slider.find('.progress-bg').width());
 					},
 					onMove: function(x, y) {
-						var newStart = opt.max * (startWidth + x) / totalWidth;
+						var newStart = (opt.max - opt.min) * (startWidth + x) / totalWidth + opt.min;
 						return setValue([newStart, opt.value[1]]);
 					},
 					dragEnd: function($this) {
