@@ -547,9 +547,6 @@ input[type='button'].btn-block {
 .btn-ghost.btn-danger {
   border-color: #CB4042;
 }
-.btn.btn-ghost:hover {
-  color: #fff;
-}
 .btn-link.btn-ghost {
   padding-left: 1em;
   padding-right: 1em;
