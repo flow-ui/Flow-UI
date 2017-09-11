@@ -164,7 +164,7 @@ define(function(require) {
 	}];
 	//加载配置
 	var tab3LoadData = {
-		url: 'http://rapapi.org/mockjsdata/9195/mock/phone/',
+		url: 'http://7xnt8z.com1.z0.glb.clouddn.com/phone.json',
 		data: {
 			page_size: 10,
 			page_index: 1
@@ -399,7 +399,7 @@ define(function(require) {
 	}];
 	//主表加载配置
 	var tab4LoadData = {
-		url: 'http://rapapi.org/mockjsdata/9195/mock/phone/',
+		url: 'http://7xnt8z.com1.z0.glb.clouddn.com/phone.json',
 		data: {
 			page_size: 10,
 			page_index: 1
