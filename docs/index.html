@@ -7681,10 +7681,10 @@
             require('spin');
             var loading;
             $('.open').on('click', function(){
-                loading = $('.test').spin() || loading;
+                loading = loading || $('.test').spin();
             });
             $('.close').on('click', function(){
-                loading &amp;&amp; loading.hide();
+                loading && (loading = loading.hide());
             });
                                         </code>
                 </pre>
