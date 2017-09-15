@@ -9012,8 +9012,9 @@
           &lt;div class="wrap demo"&gt;
             &lt;a href="#1" class="_tip1 btn btn-default"&gt;左&lt;/a&gt;
             &lt;a href="#2" class="_tip2 btn btn-default"&gt;上&lt;/a&gt;
-            &lt;a href="#3" class="_tip3 btn btn-default"&gt;右&lt;/a&gt;
-            &lt;a href="#4" class="_tip4 btn btn-default"&gt;下&lt;/a&gt;
+            &lt;a href="#3" class="_tip3 btn btn-default"&gt;右-自动显示并关闭&lt;/a&gt;
+            &lt;a href="#4" class="_tip4 btn btn-default"&gt;下-自定义触发条件&lt;/a&gt;
+            &lt;a href="#4" class="btn btn-primary toggle-tip4"&gt;显示最后一个tip&lt;/a&gt;
           &lt;/div&gt;          
                                         </code>
                 </pre>
@@ -9021,7 +9022,9 @@
             //js
             var Tip = require('tip');
             
-            $('.demo ._tip1').tip(Math.random);
+            $('.demo ._tip1').tip(Math.random, {
+                place: 'left-center'
+            });
             $('.demo ._tip2').tip(Math.random, {
                 place: 'top-center'
             });
@@ -9039,13 +9042,15 @@
                 place: 'bottom-center',
                 trigger: 't4show'
             });
-            setTimeout(function() {
-                $('.demo ._tip4').trigger('t4show');
-            }, 1000);
 
-            setTimeout(function() {
-                tip4.hide();
-            }, 2000);
+            $('.toggle-tip4').on('click', function(){
+                $('.demo ._tip4').trigger('t4show');
+                setTimeout(function() {
+                    tip4.hide();
+                }, 2000);
+            });
+            
+            
                                         </code>
                 </pre>
             </dd>
