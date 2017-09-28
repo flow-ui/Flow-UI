@@ -1,8 +1,8 @@
 /*
  * name: datepicker.js
- * version: v2.0.2
- * update: 增加圆角
- * date: 2017-04-14
+ * version: v2.1.0
+ * update: 新增selected配置，显示选中日期；
+ * date: 2017-09-28
  * base: https://github.com/fengyuanchen/datepicker
  */
 define('datepicker', function(require, exports, module) {
@@ -21,13 +21,16 @@ define('datepicker', function(require, exports, module) {
     .datepicker-bottom-right:after,.datepicker-bottom-right:before,.datepicker-top-right:after,.datepicker-top-right:before{right:10px;left:auto}\
     .datepicker-panel>ul:after,.datepicker-panel>ul:before{display:table;content:' '}\
     .datepicker-panel>ul:after{clear:both}.datepicker-panel>ul{width:102%;margin:0;padding:0}\
-    .datepicker-panel>ul>li{float:left;width:30px;height:30px;margin:0;padding:0;list-style:none;cursor:pointer;text-align:center;background-color:#fff;border-radius:4px}\
+    .datepicker-panel>ul>li{float:left;width:14.2%;height:30px;margin:0;padding:0;list-style:none;cursor:pointer;text-align:center;background-color:#fff;border-radius:4px}\
     .datepicker-panel>ul>li:hover{background-color:#eee}\
     .datepicker-panel>ul>li.muted,.datepicker-panel>ul>li.muted:hover{color:#999}\
+    .datepicker-panel>ul>li.selected{background:#6cf;color:#fff;}\
     .datepicker-panel>ul>li.picked{background:#39f;color:#fff;}\
     .datepicker-panel>ul>li.disabled,.datepicker-panel>ul>li.disabled:hover{cursor:default;color:#ccc;background-color:#fff}\
-    .datepicker-panel>ul>li[data-view='years prev'],.datepicker-panel>ul>li[data-view='year prev'],.datepicker-panel>ul>li[data-view='month prev'],.datepicker-panel>ul>li[data-view='years next'],.datepicker-panel>ul>li[data-view='year next'],.datepicker-panel>ul>li[data-view='month next'],.datepicker-panel>ul>li[data-view=next]{font-size:18px}.datepicker-panel>ul>li[data-view='month current'],.datepicker-panel>ul>li[data-view='years current'],.datepicker-panel>ul>li[data-view='year current']{width:150px}\
-    .datepicker-panel>ul[data-view=years]>li,.datepicker-panel>ul[data-view=months]>li{line-height:52.5px;width:52.5px;height:52.5px}\
+    .datepicker-panel>ul>li[data-view='years prev'],.datepicker-panel>ul>li[data-view='year prev'],.datepicker-panel>ul>li[data-view='month prev'],.datepicker-panel>ul>li[data-view='years next'],.datepicker-panel>ul>li[data-view='year next'],.datepicker-panel>ul>li[data-view='month next'],.datepicker-panel>ul>li[data-view=next]{font-size:18px}\
+    .datepicker-panel>ul>li[data-view='month current'],.datepicker-panel>ul>li[data-view='years current'],.datepicker-panel>ul>li[data-view='year current']{float:none;width:70%;margin:auto;}\
+    .datepicker-panel>ul>li[data-view='years next'],.datepicker-panel>ul>li[data-view='year next'],.datepicker-panel>ul>li[data-view='month next'],.datepicker-panel>ul>li[data-view=next]{float:right}\
+    .datepicker-panel>ul[data-view=years]>li,.datepicker-panel>ul[data-view=months]>li{line-height:52.5px;width:25%;height:52.5px}\
     .datepicker-panel>ul[data-view=week]>li,.datepicker-panel>ul[data-view=week]>li:hover{cursor:default;background-color:#fff}\
     .datepicker-hide{display:none}", module.uri);
 
@@ -194,6 +197,7 @@ define('datepicker', function(require, exports, module) {
       var $this = this.$element;
       var startDate = options.startDate;
       var endDate = options.endDate;
+      var selectedData = options.selected;
       var date = options.date;
 
       this.$trigger = $(options.trigger);
@@ -226,6 +230,13 @@ define('datepicker', function(require, exports, module) {
         }
 
         this.endDate = endDate;
+      }
+
+      if(selectedData && $.isArray(selectedData)){
+        for(var si = 0; si < selectedData.length; si++){
+          selectedData[si] = this.parseDate(selectedData[si]);
+        }
+        this.selectedData = selectedData;
       }
 
       this.date = date;
@@ -519,6 +530,10 @@ define('datepicker', function(require, exports, module) {
         classes.push(options.highlightedClass);
       }
 
+      if (defaults.selected) {
+        classes.push(options.selectedClass);
+      }
+
       if (defaults.picked) {
         classes.push(options.pickedClass);
       }
@@ -526,6 +541,7 @@ define('datepicker', function(require, exports, module) {
       if (defaults.disabled) {
         classes.push(options.disabledClass);
       }
+
 
       return (
         '<' + itemTag + ' class="' + classes.join(' ') + '"' +
@@ -691,6 +707,7 @@ define('datepicker', function(require, exports, module) {
       var filter = $.isFunction(options.filter) && options.filter;
       var startDate = this.startDate;
       var endDate = this.endDate;
+      var selectedData = this.selectedData;
       var viewDate = this.viewDate;
       var viewYear = viewDate.getFullYear();
       var viewMonth = viewDate.getMonth();
@@ -710,6 +727,7 @@ define('datepicker', function(require, exports, module) {
       var isNextDisabled = false;
       var isDisabled = false;
       var isPicked = false;
+      var isSelected = false;
       var prevItems = [];
       var nextItems = [];
       var items = [];
@@ -717,7 +735,6 @@ define('datepicker', function(require, exports, module) {
       var length;
       var i;
       var n;
-
       // Days of previous month
       // -----------------------------------------------------------------------
 
@@ -819,13 +836,20 @@ define('datepicker', function(require, exports, module) {
         date = new Date(viewYear, viewMonth, i);
         isPicked = viewYear === year && viewMonth === month && i === day;
         isDisabled = false;
-
+        isSelected = false;
         if (startDate) {
           isDisabled = date.getTime() < startDate.getTime();
         }
 
         if (!isDisabled && endDate) {
           isDisabled = date.getTime() > endDate.getTime();
+        }
+
+        for(var si = 0; si < selectedData.length; si++){
+          if(date.getTime() === selectedData[si].getTime()){
+            isSelected = true;
+            break;
+          }
         }
 
         if (!isDisabled && filter) {
@@ -836,6 +860,7 @@ define('datepicker', function(require, exports, module) {
           text: i,
           view: isDisabled ? 'day disabled' : isPicked ? 'day picked' : 'day',
           picked: isPicked,
+          selected: isSelected,
           disabled: isDisabled,
           highlighted: viewYear === thisYear && viewMonth === thisMonth && date.getDate() === today
         }));
@@ -1450,6 +1475,9 @@ define('datepicker', function(require, exports, module) {
     // The end view date
     endDate: null,
 
+    // The selected dates
+    selected: [],
+
     // The start view when initialized
     startView: 0, // 0 for days, 1 for months, 2 for years
 
@@ -1486,6 +1514,9 @@ define('datepicker', function(require, exports, module) {
     // A class (CSS) for picked date item
     pickedClass: 'picked',
 
+    // A class (CSS) for selected date item
+    selectedClass: 'selected',
+
     // A class (CSS) for disabled date item
     disabledClass: 'disabled',
 
@@ -1500,24 +1531,24 @@ define('datepicker', function(require, exports, module) {
         '<div class="datepicker-panel" data-view="years picker">' +
           '<ul>' +
             '<li data-view="years prev">&lsaquo;</li>' +
-            '<li data-view="years current"></li>' +
             '<li data-view="years next">&rsaquo;</li>' +
+            '<li data-view="years current"></li>' +
           '</ul>' +
           '<ul data-view="years"></ul>' +
         '</div>' +
         '<div class="datepicker-panel" data-view="months picker">' +
           '<ul>' +
             '<li data-view="year prev">&lsaquo;</li>' +
-            '<li data-view="year current"></li>' +
             '<li data-view="year next">&rsaquo;</li>' +
+            '<li data-view="year current"></li>' +
           '</ul>' +
           '<ul data-view="months"></ul>' +
         '</div>' +
         '<div class="datepicker-panel" data-view="days picker">' +
           '<ul>' +
             '<li data-view="month prev">&lsaquo;</li>' +
-            '<li data-view="month current"></li>' +
             '<li data-view="month next">&rsaquo;</li>' +
+            '<li data-view="month current"></li>' +
           '</ul>' +
           '<ul data-view="week"></ul>' +
           '<ul data-view="days"></ul>' +

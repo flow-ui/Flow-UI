@@ -4248,11 +4248,11 @@
                         </tr>
                         <tr>
                             <th>inline</th>
-                            <td>默认<code>false</code>，是否以内嵌模式显示日历</td>
+                            <td>默认<code>false</code>，是否以内嵌模式显示日历，需搭配<code>container</code>使用</td>
                         </tr>
                         <tr>
                             <th>container</th>
-                            <td>元素或字符串，默认<code>null</code>，指定放置内嵌日历的元素或元素选择器</td>
+                            <td>元素或字符串，默认<code>null</code>，容纳inline模式日历的元素或元素选择器</td>
                         </tr>
                         <tr>
                             <th>trigger</th>
@@ -4275,13 +4275,17 @@
             hour: 'hh'<br>
             minute: 'mm'<br>
             secend: 'ss'<br>
-                                                </code>
+                                    </code>
                                 </p>
                             </td>
                         </tr>
                         <tr>
                             <th>date</th>
                             <td>日期数据或字符串，默认<code>null</code>，初始日期，不设置选择当天</td>
+                        </tr>
+                        <tr>
+                            <th>selectd</th>
+                            <td>日期数组，默认<code>[]</code>，设置需要高亮显示的日期</td>
                         </tr>
                         <tr>
                             <th>startDate</th>
@@ -4334,6 +4338,10 @@
                         <tr>
                             <th>mutedClass</th>
                             <td>字符串，默认<code>'muted'</code>，设定class前缀</td>
+                        </tr>
+                        <tr>
+                            <th>selectedClass</th>
+                            <td>字符串，默认<code>'selected'</code>，定义高亮日期class</td>
                         </tr>
                         <tr>
                             <th>pickedClass</th>
