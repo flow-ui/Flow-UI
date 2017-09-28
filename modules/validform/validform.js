@@ -1,8 +1,8 @@
 /*
 * name: validform.js
-* version: v2.5.6
-* update: strict mode bug fix
-* data: 2017-08-09
+* version: v2.5.8
+* update: 跳过检查提交时也跳过beforeSubmit验证
+* data: 2017-09-28
 */
 define('validform', function(require, exports, module) {
 	"use strict";
@@ -660,14 +660,16 @@ define('validform', function(require, exports, module) {
 				curform.find(".Validform_error:first").focus();
 			}
 			if (flag) {
-				var beforeSubmit;
-				try{
-					beforeSubmit = !settings.beforeSubmit || ($.isFunction(settings.beforeSubmit) && settings.beforeSubmit(curform));
-				}catch(e){
-					alert(e.message);
-				}
-				if (!beforeSubmit) {
-					return false;
+				if(!flg){
+					var beforeSubmit;
+					try{
+						beforeSubmit = !settings.beforeSubmit || ($.isFunction(settings.beforeSubmit) && settings.beforeSubmit(curform));
+					}catch(e){
+						alert(e.message);
+					}
+					if (!beforeSubmit) {
+						return false;
+					}
 				}
 				curform[0].validform_status = "posting";
 				
