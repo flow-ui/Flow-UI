@@ -2689,11 +2689,19 @@
                     </tbody>
                 </table>
                 <h5>方法</h5>
-                <table>
+                <p>完整方法见<a href="http://validform.rjboy.cn/document.html#validformObject" target="_blank">Validform对象</a></p>
+                <table class="table">
                     <tr>
                         <th>submitForm(flag,url)</th>
                         <td>
                             <p>以初始化时传入参数的设置方式提交表单，flag为<code>true</code>时，跳过验证直接提交，同时也将跳过<code>beforeSubmit</code>钩子函数；传入了url地址时，表单会提交到这个地址</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>check(bool,selector)</th>
+                        <td>
+                            <p>bool为<code>true</code>时则只验证不显示提示信息</p>
+<p>对指定对象进行验证(默认验证当前整个表单)，通过返回<code>true</code>，否则返回<code>false</code>（绑定实时验证的对象，格式符合要求时返回true，而不会等ajax的返回结果）</p>
                         </td>
                     </tr>
                 </table>
