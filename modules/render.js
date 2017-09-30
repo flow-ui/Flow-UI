@@ -1,8 +1,8 @@
 /*
  * name: render
- * version: 0.1.0
- * update: add etplConfig
- * date: 2017-08-08
+ * version: 0.2.0
+ * update: callback param change
+ * date: 2017-09-30
  */
 define('render', function(require, exports, module) {
 	'use strict';
@@ -51,7 +51,7 @@ define('render', function(require, exports, module) {
 			}
 			$el.find('.block-holder').removeClass('block-holder');
 			if (typeof opt.callback === 'function') {
-				opt.callback($el.get(0), tHtml);
+				opt.callback($el.get(0), userData);
 			}
 		};
 		//init
