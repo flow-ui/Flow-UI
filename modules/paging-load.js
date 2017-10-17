@@ -62,7 +62,7 @@ define('paging-load', function(require, exports, module) {
 
 			return {
 				load: function(cb) {
-					var Ajax = app.ajax;
+					var Ajax = $.ajax;
 					sendParam.page_index = init()();
 					sendParam.page_size = opt.size;
 					Ajax({
