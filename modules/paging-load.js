@@ -1,12 +1,12 @@
 /*
  * name: paging-load.js
- * version: v0.2.0
+ * version: v0.2.1
  * update: reload()支持hold,data,cb
- * date: 2017-07-25
+ * date: 2017-10-17
  */
 define('paging-load', function(require, exports, module) {
 	"use strict";
-	var $ = app.util,
+	var $ = require('jquery'),
 		def = {
 			url: null,
 			size: 6,
