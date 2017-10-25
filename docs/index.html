@@ -3730,6 +3730,7 @@
 
           &lt;div&gt;&lt;button class="btn btn-default boxDom"&gt;弹出Dom&lt;/button&gt;&lt;/div&gt;
           &lt;div&gt;&lt;button class="btn btn-default boxMsg"&gt;提示&lt;/button&gt;&lt;/div&gt;
+          &lt;div&gt;&lt;button class="btn btn-default boxToast"&gt;气泡&lt;/button&gt;&lt;/div&gt;
           &lt;div&gt;&lt;button class="btn btn-default boxAlert"&gt;警告&lt;/button&gt;&lt;/div&gt;
           &lt;div&gt;&lt;button class="btn btn-default boxConfirm"&gt;询问&lt;/button&gt;&lt;/div&gt;
           &lt;div&gt;&lt;button class="btn btn-default boxAjax"&gt;Ajax弹出内容&lt;/button&gt;&lt;/div&gt;
@@ -3762,6 +3763,10 @@
               Box.msg('注意，这是一条测试信息！',{
                 delay:3000
               });
+            });
+
+            $('.boxToast').on('click',function(){
+              Box.toast('这是一条测试信息！');
             });
 
             $('.boxConfirm').on('click',function(){
