@@ -1,8 +1,8 @@
 /*
  * name: box.js
- * version: v3.12.1
- * update: toast()样式微调
- * date: 2017-08-11
+ * version: v3.12.2
+ * update: img()图片最大高度
+ * date: 2017-10-27
  */
 define('box', function(require, exports, module) {
 	"use strict";
@@ -438,7 +438,7 @@ define('box', function(require, exports, module) {
 			if (!src || !src.split) return;
 			var s = $.extend({}, def, options || {}),
 				loading = Box.loading(s),
-				$img = '<img src="' + src + '">',
+				$img = '<img src="' + src + '" style="max-height:100%">',
 				imgBox;
 			options = options || {};
 			options.bg = true;
