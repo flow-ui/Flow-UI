@@ -1,13 +1,14 @@
 /*
  * name: paging-load.js
- * version: v0.2.1
- * update: reload()支持hold,data,cb
- * date: 2017-10-17
+ * version: v0.2.2
+ * update: 增加method配置
+ * date: 2017-12-14
  */
 define('paging-load', function(require, exports, module) {
 	"use strict";
 	var $ = require('jquery'),
 		def = {
+			method: 'get',
 			url: null,
 			size: 6,
 			data: {},
@@ -66,6 +67,7 @@ define('paging-load', function(require, exports, module) {
 					sendParam.page_index = init()();
 					sendParam.page_size = opt.size;
 					Ajax({
+						type: opt.method,
 						url: opt.url,
 						data: sendParam,
 						dataType: opt.dataType || 'json',
