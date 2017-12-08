@@ -1,8 +1,8 @@
 /*
  * name: sendcode.js
- * version: v0.2.1
- * update: 多次点击bug
- * date: 2017-07-26
+ * version: v0.2.2
+ * update: 默认不校验手机号合法性，需要在sendBefore中校验
+ * date: 2017-12-08
  */
 define("sendcode", function(require, exports, module) {
 	"use strict";
@@ -117,9 +117,6 @@ define("sendcode", function(require, exports, module) {
 					sendNumber = $(opt.mobile).val();
 				} else {
 					sendNumber = opt.mobile;
-				}
-				if (!sendNumber) {
-					return console.warn('sendcode():mobile参数错误！');
 				}
 				loading = $.box.msg('正在发送验证码...');
 				if (typeof opt.sendBefore === 'function') {
