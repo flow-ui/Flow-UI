@@ -1,14 +1,28 @@
 /*
- * name: upload:preview
- * version: 1.1.1
- * update: 支持无附件提交数据；data参数支持同步返回方法
- * date: 2017-01-12
- * author: https://github.com/aralejs/upload
+ * name: upload
+ * version: 1.2.0
+ * update: 新增headers设置
+ * date: 2017-12-12
+ * base: https://github.com/aralejs/upload
  */
 define('upload', function(require, exports, module) {
   'use strict';
   var $ = window.$ || require('jquery'),
-    iframeCount = 0;
+    iframeCount = 0,
+    DEFAULT = {
+      trigger: null,
+      name: null,
+      action: null,
+      headers: {},
+      data: null,
+      accept: null,
+      change: null,
+      error: null,
+      multiple: true,
+      compress: false,
+      compressOption: {},
+      success: null
+    };
 
   function Uploader(options) {
     if (!(this instanceof Uploader)) {
@@ -20,22 +34,7 @@ define('upload', function(require, exports, module) {
       };
     }
 
-    var settings = {
-      trigger: null,
-      name: null,
-      action: null,
-      data: null,
-      accept: null,
-      change: null,
-      error: null,
-      multiple: true,
-      compress: false,
-      compressOption: {},
-      success: null
-    };
-    if (options) {
-      $.extend(settings, options);
-    }
+    var settings =  $.extend({}, DEFAULT, options || {});
     var $trigger = $(settings.trigger);
 
     settings.action = settings.action || $trigger.data('action') || '/upload';
@@ -197,6 +196,7 @@ define('upload', function(require, exports, module) {
         $.ajax({
           url: self.settings.action,
           type: 'post',
+          headers: self.settings.headers,
           processData: false,
           contentType: false,
           data: form,
@@ -434,4 +434,4 @@ define('upload', function(require, exports, module) {
   MultipleUploader.Uploader = Uploader;
 
   module.exports = MultipleUploader;
-})
+});
