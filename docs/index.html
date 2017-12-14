@@ -8196,14 +8196,15 @@
                         <tr>
                             <th>page</th>
                             <td>
-                                <p>默认<code>null</code>，传入分页配置，可对本地数据进行分页，配置：
+                                <p>默认<code>null</code>，静态数据分页配置，可对<code>data</code>传入的数据分页显示。配置：
                                     <code>
             {<br>
                 el: 'JQUERY SELECTER', //指定分页显示元素，若不指定将在table.options.el之后插入分页<br>
                 pageSize: 5, //每页信息条数<br>
                 onChange: function(pageNumber){} //页码变更回调<br>
             }
-                                                </code></p>
+                                </code></p>
+                                <p>异步数据翻页的例子见<a href="http://refined-x.com/Flow-UI/dashboard/index.html" target="_blank">这里</a></p>
                             </td>
                         </tr>
                         <tr>
