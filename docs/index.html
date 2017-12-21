@@ -43,35 +43,51 @@
         <h2>概述</h2>
         <h3 id="overall-intro">关于</h3>
         <p> <strong class="text-primary">Flow-UI</strong> 是一套组件化UI框架，支持定制主题，主要服务于前台及中后台产品。</p>
+        <h4>特色</h4>
+        <ol>
+            <li>极高的定制自由度，可以说一切为了定制；</li>
+            <li>彻底的模块化，CSS组件/JS插件皆可按需使用；</li>
+            <li>JS模块化加载 + 本地存储，hold住多变的插件需求；</li>
+            <li>组件化开发，html + css + js = 自定义组件；</li>
+        </ol>
         <h4>兼容性</h4>
         <p>IE8+</p>
-        <h4>示例项目</h4>
-        <p> <a href="demo.html" target="_blank"><i class="ion">&#xe60e;</i> Flow-UI 概览 </a> </p>
-        <p> <a href="/Flow-UI/dashboard/index.html" target="_blank"><i class="ion">&#xe620;</i> Flow-UI 控制台 </a> </p>
-        <h4 id="download">下载</h4>
-        <p>Github：<a href="https://github.com/tower1229/Flow-UI" target="_blank">Flow-UI</a></p>
-        <p>OsChina: <a href="http://git.oschina.net/genvision/Flow-UI" target="_blank">Flow-UI</a></p>
-        <h4>目录结构</h4>
-        <pre>
-            <code class="javascript"> 
-  |-- flow-ui/                  //模板项目
-  |    |-- css/                     //css文件
-  |    |-- font/                    //字体文件
-  |    |-- img/                     //图片文件
-  |    |-- js/                      //js文件
-  |    |-- lib/                     //模块库以外的js文件
-  |    |-- index.html               //索引页
-  |    |-- seajs.config.js          //配置文件
-  |    `-- favicon.ico              //网页图标
-  |-- public/                   //项目公共文件
-  ·-- modules/                  //本地模块库(可选)
-                </code>
-          </pre>
-        <h3 id="get-start">快速开始</h3>
-        <p>1. 拷贝<code>flow-ui/</code>和<code>modules/</code>到项目中；</p>
-        <p>2. 根据需要修改配置，<code>seajs.config.js</code>包含框架所需的所有配置；</p>
-        <p>3. 启动本地服务，访问 <a href="http://localhost/flow-ui/index.html" target="_blank">http://localhost/flow-ui/index.html</a></p>
         
+        <h4 id="download">获取</h4>
+        <p>Flow-UI: <a href="https://github.com/tower1229/Flow-UI" target="_blank">常规项目模板、控制台模板、文档</a></p>
+        <p>Flow-CLI: <a href="https://github.com/tower1229/Flow-CLI" target="_blank">自动化工具</a></p>
+        
+        <h3 id="get-start">快速开始</h3>
+        <p>Flow-UI支持基于模板开发和基于自动化工具开发两种使用方式。基于模板开发与Bootstrap这类UI框架的用法基本相同，相当于使用了Flow-UI提供的默认UI主题和插件库；基于自动化工具开发可以额外获得定制主题、实时预览、组件化开发、构建时压缩等功能。</p>
+        <h4>基于模板开发</h4>
+        <p>1. 拷贝<code>flow-ui/</code>和<code>modules/</code>到项目中；</p>
+        <p>2. 启动本地服务，访问 <a href="http://localhost/flow-ui/index.html" target="_blank">http://localhost/flow-ui/index.html</a></p>
+        <h4>基于自动化工具开发</h4>
+        <p>1. 安装<a href="https://github.com/tower1229/Flow-CLI" target="_blank">Flow-CLI</a></p>
+        <p>
+            <code>
+ npm i front-flow-cli -g
+            </code>
+        </p>
+        <p>2. 初始化项目</p>
+        <p>
+            <code>
+ flow init
+            </code>
+        </p>
+        <p>3. 开发</p>
+        <p>
+            <code>
+ flow run
+            </code>
+        </p>
+        <p>4. 构建</p>
+        <p>
+            <code>
+ flow build
+            </code>
+        </p>
+        <p>自动化工具的详细使用请参考<a href="http://refined-x.com/Flow-CLI/docs/" target="_blank">Flow-CLI文档</a>。</p>
         <h4>项目配置</h4>
         <table class="table">
             <tr>
@@ -127,8 +143,50 @@
                 </td>
             </tr>
         </table>
-        <h4>自动化工具</h4>
-        <p>基于nodejs的前端自动化工具<a href="https://github.com/tower1229/Flow-CLI" target="_blank">Flow-CLI</a></p>
+        <h3 id="directory">目录结构</h3>
+        <h4>开发目录结构</h4>
+        <pre>
+            <code class="javascript"> 
+  |--_component/                //框架CSS组件
+  |-- _src/                     //源码目录
+  |    |-- css/
+  |    |-- font/
+  |    |-- img/
+  |    |-- include/
+  |    |-- js/
+  |    |-- lib/
+  |    |-- index.html
+  |    |-- seajs.config.js
+  |    `-- favicon.ico 
+  |-- modules/                  //框架JS插件
+  |-- public/                   //公共文件
+  `-- config.json               //编译配置
+                </code>
+          </pre>
+        <h4>构建目录结构</h4>
+        <pre>
+            <code class="javascript"> 
+  |-- flow-ui/                  //项目文件
+  |    |-- css/                     //css文件
+  |    |-- font/                    //字体文件
+  |    |-- img/                     //图片文件
+  |    |-- js/                      //js文件
+  |    |-- lib/                     //模块库以外的js文件
+  |    |-- index.html               //索引页
+  |    |-- seajs.config.js          //配置文件
+  |    `-- favicon.ico              //网页图标
+  ·-- modules/                  //框架模块库(可选)
+            </code>
+        </pre>
+        <h3 id="examples">示例项目</h4>
+        <h4>Flow-UI 概览</h4>
+        <p class="doc-img-view">
+            <a href="demo.html" target="_blank"><img src="https://github.com/tower1229/tower1229.github.io/raw/master/asset/flow-ui-over-view.png" alt="Flow-UI 概览"> </a>
+        </p>
+        <h4>Flow-UI 控制台 </h4>
+        <p class="doc-img-view">
+            <a href="/Flow-UI/dashboard/index.html" target="_blank"><img src="https://github.com/tower1229/tower1229.github.io/raw/master/asset/flow-ui-dash-view.png" alt="Flow-UI 控制台"></a>
+        </p>
     </section>
     <section class="wrap" id="css">
         <h2>CSS</h2>
@@ -2061,6 +2119,7 @@
    });
               </code>
         </pre>
+
         <h4 id="js-base-common">公共代码</h4>
         <p><code>common.js</code>用于管理整站公用代码，默认被所有业务层js引用。</p>
 
@@ -9462,7 +9521,21 @@ $.ajax({
         </pre>
 
         <h3 id="jscatch">js模块本地缓存</h3>
-        <p>使用seajs-localcache插件实现manifest功能，通过manifest.js控制各模块版本(已合并至<code>/lib/seajs.js</code>)，manifest.js中注册的模块在第一次请求后会缓存到localstorage中，修改版本号即更新对应模块缓存。</p>
+        <p>框架默认使用seajs-localcache插件实现模块缓存功能，通过manifest文件控制模块版本，manifest文件中注册的模块在第一次请求成功后会缓存到localStorage中，下次调用会直接从localStorage中读取，版本号变化则重新请求并更新本地缓存。</p>
+        <p>manifest文件位于开发目录结构下的<code>/public/lib/seajs/manifest.js</code>，编译后合并至<code>/lib/seajs.js</code>。manifest文件必须完整记录模块库中的每个js模块路径，同时模块库中的模块必须是具名模块，模块名为文件名。</p>
+        <p>对于路径带文件夹的模块，需要在<code>seajs.config.alias</code>中将别名配置为文件名，例如<code>jquery</code>模块的模块路径是"jquery/1/jquery"，但模块名是"jquery"，那么需要配置seajs短语如下：</p>
+        <pre>
+            <code>
+    alias: {
+        "audio"          : "audio/audio",
+        "copy"           : "copy/ZeroClipboard",
+        "flv"            : "flv/flv",
+        "hook"           : "hook/hook",
+        "jquery"         : "jquery/1/jquery",
+        ...
+            </code>
+        </pre>
+        <p>此时<code>require('jquery')</code>将加载"jquery/1/jquery.js"这个文件，manifest文件中则如下记录：</p>
         <pre>
             <code>
   /*
@@ -9480,6 +9553,9 @@ $.ajax({
   })
          </code>
        </pre>
+       <p>这样一来就可以很方便的使用带有多级路径的模块，而且用这种方式还可以很方便的控制类库版本，例如只要将"jquery"短语路径配置为"jquery/2/jquery"，就可以全局切换到jQuery2.x版本了。</p>
+       <h4>远程模块库</h4>
+        <p>通过修改<code>seajs.config.base</code>可以使用远程模块库，借助云存储平台可以很方便的自建私有模块库，实现JS插件的共享和同步更新，也能节省单个项目的存储空间。</p>
     </section>
     <section class="wrap" id="community">
         <h2>社区</h2>
