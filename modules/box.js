@@ -1,8 +1,8 @@
 /*
  * name: box.js
- * version: v3.12.2
- * update: img()图片最大高度
- * date: 2017-10-27
+ * version: v3.12.3
+ * update: 按钮focus 显示bug
+ * date: 2017-12-21
  */
 define('box', function(require, exports, module) {
 	"use strict";
@@ -29,7 +29,6 @@ define('box', function(require, exports, module) {
 		.box-wrap-foot .btn{border:0;background:none;margin:0 10px 0 0}\
 		.box-wrap-foot .btn:hover{background:#ccc}\
 		.box-wrap-foot .boxconfirm{position:relative;color:#286090}\
-		.box-wrap-foot.-confirm .boxconfirm:after{content:"";position:absolute; display:inline-block;width:1px;height:1.8em;right:-5px;background:#ccc}\
 		.box-wrap-msg{position:relative;width:500px;max-width:100%}\
 		.box-wrap-msg-cont{padding:15px 40px 15px 15px;line-height:22px;color:#fff}\
 		.box-wrap-msg-clo{position:absolute; height:52px;line-height:52px;right:0;top:0}\
