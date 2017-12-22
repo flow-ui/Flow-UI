@@ -6165,22 +6165,32 @@
                     </tbody>
                 </table>
                 <h5>示例</h5>
-                <pre> <code>
-          &lt;div class="wrap"&gt;
-          &lt;/div&gt;
-                                    </code>
+                <pre> 
+                    <code>
+    &lt;div class=&quot;wrap&quot;&gt;
+        &lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;btn btn-primary set1&quot;&gt;设置页码为1&lt;/div&gt;
+      &lt;/div&gt;
+                    </code>
                 </pre>
-                <pre> <code>
-            require.async('page',function(page){
-                page({
-                    el: '.wrap',
-                    total:10,
-                    onChange: function(page){
-                        console.log(page);
-                    }
-                });
-            });
-                                    </code>
+                <pre>
+                    <code>
+    var page = require('page');
+    var pageObj = page({
+        el: '.demo',
+        total: 10,
+        onChange: function(page) {
+            console.log(page);
+        }
+    });
+
+    $('.set1').on('click', function() {
+        console.log(pageObj)
+        pageObj.set({
+            current: 1
+        });
+    });
+                    </code>
                 </pre>
             </dd>
             <dt id="Paging-load(分页加载)">paging-load</dt>
@@ -8266,7 +8276,7 @@
                 onChange: function(pageNumber){} //页码变更回调<br>
             }
                                 </code></p>
-                                <p>异步数据翻页的例子见<a href="http://refined-x.com/Flow-UI/dashboard/index.html" target="_blank">插件-数据表格</a></p>
+                                <p>注意改配置不可用于异步数据翻页，异步数据翻页的例子见<a href="http://refined-x.com/Flow-UI/dashboard/index.html" target="_blank">插件-数据表格</a></p>
                             </td>
                         </tr>
                         <tr>
@@ -8407,7 +8417,7 @@
                         <tr>
                             <th>getPager</th>
                             <td>
-                                <p>返回分页实例，可以获得<code>Page</code>组件的操作方法</p>
+                                <p>返回分页实例，可以获得<code>Page</code>组件的操作方法，仅用于静态数据分页，异步分页需要手动处理Table插件和Page插件的联动。</p>
                             </td>
                         </tr>
                         <tr>
