@@ -1,8 +1,8 @@
 /*
  * name: box.js
- * version: v3.12.3
- * update: 按钮focus 显示bug
- * date: 2017-12-21
+ * version: v3.12.4
+ * update: 元素高度检测bug
+ * date: 2017-12-22
  */
 define('box', function(require, exports, module) {
 	"use strict";
@@ -110,11 +110,13 @@ define('box', function(require, exports, module) {
 				}
 			} else if ($.parseHTML($.trim(cont + ''))[0].nodeType === 1) {
 				//dom字符串
-				cont = $(cont);
+				cont = $(cont).show();
 			} else {
 				//纯字符串
 				cont = $('<div class="box-wrap-remind">' + cont + '</div>');
-				if (!s.layout) cont.css('min-width', '0');
+				if (!s.layout) {
+					cont.css('min-width', '0');
+				}
 			}
 
 			eleOut = (function() {
@@ -240,7 +242,7 @@ define('box', function(require, exports, module) {
 				if ($o.s.height === 'auto') {
 					if ($o.s.layout) {
 						//jquery可以通过hide获取真实高度
-						outHeight = $o.out.find('.box-wrap-body').height('auto').hide().outerHeight(true) + barHeight;
+						outHeight = $o.out.find('.box-wrap-body').height('auto').width(xw).hide().outerHeight(true) + barHeight;
 					} else {
 						outHeight = $o.out.height();
 					}
