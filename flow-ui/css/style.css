@@ -534,7 +534,6 @@ input[type='button'].btn-block {
   background: none;
   border-color: inherit;
   border: 1px solid transparent;
-  line-height: 30px;
 }
 .btn-ghost.btn-primary {
   border-color: #2EA9DF;
@@ -609,6 +608,18 @@ input[type='button'].btn-block {
 .btn-link.btn-ghost:hover {
   color: #1979a3;
   border-color: #1979a3;
+}
+.btn-ghost.btn-sm,
+.btn-ghost.btn-sm:hover {
+  line-height: 23px;
+}
+.btn-ghost,
+.btn-ghost:hover {
+  line-height: 30px;
+}
+.btn-ghost.btn-lg,
+.btn-ghost.btn-lg:hover {
+  line-height: 38px;
 }
 .card {
   display: block;
@@ -2299,11 +2310,9 @@ big.form-mark {
   position: relative;
   z-index: 1;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
 }
 .menu-item > .ion,
 .menu-item-title > .ion {
-  margin-right: 0.5em;
   vertical-align: middle;
 }
 .menu-horizontal {
@@ -2317,7 +2326,6 @@ big.form-mark {
   z-index: 3;
   padding: 0 22.4px;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
 }
 .menu-light {
   background: #fff;
@@ -2370,8 +2378,8 @@ big.form-mark {
   background: #1979a3;
 }
 .menu-vertical {
-  height: 100%;
   overflow-y: auto;
+  height: 100%;
 }
 .menu-vertical::-webkit-scrollbar {
   position: absolute;
@@ -2380,22 +2388,22 @@ big.form-mark {
   -webkit-appearance: none;
 }
 .menu-vertical::-webkit-scrollbar-track {
-  background-color: #eee;
   border-right: 1px solid #ddd;
   border-left: 1px solid #ddd;
+  background-color: #eee;
 }
 .menu-vertical::-webkit-scrollbar-thumb {
   height: 50px;
+  border-width: 1px 2px;
+  border-style: solid;
+  border-color: transparent;
   background-color: #ccc;
   background-clip: content-box;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 1px 2px;
 }
 .menu-vertical.menu-dark::-webkit-scrollbar-track {
-  background-color: #444d50;
   border-right: 1px solid #2c3334;
   border-left: 1px solid #2c3334;
+  background-color: #444d50;
 }
 .menu-vertical.menu-dark::-webkit-scrollbar-thumb {
   background-color: #212526;
@@ -2413,18 +2421,17 @@ big.form-mark {
   z-index: 1;
   padding: 11.2px 23.8px;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
 }
 .menu-sub-group .menu-item {
-  padding-top: 11.2px;
-  padding-bottom: 11.2px;
+  padding-top: 5.6px;
+  padding-bottom: 5.6px;
 }
 .menu-vertical .menu-item:hover,
 .menu-vertical .menu-item-title:hover {
   background: #eeeeee;
 }
 .menu-vertical .menu-submenu .menu-item {
-  padding-left: 37.8px;
+  padding-left: 39.2px;
 }
 .menu-vertical .menu-sub-group {
   display: none;

@@ -1,0 +1,22 @@
+{
+  "name": "flow-ui",
+  "version": "1.0.0",
+  "description": "Highly customizable UI framework based Seajs/jQuery",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flow-ui/Flow-UI.git"
+  },
+  "keywords": [
+    "flow-ui"
+  ],
+  "author": "tower1229@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flow-ui/Flow-UI/issues"
+  },
+  "homepage": "https://github.com/flow-ui/Flow-UI#readme"
+}

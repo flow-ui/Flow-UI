@@ -1,32 +1,40 @@
+English | [中文](README_CN.md)
 
-### Flow-UI
+# Flow-UI
 
 [![compatibility](https://img.shields.io/badge/compatibility-IE8%2B-orange.svg)]() [![GitHub release](https://img.shields.io/github/release/tower1229/Flow-UI.svg)]() [![license](https://img.shields.io/github/license/tower1229/Flow-UI.svg)]()
 
-> :rainbow: Flow-UI 是一套组件化UI框架，支持定制主题，主要服务于前台及中后台产品。
+> :rainbow: Flow-UI is a highly customizable UI framework based Seajs/jQuery。
 
 ![logo](https://github.com/tower1229/tower1229.github.io/raw/master/asset/flow-ui-logo.jpg)
 
-### 兼容性
+## Introduction
 
-IE8+
+Flow-UI has built-in CSS components, JS plug-ins, modular development systems, automated development tools, and common scenario solutions. When you have developed unique style of the WEB site, Flow-UI is your best choice, with Flow-CLI can be customized high; with rich JS plug-in, Flow-UI can meet the development needs of the console, you can get a better compatibility than MVVM scheme.
 
-### 文档
+## Documentation
 
-[Flow-UI Documention](https://tower1229.github.io/Flow-UI/docs/)
+[Flow-UI Documention](http://flow-ui.refined-x.com/docs.html)
 
-### 演示
+## Download
 
-[Flow-UI 概览](http://tower1229.github.io/Flow-UI/docs/demo.html)
+### npm
 
-[Flow-UI 控制台](http://refined-x.com/Flow-UI/dashboard/index.html)
+`npm i flow-ui`
 
-### 配套自动化工具
+### cli
 
-[Flow-CLI](https://tower1229.github.com/Flow-CLI/docs/)
+`npm i front-flow-cli -g`
 
-## 更多
+## Live Example
 
-> [前端路上](http://refined-x.com)
+[Flow-UI overview](http://flow-ui.refined-x.com/demo.html)
 
-<br /><br />
+[Flow-UI dashboard](http://flow-ui.refined-x.com/Flow-UI/dashboard/)
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)
+
+Copyright (c) 2017-present, [refined-x.com](http://refined-x.com)
+
