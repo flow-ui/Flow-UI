@@ -20,7 +20,7 @@ Flow-UI是一套高定制性UI框架，基于Seajs/jQuery构建，内置CSS组�
 
 ### npm
 
-`npm i flow-ui`
+`npm i @tower1229/flow-ui`
 
 ### cli
 

@@ -1,5 +1,5 @@
 {
-  "name": "flow-ui",
+  "name": "@tower1229/flow-ui",
   "version": "1.0.0",
   "description": "Highly customizable UI framework based Seajs/jQuery",
   "main": "index.js",

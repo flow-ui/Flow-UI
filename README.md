@@ -20,7 +20,7 @@ Flow-UI has built-in CSS components, JS plug-ins, modular development systems, a
 
 ### npm
 
-`npm i flow-ui`
+`npm i @tower1229/flow-ui`
 
 ### cli
 
