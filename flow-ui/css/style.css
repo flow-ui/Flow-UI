@@ -1453,7 +1453,7 @@ big.form-mark {
   border: 1px solid #e8e9eb;
   border-left-width: 0;
   border-right-width: 0;
-  width: 32px;
+  min-width: 32px;
   box-sizing: content-box;
   height: 30px;
   line-height: 30px;
@@ -2656,8 +2656,6 @@ big.form-mark {
   content: '';
   -webkit-animation: progress-active 2s ease-in-out infinite;
           animation: progress-active 2s ease-in-out infinite;
-  opacity: 0;
-  background: #fff;
 }
 .progress-primary .progress-inner,
 .progress-auxiliary .progress-inner,
@@ -2706,20 +2704,24 @@ big.form-mark {
 @-webkit-keyframes progress-active {
   0% {
     width: 0;
+    background: #fff;
     opacity: 0.3;
   }
   to {
     width: 100%;
+    background: #fff;
     opacity: 0;
   }
 }
 @keyframes progress-active {
   0% {
     width: 0;
+    background: #fff;
     opacity: 0.3;
   }
   to {
     width: 100%;
+    background: #fff;
     opacity: 0;
   }
 }
