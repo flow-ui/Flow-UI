@@ -2,7 +2,7 @@ English | [中文](README_CN.md)
 
 # Flow-UI
 
-[![compatibility](https://img.shields.io/badge/compatibility-IE8%2B-orange.svg)]() [![GitHub release](https://img.shields.io/github/release/tower1229/Flow-UI.svg)]() [![license](https://img.shields.io/github/license/tower1229/Flow-UI.svg)]()
+[![compatibility](https://img.shields.io/badge/compatibility-IE8%2B-orange.svg)]() [![npm](https://img.shields.io/npm/v/@tower1229/flow-ui.svg)](https://www.npmjs.com/package/@tower1229/flow-ui) [![GitHub release](https://img.shields.io/github/release/tower1229/Flow-UI.svg)]() [![license](https://img.shields.io/github/license/tower1229/Flow-UI.svg)]()
 
 > :rainbow: Flow-UI is a highly customizable UI framework based Seajs/jQuery。
 
