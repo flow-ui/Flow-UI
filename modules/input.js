@@ -1,20 +1,22 @@
 /*
  * name: input.js
- * version: v0.1.3
- * update: 创建新的etplEngine实例
- * date: 2017-05-08
+ * version: v0.1.4
+ * update: 支持input元素自身disabled属性
+ * date: 2018-01-12
  */
 define('input', function(require, exports, module) {
     "use strict";
     seajs.importStyle('.input-widget{display:inline-block;vertical-align:bottom;margin:0;}\
-    	.icon-left .form-control-feedback{right:auto;left:0;}\
+        .icon-left .form-control-feedback{right:auto;left:0;}\
         .input-widget .btn{min-width:0}\
         .input-widget .btn:first{border-left:0}', module.uri);
     var $ = window.$ || require('jquery'),
         base = require('base'),
         etpl = require('etpl'),
         etplEngine = new etpl.Engine(),
+        tap = ('ontouchstart' in document) ? 'touchend' : 'click',
         def = {
+            el: null,
             color: '',
             id: '',
             width: null,
@@ -37,7 +39,7 @@ define('input', function(require, exports, module) {
             onChange: null
         };
 
-    $.fn.input = function(config) {
+    var Input = function(config) {
         var focusHandle = function(e) {
                 var that = e.target,
                     opt = $(that).data('opt'),
@@ -153,19 +155,23 @@ define('input', function(require, exports, module) {
                         return this.shadowInput[0].data('clean') || '';
                     }
                 }
-            };
-        if (!$(this).length) {
+            },
+            opt = $.extend({}, def, config || {}),
+            $el = $(opt.el);
+
+        if (!$el.length) {
             return null;
         }
-        $(this).each(function(i, e) {
+        $el.each(function(i, e) {
             var $this = $(e),
-                opt = $.extend({}, def, config || {}, $.isPlainObject($this.data('options')) ? $this.data('options') : {}),
                 render,
                 tagname = $this.get(0).tagName.toLowerCase(),
                 template = opt.template || ''; //接受自定义模板
             if ($this.data('input-init')) {
-                return true;
+                return null;
             }
+            opt.disable = $this.prop('disabled');
+            $.extend(opt, $.isPlainObject($this.data('options')) ? $this.data('options') : {});
             $this.data('input-init', true);
             //数据准备
             if (opt.color && opt.color.split) {
@@ -242,7 +248,7 @@ define('input', function(require, exports, module) {
             }
             //按钮事件
             if ($.isArray(opt.buttons) && opt.buttons.length) {
-                renderDom.on('click', '.input-group-addon', function() {
+                renderDom.on(tap, '.input-group-addon', function() {
                     if (!shadowInput.prop('readonly') && !shadowInput.prop('disabled')) {
                         var clickHandle = opt.buttons[$(this).data('index')].click;
                         if (typeof clickHandle === 'function') {
@@ -289,6 +295,13 @@ define('input', function(require, exports, module) {
         });
         return returnObject;
     };
+
+    $.fn.input = function(config) {
+        return Input($.extend({
+            el: this
+        }, config || {}));
+    };
     //自动初始化
-    return $('.flow-ui-input').input();
+    $('.flow-ui-input').input();
+    module.exports = Input;
 });
