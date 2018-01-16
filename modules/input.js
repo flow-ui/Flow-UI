@@ -1,8 +1,8 @@
 /*
  * name: input.js
- * version: v0.1.4
- * update: 支持input元素自身disabled属性
- * date: 2018-01-12
+ * version: v0.1.5
+ * update: 默认使用原始值
+ * date: 2018-01-16
  */
 define('input', function(require, exports, module) {
     "use strict";
@@ -23,7 +23,7 @@ define('input', function(require, exports, module) {
             buttons: null,
             type: '',
             holder: '',
-            val: '',
+            val: null,
             text: '',
             icon: '',
             iconPosition: 'right',
@@ -170,7 +170,15 @@ define('input', function(require, exports, module) {
             if ($this.data('input-init')) {
                 return null;
             }
-            opt.disable = $this.prop('disabled');
+            //默认使用原始值
+            if(opt.val===null){
+                opt.val = $this.val();
+            }
+            //沿用
+            if(opt.disable===null){
+                opt.disable = $this.prop('disabled');
+            }
+            
             $.extend(opt, $.isPlainObject($this.data('options')) ? $this.data('options') : {});
             $this.data('input-init', true);
             //数据准备

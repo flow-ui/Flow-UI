@@ -1,8 +1,8 @@
 /*
  * name: input-number.js
- * version: v0.1.4
- * update: 自动初始化元素前缀改为.flow-ui
- * date: 2017-05-03
+ * version: v0.1.5
+ * update: 默认使用input初始值
+ * date: 2018-01-16
  */
 define("input-number", function(require, exports, module) {
 	"use strict";
@@ -20,7 +20,7 @@ define("input-number", function(require, exports, module) {
 	require('input');
 	var $ = window.$ || require('jquery'),
 		def = {
-			val: 1,
+			val: null,
 			countstep: 1,
 			min: 0,
 			max: Number.POSITIVE_INFINITY,
