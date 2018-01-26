@@ -1,8 +1,8 @@
 /*
 * name: validform.js
-* version: v2.5.8
-* update: 跳过检查提交时也跳过beforeSubmit验证
-* data: 2017-09-28
+* version: v2.5.9
+* update: allable选项bug
+* data: 2018-01-26
 */
 define('validform', function(require, exports, module) {
 	"use strict";
@@ -709,16 +709,15 @@ define('validform', function(require, exports, module) {
 						};
 					}
 					var _sendData = {},
-						_cloneForm,
-						_formData;
-					if(settings.allable){
-						_cloneForm = curform.clone();
-						_cloneForm.find(':disabled').each(function(i,e){
-							$(e).prop('disabled',false);
-						});
-						_formData = _cloneForm.serializeArray();
-					}else{
 						_formData = curform.serializeArray();
+					if(settings.allable){
+						curform.find(':disabled').each(function(i,e){
+							$(e).prop('disabled',false);
+							_formData.push({
+								name: $(e).attr('name'),
+								value: $(e).val()
+							});
+						});
 					}
 					$.each(_formData, function(i,e){
 						if(_sendData[e.name] === void 0){
