@@ -89,7 +89,7 @@ define('ajax-cache', function(require, exports, module) {
 				}
 				//查找缓存
 				$.each(localStorage, function(key, val) {
-					if (key.indexOf([cacheNamePrefix, cacheKey].join(cacheNameSep)) === 0) {
+					if (key.indexOf([cacheNamePrefix, cacheKey].join(cacheNameSep)+cacheNameSep) === 0) {
 						cacheName = key;
 						cacheDeadline = key.split(cacheNameSep)[2];
 						cacheVal = val;
