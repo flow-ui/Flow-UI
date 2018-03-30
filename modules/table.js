@@ -1,8 +1,8 @@
 /*
  * name: table.js
- * version: v1.8.5
- * update: ie8兼容
- * date: 2017-07-26
+ * version: v1.8.6
+ * update: 开启ellipsis的单元格增加title显示
+ * date: 2018-03-30
  */
 define('table', function(require, exports, module) {
 	"use strict";
@@ -270,7 +270,7 @@ define('table', function(require, exports, module) {
 						} else {
 							opt.renderCollection.push({
 								id: renderTagId,
-								el: (col.ellipsis ? '<div class="el" style="width:' + (col.thisColWidth - 36) + 'px">' + rowData[col.key] + '</div>' : ((rowData[col.key]) === null || rowData[col.key] === void(0)) ? opt.noDataText : rowData[col.key]),
+								el: (col.ellipsis ? '<div class="el" title="'+ rowData[col.key] +'" style="width:' + (col.thisColWidth - 36) + 'px">' + rowData[col.key] + '</div>' : ((rowData[col.key]) === null || rowData[col.key] === void(0)) ? opt.noDataText : rowData[col.key]),
 								entity: tdEntity
 							});
 							thisTagCont = '<div id="' + renderTagId + '"></div>';
