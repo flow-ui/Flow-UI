@@ -1,8 +1,8 @@
 /*
  * name: base
- * version: 4.0.0
- * update: 移除ajax缓存功能，独立成Ajax-cache模块
- * date: 2018-03-06
+ * version: 4.1.0
+ * update: 移除ajax优化
+ * date: 2018-04-11
  */
 define('base', function(require, exports, module) {
 	'use strict';
@@ -41,63 +41,7 @@ define('base', function(require, exports, module) {
 		}
 		return sourceCopy;
 	};
-	/*
-	 * ajax优化
-	 */
-	var _ajaxSetup = function(jQuery) {
-		jQuery.ajaxSetup({
-			beforeSend: function(xhr, setting) {
-				//默认数据类型
-				if (!setting.dataType) {
-					if (_browser.ie && _browser.ie <= 9) {
-						//ie8\9开启跨域
-						if (setting.url.indexOf(window.location.host) < 0) {
-							$.support.cors = true;
-						}
-					}
-					setting.dataType = 'json';
-				}
-				//默认超时时间
-				if (!setting.timeout) {
-					setting.timeout = 1.5e4;
-				}
-			}
-		});
-		$(document).ajaxError(function(event, request, settings) {
-			if (request.statusText === "canceled") {
-				return null;
-			}
-			require.async('box', function() {
-				var errmsg = '';
-				switch (request.readyState) {
-					case 0:
-						errmsg = '网络错误，请检查网络连接！';
-						break;
-					case 1:
-						errmsg = '请求异常中断！';
-						break;
-					case 2:
-						errmsg = '数据接收错误！';
-						break;
-					case 3:
-						errmsg = '数据解析错误！';
-						break;
-					case 4:
-						errmsg = '服务端错误！';
-						break;
-					default:
-						errmsg = '未知错误！';
-				}
-				if(window.ajaxErrorTip){
-					$.box.hide(window.ajaxErrorTip);	
-				}
-				window.ajaxErrorTip = $.box.msg(errmsg, {
-					color: 'danger'
-				});
-				console.warn(errmsg + 'url: ' + settings.url + '; status: ' + request.status);
-			});
-		});
-	};
+	
 	/*
 	 * cookie
 	 */
@@ -540,7 +484,6 @@ define('base', function(require, exports, module) {
 			set: _setUrlParam
 		},
 		getScript: _getScript,
-		ajaxCombo: _ajaxCombo,
-		ajaxSetup: _ajaxSetup
+		ajaxCombo: _ajaxCombo
 	};
 });

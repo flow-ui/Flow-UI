@@ -16,7 +16,7 @@ define('slide', function(require, exports, module) {
         .slide_effect_slide .slide_prev{left:0;display:block}\
         .slide_effect_slide .slide_next{left:auto;right:0;display:block}\
         .slide_nav{position:absolute;left:0;bottom:0;width:100%;z-index:8;text-align:center}\
-        .slide_nav a{display:inline-block;width:0.8em;height:0.8em;border-radius:0.4em;overflow:hidden;text-indent:-99px;background:#fff;margin:0 0.5em 1em;cursor:pointer}\
+        .slide_nav a{display:inline-block;width:0.8em;height:0.8em;border-radius:0.4em;overflow:hidden;text-indent:-99px;background:#fff;margin:0 0.5em 0.5em;cursor:pointer}\
         .slide_nav .on{background:#999;}\
         .slide .arrs{position:absolute;cursor:pointer;z-index:9;-webkit-user-select:none;user-select:none}\
         .arrs.unable{cursor:default}', module.uri);
