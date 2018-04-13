@@ -2152,10 +2152,10 @@ big.form-mark {
   padding: 10px 15px;
   border-radius: 4px;
 }
-.items-border {
+.items.borderd {
   border-bottom: 1px solid #e8e9eb;
 }
-.items-border .item {
+.items.borderd .item {
   border-top: 1px solid #e8e9eb;
 }
 .items .item .ion:first-child {
