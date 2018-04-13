@@ -2146,11 +2146,17 @@ big.form-mark {
 .ico5_5 {
   background-position: -100px -100px;
 }
-.items .item > a {
+.items .item {
   display: block;
   position: relative;
   padding: 10px 15px;
   border-radius: 4px;
+}
+.items-border {
+  border-bottom: 1px solid #e8e9eb;
+}
+.items-border .item {
+  border-top: 1px solid #e8e9eb;
 }
 .items .item .ion:first-child {
   color: #555555;
@@ -2163,11 +2169,11 @@ big.form-mark {
 .items .item-extra .badge-count {
   background: #dbdbdb;
 }
-.items .item > a:hover {
+.items .item:hover {
   background-color: #eeeeee;
 }
-.items .active > a,
-.items .active > a:hover {
+.items .active,
+.items .active:hover {
   color: #fff;
   background-color: #2EA9DF;
 }
@@ -2178,92 +2184,92 @@ big.form-mark {
 .items-inverse .item-extra {
   color: #fff;
 }
-.items-primary .item > a {
+.items-primary .item {
   color: #2EA9DF;
 }
-.items-primary .item > a:hover,
+.items-primary .item:hover,
 .items-inverse .active .item-extra,
-.items-inverse .item > a:hover .item-extra {
+.items-inverse .item:hover .item-extra {
   color: #1979a3;
 }
-.items-primary .active > a,
-.items-primary .active > a:hover {
+.items-primary .active,
+.items-primary .active:hover {
   color: #fff;
 }
-.items-auxiliary .item > a {
+.items-auxiliary .item {
   color: #FFC408;
 }
-.items-auxiliary .item > a:hover,
+.items-auxiliary .item:hover,
 .items-auxiliary.items-inverse .active .item-extra,
-.items-auxiliary .item > a:hover .item-extra {
+.items-auxiliary .item:hover .item-extra {
   color: #b58a00;
 }
-.items-auxiliary .active > a,
-.items-auxiliary .active > a:hover {
+.items-auxiliary .active,
+.items-auxiliary .active:hover {
   color: #fff;
   background-color: #FFC408;
 }
 .items-auxiliary .active .item-extra .badge-count {
   color: #FFC408;
 }
-.items-info .item > a {
+.items-info .item {
   color: #4fcbf0;
 }
-.items-info .item > a:hover,
+.items-info .item:hover,
 .items-info.items-inverse .active .item-extra,
-.items-info .item > a:hover .item-extra {
+.items-info .item:hover .item-extra {
   color: #13addb;
 }
-.items-info .active > a,
-.items-info .active > a:hover {
+.items-info .active,
+.items-info .active:hover {
   color: #fff;
   background-color: #4fcbf0;
 }
 .items-info .active .item-extra .badge-count {
   color: #4fcbf0;
 }
-.items-success .item > a {
+.items-success .item {
   color: #25ae88;
 }
-.items-success .item > a:hover,
+.items-success .item:hover,
 .items-success.items-inverse .active .item-extra,
-.items-success .item > a:hover .item-extra {
+.items-success .item:hover .item-extra {
   color: #176b53;
 }
-.items-success .active > a,
-.items-success .active > a:hover {
+.items-success .active,
+.items-success .active:hover {
   color: #fff;
   background-color: #25ae88;
 }
 .items-success .active .item-extra .badge-count {
   color: #25ae88;
 }
-.items-warning .item > a {
+.items-warning .item {
   color: #F05E1C;
 }
-.items-warning .item > a:hover,
+.items-warning .item:hover,
 .items-warning.items-inverse .active .item-extra,
-.items-warning .item > a:hover .item-extra {
+.items-warning .item:hover .item-extra {
   color: #af3e0c;
 }
-.items-warning .active > a,
-.items-warning .active > a:hover {
+.items-warning .active,
+.items-warning .active:hover {
   color: #fff;
   background-color: #F05E1C;
 }
 .items-warning .active .item-extra .badge-count {
   color: #F05E1C;
 }
-.items-danger .item > a {
+.items-danger .item {
   color: #CB4042;
 }
-.items-danger .item > a:hover,
+.items-danger .item:hover,
 .items-danger.items-inverse .active .item-extra,
-.items-danger .item > a:hover .item-extra {
+.items-danger .item:hover .item-extra {
   color: #922829;
 }
-.items-danger .active > a,
-.items-danger .active > a:hover {
+.items-danger .active,
+.items-danger .active:hover {
   color: #fff;
   background-color: #CB4042;
 }
