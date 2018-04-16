@@ -2160,6 +2160,7 @@ big.form-mark {
 }
 .items.bordered .item {
   border-top: 1px solid #e8e9eb;
+  border-radius: 0;
 }
 .items .item .ion:first-child {
   color: #555555;
