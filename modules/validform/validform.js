@@ -1,8 +1,8 @@
 /*
 * name: validform.js
-* version: v2.5.9
-* update: allable选项bug
-* data: 2018-01-26
+* version: v2.5.10
+* update: ajax成功后隐藏提示信息
+* data: 2018-04-16
 */
 define('validform', function(require, exports, module) {
 	"use strict";
@@ -748,11 +748,7 @@ define('validform', function(require, exports, module) {
 							} else {
 								curform[0].validform_status = "normal";
 							}
-							Validform.util.showmsg.call(curform, data.info, settings.tiptype, {
-								obj: curform,
-								type: 2,
-								sweep: settings.tipSweep
-							}, "byajax");
+							Validform.util.boxHandle && box.hide(Validform.util.boxHandle);
 							settings.callback && settings.callback(data);
 							curform[0].validform_ajax = null;
 						},

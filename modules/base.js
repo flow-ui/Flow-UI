@@ -1,8 +1,8 @@
 /*
  * name: base
  * version: 4.1.0
- * update: 移除ajax优化
- * date: 2018-04-11
+ * update: 增加storage模块
+ * date: 2018-04-16
  */
 define('base', function(require, exports, module) {
 	'use strict';
@@ -45,7 +45,7 @@ define('base', function(require, exports, module) {
 	/*
 	 * cookie
 	 */
-	$.cookie = function(name, value, options) {
+	var cookie = function(name, value, options) {
 		if (typeof value != 'undefined') { // name and value given, set cookie
 			options = options || {};
 			if (value === null) {
@@ -84,6 +84,57 @@ define('base', function(require, exports, module) {
 			return cookieValue;
 		}
 	};
+	/*
+	* storage
+	*/
+	function remove(key) {
+		if (key && key.split) {
+			return localStorage.removeItem(key)
+		}
+	};
+
+	function leaveSpace() {
+		var space = 1024 * 1024 * 5 - unescape(encodeURIComponent(JSON.stringify(localStorage))).length;
+		return space
+	};
+
+	function val(key, value) {
+		if (value === void(0)) {
+			var lsVal = localStorage.getItem(key);
+			if(lsVal && lsVal.indexOf('autostringify-') === 0 ){
+				return JSON.parse(lsVal.split('autostringify-')[1]);
+			}else{
+				return lsVal;
+			}
+		}else {
+			if ($.isPlainObject(value) || $.isArray(value)) {
+				value = 'autostringify-' + JSON.stringify(value);
+			};
+			return localStorage.setItem(key, value);
+		}
+	};
+
+	function clear(safeStorage){
+		if(safeStorage && Array.isArray(safeStorage)){
+		    //白名单
+		    var lskey;
+	    	for (lskey in window.localStorage){
+	    		if(safeStorage.indexOf(lskey)===-1){
+	    			localStorage.removeItem(lskey);
+	    		}
+	    	}
+		}else{
+			localStorage.clear();
+		}
+	}
+
+	var storage = {
+		clear: clear,
+		leaveSpace: leaveSpace,
+		remove: remove,
+		val: val
+	}
+
 	/*
 	 * 函数节流
 	 * @method: 函数体; @delay: 过滤执行间隔; @duration: 至少执行一次的间隔
@@ -483,6 +534,8 @@ define('base', function(require, exports, module) {
 			get: _getUrlParam,
 			set: _setUrlParam
 		},
+		cookie: cookie,
+		storage: storage,
 		getScript: _getScript,
 		ajaxCombo: _ajaxCombo
 	};
