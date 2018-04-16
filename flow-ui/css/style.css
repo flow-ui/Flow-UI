@@ -2155,6 +2155,9 @@ big.form-mark {
   padding: 10px;
   border-radius: 4px;
 }
+.item.item-divider {
+  color: #dbdbdb;
+}
 .items.bordered {
   border-bottom: 1px solid #e8e9eb;
 }
@@ -2174,6 +2177,9 @@ big.form-mark {
 }
 .items .item:hover {
   background-color: #eeeeee;
+}
+.items .item.item-divider:hover {
+  background-color: inherit;
 }
 .items .active,
 .items .active:hover {

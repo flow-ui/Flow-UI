@@ -1,8 +1,8 @@
 /*
  * name: city-selector.js
- * version: v1.0.2
- * update: loading始终提示bug
- * date: 2017-04-06
+ * version: v2.0.0
+ * update: 引入ajax-cache
+ * date: 2018-04-16
  */
 define('city-select', function(require, exports, module) {
 	'use strict';
@@ -16,6 +16,8 @@ define('city-select', function(require, exports, module) {
 		.city-selector-item{float:left; cursor:pointer;margin:1em;}\
 		.city-selector-item:hover,.city-selector-items.cur{color:#ff6e0a;}', module.uri);
 	require('tip');
+	require('ajax-cache');
+
 	var $ = window.$ || require('jquery'),
 		base = require('base'),
 		def = {
@@ -101,7 +103,6 @@ define('city-select', function(require, exports, module) {
 			}
 		};
 
-	base.ajaxSetup($);
 
 	if (!citySelectorTarget.length) {
 		citySelectorTarget = $(template).attr('id', 'citySelectorTarget').appendTo('body');
@@ -166,6 +167,7 @@ define('city-select', function(require, exports, module) {
 						});
 						$.ajax({
 							url: opt.data,
+							dataType: 'json',
 							localCache: 1e6,
 							success: function(res) {
 								loading.destroy();

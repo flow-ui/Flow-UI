@@ -70,7 +70,7 @@ seajs.config({
         'bdshare': 'v3.1.2',
         'box': 'v3.12.4',
         'checks': 'v0.0.2',
-        'city-select': 'v1.0.2',
+        'city-select': 'v2.0.0',
         'collapse': 'v0.0.2',
         'countdown': 'v1.1.1',
         'datepicker': 'v2.1.0',
