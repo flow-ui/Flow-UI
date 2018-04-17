@@ -68,7 +68,7 @@ seajs.config({
         'badge': 'v0.0.1',
         'base': 'v4.1.0',
         'bdshare': 'v3.1.2',
-        'box': 'v3.12.4',
+        'box': 'v3.12.5',
         'checks': 'v0.0.2',
         'city-select': 'v2.0.0',
         'collapse': 'v0.0.2',

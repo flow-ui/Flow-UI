@@ -1,8 +1,8 @@
 /*
  * name: box.js
- * version: v3.12.4
- * update: 元素高度检测bug
- * date: 2017-12-22
+ * version: v3.12.5
+ * update: box.loading() bug
+ * date: 2018-04-17
  */
 define('box', function(require, exports, module) {
 	"use strict";
@@ -62,7 +62,7 @@ define('box', function(require, exports, module) {
 			bar: true, //是否显示标题栏
 			bg: true, //是否显示背景
 			fix: true, //是否弹出框固定在页面上
-			bgclose: true, //是否点击半透明背景隐藏弹出框
+			bgclose: false, //是否点击半透明背景隐藏弹出框
 			drag: false, //是否可拖拽
 			protect: false, //保护装载的内容
 			opacity: 0.5, // 背景透明度
@@ -340,7 +340,8 @@ define('box', function(require, exports, module) {
 				}, to);
 			}
 		},
-		loading: function(s) {
+		loading: function(options) {
+			var s = $.extend({}, def, options || {});
 			return Box.open(Language[s.lang].loading, {
 				bar: false,
 				bgclose: false
