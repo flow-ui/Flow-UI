@@ -105,7 +105,7 @@ seajs.config({
         'responsive': 'v0.0.1',
         'scroll-bar': 'v2.2.8',
         'scroll-col': 'v4.2.5',
-        'scroll-load': 'v1.0.4',
+        'scroll-load': 'v1.0.5',
         'scroll-row': 'v3.0.6',
         'select': 'v4.3.5',
         'sendcode': 'v0.2.2',
