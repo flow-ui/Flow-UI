@@ -2146,13 +2146,11 @@ big.form-mark {
 .ico5_5 {
   background-position: -100px -100px;
 }
-.items {
-  background: #fff;
-}
 .items .item {
   display: block;
   position: relative;
   padding: 10px;
+  background: #fff;
   border-radius: 4px;
 }
 .item.item-divider {
