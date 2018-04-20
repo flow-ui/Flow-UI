@@ -2177,7 +2177,7 @@ big.form-mark {
   background-color: #eeeeee;
 }
 .items .item.item-divider:hover {
-  background-color: inherit;
+  background-color: #fff;
 }
 .items .active,
 .items .active:hover {
