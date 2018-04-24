@@ -1,8 +1,8 @@
 /*
  * name: sendcode.js
- * version: v0.2.2
- * update: 默认不校验手机号合法性，需要在sendBefore中校验
- * date: 2017-12-08
+ * version: v0.3.0
+ * update: 增加error配置
+ * date: 2018-04-23
  */
 define("sendcode", function(require, exports, module) {
 	"use strict";
@@ -58,11 +58,13 @@ define("sendcode", function(require, exports, module) {
 			sendmsg = function(mobileNumber, callback) {
 				var thedata = {},
 					renderTarget;
+				loading = $.box.msg('正在发送验证码...');
 				if (opt.renderTarget && $(opt.renderTarget).length) {
 					renderTarget = $(opt.renderTarget).data('that', $(this));
 				} else {
 					renderTarget = $(this);
 				}
+				console.log(renderTarget)
 				thedata[opt.keyName] = mobileNumber;
 				$.extend(thedata, opt.data || {});
 				setAble($(this),false);
@@ -92,9 +94,10 @@ define("sendcode", function(require, exports, module) {
 					}
 				});
 			};
-		if (!opt.mobile || !opt.url) {
-			return console.warn('sendcode():缺少"mobile/url"参数！');
+		if(typeof opt.error !== 'function'){
+			opt.error = console.warn;
 		}
+		
 		if(!isNaN(parseInt(opt.time))){
 			ticktime = parseInt(opt.time);
 		}else{
@@ -118,15 +121,14 @@ define("sendcode", function(require, exports, module) {
 				} else {
 					sendNumber = opt.mobile;
 				}
-				loading = $.box.msg('正在发送验证码...');
+				console.log(sendNumber)
+				if (!sendNumber || !opt.url) {
+					return opt.error('sendcode():缺少"mobile/url"参数！');
+				}
 				if (typeof opt.sendBefore === 'function') {
-					setAble($(that),false);
-					opt.sendBefore(sendNumber, function() {
+					if(opt.sendBefore(sendNumber)){
 						sendmsg.call(that, sendNumber, opt.sendAfter);
-					}, function() {
-						setAble($(that),true);
-						$.box.hide(loading);
-					});
+					};
 				} else {
 					sendmsg.call(that, sendNumber, opt.sendAfter);
 				}
