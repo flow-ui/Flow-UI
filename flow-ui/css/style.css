@@ -1260,6 +1260,9 @@ big.form-mark {
   min-height: 32px;
   padding: 8px 16px;
 }
+.form-group-lg textarea.form-control {
+  height: inherit;
+}
 .has-feedback {
   position: relative;
 }
