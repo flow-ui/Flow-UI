@@ -1,8 +1,8 @@
 /*
  * name: upload
- * version: 1.2.0
- * update: 新增headers设置
- * date: 2017-12-12
+ * version: 1.3.0
+ * update: 上传form尽可能插入trigger元素
+ * date: 2018-04-26
  * base: https://github.com/aralejs/upload
  */
 define('upload', function(require, exports, module) {
@@ -96,15 +96,31 @@ define('upload', function(require, exports, module) {
       fontSize: Math.max(64, $trigger.outerHeight() * 5)
     });
     this.form.append(this.input);
-    this.form.css({
-      position: 'absolute',
-      top: $trigger.offset().top,
-      left: $trigger.offset().left,
-      overflow: 'hidden',
-      width: $trigger.outerWidth(),
-      height: $trigger.outerHeight(),
-      zIndex: findzIndex($trigger) + 10
-    }).appendTo('body');
+    if($trigger.is('input')){
+      console.log(1);
+      this.form.css({
+        position: 'absolute',
+        top: $trigger.offset().top,
+        left: $trigger.offset().left,
+        overflow: 'hidden',
+        width: $trigger.outerWidth(),
+        height: $trigger.outerHeight(),
+        zIndex: findzIndex($trigger) + 10
+      }).appendTo('body');
+    }else{
+      console.log(2);
+      $trigger.css('position','relative');
+      this.form.css({
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        overflow: 'hidden',
+        width: '100%',
+        height: '100%',
+        zIndex: 9
+      }).appendTo($trigger);
+    }
+    
     return this;
   };
 
@@ -112,14 +128,16 @@ define('upload', function(require, exports, module) {
   Uploader.prototype.bind = function() {
     var self = this;
     var $trigger = $(self.settings.trigger);
-    $trigger.mouseenter(function() {
-      self.form.css({
-        top: $trigger.offset().top,
-        left: $trigger.offset().left,
-        width: $trigger.outerWidth(),
-        height: $trigger.outerHeight()
+    if($trigger.is('input')){
+      $trigger.mouseenter(function() {
+        self.form.css({
+          top: $trigger.offset().top,
+          left: $trigger.offset().left,
+          width: $trigger.outerWidth(),
+          height: $trigger.outerHeight()
+        });
       });
-    });
+    }
     self.bindInput();
   };
   Uploader.prototype.compressList = [];

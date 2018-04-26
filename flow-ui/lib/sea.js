@@ -55,7 +55,7 @@ seajs.config({
         'jquery/2/jquery': 'v2.1.4',
         'jquery/3/jquery': 'v3.1.1',
         'raty/raty': 'v0.1.0',
-        'upload/upload': 'v1.2.0',
+        'upload/upload': 'v1.3.0',
         'upload/makethumb': 'v0.0.1',
         'upload/localResizeIMG': 'v0.0.1',
         'validform/validform': 'v2.5.10',
