@@ -97,7 +97,6 @@ define('upload', function(require, exports, module) {
     });
     this.form.append(this.input);
     if($trigger.is('input')){
-      console.log(1);
       this.form.css({
         position: 'absolute',
         top: $trigger.offset().top,
@@ -108,7 +107,6 @@ define('upload', function(require, exports, module) {
         zIndex: findzIndex($trigger) + 10
       }).appendTo('body');
     }else{
-      console.log(2);
       $trigger.css('position','relative');
       this.form.css({
         position: 'absolute',
