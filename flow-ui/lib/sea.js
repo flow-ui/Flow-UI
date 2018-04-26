@@ -58,7 +58,7 @@ seajs.config({
         'upload/upload': 'v1.3.0',
         'upload/makethumb': 'v0.0.1',
         'upload/localResizeIMG': 'v0.0.1',
-        'validform/validform': 'v2.5.10',
+        'validform/validform': 'v2.5.11',
         'video/video': 'v0.0.1',
         'webuploader/webuploader': 'v1.0.0',
         'ajax-cache':'v0.0.1',

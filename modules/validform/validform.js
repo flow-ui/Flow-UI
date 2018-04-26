@@ -1,8 +1,8 @@
 /*
 * name: validform.js
-* version: v2.5.10
-* update: ajax成功后隐藏提示信息
-* data: 2018-04-16
+* version: v2.5.11
+* update: ajaxPost默认true
+* data: 2018-04-26
 */
 define('validform', function(require, exports, module) {
 	"use strict";
@@ -50,7 +50,7 @@ define('validform', function(require, exports, module) {
 			tipSweep: true,
 			showAllError: false,
 			postonce: false,
-			ajaxPost: false,
+			ajaxPost: true,
 			checkTime: 100 //验证延时
 		};
 	var Validform = function(forms, settings, inited) {
