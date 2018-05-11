@@ -1,8 +1,8 @@
 /*
  * name: dropdown.js
- * version: v0.2.3
- * update: jquery plugin 参数覆盖错误
- * date: 2017-04-18
+ * version: v0.3.0
+ * update: 返回items()方法，更新插件数据
+ * date: 2018-05-11
  */
 define('dropdown', function(require, exports, module) {
 	"use strict";
@@ -41,35 +41,53 @@ define('dropdown', function(require, exports, module) {
 		};
 	var Dropdown = function(config) {
 		var opt = $.extend({}, def, config),
-			menuHtml;
+			model,
+			init;
 		if (!$(opt.el).length) {
 			return console.warn('dorpdown: el不存在:', opt.el);
 		}
 		if (!opt.items.length) {
 			return console.warn('dorpdown: items 参数有误:', opt.items);
 		}
-		menuHtml = $(render(opt.items, opt.theme));
-		if(!isNaN(parseInt(opt.width))){
-			menuHtml.css('min-width',opt.width);
-		}
-		var model = Tip(menuHtml, $.extend(opt, {
-			onshow: function($el) {
-				if($el.data('dropdown-value') !== void(0)){
-					menuHtml.find('.dropdown-item').eq($el.data('dropdown-value')).addClass('on').siblings('.on').removeClass('on');
-				}
-				menuHtml.on('click', '.dropdown-item', function() {
-					var itemIndex = $(this).index();
-					var isCurrent = $el.data('dropdown-value') === itemIndex;
-					var item = opt.items[itemIndex];
-					$el.data('dropdown-value', itemIndex);
-					if (!$(this).hasClass('disabled')) {
-						model.hide();
-						typeof(opt.onclick) === 'function' && opt.onclick(item, isCurrent);
-					}
-				});
+		
+		init = function(renderData){
+			var menuHtml = $(render(renderData, opt.theme));
+			if(!isNaN(parseInt(opt.width))){
+				menuHtml.css('min-width',opt.width);
 			}
-		}));
-		return $(opt.el);
+			model = Tip(menuHtml, $.extend(opt, {
+				onshow: function($el) {
+					if($el.data('dropdown-value') !== void(0)){
+						menuHtml.find('.dropdown-item').eq($el.data('dropdown-value')).addClass('on').siblings('.on').removeClass('on');
+					}
+					menuHtml.on('click', '.dropdown-item', function() {
+						var itemIndex = $(this).index();
+						var isCurrent = $el.data('dropdown-value') === itemIndex;
+						var item = renderData[itemIndex];
+						$el.data('dropdown-value', itemIndex);
+						if (!$(this).hasClass('disabled')) {
+							model.hide();
+							typeof(opt.onclick) === 'function' && opt.onclick(item, isCurrent);
+						}
+					});
+				}
+			}));
+		};
+		init(opt.items);
+
+		return {
+			items: function(data){
+				if($.isArray(data)){
+					if(model){
+						model.destroy();
+					}
+					init(data);
+					opt.items = data;
+				}else{
+					return opt.items;
+				}
+			}
+		};
 	};
 
 	$.fn.dropdown = function(config) {

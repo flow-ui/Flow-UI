@@ -76,7 +76,7 @@ seajs.config({
         'datepicker': 'v2.1.0',
         'drag': 'v0.10.4',
         'drag-panel': 'v0.0.2',
-        'dropdown': 'v0.2.3',
+        'dropdown': 'v0.3.0',
         'easing': 'v0.0.1',
         'echarts': 'v0.2.0',
         'etpl': 'v0.1.1',
