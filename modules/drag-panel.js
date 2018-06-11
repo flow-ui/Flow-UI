@@ -1,8 +1,8 @@
 /*
  * name: drag-panel.js
- * version: v0.0.2
- * update: 增加sortkey，ondrag配置
- * date: 2017-03-10
+ * version: v1.0.0
+ * update: 新增dragwrap，dragwrapLimitLength配置
+ * date: 2018-06-11
  */
 define('drag-panel', function(require, exports, module) {
 	"use strict";
@@ -14,7 +14,8 @@ define('drag-panel', function(require, exports, module) {
 			el: null,
 			sortkey: 'data-key',
 			dragable: '.dragable',
-			dragline: '.flex-row',
+			dragwrap: null,
+			dragwrapLimitLength: 1,
 			ondrag: null
 		},
 		dragshadow = $('#dragshadow'),
@@ -43,6 +44,9 @@ define('drag-panel', function(require, exports, module) {
 				if(!$this.find(opt.dragable).length){
 					return true;
 				}
+				if($this.data('dragpanel-init')){
+					return true;
+				}
 				$this
 				.find(opt.dragable).each(function(i, e) {
 					$(e).attr('id', 'wrapper-drag-cell-' + i).addClass('drag-panel-cell').prop('draggable', true);
@@ -50,8 +54,8 @@ define('drag-panel', function(require, exports, module) {
 				.end()
 				.on('mousedown', opt.dragable, function(e) {
 					var dragele = $(this);
-					if ($(this).parent(opt.dragline).children().length <= 1) {
-						console.warn('can not drag');
+					if (opt.dragwrap && opt.dragwrapLimitLength && (dragele.parent(opt.dragwrap).find(opt.dragable).length <= opt.dragwrapLimitLength)) {
+						console.warn('According to the dragwrapLimitLength set, canot drag');
 						return e.preventDefault();
 					}
 					documentMoveInit = {
@@ -86,16 +90,13 @@ define('drag-panel', function(require, exports, module) {
 						$(this).before(target);
 					}
 				})
+				
 				.on('dragend', opt.dragable, function(e) {
 					e.preventDefault();
 					clearnode(this);
 					var newSort = [];
-					$this.find(opt.dragline).each(function(i, line){
-						var lineSort = [];
-						$(line).find(opt.dragable).each(function(i, dragable){
-							lineSort.push($(dragable).attr(opt.sortkey));
-						});
-						newSort.push(lineSort);
+					$this.find(opt.dragable).each(function(i, cell){
+						newSort.push($(cell).attr(opt.sortkey));
 					});
 					if(typeof opt.ondrag === 'function'){
 						opt.ondrag(newSort);
@@ -103,7 +104,19 @@ define('drag-panel', function(require, exports, module) {
 				})
 				.on('mouseup', opt.dragable, function(e) {
 					clearnode(this);
-				});
+				})
+				.data('dragpanel-init', true);
+				if(opt.dragwrap){
+					$this.on('dragenter', opt.dragwrap, function(e) {
+						e.preventDefault();
+						var step = 'translate(' + (e.originalEvent.pageX - documentMoveInit.left) + 'px,' + (e.originalEvent.pageY - documentMoveInit.top) + 'px)';
+						dragshadow.get(0).style.transform = step;
+						var dropdata = dragData; //e.originalEvent.dataTransfer.getData('text/plain');
+						var target = $('#' + dropdata);
+						var mycenter = parseInt($(this).offset().left) + $(this).outerWidth() / 2;
+						$(this).append(target);
+					})
+				}
 			});
 		};
 		
