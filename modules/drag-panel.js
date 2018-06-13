@@ -1,14 +1,12 @@
 /*
  * name: drag-panel.js
- * version: v1.0.1
- * update: 自动添加drag-panel-wrap,drag-panel-cell,drag-panel-over类
+ * version: v1.1.0
+ * update: 自动添加drag-panel-wrap,drag-panel-cell,drag-panel-active类，新增showShadow配置
  * date: 2018-06-13
  */
 define('drag-panel', function(require, exports, module) {
 	"use strict";
-	seajs.importStyle('.drag-panel-active{opacity: 0;}\
-		.drag-panel-cell{transition:all ease .3s;}\
-		.drag-panel-cell .card-head{cursor:move;}', module.uri);
+	
 	var $ = window.$ || require('jquery'),
 		def = {
 			el: null,
@@ -16,7 +14,8 @@ define('drag-panel', function(require, exports, module) {
 			dragable: '.dragable',
 			dragwrap: null,
 			dragwrapLimitLength: 1,
-			ondrag: null
+			ondrag: null,
+			showShadow: false
 		},
 		dragshadow = $('#dragshadow'),
 		documentMoveInit,
@@ -24,7 +23,8 @@ define('drag-panel', function(require, exports, module) {
 		clearnode = function(that) {
 			$(that).removeClass('drag-panel-active');
 			documentMoveInit = null;
-			dragshadow
+			if(dragshadow.length){
+				dragshadow
 				.empty()
 				.css({
 					width: 0,
@@ -33,10 +33,11 @@ define('drag-panel', function(require, exports, module) {
 					top: 0
 				})
 				.get(0).style.transform = '';
+			}
 		},
 		DragPannel = function(config) {
 			var opt = $.extend({}, def, config || {});
-			if (!dragshadow.length) {
+			if (opt.showShadow && !dragshadow.length) {
 				dragshadow = $('<div id="dragshadow" style="position:absolute;z-index:99;overflow:hidden;pointer-events:none" />').appendTo('body');
 			}
 			return $(opt.el).each(function(i,e){
@@ -62,7 +63,8 @@ define('drag-panel', function(require, exports, module) {
 						left: e.originalEvent.pageX,
 						top: e.originalEvent.pageY
 					};
-					dragshadow
+					if(dragshadow.length){
+						dragshadow
 						.css({
 							width: dragele.outerWidth(true),
 							height: dragele.outerHeight(true),
@@ -70,19 +72,21 @@ define('drag-panel', function(require, exports, module) {
 							top: dragele.offset().top
 						})
 						.html(dragele.get(0).outerHTML);
+					}
 					dragele.addClass('drag-panel-active');
 				})
 				.on('dragstart', opt.dragable, function(e) {
 					e.originalEvent.dropEffect = "move";
 					dragData = $(this).attr('id');
 					e.originalEvent.dataTransfer.setData('text/plain', $(this).attr('id'));
-					$this.addClass('rag-panel-wrap');
+					$this.addClass('drag-panel-wrap');
 				})
 				.on('dragover', opt.dragable, function(e) {
 					e.preventDefault();
-					$(this).addClass('drag-panel-over').siblings('.drag-panel-over').removeClass('drag-panel-over');
 					var step = 'translate(' + (e.originalEvent.pageX - documentMoveInit.left) + 'px,' + (e.originalEvent.pageY - documentMoveInit.top) + 'px)';
-					dragshadow.get(0).style.transform = step;
+					if(dragshadow.length){
+						dragshadow.get(0).style.transform = step;
+					}
 					var dropdata = dragData; //e.originalEvent.dataTransfer.getData('text/plain');
 					var target = $('#' + dropdata);
 					var mycenter = parseInt($(this).offset().left) + $(this).outerWidth() / 2;
@@ -96,12 +100,26 @@ define('drag-panel', function(require, exports, module) {
 					e.preventDefault();
 					clearnode(this);
 					var newSort = [];
-					$this.removeClass('rag-panel-wrap').find(opt.dragable).each(function(i, cell){
-						$(cell).removeClass('drag-panel-over');
+					$this.removeClass('drag-panel-wrap').find(opt.dragable).each(function(i, cell){
 						newSort.push($(cell).attr(opt.sortkey));
 					});
 					if(typeof opt.ondrag === 'function'){
 						opt.ondrag(newSort);
+					}
+				})
+				.on('dragenter', function(e){
+					e.stopPropagation();
+					e.preventDefault();
+					if($(e.target).is($this)){
+						$this.removeClass('drag-panel-out');
+					}
+					
+				})
+				.on('dragleave', function(e){
+					e.stopPropagation();
+					e.preventDefault();
+					if($(e.target).is($this)){
+						$this.addClass('drag-panel-out');
 					}
 				})
 				.on('mouseup', opt.dragable, function(e) {
@@ -112,7 +130,9 @@ define('drag-panel', function(require, exports, module) {
 					$this.on('dragenter', opt.dragwrap, function(e) {
 						e.preventDefault();
 						var step = 'translate(' + (e.originalEvent.pageX - documentMoveInit.left) + 'px,' + (e.originalEvent.pageY - documentMoveInit.top) + 'px)';
-						dragshadow.get(0).style.transform = step;
+						if(dragshadow.length){
+							dragshadow.get(0).style.transform = step;
+						}
 						var dropdata = dragData; //e.originalEvent.dataTransfer.getData('text/plain');
 						var target = $('#' + dropdata);
 						var mycenter = parseInt($(this).offset().left) + $(this).outerWidth() / 2;
