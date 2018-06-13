@@ -1,12 +1,12 @@
 /*
  * name: drag-panel.js
- * version: v1.0.0
- * update: 新增dragwrap，dragwrapLimitLength配置
- * date: 2018-06-11
+ * version: v1.0.1
+ * update: 自动添加drag-panel-wrap,drag-panel-cell,drag-panel-over类
+ * date: 2018-06-13
  */
 define('drag-panel', function(require, exports, module) {
 	"use strict";
-	seajs.importStyle('.drag-panel-start{opacity: 0;}\
+	seajs.importStyle('.drag-panel-active{opacity: 0;}\
 		.drag-panel-cell{transition:all ease .3s;}\
 		.drag-panel-cell .card-head{cursor:move;}', module.uri);
 	var $ = window.$ || require('jquery'),
@@ -22,7 +22,7 @@ define('drag-panel', function(require, exports, module) {
 		documentMoveInit,
 		dragData,
 		clearnode = function(that) {
-			$(that).removeClass('drag-panel-start');
+			$(that).removeClass('drag-panel-active');
 			documentMoveInit = null;
 			dragshadow
 				.empty()
@@ -70,15 +70,17 @@ define('drag-panel', function(require, exports, module) {
 							top: dragele.offset().top
 						})
 						.html(dragele.get(0).outerHTML);
-					dragele.addClass('drag-panel-start');
+					dragele.addClass('drag-panel-active');
 				})
 				.on('dragstart', opt.dragable, function(e) {
 					e.originalEvent.dropEffect = "move";
 					dragData = $(this).attr('id');
 					e.originalEvent.dataTransfer.setData('text/plain', $(this).attr('id'));
+					$this.addClass('rag-panel-wrap');
 				})
 				.on('dragover', opt.dragable, function(e) {
 					e.preventDefault();
+					$(this).addClass('drag-panel-over').siblings('.drag-panel-over').removeClass('drag-panel-over');
 					var step = 'translate(' + (e.originalEvent.pageX - documentMoveInit.left) + 'px,' + (e.originalEvent.pageY - documentMoveInit.top) + 'px)';
 					dragshadow.get(0).style.transform = step;
 					var dropdata = dragData; //e.originalEvent.dataTransfer.getData('text/plain');
@@ -90,12 +92,12 @@ define('drag-panel', function(require, exports, module) {
 						$(this).before(target);
 					}
 				})
-				
 				.on('dragend', opt.dragable, function(e) {
 					e.preventDefault();
 					clearnode(this);
 					var newSort = [];
-					$this.find(opt.dragable).each(function(i, cell){
+					$this.removeClass('rag-panel-wrap').find(opt.dragable).each(function(i, cell){
+						$(cell).removeClass('drag-panel-over');
 						newSort.push($(cell).attr(opt.sortkey));
 					});
 					if(typeof opt.ondrag === 'function'){
