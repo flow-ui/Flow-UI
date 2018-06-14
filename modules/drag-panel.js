@@ -1,8 +1,8 @@
 /*
  * name: drag-panel.js
- * version: v1.1.0
- * update: 自动添加drag-panel-wrap,drag-panel-cell,drag-panel-active类，新增showShadow配置
- * date: 2018-06-13
+ * version: v1.2.0
+ * update: 增加首/尾边界判断
+ * date: 2018-06-14
  */
 define('drag-panel', function(require, exports, module) {
 	"use strict";
@@ -21,7 +21,7 @@ define('drag-panel', function(require, exports, module) {
 		documentMoveInit,
 		dragData,
 		clearnode = function(that) {
-			$(that).removeClass('drag-panel-active');
+			$(that).removeClass('drag-panel-active').prop('draggable', false);;
 			documentMoveInit = null;
 			if(dragshadow.length){
 				dragshadow
@@ -50,7 +50,7 @@ define('drag-panel', function(require, exports, module) {
 				}
 				$this
 				.find(opt.dragable).each(function(i, e) {
-					$(e).attr('id', 'wrapper-drag-cell-' + i).addClass('drag-panel-cell').prop('draggable', true);
+					$(e).attr('id', 'wrapper-drag-cell-' + i);
 				})
 				.end()
 				.on('mousedown', opt.dragable, function(e) {
@@ -73,27 +73,55 @@ define('drag-panel', function(require, exports, module) {
 						})
 						.html(dragele.get(0).outerHTML);
 					}
-					dragele.addClass('drag-panel-active');
+					dragele.addClass('drag-panel-active').prop('draggable', true);
 				})
 				.on('dragstart', opt.dragable, function(e) {
 					e.originalEvent.dropEffect = "move";
 					dragData = $(this).attr('id');
-					e.originalEvent.dataTransfer.setData('text/plain', $(this).attr('id'));
+					//e.originalEvent.dataTransfer.setData('text/plain', dragData);
 					$this.addClass('drag-panel-wrap');
 				})
 				.on('dragover', opt.dragable, function(e) {
 					e.preventDefault();
+					var $overele = $(this);
 					var step = 'translate(' + (e.originalEvent.pageX - documentMoveInit.left) + 'px,' + (e.originalEvent.pageY - documentMoveInit.top) + 'px)';
 					if(dragshadow.length){
 						dragshadow.get(0).style.transform = step;
 					}
 					var dropdata = dragData; //e.originalEvent.dataTransfer.getData('text/plain');
+					if($overele.attr('id')===dropdata){
+						return null
+					}
 					var target = $('#' + dropdata);
-					var mycenter = parseInt($(this).offset().left) + $(this).outerWidth() / 2;
-					if (e.originalEvent.pageX > mycenter) {
-						$(this).after(target);
+					var mycenter = parseInt($overele.offset().left) + $overele.outerWidth() / 2;
+					if (e.originalEvent.pageX < mycenter) {
+						console.log('left', $overele.attr('id'));
+						$overele.before(target);
 					} else {
-						$(this).before(target);
+						console.log('right');
+						$overele.after(target);
+					}
+				})
+				.on('drag', opt.dragable, function(e) {
+					var $first = $this.find(opt.dragable).eq(0);
+					var $last = $this.find(opt.dragable).last();
+					var firstBorder = {
+						X: parseInt($first.offset().left),
+						Y: parseInt($first.offset().top)
+					};
+					var lastBorder = {
+						X: parseInt($last.offset().left) + $last.outerWidth(),
+						Y: parseInt($last.offset().top),
+						crossY: parseInt($last.offset().top) +  $last.outerHeight()
+					};
+					if(e.originalEvent.pageY>0 && (e.originalEvent.pageY < firstBorder.Y)){
+						//console.log('首位判断')
+						var target = $('#' + dragData);
+						$first.before(target);
+					}else if(e.originalEvent.pageY > lastBorder.crossY || (e.originalEvent.pageX>lastBorder.X && e.originalEvent.pageY > lastBorder.Y)){
+						//console.log('末位判断')
+						var target = $('#' + dragData);
+						$last.after(target);
 					}
 				})
 				.on('dragend', opt.dragable, function(e) {
@@ -105,21 +133,6 @@ define('drag-panel', function(require, exports, module) {
 					});
 					if(typeof opt.ondrag === 'function'){
 						opt.ondrag(newSort);
-					}
-				})
-				.on('dragenter', function(e){
-					e.stopPropagation();
-					e.preventDefault();
-					if($(e.target).is($this)){
-						$this.removeClass('drag-panel-out');
-					}
-					
-				})
-				.on('dragleave', function(e){
-					e.stopPropagation();
-					e.preventDefault();
-					if($(e.target).is($this)){
-						$this.addClass('drag-panel-out');
 					}
 				})
 				.on('mouseup', opt.dragable, function(e) {
