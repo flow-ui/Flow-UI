@@ -204,18 +204,10 @@ h6,
 .h6 {
   font-size: 1em;
 }
-html {
-  font-size: 15.625vw;
-}
-html,
-body {
-  height: 100%;
-}
-body {
-  min-width: 0;
-}
 .wrap {
-  padding: 0 2%;
+  width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
 }
 .fix {
   *zoom: 1;
@@ -285,6 +277,38 @@ body {
 .opc0 {
   opacity: 0 ;
   filter: alpha(opacity=0);
+}
+.scrollbar,
+.scrollbar-dark {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.scrollbar::-webkit-scrollbar {
+  position: absolute;
+  width: 10px;
+  margin-left: -10px;
+  -webkit-appearance: none;
+}
+.scrollbar::-webkit-scrollbar-track {
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  background-color: #eee;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  height: 50px;
+  border-width: 1px 2px;
+  border-style: solid;
+  border-color: transparent;
+  background-color: #ccc;
+  background-clip: content-box;
+}
+.scrollbar-dark::-webkit-scrollbar-track {
+  border-right: 1px solid #2c3334;
+  border-left: 1px solid #2c3334;
+  background-color: #444d50;
+}
+.scrollbar-dark::-webkit-scrollbar-thumb {
+  background-color: #212526;
 }
 .badge {
   display: inline-block;
