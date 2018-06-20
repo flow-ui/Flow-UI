@@ -1,8 +1,8 @@
 /*
  * name: spin.js
- * version: v0.0.3
- * update: .spin-wrap去掉id
- * date: 2017-04-18
+ * version: v0.0.4
+ * update: 防止重复初始化
+ * date: 2018-06-20
  */
 define('spin', function(require, exports, module) {
 	"use strict";
@@ -25,8 +25,13 @@ define('spin', function(require, exports, module) {
 				$spin = $(template),
 				hide = function(){
 					$spin.remove();
+					$this.data('spin-init', 0);
 				},
 				classes = [];
+			if($this.data('spin-init')){
+				return true;
+			}
+			$this.data('spin-init', 1);
 			if(opt.icon && opt.icon.split){
 				var icon = $('<i class="ion">'+opt.icon+'</i>');
 				if(opt.iconRoate){

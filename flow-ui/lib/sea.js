@@ -111,7 +111,7 @@ seajs.config({
         'sendcode': 'v0.3.0',
         'slide': 'v4.5.1',
         'slider': 'v0.0.3',
-        'spin': 'v0.0.3',
+        'spin': 'v0.0.4',
         'store': 'v0.0.1',
         'switch': 'v0.4.1',
         'tab': 'v4.2.0',
