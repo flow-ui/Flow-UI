@@ -1,8 +1,8 @@
 /*
  * name: box.js
- * version: v3.12.5
- * update: box.loading() bug
- * date: 2018-04-17
+ * version: v3.12.6
+ * update: 修复toast()方法配置不生效bug
+ * date: 2018-06-29
  */
 define('box', function(require, exports, module) {
 	"use strict";
@@ -380,11 +380,13 @@ define('box', function(require, exports, module) {
 			return o;
 		},
 		msg: function(message, options) {
-			var s = $.extend({}, def, options || {}),
+			var s = $.extend({}, def, {
+					top: 0,
+					layout: false,
+					bg: false
+				}, options || {}),
 				element;
-			s.top = 0;
-			s.layout = false;
-			s.bg = false;
+			
 			if (s.delay) {
 				element = '<div class="box-wrap-msg"><div class="box-wrap-msg-cont bg-' + s.color + '">' + message + '</div></div>';
 			} else {
@@ -398,11 +400,13 @@ define('box', function(require, exports, module) {
 			return o;
 		},
 		toast: function(message, options) {
-			var s = $.extend({}, def, options || {}),
+			var s = $.extend({}, def, {
+					layout: false,
+					bg: false,
+					delay: 2000
+				}, options || {}),
 				element;
-			s.layout = false;
-			s.bg = false;
-			s.delay = s.delay || 2000;
+			
 			element = '<div class="box-wrap-toast">' + message + '</div>';
 			return Box.open(element, s);
 		},

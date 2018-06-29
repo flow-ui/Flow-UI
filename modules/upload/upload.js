@@ -1,8 +1,8 @@
 /*
  * name: upload
- * version: 1.3.0
- * update: 上传form尽可能插入trigger元素
- * date: 2018-04-26
+ * version: 1.4.0
+ * update: 增加refreshInput()实例方法
+ * date: 2018-06-28
  * base: https://github.com/aralejs/upload
  */
 define('upload', function(require, exports, module) {
@@ -18,7 +18,7 @@ define('upload', function(require, exports, module) {
       accept: null,
       change: null,
       error: null,
-      multiple: true,
+      multiple: false,
       compress: false,
       compressOption: {},
       success: null
@@ -151,7 +151,6 @@ define('upload', function(require, exports, module) {
         }, self.settings.thumbOption));
       });
     }
-
     self.input.change(function(e) {
       // ie9 don't support FileList Object
       // http://stackoverflow.com/questions/12830058/ie8-input-type-file-get-files
@@ -411,9 +410,16 @@ define('upload', function(require, exports, module) {
     });
     this._uploaders = uploaders;
   }
+  
   MultipleUploader.prototype.submit = function() {
     $.each(this._uploaders, function(i, item) {
       item.submit();
+    });
+    return this;
+  };
+  MultipleUploader.prototype.refreshInput = function() {
+    $.each(this._uploaders, function(i, item) {
+      item.refreshInput();
     });
     return this;
   };
