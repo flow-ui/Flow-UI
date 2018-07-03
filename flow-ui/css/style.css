@@ -6,6 +6,7 @@ body {
   font-family: Arial, 'Hiragino Sans GB', 'WenQuanYi Micro Hei', '\5fae\8f6f\96c5\9ed1', 'SimSun', sans-serif;
   font-size: 14px;
   line-height: 1.7;
+  min-width: 1200px;
   color: #555555;
   background: #fff;
 }
@@ -3797,5 +3798,86 @@ ul.ztree.zTreeDragUL {
   opacity: 0.0;
   background-color: #cfcfcf;
   filter: alpha(opacity=0);
+}
+.UnpcPush textarea,
+.PcPush textarea,
+.MobilePush textarea,
+.UnmobilePush textarea {
+  display: none;
+}
+body:after {
+  display: block;
+  height: 0;
+  line-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  content: 'Pc';
+}
+.PcMode:after {
+  content: 'Pc' !important;
+}
+.UnpcPush,
+.MobilePush {
+  display: none;
+}
+img[data-src] {
+  opacity: 0 ;
+  filter: alpha(opacity=0);
+}
+@media only screen and (max-device-width: 1024px) {
+  body:after {
+    content: 'Pad';
+  }
+  body {
+    -moz-user-select: none;
+     -ms-user-select: none;
+         user-select: none;
+    -webkit-user-select: none;
+    min-width: 0;
+  }
+  body,
+  input,
+  textarea,
+  button,
+  select {
+    font-size: 14px;
+  }
+  .wrap {
+    padding-left: 2%;
+    padding-right: 2%;
+    width: auto;
+    min-width: 0;
+  }
+  .PcPush {
+    display: none;
+  }
+  .UnpcPush {
+    display: block;
+  }
+}
+@media only screen and (max-device-width: 640px) {
+  body:after {
+    content: 'Mobile';
+  }
+  body,
+  input,
+  textarea,
+  button,
+  select {
+    font-size: 16px;
+  }
+  .wrap {
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+  .UnmobilePush {
+    display: none;
+  }
+  .MobilePush {
+    display: block;
+  }
+  img[data-src] {
+    opacity: 1;
+  }
 }
 /* mystyle */
