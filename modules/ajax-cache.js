@@ -1,8 +1,8 @@
 /*
  * name: ajax-cache.js
- * version: v0.0.1
- * update: build
- * date: 2018-03-06
+ * version: v0.0.2
+ * update: 快照相同时为数据扩种snapshootEqual=true
+ * date: 2018-07-04
  */
 define('ajax-cache', function(require, exports, module) {
 	"use strict";
@@ -125,7 +125,7 @@ define('ajax-cache', function(require, exports, module) {
 						setting.success = function(res) {
 							//数据校验
 							if (setting.localCache === 'snapshoot' && isEqual(res, cacheVal)) {
-								return console.log('快照缓存命中');
+								res.snapshootEqual = true;
 							}
 							var newDeadline = setting.localCache === 'snapshoot' ? 'snapshoot' : (new Date().getTime() + setting.localCache),
 								newCacheName = [cacheNamePrefix, cacheKey, newDeadline].join(cacheNameSep);
