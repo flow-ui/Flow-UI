@@ -1,8 +1,8 @@
 /*
  * name: select.js
- * version: v4.3.5
- * update: 自动初始化元素前缀改为flow-ui
- * date: 2017-05-03
+ * version: v4.3.6
+ * update: reset()方法支持noTriggerChange标识; update()没有参数将更新dom数据
+ * date: 2018-07-10
  */
 define('select', function(require, exports, module) {
     "use strict";
@@ -316,7 +316,7 @@ define('select', function(require, exports, module) {
         var returnObject = {
             elements: [],
             update: function(data) {
-                if (data.length) {
+                if ($.isArray(data) && data.length) {
                     $.each(this.elements, function(i, e) {
                         if ($(e).prop('disabled') || $(e).prop('readonly')) {
                             return console.warn(e, '元素为只读或禁用状态！');
@@ -324,7 +324,12 @@ define('select', function(require, exports, module) {
                         createDom($(e).data('data', data), false, true);
                     });
                 } else {
-                    return console.warn('select():update数据无效', data);
+                    $.each(this.elements, function(i, e) {
+                        if ($(e).prop('disabled') || $(e).prop('readonly')) {
+                            return console.warn(e, '元素为只读或禁用状态！');
+                        }
+                        createDom($(e), false, true);
+                    });
                 }
             },
             disabled: function(flag) {
@@ -349,7 +354,7 @@ define('select', function(require, exports, module) {
             },
             destroy: function() {
                 $.each(this.elements, function(i, e) {
-                    $(e).data('multitarget').remove();
+                    $(e).data('multitarget') && $(e).data('multitarget').remove();
                     $(e).next('.select-ui-choose').remove().end().remove();
                 });
                 this.elements = [];
@@ -363,14 +368,14 @@ define('select', function(require, exports, module) {
                     obj.val('', e);
                 });
             },
-            reset: function() {
+            reset: function(noTriggerChange) {
                 var obj = this;
                 $.each(this.elements, function(i, e) {
                     if ($(e).prop('disabled') || $(e).prop('readonly')) {
                         return console.warn(e, '元素为只读或禁用状态！');
                     }
                     var opt = $(e).data('opt');
-                    obj.val(opt.val, e);
+                    obj.val(opt.val, e, noTriggerChange);
                 });
             },
             text: function(text) {
@@ -393,7 +398,7 @@ define('select', function(require, exports, module) {
                     return getText.join(',');
                 }
             },
-            val: function(value, target) {
+            val: function(value, target, noTriggerChange) {
                 if (value !== void(0)) {
                     var setVal = function() {
                         var data = $(this).data('data'),
@@ -439,7 +444,7 @@ define('select', function(require, exports, module) {
                                 }
                             });
                         }
-                        return createDom($(this).data('data', data));
+                        return createDom($(this).data('data', data), false, false, noTriggerChange);
                     };
                     value = $.trim(value);
                     if (target) {
