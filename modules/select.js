@@ -1,6 +1,6 @@
 /*
  * name: select.js
- * version: v4.3.9
+ * version: v4.3.11
  * update: update bug
  * date: 2018-07-11
  */
@@ -344,8 +344,13 @@ define('select', function(require, exports, module) {
                     if ($(e).prop('disabled') || $(e).prop('readonly')) {
                         return console.warn(e, '元素为只读或禁用状态！');
                     }
-                    var _data = collectData($(e));
-                    $(e).data('data',_data)
+                    var _data;
+                    if($.isArray(data) && data.length){
+                        _data = data;
+                    }else{
+                        _data = collectData($(e));
+                    }
+                    createDom($(e).data('data',_data),false,false,true);
                 });
             },
             disabled: function(flag) {
