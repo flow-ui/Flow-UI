@@ -1,7 +1,7 @@
 /*
  * name: select.js
- * version: v4.3.8
- * update: 新增domsafe选项
+ * version: v4.3.9
+ * update: update bug
  * date: 2018-07-11
  */
 define('select', function(require, exports, module) {
@@ -50,7 +50,6 @@ define('select', function(require, exports, module) {
             hideSelected: false, // 不显示已选中项
             hook: '', // 自定义样式钩子
             name: null,
-            domsafe: false,
             disabled: false,
             readonly: false,
             multi: false,
@@ -165,6 +164,7 @@ define('select', function(require, exports, module) {
             if (!$.isArray(selectData) || !selectData.length) {
                 return console.warn('select: 无数据！');
             }
+
             //未定义selected默认第一项
             if (!initSelsectd) {
                 if (opt.multi || hasChildren) {
@@ -202,6 +202,10 @@ define('select', function(require, exports, module) {
                 } else {
                     $this.next('.select-ui-choose').find('span._txt').text(initSelsectd.text);
                 }
+            }
+            // 初始化时转移options target
+            if(noTriggerChange){
+                selectOptions.data('choosetarget', 0);
             }
             $this.data('lastvalue', nowvalue).data('lasttext', nowtext).data('filterchange', isSort);
             if(!opt.domsafe){
@@ -341,24 +345,8 @@ define('select', function(require, exports, module) {
                         return console.warn(e, '元素为只读或禁用状态！');
                     }
                     var _data = collectData($(e));
-                    createDom($(e).data('data',_data), false, true);
+                    $(e).data('data',_data)
                 });
-
-                if ($.isArray(data) && data.length) {
-                    $.each(this.elements, function(i, e) {
-                        if ($(e).prop('disabled') || $(e).prop('readonly')) {
-                            return console.warn(e, '元素为只读或禁用状态！');
-                        }
-                        createDom($(e).data('data', data), false, true);
-                    });
-                } else {
-                    $.each(this.elements, function(i, e) {
-                        if ($(e).prop('disabled') || $(e).prop('readonly')) {
-                            return console.warn(e, '元素为只读或禁用状态！');
-                        }
-                        createDom($(e), false, true);
-                    });
-                }
             },
             disabled: function(flag) {
                 $.each(this.elements, function(i, e) {

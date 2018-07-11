@@ -107,7 +107,7 @@ seajs.config({
         'scroll-col': 'v4.2.5',
         'scroll-load': 'v1.0.5',
         'scroll-row': 'v3.0.6',
-        'select': 'v4.3.8',
+        'select': 'v4.3.9',
         'sendcode': 'v0.3.0',
         'slide': 'v4.5.1',
         'slider': 'v0.0.3',
