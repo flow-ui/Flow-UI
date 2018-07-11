@@ -1,8 +1,8 @@
 /*
  * name: select.js
- * version: v4.3.6
- * update: reset()方法支持noTriggerChange标识; update()没有参数将更新dom数据
- * date: 2018-07-10
+ * version: v4.3.7
+ * update: update() bug
+ * date: 2018-07-11
  */
 define('select', function(require, exports, module) {
     "use strict";
@@ -229,6 +229,22 @@ define('select', function(require, exports, module) {
             }
             return html;
         },
+        collectData = function($this, data){
+            var _result = [];
+            if ($.isArray(data) && data.length) {
+                _result = data;
+            } else {
+                $.each($this.find('option'), function(i, e) {
+                    _result.push({
+                        value: $(e).val(),
+                        option: $(e).text(),
+                        disabled: $(e).prop('disabled'),
+                        selected: !$(e).prop('disabled') && $(e).prop('selected')
+                    });
+                });
+            }
+            return _result;
+        },
         chooseHookTop = 'select-ui-choose-top',
         chooseHookBottom = 'select-ui-choose-bottom',
         selectOptions = $('.select-ui-options');
@@ -316,6 +332,14 @@ define('select', function(require, exports, module) {
         var returnObject = {
             elements: [],
             update: function(data) {
+                $.each(this.elements, function(i, e) {
+                    if ($(e).prop('disabled') || $(e).prop('readonly')) {
+                        return console.warn(e, '元素为只读或禁用状态！');
+                    }
+                    var _data = collectData($(e));
+                    createDom($(e).data('data',_data), false, true);
+                });
+
                 if ($.isArray(data) && data.length) {
                     $.each(this.elements, function(i, e) {
                         if ($(e).prop('disabled') || $(e).prop('readonly')) {
@@ -489,18 +513,8 @@ define('select', function(require, exports, module) {
                 }
             }
             //获取数据
-            if ($.isArray(opt.data) && opt.data.length) {
-                selectData = opt.data;
-            } else {
-                $.each($this.find('option'), function(i, e) {
-                    selectData.push({
-                        value: $(e).val(),
-                        option: $(e).text(),
-                        disabled: $(e).prop('disabled'),
-                        selected: !$(e).prop('disabled') && $(e).prop('selected')
-                    });
-                });
-            }
+            selectData = collectData($this, opt.data);
+            
             if (opt.val) {
                 //设置初始值
                 if (opt.multi) {
