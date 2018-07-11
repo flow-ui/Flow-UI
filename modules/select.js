@@ -1,7 +1,7 @@
 /*
  * name: select.js
- * version: v4.3.7
- * update: update() bug
+ * version: v4.3.8
+ * update: 新增domsafe选项
  * date: 2018-07-11
  */
 define('select', function(require, exports, module) {
@@ -50,6 +50,7 @@ define('select', function(require, exports, module) {
             hideSelected: false, // 不显示已选中项
             hook: '', // 自定义样式钩子
             name: null,
+            domsafe: false,
             disabled: false,
             readonly: false,
             multi: false,
@@ -202,7 +203,10 @@ define('select', function(require, exports, module) {
                     $this.next('.select-ui-choose').find('span._txt').text(initSelsectd.text);
                 }
             }
-            $this.data('lastvalue', nowvalue).data('lasttext', nowtext).data('filterchange', isSort).html(renderResult.options);
+            $this.data('lastvalue', nowvalue).data('lasttext', nowtext).data('filterchange', isSort);
+            if(!opt.domsafe){
+                $this.html(renderResult.options);
+            }
             if (!formUpdate) {
                 selectOptions.html(renderResult.doms).data('cellheight', parseInt(selectOptions.find('li').outerHeight()));
             }
