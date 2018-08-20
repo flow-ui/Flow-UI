@@ -1,12 +1,12 @@
 /*
  * name: sendcode.js
- * version: v0.3.0
- * update: 增加error配置
- * date: 2018-04-23
+ * version: v0.3.1
+ * update: bug fix
+ * date: 2018-08-20
  */
 define("sendcode", function(require, exports, module) {
 	"use strict";
-	require('box');
+	var BOX = require('box');
 	var $ = window.$ || require('jquery'),
 		def = {
 			url: null,
@@ -51,14 +51,14 @@ define("sendcode", function(require, exports, module) {
 						setAble(renderTarget, true);
 					}
 					if(loading){
-						$.box.hide(loading);
+						BOX.hide(loading);
 					}
 				}
 			},
 			sendmsg = function(mobileNumber, callback) {
 				var thedata = {},
 					renderTarget;
-				loading = $.box.msg('正在发送验证码...');
+				loading = BOX.msg('正在发送验证码...');
 				if (opt.renderTarget && $(opt.renderTarget).length) {
 					renderTarget = $(opt.renderTarget).data('that', $(this));
 				} else {
@@ -76,18 +76,18 @@ define("sendcode", function(require, exports, module) {
 					url: opt.url,
 					data: thedata,
 					success: function(res) {
-						$.box.hide(loading);
+						BOX.hide(loading);
 						if (res.status === 'Y') {
 							if (typeof callback === 'function') {
 								callback();
 							}
 						} else {
-							$.box.msg(res.msg || '出错了');
+							BOX.msg(res.msg || '出错了');
 						}
 					},
 					error:function(){
-						$.box.hide(loading);
-						$.box.msg('请求异常！',{
+						BOX.hide(loading);
+						BOX.msg('请求异常！',{
 							color:'danger',
 							delay:2000
 						});
