@@ -777,6 +777,9 @@ input[type='button'].btn-block {
   border-top: 1px solid #e8e9eb;
   overflow: hidden;
 }
+.card-inverse .items .item {
+  background: none;
+}
 .card.card-primary .card-head,
 .card.card-primary .card-foot {
   background: #2EA9DF;
