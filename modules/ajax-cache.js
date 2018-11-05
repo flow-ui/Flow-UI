@@ -1,8 +1,8 @@
 /*
  * name: ajax-cache.js
- * version: v0.0.2
- * update: 快照相同时为数据扩种snapshootEqual=true
- * date: 2018-07-04
+ * version: v0.0.3
+ * update: 请求失败将清除队列
+ * date: 2018-11-05
  */
 define('ajax-cache', function(require, exports, module) {
 	"use strict";
@@ -143,6 +143,11 @@ define('ajax-cache', function(require, exports, module) {
 							newDeadline = null;
 							newCacheName = null;
 						};
+						var errorHandle = setting.error || function(){};
+						setting.error = function(jqXHR, textStatus, errorThrown){
+							delete ajaxLocalCacheQueue[cacheKey];
+							errorHandle(jqXHR, textStatus, errorThrown)
+						}
 					}
 					nowDate = null;
 				} else if (cacheName) {
