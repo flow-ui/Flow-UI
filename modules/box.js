@@ -1,8 +1,8 @@
 /*
  * name: box.js
- * version: v3.12.6
- * update: 修复toast()方法配置不生效bug
- * date: 2018-06-29
+ * version: v3.12.7
+ * update: alert(),confirm()方法支持传入dom元素
+ * date: 2018-11-21
  */
 define('box', function(require, exports, module) {
 	"use strict";
@@ -349,7 +349,7 @@ define('box', function(require, exports, module) {
 		},
 		confirm: function(message, sureCall, cancelCall, options) {
 			var s = $.extend({}, def, options || {});
-			var element = $('<div class="box-wrap-remind">' + message + '</div>' + '<div class="box-wrap-foot -confirm"><button class="btn boxconfirm">' + (s.oktext ? s.oktext : Language[s.lang].confirm) + '</button><button class="btn boxcancel">' + (s.canceltext ? s.canceltext : Language[s.lang].cancel) + '</button></div>');
+			var element = $('<div class="box-wrap-remind"></div>').append(message).add('<div class="box-wrap-foot -confirm"><button class="btn boxconfirm">' + (s.oktext ? s.oktext : Language[s.lang].confirm) + '</button><button class="btn boxcancel">' + (s.canceltext ? s.canceltext : Language[s.lang].cancel) + '</button></div>');
 			var o = Box.open(element, s);
 			o.out.find(".boxcancel").one('click', function(e) {
 				e.preventDefault();
@@ -368,7 +368,7 @@ define('box', function(require, exports, module) {
 		},
 		alert: function(message, callback, options) {
 			var s = $.extend({}, def, options || {});
-			var element = $('<div class="box-wrap-remind">' + message + '</div>' + '<div class="box-wrap-foot"><button class="btn boxconfirm">' + (s.oktext ? s.oktext : Language[s.lang].confirm) + '</button></div>');
+			var element = $('<div class="box-wrap-remind"></div>').append(message).add('<div class="box-wrap-foot"><button class="btn boxconfirm">' + (s.oktext ? s.oktext : Language[s.lang].confirm) + '</button></div>');
 			var o = Box.open(element, s);
 			o.out.find(".boxconfirm").one('click', function(e) {
 				e.preventDefault();
