@@ -165,7 +165,7 @@ define('base', function(require, exports, module) {
 	 */
 	var _getUrlParam = function(name, url) {
 		var urlParamReg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-		var s = url ? (url.split('?')[1] ? url.split('?')[1] : '') : window.location.search.substr(1);
+		var s = (url ? url : window.location.href).split('?')[1] || '';
 		var r = s.match(urlParamReg);
 		if (r !== null) {
 			return decodeURI(r[2]);
