@@ -137,7 +137,7 @@ define(function(require) {
 			mehtod: true,
 			handle: function(key, type) {
 				datagrid.load({
-					url: 'https://static.refined-x.com/phone.json',
+					url: 'https://static.refined-x.com/static/phone.json',
 					data: {
 						sort: type,
 						key: key
@@ -260,7 +260,7 @@ define(function(require) {
 	var datagrid = Table({
 		el: '#index-table',
 		load: {
-			url: 'https://static.refined-x.com/phone.json',
+			url: 'https://static.refined-x.com/static/phone.json',
 			data: {
 				id: 123
 			},

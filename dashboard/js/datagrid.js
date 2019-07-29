@@ -164,7 +164,7 @@ define(function(require) {
 	}];
 	//加载配置
 	var tab3LoadData = {
-		url: 'https://static.refined-x.com/phone.json',
+		url: 'https://static.refined-x.com/static//phone.json',
 		data: {
 			page_size: 10,
 			page_index: 1
@@ -399,7 +399,7 @@ define(function(require) {
 	}];
 	//主表加载配置
 	var tab4LoadData = {
-		url: 'https://static.refined-x.com/phone.json',
+		url: 'https://static.refined-x.com/static//phone.json',
 		data: {
 			page_size: 10,
 			page_index: 1
